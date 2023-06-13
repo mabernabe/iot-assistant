@@ -1,0 +1,128 @@
+<div class="card-body">
+	<div class="tab-content">
+		<div class="tab-pane show active" id="basic">
+			<h5 class="info-text">Select the sensor and the property to be charted</h5>
+			<div class="row justify-content-center">
+				<div class="col-sm-3">
+                    <img src="../assets/img/Chart.png" class="img-fluid rounded float-left rounded mx-auto d-block" id="wizardPicturePreview" title="" />
+                </div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Sensor Name</label>	
+						<select
+						class="selectpicker dropdown col-sm-8"
+						data-style="btn btn-info btn-round" name="sensorSelect"
+						ng-model="InstallChartController.chart.sensorName"
+						data-dropup-auto="false" data-max-options="1" ng-change="InstallChartController.updateSensorPropertiesOptions(InstallChartController.chart.sensorName)"
+						title="Select" data-header="Select a sensor"
+						data-size="7">
+						<option
+							ng-repeat="sensor in InstallChartController.sensors"
+							ng-value="sensor.getName()">{{sensor.getName()}}</option>
+							<option style="display:none" value=""></option>
+					</select>
+					</div>
+					<div class="form-group ">
+					<label >Sensor Property</label> <select
+						class="customSelect dropdown col-sm-8"
+						data-style="btn btn-info btn-round" name="propertySelect"
+						ng-model="InstallChartController.chart.sensorProperty"
+						data-dropup-auto="false"
+						title="Select" data-header="Select properties" 
+						data-size="7" ng-options="property as property.name for property in InstallChartController.sensorPropertiesOptions track by property.name">
+						<option style="display:none" value=""></option>
+					</select>
+				</div>
+				</div>
+				</div>		
+		</div>
+		<div class="tab-pane" id="alarmType">
+			<h5 class="info-text">&#191;What kind of chart do you want to install?</h5>
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<div class="row">
+						<div class="col-sm"
+							ng-repeat="chartType in InstallChartController.stationSupportedChartTypes">
+							<div class="choice" data-toggle="wizard-radio" name="chartTypeSelect" ng-click="InstallChartController.setChartType(chartType)"
+							ng-class="{active : chartType === InstallChartController.chart.getType()}">
+								<input type="radio" ng-value="chartType" >
+								<div class="icon">
+									<i class="nc-icon nc-{{chartType | lowercase}}"></i>
+								</div>
+								<h6>{{chartType}}</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="configuration">
+			<div class="row justify-content-center">
+				<div class="col-sm-12">
+					<h5 class="info-text">Set the chart configuration options</h5>
+				</div>
+				<div class="row col-sm-12 justify-content-center">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>Sensor</label> <input type="text" 
+								class="form-control"  ng-value="InstallChartController.chart.getSensorName()" disabled>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>Property</label> <input type="text"
+								class="form-control"  ng-value="InstallChartController.chart.getSensorPropertyName()" disabled>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>Chart type</label> <input type="text"
+								class="form-control"  ng-value="InstallChartController.chart.getType()" disabled>
+						</div>
+					</div>
+				</div>	
+					<div class="row col-sm-12">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Chart interval</label>
+								<select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="chartIntervalSelect"
+								ng-model="InstallChartController.chart.totalInterval"
+								data-dropup-auto="false" data-max-options="1" 
+								title="Select" data-header="Total Chart interval">
+									<option
+										ng-repeat="chartIntervalOption in InstallChartController.stationSupportedChartIntervals"
+										ng-value="chartIntervalOption">{{chartIntervalOption}}</option>
+									<option style="display:none" value=""></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Sample interval</label>
+								<select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="chartIntervalSelect"
+								ng-model="InstallChartController.chart.sampleInterval"
+								data-dropup-auto="false" data-max-options="1" 
+								title="Select" data-header="Sample interval"
+								>
+									<option
+										ng-repeat="sampleIntervalOption in InstallChartController.stationSupportedSampleIntervals"
+										ng-value="sampleIntervalOption">{{sampleIntervalOption}}</option>
+									<option style="display:none" value=""></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(() => {
+			$(".selectpicker").selectpicker('refresh');
+		}, 2500);
+	});
+</script>

@@ -1,0 +1,29 @@
+<div class="row">
+          <div class="col-md-10 offset-1">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Notifications  <i class="nc-icon nc-simple-remove" ng-style="{ color: 'grey' , float: 'right' , cursor: 'pointer'}" ng-click="GetNotificationsController.deleteAllNotifications()"/></i>
+                </h5>            
+                <h5 class="card-category" ng-if="!GetNotificationsController.notifications.length">0 notifications</h5>
+              </div>
+              <div class="card-body" ng-if="GetNotificationsController.notifications.length">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card card-plain">
+                      <div class="card-body">
+                        <div ng-repeat= "notification in GetNotificationsController.notifications track by notification.getId()" class="alert alert-warning alert-with-icon alert-dismissible fade show" data-notify="container">
+                          <button type="button" class="close"  >
+                            <i class="nc-icon nc-simple-remove" ng-click="GetNotificationsController.deleteNotification(notification.getId())"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-bell-55"></span>
+                          <span data-notify="message">{{notification.toString()}}</span>
+                          <span ng-if="notification.hasAttachment()" data-notify="url"><a href={{notification.getAttachment()}} target="_blank">Attachment</a></span>              
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>

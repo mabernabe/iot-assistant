@@ -1,0 +1,94 @@
+<div class="row" ng-if="!GetChartsController.charts.length">
+	<div class="col-md-10 offset-1">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title">Charts data</h5>
+				<h5 class="card-category">No charts to show</h5>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row" ng-repeat="(index, chart) in GetChartsController.chartsForNgRepeat" >
+	<div class="col-md-10 offset-1">
+		<div class="card card-chart">
+			<div class="card-header">
+				<h5 class="card-title">{{GetChartsController.getSensorNameFromNgRepeatChart(chart)}}</h5>
+				<p class="card-category">{{GetChartsController.getSensorPropertyNameFromNgRepeatChart(chart)}}
+				<div class="card-body">
+					<canvas id="{{GetChartsController.getIdFromNgRepeatChart(chart)}}"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="row">
+          <div class="col-md-10 offset-1">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Charts</h4>
+                <h5 class="card-category" ng-if="!GetChartsController.charts.length">0 charts installed</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive" ng-if="GetChartsController.charts.length">
+                  <table class="table" >
+                    <thead class="text-primary">
+                      <th class="text-center">
+                        #
+                      </th>
+                      <th>
+                        Sensor name
+                      </th>
+                      <th>
+                        Property
+                      </th>
+                      <th>
+                        Total interval
+                      </th>
+                      <th class="text-center">
+                        Chart interval
+                      </th>
+                      <th class="text-right">
+                        Chart type
+                      </th>
+                      <th class="text-right">
+                        Actions
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat= "chart in GetChartsController.charts track by chart.getId()">
+                        <td class="text-center">
+                          {{chart.getId()}}
+                        </td>
+                        <td>
+                          {{chart.getSensorName()}}
+                        </td>
+                        <td>
+                          {{chart.getSensorPropertyName()}}  
+                        </td>
+                        <td>
+                          {{chart.getTotalInterval()}}  
+                        </td>
+                        <td class="text-center">
+                           {{chart.getSampleInterval()}}   
+                        </td>
+                        <td class="text-right">
+                          {{chart.getType()}}  
+                        </td>
+                        <td class="text-right">
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" ng-click="GetChartsController.deleteChart(chart.getId())">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                      </tr>                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>

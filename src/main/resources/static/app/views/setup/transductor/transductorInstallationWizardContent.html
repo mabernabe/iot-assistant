@@ -1,0 +1,143 @@
+<div class="card-body">
+	<div class="tab-content">
+		<div class="tab-pane show active" id="basic">
+			<h5 class="info-text">Set the {{InstallTransductorController.transductorType}} basic information</h5>
+			<div class="row justify-content-center">
+				<div class="col-sm-3">
+                    <img src="../assets/img/{{InstallTransductorController.transductorType}}.png" class="img-fluid rounded float-left rounded mx-auto d-block" id="wizardPicturePreview" title="" />
+                </div>
+				<div class="col-sm-6">
+					<div class="form-group">					
+						<label>{{InstallTransductorController.transductorType}} Name</label>
+						<input type="text" class="form-control" ng-model="InstallTransductorController.transductor.name" name="transductorNameInput">
+					</div>
+					<div class="form-group">     
+						<label>{{InstallTransductorController.transductorType}} Description</label>                    
+                        <input type="text" ng-model="InstallTransductorController.transductor.description" class="form-control" name="transductorDescriptionInput" />
+                    </div>
+                    <div class="form-group">     
+						<label>{{InstallTransductorController.transductorType}} Properties</label>						
+						<select
+						class="selectpicker form_control dropdown"
+						data-style="btn btn-info btn-round" multiple name="propertySelect"
+						ng-model="InstallTransductorController.transductor.propertiesNames"
+						ng-multiple="true" data-dropup-auto="false" data-max-options="4"
+						title="Select" data-header="Select properties"
+						data-size="7">
+						<option
+							ng-repeat="property in InstallTransductorController.getSupportedProperties()"
+							ng-value="property.getName()">{{property.getName()}}</option>
+					</select>
+					                   
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="interface">
+			<h5 class="info-text">&#191;What kind of interface does the
+				{{InstallTransductorController.transductorType}} use?</h5>
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<div class="row">
+						<div class="col-sm"
+							ng-repeat="supportedInterface in InstallTransductorController.getSupportedInterfaces()">
+							<div class="choice" data-toggle="wizard-radio" ng-class="{active : supportedInterface === InstallTransductorController.transductor.getInterfaceType()}" 
+							ng-click="InstallTransductorController.setTransductorInterface(supportedInterface)">
+								<input type="radio"   name="selectedInterface" ng-value="supportedInterface">
+								<div class="icon">
+									<i class="nc-icon nc-{{supportedInterface | lowercase}}"></i>
+								</div>
+								<h6>{{supportedInterface}}</h6>
+							</div>
+						</div>
+						<div ng-if="!InstallTransductorController.getSupportedInterfaces().length" class="col-sm" style="text-align: center;">
+							<h3 class="description">No available interfaces</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="configuration">
+			<div class="row justify-content-center" ng-if="InstallTransductorController.transductor.interfaceTypeIsPIN()">
+				<div class="col-sm-12">
+					<h5 class="info-text">Interface configuration</h5>
+				</div>
+				<div class="row col-sm-12 justify-content-center">
+					<a href="/app/assets/img/{{InstallTransductorController.getPlatformPinInterfaceName()}}-pinout.png" target="_blank">Platform Pinout</a>
+				</div>
+				<div class="row col-sm-12 justify-content-center"
+					ng-repeat="propertyName in InstallTransductorController.transductor.propertiesNames">
+					<div class="col-sm-5">
+						<div class="form-group">
+							<label>Property</label> <input type="text"
+								class="form-control"  ng-value="propertyName" disabled>
+						</div>
+					</div>
+					<div class="col-sm-6 mt-3">
+						<div class="form-group">
+							<label>PIN ID</label> <select name="pinIdInput" 
+								ng-disabled="!InstallTransductorController.isPinAvailable(propertyName)"
+								class="selectpicker dropdown col-sm-6" ng-model="InstallTransductorController.selectedPinId"
+								data-style="btn btn-info btn-round" data-dropup-auto="false" multiple data-max-options="1"
+								title="Pin ID" data-size="7" ng-change="InstallTransductorController.setPin(propertyName)">
+								<option ng-repeat="pinId in InstallTransductorController.getAvailablePinIds(propertyName)"
+									ng-value="pinId">{{pinId}}</option>
+							</select>
+							<label ng-if="!InstallTransductorController.isPinAvailable(propertyName)">No available</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center" ng-if="InstallTransductorController.transductor.interfaceTypeIsMQTT()">
+				<div class="col-sm-12">
+					<h5 class="info-text">Interface configuration</h5>
+				</div>
+				<div class="row col-sm-12 justify-content-center"
+					ng-repeat="propertyName in InstallTransductorController.transductor.propertiesNames">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label>Property</label> <input type="text"
+								class="form-control"  ng-value="propertyName" disabled>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label>Topic</label> <input type="text"
+								class="form-control"  ng-value="InstallTransductorController.transductor.name" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="row col-sm-12 justify-content-left">
+					<div class="col-sm-6">
+                        <p align="right" ><small>Watchdog interval is used to get a notification via telegram if the {{InstallTransductorController.transductorType}} fails to communicate within defined interval period </small></p>
+                      	<hr>               		
+	                </div>
+					<div class="col-sm-6">
+	                    <div class="form-group">
+	                    	<label>Watchdog</label>
+	                        <select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="watchdogIntervalSelect" 
+	                        ng-model="InstallTransductorController.transductor.watchdogInterval"
+	                        data-dropup-auto="false" data-max-options="1" 
+							title="Select" data-header="Wacthdog interval" data-size="12">
+								<option
+									ng-repeat="watchdogIntervalOption in InstallTransductorController.getSupportedWatchdogIntervals()"
+									ng-value="watchdogIntervalOption">{{watchdogIntervalOption}}</option>
+								<option style="display:none" value=""></option>
+	                        </select>
+	                    </div>
+	                </div>
+	                
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(() => {
+			$(".selectpicker").selectpicker('refresh');
+		}, 3000);
+	});
+</script>

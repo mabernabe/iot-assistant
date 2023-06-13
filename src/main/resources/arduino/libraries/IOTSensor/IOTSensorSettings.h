@@ -1,0 +1,40 @@
+/*
+ * SensorSettings.h
+ *
+ *  Created on: 1 mar 2022
+ *      Author: migue_t0ro5dr
+ */
+
+#ifndef IOTSENSORSETTINGS_H_
+#define IOTSENSORSETTINGS_H_
+
+#include <Timezone.h>
+
+enum PUBLISH_MEASURE_SEC_INTERVAL {
+	NO_PUBLISH_MEASURE_INTERVAL = 0,
+	PUBLISH_MEASURE_20_SEC_INTERVAL = 20,
+	PUBLISH_MEASURE_1_MINUTE_INTERVAL = 60,
+	PUBLISH_MEASURE_5_MINUTE_INTERVAL = 300,
+	PUBLISH_MEASURE_10_MINUTE_INTERVAL = 600,
+	PUBLISH_MEASURE_20_MINUTE_INTERVAL = 1200,
+	PUBLISH_MEASURE_30_MINUTE_INTERVAL = 1800,
+	PUBLISH_MEASURE_1_HOUR_INTERVAL = 3600,
+	PUBLISH_MEASURE_2_HOUR_INTERVAL = 7200,
+	PUBLISH_MEASURE_5_HOUR_INTERVAL = 18000,
+	PUBLISH_MEASURE_10_HOUR_INTERVAL = 36000,
+	PUBLISH_MEASURE_24_HOUR_INTERVAL = 86400
+};
+
+
+class IOTSensorSettings {
+public:
+	IOTSensorSettings(PUBLISH_MEASURE_SEC_INTERVAL publishMeasureInterval, LOCAL_TIMEZONE localTimeZone);
+	bool isReachedMeasureInterval(unsigned long timePassedMillis);
+	long toLocalEpochTime(long epochTime);
+	PUBLISH_MEASURE_SEC_INTERVAL getPublishMeasureInterval();
+private:
+	PUBLISH_MEASURE_SEC_INTERVAL publishMeasureInterval;
+	Timezone localTimeZone;
+};
+
+#endif /* IOTSENSORSETTINGS_H_ */

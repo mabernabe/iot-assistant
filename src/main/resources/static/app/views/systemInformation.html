@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col-lg-3 col-md-6 col-sm-6" ng-repeat="transductorInterface in GetSystemInfoController.station.getTransductorInterfacesCapabilities()">
+		<div class="card card-stats">
+			<div class="card-header ">
+				<h5 class="card-title">Interface {{transductorInterface.getInterfaceName()}}</h5>
+			</div>
+			<div class="card-footer ">
+				<div class="legend" ng-if="transductorInterface.isAvailable()">
+					<i class="fa fa-circle text-success"></i> Available
+				</div>
+				<div class="legend" ng-if="!transductorInterface.isAvailable()">
+					<i class="fa fa-circle text-danger"></i> Unavailable
+				</div>
+				<hr>
+				<div class="stats" ng-if="transductorInterface.isAvailable()">
+					<i class="fa fa-info-circle"></i> {{transductorInterface.getDetails()}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6 col-sm-6"">
+		<div class="card card-stats">
+			<div class="card-header ">
+				<h5 class="card-title">Telegram</h5>
+			</div>
+			<div class="card-footer ">
+				<div class="legend" ng-if="GetSystemInfoController.station.isTelegramConnected()">
+					<i class="fa fa-circle text-success"></i> Available
+				</div>
+				<div class="legend" ng-if="!GetSystemInfoController.station.isTelegramConnected()">
+					<i class="fa fa-circle text-danger"></i> Unavailable
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3 col-md-6 col-sm-6">
+		<div class="card card-stats">
+			<div class="card-header ">
+				<h5 class="card-title">Plattform</h5>
+			</div>
+			<div class="card-footer ">
+				<div class="legend">
+					<i class="fa fa-circle text-gray"></i> Plattform: {{GetSystemInfoController.station.getPlatformName()}}
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</div>

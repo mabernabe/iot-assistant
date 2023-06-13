@@ -1,0 +1,81 @@
+<div class="card">
+   <div class="card-header">
+     <h4 class="card-title">Alarms Rules</h4>
+     <h5 class="card-category" ng-if="!GetSensorRulesController.alarmSensorRules.length">0 sensor alarm rules installed</h5>
+   </div>
+   <div class="card-body">
+     <div class="table-responsive" ng-if="GetSensorRulesController.alarmSensorRules.length">
+       <table class="table" >
+         <thead class="text-primary">
+           <th class="text-center">
+             #
+           </th>
+           <th>
+             Sensor name
+           </th>
+           <th>
+             Property
+           </th>
+           <th>
+             Minimum time between triggers
+           </th>
+           <th class="text-center">
+             Threshold operator
+           </th>
+           <th class="text-center">
+             Threshold
+           </th>
+           <th class="text-right">
+             Enabled
+           </th>                     
+           <th class="text-right">
+             Actions
+           </th>                      
+         </thead>
+         <tbody>
+           <tr ng-repeat= "alarmSensorRule in GetSensorRulesController.alarmSensorRules track by alarmSensorRule.getId()" >
+             <td class="text-center">
+               {{alarmSensorRule.getId()}}
+             </td>
+             <td>
+               {{alarmSensorRule.getSensorName()}}
+             </td>
+             <td>
+               {{alarmSensorRule.getSensorPropertyName()}}  
+             </td>
+             <td>
+               {{alarmSensorRule.getTimeBetweenTriggers()}}  
+             </td>
+             <td class="text-center">
+               {{alarmSensorRule.getSensorAnalogThresholdOperator()}}  
+             </td>
+             <td class="text-center">
+                {{alarmSensorRule.getSensorValueThreshold()}}   
+             </td>
+             <td class="text-right">
+             	<span ng-switch="alarmSensorRule.isEnabled()">
+             		<button ng-switch-when="false" type="button" rel="tooltip" disabled class="btn btn-danger btn-icon btn-sm" >
+                 		<i class="fa fa-power-off"></i>
+               		</button>
+               		<button ng-switch-when="true" type="button" rel="tooltip" disabled class="btn btn-success btn-icon btn-sm" >
+                 		<i class="fa fa-power-off"></i>
+               		</button>
+             	</span>                   
+             </td>
+             <td class="text-right" ng-switch="alarmSensorRule.isEnabled()">
+               <button ng-switch-when="false"  type="button" rel="tooltip" class="btn btn-outline-danger btn-icon btn-sm" ng-click="GetSensorRulesController.enableSensorRule(true, alarmSensorRule.getId())">
+                 <i class="fa fa-toggle-off"></i>
+               </button>
+               <button ng-switch-when="true"  type="button" rel="tooltip" class="btn btn-outline-success btn-icon btn-sm" ng-click="GetSensorRulesController.enableSensorRule(false, alarmSensorRule.getId())">
+                 <i class="fa fa-toggle-on"></i>
+               </button>
+               <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" ng-click="GetSensorRulesController.deleteSensorRule(alarmSensorRule.getId())">
+                 <i class="fa fa-times"></i>
+               </button>                          
+             </td>
+           </tr>                
+         </tbody>
+       </table>
+     </div>
+   </div>
+</div>

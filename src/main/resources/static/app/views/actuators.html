@@ -1,0 +1,77 @@
+<div class="row">
+	<div ng-if="!GetActuatorsController.actuators.length" class="col-md-12">
+		<h3 class="description">No available actuators</h3>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3 col-md-6 col-sm-6"
+		ng-repeat="actuator in GetActuatorsController.actuators track by actuator.getName()">
+		<div class="card card-stats">
+			<div class="card-header ">
+				<h5 class="card-title">{{actuator.getName()}}
+					<i class="nc-icon nc-simple-remove" ng-style="{ color: '#B9B5B4' , fontSize: '70%' , marginTop: '6px' , float: 'right' , cursor: 'pointer'}" 
+					ng-click="GetActuatorsController.deleteActuator(actuator.getName())"/></i>
+				</h5>
+			</div>
+			<div class="card-body ">
+				<div class="row" ng-repeat="propertyActuated in actuator.getProperties() track by propertyActuated.getName()">
+					<div class="col-5 col-md-4">
+						<div class="icon-big text-center icon-warning">
+							<i class="nc-icon nc-{{propertyActuated.getName() | lowercase}}"></i>
+						</div>
+					</div>
+					<div class="col-7 col-md-8">
+						<div class="numbers">
+							<p class="card-category">{{propertyActuated.getShortName()}}</p>
+							<div ng-switch="actuator.existValue(propertyActuated.getName())">
+								<p ng-switch-when="false" class="card-title unknown-measure">Unknown</p>
+								<div ng-switch-when="true">
+								<p data-alias="actuator.getValue(propertyActuated.getName()) as value">
+									<p ng-if="!value.isDigital()" class="card-title">{{value.getValueWithUnit()}}
+									<span>
+									<button class="btn" ng-click="GetActuatorsController.setActuatorAnalogValue(actuator, propertyActuated, value)">
+                  						Set value
+                  						<span class="btn-label btn-label-right">
+                    					<i class="nc-icon nc-minimal-right"></i>                					
+                  						</span>
+                					</button>
+                					<input type="number" id="{{ 'newValue-' + actuator.getName() + '-' + propertyActuated.getShortName()}}"
+                					value={{propertyActuated.getMinimumValue()}}
+                					min={{propertyActuated.getMinimumValue()}} max={{propertyActuated.getMaximumValue()}}>  
+									</span>
+									</p>
+									
+									<p ng-if="value.isDigital()" class="card-title">
+										<label class="switch"> <input type="checkbox"  
+											ng-checked="value.isHigh()" ng-model="value.value" ng-click="GetActuatorsController.setActuatorDigitalValue(actuator, value)"> 
+											<span></span>
+										</label>
+									</p>
+									<p></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer ">
+				<hr>
+				<div class="stats">
+					<i class="fa fa-info" ng-style="{ color: '#A29F9E' }"></i> 
+					{{actuator.getDescription()}}
+					<span ng-switch="actuator.isWatchdogEnabled()"  ng-style="{float: 'right'}">
+					    <button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetActuatorsController.enableWatchdog(false, actuator.getName())" ></button>
+					    <button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetActuatorsController.enableWatchdog(true, actuator.getName())" ng-disabled="!actuator.hasWatchdog()"></button>		
+					</span>
+				</div>
+				<div class="stats"  >
+					<span ng-if="actuator.existValue(actuator.getProperties()[0].getName())">
+						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>
+						{{actuator.getValuesDate()}}	
+					</span>                
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+<div class="card-body">
+	<div class="tab-content">
+		<div class="tab-pane show active" id="basic">
+			<h5 class="info-text">Set the camera basic information</h5>
+			<div class="row justify-content-center">
+				<div class="col-sm-3">
+                    <img src="../assets/img/Camera.png" class="img-fluid rounded float-left rounded mx-auto d-block" id="wizardPicturePreview" title="" />
+                </div>
+				<div class="col-sm-6">
+					<div class="form-group">					
+						<label>Camera Name</label>
+						<input type="text" class="form-control" ng-model="InstallCameraController.camera.name" name="cameraNameInput">
+					</div>
+					<div class="form-group">     
+						<label>Camera Description</label>                    
+                        <input type="text" ng-model="InstallCameraController.camera.description" class="form-control" name="cameraDescriptionInput" />
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="interface">
+			<h5 class="info-text">&#191;What kind of interface does the camera use?</h5>
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<div class="row">
+						<div class="col-sm"
+							ng-repeat="supportedInterface in InstallCameraController.getSupportedInterfaces()">
+							<div class="choice" data-toggle="wizard-radio" ng-class="{active : supportedInterface === InstallCameraController.camera.getInterfaceType()}" 
+							ng-click="InstallCameraController.setCameraInterfaceType(supportedInterface)">
+								<input type="radio"   name="selectedInterface" ng-value="supportedInterface">
+								<div class="icon">
+									<i class="nc-icon nc-{{supportedInterface | lowercase}}"></i>
+								</div>
+								<h6>{{supportedInterface}}</h6>
+							</div>
+						</div>
+						<div ng-if="!InstallCameraController.getSupportedInterfaces().length" class="col-sm" style="text-align: center;">
+							<h3 class="description">No available interfaces</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="configuration">
+			<div class="row justify-content-center" ng-if="InstallCameraController.camera.interfaceTypeIsHTTP()">
+				<div class="col-sm-12">
+					<h5 class="info-text">Interface configuration</h5>
+				</div>
+				<div class="row col-sm-12 justify-content-center">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label>URL</label> <input type="text" name="urlInput"
+								class="form-control"  ng-model="InstallCameraController.camera.url">
+						</div>
+					</div>
+				</div>
+				<div class="row col-sm-12 justify-content-left">
+					<div class="col-sm-6">
+                        <p align="right" ><small>Watchdog interval is used to get a notification via telegram if the camera fails to communicate within defined interval period </small></p>
+                      	<hr>               		
+	                </div>
+					<div class="col-sm-6">
+	                    <div class="form-group">
+	                    	<label>Watchdog</label>
+	                        <select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="watchdogIntervalSelect" 
+	                        ng-model="InstallCameraController.camera.watchdogInterval"
+	                        data-dropup-auto="false" data-max-options="1" 
+							title="Select" data-header="Wacthdog interval" data-size="12">
+								<option
+									ng-repeat="watchdogIntervalOption in InstallCameraController.getSupportedWatchdogIntervals()"
+									ng-value="watchdogIntervalOption">{{watchdogIntervalOption}}</option>
+								<option style="display:none" value=""></option>
+	                        </select>
+	                    </div>
+	                </div>
+	                
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(() => {
+			$(".selectpicker").selectpicker('refresh');
+		}, 3000);
+	});
+</script>

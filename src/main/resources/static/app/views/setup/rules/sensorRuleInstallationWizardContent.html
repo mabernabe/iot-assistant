@@ -1,0 +1,277 @@
+<div class="card-body">
+	<div class="tab-content">
+		<div class="tab-pane show active" id="basic">
+			<h5 class="info-text">Select the sensor and the property for the rule</h5>
+			<div class="row justify-content-center">
+				<div class="col-sm-3">
+                    <img src="../assets/img/Rules.png" class="img-fluid rounded float-right rounded mx-auto d-block" id="wizardPicturePreview" title="" />
+                </div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Sensor Name</label>	
+						<select
+						class="selectpicker dropdown col-sm-8"
+						data-style="btn btn-info btn-round" name="sensorSelect"
+						ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorName"
+						data-dropup-auto="false" data-max-options="1" ng-change="InstallSensorRuleController.updateSensorPropertiesOptions()"
+						title="Select" data-header="Select a sensor"
+						data-size="7">
+						<option
+							ng-repeat="sensor in InstallSensorRuleController.sensors"
+							ng-value="sensor.getName()">{{sensor.getName()}}</option>
+							<option style="display:none" value=""></option>
+					</select>
+					</div>
+					<div class="form-group ">
+					<label >Sensor Property</label> <select
+						class="customSelect dropdown col-sm-8"
+						data-style="btn btn-info btn-round" name="sensorPropertySelect"
+						ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorProperty"
+						data-dropup-auto="false"
+						title="Select" data-header="Select properties" 
+						data-size="7" ng-options="property as property.name for property in InstallSensorRuleController.sensorPropertiesOptions track by property.name">
+						<option style="display:none" value=""></option>
+					</select>
+				</div>
+				</div>
+				</div>		
+		</div>
+		<div class="tab-pane" id="alarmType">
+			<h5 class="info-text">&#191;What kind of sensor rule do you want to install?</h5>
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<div class="row">
+						<div class="col-sm"
+							ng-repeat="sensorRuleType in InstallSensorRuleController.stationSensorRulesCapabilities.getSupportedSensorRulesTypes()">
+							<div class="choice" data-toggle="wizard-radio" name="sensorRuleTypeSelect" ng-click="InstallSensorRuleController.setSensorRuleType(sensorRuleType)"
+							ng-class="{active : sensorRuleType === InstallSensorRuleController.sensorRuleSettings.sensorRuleType}">
+								<input type="radio" ng-value="sensorRuleType" >
+								<div class="icon">
+									<i class="nc-icon nc-{{sensorRuleType.split(' ').join('-') | lowercase}}"></i>
+								</div>
+								<h6>{{sensorRuleType}}</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="configuration">
+			<div class="row justify-content-center">
+				<div class="col-sm-12">
+					<h5 class="info-text">Set the measure threshold rule will be fired when overcomed</h5>
+				</div>
+				<div class="row col-sm-12 justify-content-center">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>Sensor</label> <input type="text" 
+								class="form-control"  ng-value="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorName()" disabled>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>Property</label> <input type="text"
+								class="form-control"  ng-value="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyName()" disabled>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>Rule type</label> <input type="text"
+								class="form-control"  ng-value="InstallSensorRuleController.sensorRuleSettings.sensorRuleType" disabled>
+						</div>
+					</div>
+				</div>	
+				<div class="row col-sm-12">
+						<div class="col-sm-12">					
+							<div class="form-group" ng-if="InstallSensorRuleController.isSensorPropertySelected() && InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.isSensorPropertyDigital()">
+								<label>Threshold {{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyName()}}</label> 
+								<select name="threshold" data-header="Select value threshold"
+									class="selectpicker dropdown" ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorValueThreshold"
+									data-style="btn btn-info btn-round" data-dropup-auto="false" 
+									title="Select" data-size="7">
+									<option value="High">active</option>
+									<option value="Low">Inactive</option>
+									<option style="display:none" value=""></option>
+								</select>
+							</div>						
+							<div class="form-group" ng-if="InstallSensorRuleController.isSensorPropertySelected() && !InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.isSensorPropertyDigital()">
+								<label>Threshold {{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyName()}} <code>range=[{{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyMinimumValue()}},{{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyMaximumValue()}}]</code></label> 
+								<select name="sensorAnalogThresholdOperator" ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorAnalogThresholdOperator"
+									data-style="btn btn-info btn-round" data-dropup-auto="false" 
+									title="Select" data-size="2" data-header="Select operator threshold">
+									<option value='>='>&gt;=</option>
+									<option value='<'>&lt;</option>
+									<option style="display:none" value=""></option>
+								</select>
+								<input type="number" min={{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyMinimumValue()}} 
+								max={{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyMaximumValue()}} 
+								required="true"
+								ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorValueThreshold" 
+								name="sensorValueThreshold">
+						</div>
+					</div>
+								
+				</div>
+				<div class="row col-sm-12">
+					<div class="col-sm-6">
+							<div class="form-group">
+							<div>
+								<label>Minimum time between triggers</label> 
+							</div>
+								<select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="timeBetweenTriggersSelect"
+								ng-model="InstallSensorRuleController.sensorRuleSettings.timeBetweenTriggers"
+								data-dropup-auto="false" data-max-options="1" 
+								title="Select" data-header="Select minimum time between triggers"
+								data-size="12">
+									<option
+										ng-repeat="timeBetweenTriggersOption in InstallSensorRuleController.stationSensorRulesCapabilities.getSupportedSensorRulesTimeBetweenTriggers()"
+										ng-value="timeBetweenTriggersOption">{{timeBetweenTriggersOption}}</option>
+									<option style="display:none" value=""></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<div>
+									<label>Notifications type</label> 
+								</div>
+								<select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="notificationTypeSelect"
+								ng-model="InstallSensorRuleController.sensorRuleSettings.notificationType"
+								data-dropup-auto="false" data-max-options="1" 
+								title="Select" data-header="Select notification type"
+								data-size="12">
+									<option
+										ng-repeat="notificationTypeOption in InstallSensorRuleController.stationSupportedNotificationsTypes"
+										ng-value="notificationTypeOption">{{notificationTypeOption}}</option>
+									<option style="display:none" value=""></option>
+								</select>
+							</div>
+						</div>
+				</div>
+				<div class="row col-sm-12">					
+					<hr style="width:100px; margin: auto;">
+					<br>
+				</div>
+				<div class="row col-sm-12 justify-content-center" ng-if="InstallSensorRuleController.isEnableSensorRuleTypeSelected()">					
+					<div class="col-sm-6">							
+						<div class="form-group">
+							<label>Sensor Rule Id to Enable/Disable </label> <select
+								class="selectpicker dropdown col-sm-8"
+								data-style="btn btn-info btn-round" name="alarmSelect"
+								ng-model="InstallSensorRuleController.installEnableRuleSensorRuleController.sensorRuleId"
+								data-dropup-auto="false" data-max-options="1"
+								title="Select" data-header="Select a installed sensor rule" data-size="7">
+								<option
+									ng-repeat="sensorRule in InstallSensorRuleController.installEnableRuleSensorRuleController.sensorRules"
+									ng-value="sensorRule.getId()">{{sensorRule.getId()}}</option>
+								<option style="display: none" value=""></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-6">							
+						<div class="form-group">
+							<label>Enable or Disable action</label> 
+							<select name="threshold" data-header="Select option"
+									class="selectpicker dropdown" ng-model="InstallSensorRuleController.installEnableRuleSensorRuleController.enableAction"
+									data-style="btn btn-info btn-round" data-dropup-auto="false" 
+									title="Select" data-size="7">
+									<option value=true>Enable</option>
+									<option value=false>Disable</option>
+									<option style="display:none" value=""></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row col-sm-12 justify-content-center" ng-if="InstallSensorRuleController.isCameraSensorRuleTypeSelected()">					
+					<div class="col-sm-6">							
+						<div class="form-group">
+							<div>
+								<label>Camera</label> 
+							</div>
+							<select
+								class="selectpicker dropdown"
+								data-style="btn btn-info btn-round" name="cameraSelect"
+								ng-model="InstallSensorRuleController.installCameraSensorRuleController.cameraName"
+								data-dropup-auto="false" data-max-options="1"
+								title="Select" data-header="Select an camera" data-size="12">
+								<option
+									ng-repeat="camera in InstallSensorRuleController.installCameraSensorRuleController.cameras"
+									ng-value="camera.getName()">{{camera.getName()}}</option>
+								<option style="display: none" value=""></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row col-sm-12" ng-if="InstallSensorRuleController.isTriggerActuatorSensorRuleTypeSelected()">					
+					<div class="col-sm-6">							
+						<div class="form-group">
+							<div>
+								<label>Actuator</label> 
+							</div>
+							<select
+								class="selectpicker dropdown"
+								data-style="btn btn-info btn-round" name="actuatorSelect"
+								ng-model="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.actuatorName"
+								data-dropup-auto="false" data-max-options="1" ng-change="InstallSensorRuleController.installTriggerActuatorSensorRuleController.updateActuatorPropertiesOptions()"
+								title="Select" data-header="Select an actuator" data-size="12">
+								<option
+									ng-repeat="actuator in InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuators"
+									ng-value="actuator.getName()">{{actuator.getName()}}</option>
+								<option style="display: none" value=""></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+								<div>
+								<label>Actuator Property</label> 
+								</div>
+								<select style="margin-top:10px;"
+									class="customSelect dropdown"
+									data-style="btn btn-info btn-round" name="actuatorPropertySelect"
+									ng-model="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.actuatorProperty"
+									data-dropup-auto="false" title="Select"
+									data-header="Select properties" data-size="12"
+									ng-options="property as property.name for property in InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorPropertiesOptions track by property.name">
+									<option style="display: none" value=""></option>
+								</select>
+						</div>
+					</div>				
+				</div>
+				<div class="row col-sm-12 " ng-if="InstallSensorRuleController.isTriggerActuatorSensorRuleTypeSelected() && InstallSensorRuleController.installTriggerActuatorSensorRuleController.isActuatorPropertySelected()">			
+					<div class="col-sm-6">					
+							<div class="form-group" ng-if="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.isActuatorPropertyDigital()">
+								<label>Threshold {{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyName()}}</label> 
+								<select name="actuatorThreshold" data-header="Select value to set"
+									class="customSelect dropdown" 
+									ng-model="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.actuatorSetValue" 
+									data-style="btn btn-info btn-round" data-dropup-auto="false" 
+									title="Select" data-size="7">
+									<option value="High">active</option>
+									<option value="Low">Inactive</option>
+									<option style="display:none" value=""></option>
+								</select>
+							</div>						
+							<div class="form-group" ng-if="!InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.isActuatorPropertyDigital()">
+								<label>Value {{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyName()}} <code>range=[{{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMinimumValue()}},{{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMaximumValue()}}]</code></label> 
+								<input type="number" min={{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMinimumValue()}} 
+								max={{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMaximumValue()}} 
+								required="true"
+								ng-model="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.actuatorSetValue" 
+								name="actuatorSetValue">
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(() => {
+			$(".selectpicker").selectpicker('refresh');
+		}, 2500);
+	});
+</script>

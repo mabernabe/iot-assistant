@@ -1,0 +1,2 @@
+var stationsAssistant = angular.module("stationsAssistant",['ngRoute', 'getTransductorsControllers', 'installSensorController', 'installActuatorController', 'installChartController', 'installCameraController', 'installSensorRuleController', 'getChartsController', 'getCamerasController', 'getSystemInfoController', 'powerOffSystemController', 'getSensorRulesController', 'getNotificationsController', 'angular-loading-bar', 'ngAnimate'] );
+
