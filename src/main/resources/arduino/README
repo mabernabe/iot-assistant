@@ -1,5 +1,0 @@
-1 . Install firebeetle https://wiki.dfrobot.com/FireBeetle_ESP8266_IOT_Microcontroller_SKU__DFR0489
-2 . Install libraries en C:\Document\Arduino\libraries
-3 . Install library Pubsubclient desde el IDE de Arduino
-4 . Install library BME680 desde https://wiki.dfrobot.com/Gravity__I2C_BME680_Environmental_Sensor__VOC,_Temperature,_Humidity,_Barometer__SKU__SEN0248
-5 . Delete WiFi library from Arduino installation C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.42.0_x86__mdqgnx93n4wtt\libraries (you will need admin privileges to do this operation).
