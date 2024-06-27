@@ -1,23 +1,39 @@
 package com.iotassistant.models.transductor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
 @DiscriminatorValue("Sensor")
 @Table(name="sensor")
 public class Sensor extends Transductor {
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private SensorValues values;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	protected SensorInterface sensorInterface;
+	
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Enumerated(EnumType.STRING)
+	private List<PropertyMeasuredEnum> propertiesMeasured;
 
 	public Sensor() {
 		super();
@@ -28,20 +44,10 @@ public class Sensor extends Transductor {
 		this.sensorInterface = sensorInterface;
 	}
 
-	public List<SensorMeasure> getMeasures() throws TransductorInterfaceException {
-		return sensorInterface.getMeasures();
+	public SensorValues getValues() {
+		return values;
 	}
 
-
-	public void registerMeasureObserver(SensorMeasureObserver observer) throws TransductorInterfaceException  {
-			sensorInterface.registerMeasureObserver(observer);
-	}
-
-
-
-	public void unRegisterMeasureObserver(SensorMeasureObserver observer) throws TransductorInterfaceException  {
-			sensorInterface.unRegisterMeasureObserver(observer);		
-	}
 
 	public SensorInterface getInterface() {
 		return this.sensorInterface;
@@ -51,36 +57,38 @@ public class Sensor extends Transductor {
 		this.sensorInterface = sensorInterface;
 		
 	}
-
-	@Override
-	public List<Property> getProperties() {
-		return sensorInterface.getProperties();
+	
+	public void setValues(SensorValues values) {
+		this.values = values;
+		this.setActive(true);
 	}
 
-	public void setUpInterface() throws TransductorInterfaceException {
-		sensorInterface.setUp();		
+	public List<PropertyMeasuredEnum> getPropertiesMeasured() {
+		return propertiesMeasured;
 	}
 	
-	public void setDownInterface() throws TransductorInterfaceException {
-		sensorInterface.setDown();		
-	}
 
-	public SensorMeasure getMeasure(PropertyMeasuredEnum propertyObserved) throws TransductorInterfaceException {
-		assert(getProperties().contains(propertyObserved));
-		SensorMeasure measureObserved = null;
-		for(SensorMeasure measure: this.getMeasures()) {
-			if (measure.getPropertyMeasured().equals(propertyObserved)) {
-				measureObserved = measure;
-			}
-		}
-		return measureObserved;
-	}
-
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<TransductorValue> getTransductorValues() throws TransductorInterfaceException {
-		return (List<TransductorValue>) (List<? extends TransductorValue>) this.getMeasures();
+	public void accept(TransductorVisitor transductorVisitor) {
+		transductorVisitor.visit(this);	
 	}
+
+	@Override
+	public String getLastValueDate() {
+		assert(this.isActive());
+		return this.values.getDate();
+	}
+	
+	
+	public List<Property> getProperties() {
+		List<Property> properties = new ArrayList<Property>();
+		for (PropertyMeasuredEnum propertyMeasured : propertiesMeasured){
+			properties.add(propertyMeasured);
+		}
+		return properties;
+	}
+
+
 
 
 }

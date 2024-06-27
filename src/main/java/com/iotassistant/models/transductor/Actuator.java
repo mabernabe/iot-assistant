@@ -1,14 +1,22 @@
 package com.iotassistant.models.transductor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
 @Entity
@@ -16,8 +24,16 @@ import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum
 @Table(name="actuator")
 public class Actuator extends Transductor{
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	private ActuatorValues values;
+	
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	ActuatorInterface actuatorInterface;
+	
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Enumerated(EnumType.STRING)
+	private List<PropertyActuatedEnum> propertiesActuated;
 	
 	
 	public Actuator() {
@@ -32,11 +48,7 @@ public class Actuator extends Transductor{
 
 	
 	public void setValue(PropertyActuatedEnum propertyActuated, String value) throws TransductorInterfaceException {
-		actuatorInterface.setValue(propertyActuated, value);
-	}
-	
-	public List<ActuatorValue> getValues() throws TransductorInterfaceException {
-		return actuatorInterface.getValues();
+		this.values.set(propertyActuated, value);
 	}
 	
 	public ActuatorInterface getInterface() {
@@ -49,27 +61,31 @@ public class Actuator extends Transductor{
 		
 	}
 
-
 	@Override
 	public List<Property> getProperties() {
-		return actuatorInterface.getProperties();
-	}
-
-	@Override
-	public void setUpInterface() throws TransductorInterfaceException {
-		actuatorInterface.setUp();		
-	}
-	
-	@Override
-	public void setDownInterface() throws TransductorInterfaceException {
-		actuatorInterface.setDown();		
+		List<Property> properties = new ArrayList<Property>();
+		for (PropertyActuatedEnum propertyActuated : propertiesActuated){
+			properties.add(propertyActuated);
+		}
+		return properties;
 	}
 
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<TransductorValue> getTransductorValues() throws TransductorInterfaceException {
-		return (List<TransductorValue>) (List<? extends TransductorValue>) this.getValues();
+	public void accept(TransductorVisitor transductorVisitor) {
+		transductorVisitor.visit(this);		
+	}
+
+
+	@Override
+	public String getLastValueDate() {
+		assert(this.isActive());
+		return this.values.getDate();
+	}
+
+
+	public ActuatorValues getValues() {
+		return this.values;	
 	}
 
 

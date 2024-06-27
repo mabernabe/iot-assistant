@@ -6,14 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
+import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.Property;
+import com.iotassistant.models.transductor.Sensor;
 import com.iotassistant.models.transductor.Transductor;
 import com.iotassistant.models.transductor.WatchdogInterval;
 
 
 @Service
-public class TransductorsService {
+public class TransductorsService implements TransductorVisitor{
 	
 	@Autowired
 	private SensorsService sensorService;
@@ -58,5 +61,20 @@ public class TransductorsService {
 	}
 
 
+	public void setUpInterface(Transductor transductor) {
+		transductor.accept(this);
+	}
+
+
+	@Override
+	public void visit(Sensor sensor) {
+		sensorService.setUpInterface(sensor);		
+	}
+
+
+	@Override
+	public void visit(Actuator actuator) {
+		actuatorService.setUpInterface(actuator);		
+	}
 
 }

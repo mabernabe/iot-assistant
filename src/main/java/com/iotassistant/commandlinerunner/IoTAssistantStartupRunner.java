@@ -6,17 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.iotassistant.models.Device;
 import com.iotassistant.models.sensorrules.SensorRule;
-import com.iotassistant.models.transductor.Transductor;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
+import com.iotassistant.services.DevicesService;
 import com.iotassistant.services.SensorRulesService;
-import com.iotassistant.services.TransductorsService;
 
 @Component
 public class IoTAssistantStartupRunner implements CommandLineRunner{
 
 	@Autowired
-	private TransductorsService transductorService;
+	private DevicesService devicesService;
 	
 	
 	@Autowired
@@ -24,7 +23,7 @@ public class IoTAssistantStartupRunner implements CommandLineRunner{
 	
 	@Override
 	public void run(String...args) throws Exception {
-		setUpTransductorInterfaces();
+		setUpDevicesInterfaces();
 		setupSensorRules();
 	}
 
@@ -40,15 +39,11 @@ public class IoTAssistantStartupRunner implements CommandLineRunner{
 	}
 
 
-	private void setUpTransductorInterfaces() {
-		List<Transductor> allTransductors = transductorService.getAllTransductors();
-        for (Transductor transductor : allTransductors) {
-        	try {
-				transductor.setUpInterface();
-			} catch (TransductorInterfaceException e) {
-			}
+	private void setUpDevicesInterfaces() {
+		List<Device> allDevices = devicesService.getAllDevices();
+        for (Device device : allDevices) {
+        		devicesService.setUpInterface(device);
         }	
 	}
-	
 
 }

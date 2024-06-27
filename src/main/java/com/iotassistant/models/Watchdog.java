@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.transductor.Transductor;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
-import com.iotassistant.models.transductor.TransductorValue;
 import com.iotassistant.models.transductor.WatchdogInterval;
 import com.iotassistant.services.DevicesService;
 import com.iotassistant.services.NotificationsService;
@@ -45,28 +43,16 @@ public class Watchdog implements DeviceVisitor {
 	
 	@Override
 	public void visit(Transductor transductor) {
-		boolean offlineReachedWatchdogInterval = false;
-		try {
-			List<TransductorValue> lastValues = transductor.getTransductorValues();
-			if (lastValues.isEmpty() || !lastValues.isEmpty() && dateReachedWatchdogInterval(lastValues.get(0).getDate(), transductor.getWatchdogInterval())) {
-				offlineReachedWatchdogInterval = true;
-			}
-		} catch (TransductorInterfaceException e) {
-			offlineReachedWatchdogInterval = OfflineDateReachedWatchdotInterval(transductor);
-			if (!devicesOffline.containsKey(transductor)) {
-				devicesOffline.put(transductor, Date.getCurrentDate());			
-			}
-		}
-		if (offlineReachedWatchdogInterval) {
-			sendNotification(transductor);
-		}
+		if (transductor.isActive() && lastValueDateReachedWatchdogInterval(transductor.getLastValueDate(), transductor.getWatchdogInterval())) {
+				sendNotification(transductor);
+		}	
 	}
 
 
 	private boolean OfflineDateReachedWatchdotInterval(Device device) {
 		if (devicesOffline.containsKey(device)) {
 			String deviceOfflineDate = devicesOffline.get(device);
-			return dateReachedWatchdogInterval(deviceOfflineDate,  device.getWatchdogInterval());
+			return lastValueDateReachedWatchdogInterval(deviceOfflineDate,  device.getWatchdogInterval());
 		}
 		return false;
 		
@@ -97,7 +83,7 @@ public class Watchdog implements DeviceVisitor {
 	
 
 
-	private boolean dateReachedWatchdogInterval(String date, WatchdogInterval watchdogInterval) {	
+	private boolean lastValueDateReachedWatchdogInterval(String date, WatchdogInterval watchdogInterval) {	
 		boolean isWatchdogIntervalReached = false;
 		try {
 			if (watchdogInterval.isWatchdogIntervalReached(date)) {

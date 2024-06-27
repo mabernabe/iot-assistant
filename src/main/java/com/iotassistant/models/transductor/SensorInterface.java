@@ -1,7 +1,5 @@
 package com.iotassistant.models.transductor;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,19 +14,12 @@ import javax.persistence.Table;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="sensorInterface_type")
 @Table(name="sensorInterface")
-public abstract class SensorInterface implements TransductorInterface {
+public abstract class SensorInterface {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	
-	public abstract List<SensorMeasure> getMeasures() throws TransductorInterfaceException;
-		
-	public abstract void registerMeasureObserver(SensorMeasureObserver observer) throws TransductorInterfaceException ;
-	
-	public abstract void unRegisterMeasureObserver(SensorMeasureObserver observer) throws TransductorInterfaceException ;
-	
-	
-
+	public abstract void accept(SensorInterfaceVisitor sensorInterfaceVisitor, boolean setUp);
 
 }

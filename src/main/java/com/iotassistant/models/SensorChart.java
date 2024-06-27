@@ -18,10 +18,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.SensorMeasure;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
+import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
-import com.iotassistant.services.SensorsService;
 
 @Entity
 @DiscriminatorValue("chart")
@@ -92,38 +90,30 @@ public class SensorChart {
 		return sensorsChartSamples;
 	}
 
-	public boolean shouldAddNewSample(SensorsService sensorsService) {
+	public boolean shouldAddNewSample(Sensor sensor) {
 		boolean shouldAddNewSample = false;
-		try {
-			Sensor sensor = sensorsService.getSensorByName(sensorName);
-			SensorMeasure measure = sensor.getMeasure(propertyObserved);			
-			shouldAddNewSample = (measure != null && isChartSampleIntervalReached(measure));
-		} catch (TransductorInterfaceException | ParseException e) {}
+		try {			
+			shouldAddNewSample = (sensor.isActive() && isChartSampleIntervalReached(sensor.getValues()));
+		} catch ( ParseException e) {}
 		return shouldAddNewSample;
 	}
 	
-	public void addNewSensorSample(SensorsService sensorsService) {
-		assert(this.shouldAddNewSample(sensorsService) == true);
+	public void addNewSensorSample(Sensor sensor) {
+		assert(this.shouldAddNewSample(sensor) == true);
 		SensorChartSample sample = null;
-		SensorMeasure measure;
-		try {
-			Sensor sensor = sensorsService.getSensorByName(sensorName);
-			measure = sensor.getMeasure(propertyObserved);
-			sample = new SensorChartSample(measure);
-			this.addSample(sample);
-			sortSamplesIfTotalIntervalReached(sample);
-		} catch (TransductorInterfaceException e) {
-			e.printStackTrace();
-		}					
+		sample = new SensorChartSample(sensor.getValues().getValue(propertyObserved), sensor.getValues().getDate());
+		this.addSample(sample);
+		sortSamplesIfTotalIntervalReached(sample);
+						
 	}
 
-	private boolean isChartSampleIntervalReached(SensorMeasure measure) throws ParseException {
+	private boolean isChartSampleIntervalReached(SensorValues sensorValues) throws ParseException {
 		SensorChartSample lastSample = getLastSample();
 		if (lastSample == null) {
 			return true;
 		}
 		else {
-			return sampleInterval.isChartSampleIntervalReached(lastSample.getDate(), measure.getDate() );
+			return sampleInterval.isChartSampleIntervalReached(lastSample.getDate(), sensorValues.getDate() );
 		}
 	}
 

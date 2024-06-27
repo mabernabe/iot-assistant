@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.iotassistant.models.transductor.Sensor;
 import com.iotassistant.services.ChartsService;
 import com.iotassistant.services.SensorsService;
 
@@ -24,9 +25,10 @@ public class SensorsChartsSampler {
 	public void fillSensorsChartsData() {
 		List<SensorChart > charts = chartService.getAllCharts();
 		for (SensorChart chart: charts) {
-			boolean shouldAddNewSample = chart.shouldAddNewSample(sensorsService);
+			Sensor sensor = sensorsService.getSensorByName(chart.getSensorName());
+			boolean shouldAddNewSample = chart.shouldAddNewSample(sensor);
 			if (shouldAddNewSample) {
-				chart.addNewSensorSample(sensorsService);
+				chart.addNewSensorSample(sensor);
 				chartService.updateChart(chart);
 			}				
 		}

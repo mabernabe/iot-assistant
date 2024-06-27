@@ -47,6 +47,11 @@ public class CamerasService {
 		return camerasRepository.getCameraByName(cameraName) != null;
 	}
 
+	public void setUpInterface(Camera camera) {
+		camera.getInterface();
+		
+	}
+
 
 
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iotassistant.controllers.dtos.EnableDTO;
 import com.iotassistant.controllers.dtos.ErrorDTO;
 import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceSensorDTO;
-import com.iotassistant.controllers.dtos.transductor.NewPinInterfaceSensorDTO;
 import com.iotassistant.controllers.dtos.transductor.SensorDTO;
 import com.iotassistant.controllers.dtos.transductor.SensorsDTO;
 import com.iotassistant.models.transductor.Sensor;
@@ -47,11 +46,6 @@ public class SensorsController {
 		return new ResponseEntity<>(new SensorDTO(sensor), HttpStatus.OK);
 		
 	}	
-	
-	@RequestMapping(value="/pinInterfaceSensors/", method = RequestMethod.POST)
-	public ResponseEntity<?> newPinInterfaceSensor(@RequestBody NewPinInterfaceSensorDTO newPinInterfaceSensorDTO) throws TransductorInterfaceException {
-	    return this.newSensor(newPinInterfaceSensorDTO.getSensor());
-	}
 	
 
 	private ResponseEntity<?> newSensor(Sensor sensor) throws TransductorInterfaceException {

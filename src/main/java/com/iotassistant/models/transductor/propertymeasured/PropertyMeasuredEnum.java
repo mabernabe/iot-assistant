@@ -131,6 +131,19 @@ public enum PropertyMeasuredEnum implements Property{
 		return propertyMeasured.getMinimumValue();
 	}
 
+	public boolean isValidValue(String value) {
+		if (this.isDigital()) {
+			return value != null && value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
+		} else {
+			try {
+				Float.parseFloat(value);
+			} catch(  NullPointerException | NumberFormatException e) {
+				return false;
+			}		
+		}
+		return true;
+	}
+
 
 
 

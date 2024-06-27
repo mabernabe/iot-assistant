@@ -22,6 +22,8 @@ public abstract class Device {
 
 	protected String description;
 	
+	protected boolean active;
+	
 	@Enumerated(EnumType.STRING)
 	protected WatchdogInterval watchdogInterval;
 	
@@ -63,6 +65,14 @@ public abstract class Device {
 
 	public void setWatchdogEnabled(boolean watchdogEnabled) {
 		this.watchdogEnabled = watchdogEnabled;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	public abstract void accept(DeviceVisitor deviceVisitor);

@@ -25,7 +25,7 @@ public class ActuatorsService {
 	
 	public Actuator newActuator(Actuator actuator) throws TransductorInterfaceException {
 		actuator = actuatorsRepository.save(actuator);
-		actuator.setUpInterface();
+		this.setUpInterface(actuator);
 		return actuator;	
 	}
 
@@ -59,10 +59,16 @@ public class ActuatorsService {
 
 	public void deleteActuatorByName(String name) throws TransductorInterfaceException{
 		Actuator actuator = getActuatorByName(name);
-		actuator.setDownInterface();
+		this.setDownInterface(actuator);
 		deleteActuatorDependencies(name);
 		actuatorsRepository.deleteByName(name);		
 	}
+
+	private void setDownInterface(Actuator actuator) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	private void deleteActuatorDependencies(String actuatorName) throws TransductorInterfaceException {
 		sensorRulesService.deleteTriggerActuatorSensorRules(actuatorName);		
@@ -84,6 +90,12 @@ public class ActuatorsService {
 		Actuator actuator = getActuatorByName(actuatorName);
 		actuator.setWatchdogEnabled(enable);
 		actuatorsRepository.update(actuator);	
+	}
+
+
+	public void setUpInterface(Actuator actuator) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

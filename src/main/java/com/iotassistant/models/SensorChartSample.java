@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.iotassistant.models.transductor.SensorMeasure;
-
 @Entity
 @Table(name="chartsample")
 public class SensorChartSample {
@@ -26,10 +24,10 @@ public class SensorChartSample {
 		super();
 	}
 
-	public SensorChartSample(SensorMeasure measure) {
+	public SensorChartSample(String value, String date) {
 		super();
-		this.value = measure.getValue();
-		this.date = measure.getDate();
+		this.value = value;
+		this.date = date;
 	}
 
 	public Integer getId() {

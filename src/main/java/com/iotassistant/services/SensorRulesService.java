@@ -14,6 +14,7 @@ import com.iotassistant.models.sensorrules.SensorRule;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.sensorrules.SensorRuleVisitor;
 import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
+import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.repositories.RulesRepository;
 
@@ -44,7 +45,6 @@ public class SensorRulesService implements SensorRuleVisitor{
 	
 	public void setupSensorRule(SensorRule sensorRule) throws TransductorInterfaceException {
 		setupSensorRuleNotificationHandler(sensorRule);
-		sensorsService.registerSensorMeasureObserver(sensorRule);
 		sensorRule.accept(this);		
 	}
 
@@ -86,9 +86,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 	}
 
 	public void deleteSensorRuleById(int id) throws TransductorInterfaceException {
-		SensorRule sensorRule = rulesRepository.getSensorRuleById(id);
-		rulesRepository.deleteById(Integer.valueOf(id));
-		sensorsService.unregisterSensorMeasureObserver(sensorRule);		
+		rulesRepository.deleteById(Integer.valueOf(id));	
 	}
 
 	public void deleteSensorRuleBySensorName(String sensorName) throws TransductorInterfaceException {
@@ -143,6 +141,11 @@ public class SensorRulesService implements SensorRuleVisitor{
 				deleteSensorRuleById(cameraSensorRule.getId());
 			}
 		}		
+	}
+
+	public void applyRules(String name, SensorValues values) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

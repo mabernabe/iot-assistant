@@ -1,10 +1,7 @@
 package com.iotassistant.models.transductormqttinterface;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import com.iotassistant.models.transductor.ActuatorValue;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
 public class MqttActuatorValuesMessage {
@@ -18,14 +15,6 @@ public class MqttActuatorValuesMessage {
 	}
 
 
-	public List<ActuatorValue> getValues() {
-		List<ActuatorValue> values = new ArrayList<>();
-		for (PropertyActuatedEnum propertyActuated : this.values.keySet()) {
-			String value = this.values.get(propertyActuated);
-			values.add(new ActuatorValue(value, propertyActuated, date));
-		}
-		return values;
-	}
 
 
 	public void setValues(HashMap<PropertyActuatedEnum, String> values) {

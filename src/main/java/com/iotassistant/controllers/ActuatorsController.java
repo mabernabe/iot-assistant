@@ -15,7 +15,6 @@ import com.iotassistant.controllers.dtos.ErrorDTO;
 import com.iotassistant.controllers.dtos.transductor.ActuatorValueDTO;
 import com.iotassistant.controllers.dtos.transductor.ActuatorsDTO;
 import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceActuatorDTO;
-import com.iotassistant.controllers.dtos.transductor.NewPinInterfaceActuatorDTO;
 import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
@@ -39,11 +38,6 @@ public class ActuatorsController {
 	
 	}
 
-	@RequestMapping(value="/pinInterfaceActuators/", method = RequestMethod.POST)
-	public ResponseEntity<?> newPinInterfaceActuator(@RequestBody NewPinInterfaceActuatorDTO newPinInterfaceActuatorDTO) throws TransductorInterfaceException {
-		return this.newActuator(newPinInterfaceActuatorDTO.getActuator());		
-	}
-	
 	
 	private ResponseEntity<?> newActuator(Actuator actuator) throws TransductorInterfaceException {
 		if (transductorsService.existTransductor(actuator.getName())) {

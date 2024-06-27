@@ -21,7 +21,7 @@ public class NewMqttInterfaceSensorDTO extends NewTransductorRequestDTO{
 	}
 
 	public Sensor getSensor() {
-		SensorMqttInterface sensorMqttInterface = new SensorMqttInterface(super.getName(), propertiesMeasured);
+		SensorMqttInterface sensorMqttInterface = new SensorMqttInterface(super.getName());
 		return new Sensor(super.getName(), super.getDescription(), sensorMqttInterface, WatchdogInterval.getInstance(super.getWatchdogInterval()));	
 	}
 	

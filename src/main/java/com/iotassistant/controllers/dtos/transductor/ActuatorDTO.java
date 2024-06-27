@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import com.iotassistant.controllers.dtos.TransductorDTO;
 import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.ActuatorValue;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 
 public class ActuatorDTO extends TransductorDTO{
 	
@@ -14,12 +12,7 @@ public class ActuatorDTO extends TransductorDTO{
 
 	public ActuatorDTO(Actuator actuator) {
 		super(actuator);
-		try {
-			for (ActuatorValue actuatorValue: actuator.getValues()) {
-				values.add(new ActuatorValueDTO(actuatorValue));
-			}
-		} catch (TransductorInterfaceException e) {
-		}
+		
 	}
 
 

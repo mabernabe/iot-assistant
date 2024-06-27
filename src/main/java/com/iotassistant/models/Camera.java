@@ -42,5 +42,10 @@ public class Camera extends Device {
 		
 	}
 
+	public CameraInterface getInterface() {
+		return this.cameraInterface;
+		
+	}
+
 
 }
