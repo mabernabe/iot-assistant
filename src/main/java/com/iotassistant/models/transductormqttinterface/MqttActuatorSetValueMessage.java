@@ -15,7 +15,7 @@ public class MqttActuatorSetValueMessage {
 	}
 
 	public String getPropertyActuated() {
-		return propertyActuated.toStringWithUnit();
+		return propertyActuated.getNameWithUnit();
 	}
 
 	public void setPropertyActuated(PropertyActuatedEnum propertyActuated) {

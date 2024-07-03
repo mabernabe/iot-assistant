@@ -59,7 +59,7 @@ public abstract class DigitalPropertyMeasured implements PropertyMeasured{
 	}
 
 	@Override
-	public String toStringWithUnit() {
+	public String getNameWithUnit() {
 		return this.getName();
 	}
 	

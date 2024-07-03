@@ -10,17 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.iotassistant.models.CameraInterfaceException;
-import com.iotassistant.models.PlatformInterfacesFactory;
 import com.iotassistant.models.exceptions.SystemCantShutdownException;
-import com.iotassistant.models.pininterface.PinInterfaceException;
 import com.iotassistant.models.transductor.TransductorInterfaceException;
 
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 	
 	private static int TRANSDUCTOR_INTERFACE_ERROR_CODE = 0xAA;
-	
-	private static int PIN_INTERFACE_ERROR_CODE = 0xAB;
 	
 	private static int CAMERA_INTERFACE_ERROR_CODE = 0xAC;
 	
@@ -39,18 +35,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("message", exception.getErrorMessage());
         body.put("errorCode", TRANSDUCTOR_INTERFACE_ERROR_CODE);
-        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-	
-	@ExceptionHandler({PinInterfaceException.class})
-    public ResponseEntity<Object> handlePinInterfaceException(
-    		PinInterfaceException exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("message", exception.getErrorMessage());
-        body.put("errorCode", PIN_INTERFACE_ERROR_CODE);
-        String platformName = PlatformInterfacesFactory.getInstance().getPlatformName();
-        platformName = (platformName == null)? "NA" : "platformName"; 
-        body.put("platform", platformName);
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 	

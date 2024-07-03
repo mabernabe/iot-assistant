@@ -25,7 +25,7 @@ public abstract class AnalogPropertyActuated implements PropertyActuated{
 	public abstract Integer getMinimumValue();
 
 	@Override
-	public String toStringWithUnit() {
+	public String getNameWithUnit() {
 		String stringWithUnit = this.getName();
 		String unit = this.getUnit();
 		if (unit != null) {

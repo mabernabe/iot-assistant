@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!doctype html>
-<html lang="en" ng-app="stationsAssistant">
+<html lang="en" ng-app="iotAssistant">
 
 	<head ng-include="'shared/head.html'">
 	</head>
@@ -71,7 +71,7 @@ Coded by www.creative-tim.com
 		<script type="text/javascript" src="/app/controllers/setup/InstallEnableRuleSensorRuleController.js"></script>
 		<script type="text/javascript" src="/app/controllers/setup/InstallTriggerActuatorSensorRuleController.js"></script>
 		<script type="text/javascript" src="/app/controllers/setup/InstallCameraSensorRuleController.js"></script>	
-		<script type="text/javascript" src="/app/controllers/GetSystemInfoController.js"></script>
+		<script type="text/javascript" src="/app/controllers/GetIotAssistantController.js"></script>
 		<script type="text/javascript" src="/app/controllers/GetNotificationsController.js"></script>
 		<script type="text/javascript" src="/app/controllers/GetChartsController.js"></script>
 		<script type="text/javascript" src="/app/controllers/GetCamerasController.js"></script>
@@ -79,7 +79,7 @@ Coded by www.creative-tim.com
 		<script type="text/javascript" src="/app/controllers/PowerOffSystemController.js"></script>
 		
 		<!-- Services -->
-		<script type="text/javascript" src="/app/services/StationAPIService.js"></script>
+		<script type="text/javascript" src="/app/services/IotAssistantAPIService.js"></script>
 		<script type="text/javascript" src="/app/services/SensorAPIService.js"></script>
 		<script type="text/javascript" src="/app/services/ActuatorAPIService.js"></script>
 		<script type="text/javascript" src="/app/services/CameraAPIService.js"></script>
@@ -105,6 +105,8 @@ Coded by www.creative-tim.com
 		<script type="text/javascript" src="/app/entities/Transductor.js"></script>
 		<script type="text/javascript" src="/app/entities/TransductorValue.js"></script>
 		<script type="text/javascript" src="/app/entities/Sensor.js"></script>
+		<script type="text/javascript" src="/app/entities/SensorValues.js"></script>
+		<script type="text/javascript" src="/app/entities/SensorValue.js"></script>
 		<script type="text/javascript" src="/app/entities/HTTPCamera.js"></script>
 		<script type="text/javascript" src="/app/entities/Camera.js"></script>
 		<script type="text/javascript" src="/app/entities/Measure.js"></script>
@@ -119,16 +121,16 @@ Coded by www.creative-tim.com
 		<script type="text/javascript" src="/app/entities/SensorRuleTriggerActuatorNotification.js"></script>						
 		<script type="text/javascript" src="/app/entities/TransductorOfflineNotification.js"></script>
 		<script type="text/javascript" src="/app/entities/SensorRuleCameraNotification.js"></script>
-		<script type="text/javascript" src="/app/entities/Station.js"></script>
-		<script type="text/javascript" src="/app/entities/StationCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationRuleCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationChartCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationCameraCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationTransductorCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationNotificationsCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistant.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantRuleCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantChartCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantCameraCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantTransductorCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantNotificationsCapabilities.js"></script>
 		<script type="text/javascript" src="/app/entities/TransductorInterfaceCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationPinInterfaceCapabilities.js"></script>
-		<script type="text/javascript" src="/app/entities/StationMqttInterfaceCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantPinInterfaceCapabilities.js"></script>
+		<script type="text/javascript" src="/app/entities/IotAssistantMqttInterfaceCapabilities.js"></script>
 		<script type="text/javascript" src="/app/entities/NewTransductor.js"></script>
 		<script type="text/javascript" src="/app/entities/TransductorPinInterface.js"></script>
 		<script type="text/javascript" src="/app/entities/SensorChart.js"></script>

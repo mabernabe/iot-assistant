@@ -20,6 +20,11 @@ public class DeviceDTO {
 	
 	@JsonProperty(required = true)
     @NotNull
+    @Size(max = 50)
+	private boolean active;
+	
+	@JsonProperty(required = true)
+    @NotNull
 	private String watchdogInterval;
 	
 	private boolean watchdogEnabled;
@@ -28,6 +33,7 @@ public class DeviceDTO {
 		super();
 		this.name = device.getName();
 		this.description = device.getDescription();
+		this.active = device.isActive();
 		this.watchdogInterval = device.getWatchdogInterval().toString();
 		this.watchdogEnabled = device.isWatchdogEnabled();
 	}
@@ -41,6 +47,11 @@ public class DeviceDTO {
 
 	public String getDescription() {
 		return description;
+	}
+	
+
+	public boolean isActive() {
+		return active;
 	}
 
 	public String getWatchdogInterval() {

@@ -1,11 +1,10 @@
 package com.iotassistant.models.transductormqttinterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 import com.iotassistant.models.transductor.SensorInterface;
 import com.iotassistant.models.transductor.SensorInterfaceVisitor;
@@ -14,10 +13,7 @@ import com.iotassistant.models.transductor.SensorInterfaceVisitor;
 @DiscriminatorValue("sensorMQTTInterface")
 public class SensorMqttInterface extends SensorInterface implements MqttInterface{
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	private MqttSensorTopic topic;
-	
-	
+	private String topic;
 	
 	public SensorMqttInterface() {
 		super();
@@ -25,25 +21,25 @@ public class SensorMqttInterface extends SensorInterface implements MqttInterfac
 
 	public SensorMqttInterface(String topic) {
 		this();
-		this.topic = new MqttSensorTopic(topic);	
+		this.topic = topic;	
 	}
 
-	public MqttSensorTopic getTopic() {
-		return topic;
-	}
-
-	public void setTopic(MqttSensorTopic topic) {
-		this.topic = topic;
-	}
 
 	@Override
 	public List<String> getSubscribedTopics() {
-		return this.getTopic().getSubscribedTopics();
+		List<String> subscribedTopics = new ArrayList<String>();
+		subscribedTopics.add(topic);
+		subscribedTopics.add(topic + "/" + ARRIVE_LWT_TOPIC);
+		return subscribedTopics;
 	}
 
 	@Override
 	public void accept(SensorInterfaceVisitor sensorInterfaceVisitor, boolean setUp) {
 		sensorInterfaceVisitor.visit(this, setUp);	
+	}
+
+	public String getTopic() {
+		return this.topic;
 	}
 	
 }

@@ -9,19 +9,20 @@ import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum
 
 public class SensorValuesDTO {
 	
-	private Map<String, String> values;
+	private Map<String, SensorValueDTO> values;
 	
 	private String date;
 	
 	public SensorValuesDTO(SensorValues sensorValues) {
 		this.date = sensorValues.getDate();
-		this.values = new HashMap<String, String>();
+		this.values = new HashMap<String, SensorValueDTO>();
 		for (PropertyMeasuredEnum propertyMeasured: sensorValues.getValues().keySet()) {
-			this.values.put(propertyMeasured.toString(), sensorValues.getValues().get(propertyMeasured).toString());
+			SensorValueDTO sensorValueDTO = new SensorValueDTO(propertyMeasured, sensorValues.getValues().get(propertyMeasured));
+			this.values.put(propertyMeasured.getNameWithUnit(), sensorValueDTO);
 		}
 	}
 
-	public Map<String, String> getValues() {
+	public Map<String, SensorValueDTO> getValues() {
 		return values;
 	}
 

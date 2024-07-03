@@ -6,7 +6,7 @@ public class PropertyDTO {
 		
 	private String name;
 	
-	private String shortName;
+	private String unit;
 	
 	boolean isDigital;
 	
@@ -19,8 +19,8 @@ public class PropertyDTO {
 	}
 
 	public PropertyDTO(Property property) {
-		this.name = property.toStringWithUnit();
-		this.shortName = property.toString();
+		this.name = property.getName();
+		this.unit = property.getUnit();
 		this.isDigital = property.isDigital();
 		this.maximumValue = property.getMaximumValue();
 		this.minimumValue = property.getMinimumValue();
@@ -31,8 +31,8 @@ public class PropertyDTO {
 	}
 
 
-	public String getShortName() {
-		return shortName;
+	public String getUnit() {
+		return unit;
 	}
 
 	public boolean isDigital() {

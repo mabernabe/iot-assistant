@@ -1,21 +1,19 @@
-class StationCapabilities {
+class IotAssistantCapabilities {
 
 	constructor(sensorCapabilities, actuatorCapabilities, pinInterfaceCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected) {
 		if(!arguments.length) {
-			this.sensorCapabilities = new StationTransductorCapabilities([], [], []);
-			this.actuatorCapabilities = new StationTransductorCapabilities([], [], []);
-			this.pinInterfaceCapabilities = new StationPinInterfaceCapabilities("", false, [], [], "");
-			this.mqttInterfaceCapabilities = new StationMqttInterfaceCapabilities("", false, "");
-			this.chartCapabilities = new StationChartCapabilities([]);
-			this.cameraCapabilities = new StationCameraCapabilities([], []);
-			this.notificationsCapabilities = new StationNotificationsCapabilities([]);
-			this.ruleCapabilities = new StationRuleCapabilities([]);
+			this.sensorCapabilities = new IotAssistantTransductorCapabilities([], [], []);
+			this.actuatorCapabilities = new IotAssistantTransductorCapabilities([], [], []);
+			this.mqttInterfaceCapabilities = new IotAssistantMqttInterfaceCapabilities("", false, "");
+			this.chartCapabilities = new IotAssistantChartCapabilities([]);
+			this.cameraCapabilities = new IotAssistantCameraCapabilities([], []);
+			this.notificationsCapabilities = new IotAssistantNotificationsCapabilities([]);
+			this.ruleCapabilities = new IotAssistantRuleCapabilities([]);
 			this.telegramConnected = false;
         }
 		else {
 			this.sensorCapabilities = sensorCapabilities;
 			this.actuatorCapabilities = actuatorCapabilities;
-			this.pinInterfaceCapabilities = pinInterfaceCapabilities;
 			this.mqttInterfaceCapabilities = mqttInterfaceCapabilities;
 			this.telegramConnected = isTelegramConnected;
 			this.ruleCapabilities = ruleCapabilities;
@@ -61,48 +59,6 @@ class StationCapabilities {
 	getActuatorSupportedInterfaces() {
 		return this.actuatorCapabilities.getSupportedInterfaces();
 	}
-
-	getAvailableDigitalPinIds() {
-		return this.pinInterfaceCapabilities.getAvailableDigitalPinIds;
-	}
-
-
-	getAvailableAnalogPinIds() {
-		return this.pinInterfaceCapabilities.getAvailableAnalogPinIds;
-	}
-
-	isSensorPinAvailable(propertyName) {
-		var availablePins = this.getAvailablePinIds(propertyName, this.sensorCapabilities.getSupportedProperties());
-		return availablePins.length > 0;
-	}
-
-	getSensorAvailablePinIds(propertyName) {
-		return this.getAvailablePinIds(propertyName, this.sensorCapabilities.getSupportedProperties());
-	}
-
-	getAvailablePinIds(propertyName, properties) {
-		var isPropertyDigital = false;
-		properties.forEach(property => {
-			if (property.getName() === propertyName && property.isDigital()) {
-				isPropertyDigital = true;
-			}
-		})
-		return this.pinInterfaceCapabilities.getAvailablePinIds(isPropertyDigital);
-	}
-	
-	isActuatorPinAvailable(propertyName) {
-		var availablePins = this.getAvailablePinIds(propertyName, this.actuatorCapabilities.getSupportedProperties());
-		return availablePins.length > 0;
-	}
-
-	getActuatorAvailablePinIds(propertyName) {
-		return this.getAvailablePinIds(propertyName, this.actuatorCapabilities.getSupportedProperties());
-	}
-	
-	getPlatformPinInterfaceName() {
-		return this.pinInterfaceCapabilities.getPlatformPinInterfaceName();
-	}
-	
 	
 	getMqttInterfaceCapabilities() {
 		return this.mqttInterfaceCapabilities;
@@ -124,7 +80,7 @@ class StationCapabilities {
 		return this.cameraCapabilities;
 	}
 	
-	getStationSensorRulesCapabilities() {
+	getSensorRulesCapabilities() {
 	 	return this.ruleCapabilities;
 	}	
 	

@@ -1,8 +1,9 @@
 class Device{
 	
-	constructor(name, description, watchdogInterval, watchdogEnabled) {
+	constructor(name, description, active, watchdogInterval, watchdogEnabled) {
 		this.name = name;
 		this.description = description;
+		this.active = active;
 		this.watchdogInterval = watchdogInterval;
 		this.watchdogEnabled = watchdogEnabled;
 	}
@@ -13,6 +14,10 @@ class Device{
 	
 	getDescription () {
 		return this.description;
+	}
+	
+	isActive() {
+		return this.active;
 	}
 	
 	getWatchdogInterval () {

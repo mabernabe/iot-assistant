@@ -13,9 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
@@ -24,14 +21,13 @@ import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum
 @Table(name="sensor")
 public class Sensor extends Transductor {
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
 	private SensorValues values;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	protected SensorInterface sensorInterface;
 	
-	@ElementCollection
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private List<PropertyMeasuredEnum> propertiesMeasured;
 
@@ -39,9 +35,11 @@ public class Sensor extends Transductor {
 		super();
 	}
 
-	public Sensor(String name, String description, SensorInterface sensorInterface, WatchdogInterval watchdogInterval) {
+	public Sensor(String name, String description, List<PropertyMeasuredEnum> properties, SensorInterface sensorInterface, WatchdogInterval watchdogInterval) {
 		super(name, description, watchdogInterval);
 		this.sensorInterface = sensorInterface;
+		this.propertiesMeasured = properties;
+		this.values = null;
 	}
 
 	public SensorValues getValues() {
@@ -87,6 +85,7 @@ public class Sensor extends Transductor {
 		}
 		return properties;
 	}
+
 
 
 

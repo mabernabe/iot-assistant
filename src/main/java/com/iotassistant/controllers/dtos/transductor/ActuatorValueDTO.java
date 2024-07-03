@@ -17,7 +17,7 @@ public class ActuatorValueDTO extends TransductorValueDTO{
 	}
 
 	public void setPropertyActuated(PropertyActuatedEnum propertyActuated) {
-		this.property = propertyActuated.toStringWithUnit();
+		this.property = propertyActuated.getNameWithUnit();
 	}
 
 	public void setValue(String value) {

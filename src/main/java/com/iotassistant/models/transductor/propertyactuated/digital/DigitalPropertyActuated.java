@@ -54,7 +54,7 @@ public abstract class DigitalPropertyActuated  implements PropertyActuated{
 	}
 	
 	@Override
-	public String toStringWithUnit() {
+	public String getNameWithUnit() {
 		return this.getName();
 	}
 

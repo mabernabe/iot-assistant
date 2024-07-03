@@ -13,9 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
@@ -24,14 +21,13 @@ import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum
 @Table(name="actuator")
 public class Actuator extends Transductor{
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
 	private ActuatorValues values;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	ActuatorInterface actuatorInterface;
 	
-	@ElementCollection
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private List<PropertyActuatedEnum> propertiesActuated;
 	

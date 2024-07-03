@@ -1,18 +1,18 @@
 package com.iotassistant.controllers.dtos;
 
-public class StationDTO  {
+public class IoTAssistantDTO  {
 	
-	private StationCapabilitiesDTO capabilities;
+	private IotAssistantCapabilitiesDTO capabilities;
 	
 	private String platformName;
 
-	public StationDTO(StationCapabilitiesDTO capabilities, String platformName) {
+	public IoTAssistantDTO(IotAssistantCapabilitiesDTO capabilities, String platformName) {
 		super();
 		this.capabilities = capabilities;
 		this.platformName = platformName;
 	}
 
-	public StationCapabilitiesDTO getCapabilities() {
+	public IotAssistantCapabilitiesDTO getCapabilities() {
 		return capabilities;
 	}
 

@@ -1,7 +1,7 @@
-class Station {
+class IotAssistant {
 
-	constructor(stationCapabilities, platformName) {
-		this.capabilities = stationCapabilities;
+	constructor(iotAssistantCapabilities, platformName) {
+		this.capabilities = iotAssistantCapabilities;
 		this.platformName = platformName;
     }
 	

@@ -1,25 +1,28 @@
 package com.iotassistant.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.models.PlatformInterfacesFactory;
 import com.iotassistant.models.TelegramBotManager;
 import com.iotassistant.models.exceptions.SystemCantShutdownException;
-import com.iotassistant.models.pininterface.PinCapability;
-import com.iotassistant.models.pininterface.PinId;
-import com.iotassistant.models.pininterface.PlatformPinInterface;
 import com.iotassistant.models.transductor.Property;
 import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
 
 @Service
-public class StationService {
+public class IotAssistantService {
 	
-	private PlatformInterfacesFactory platformInterfacesFactory = PlatformInterfacesFactory.getInstance();
+	@Value("${mqtt.broker.url}")
+	private String mqttBroker;
+	
+	@Value("${mqtt.folderpersistence}")
+	private String mqttFolderPersistence;
+	
+	@Value("${mqtt.folderpersistence}")
+	private String platform;
 	
 	@Autowired
 	private TransductorsService transductorService;
@@ -39,39 +42,16 @@ public class StationService {
 	@Autowired
 	TelegramBotManager telegramBotManager;
 	
-	public List<String> getAvailableAnalogPins() {
-		assert(this.isInterfaceAvailable(TransductorInterfaceTypeEnum.PIN) == true);
-		PlatformPinInterface platformPinInterface = platformInterfacesFactory.getPlatformPinInterface() ;
-		return getPinIdsToString(platformPinInterface.getAvailablePins(PinCapability.ANALOG));
-	}
 	
-	private List<String> getPinIdsToString(List<PinId> pinIds) {
-		List<String> pinIdsString = new ArrayList<>();
-		for (PinId pinId: pinIds) {
-			pinIdsString.add(pinId.toString());
-		}
-		return pinIdsString;
-		
-	}
-
-	public List<String> getAvailableDigitalPins()  {
-		assert(this.isInterfaceAvailable(TransductorInterfaceTypeEnum.PIN) == true);
-		PlatformPinInterface platformPinInterface = platformInterfacesFactory.getPlatformPinInterface() ;
-		return getPinIdsToString(platformPinInterface.getAvailablePins(PinCapability.DIGITAL));
-	}
 	
-	public String getPlatformPinInterfaceName()  {
-		assert(this.isInterfaceAvailable(TransductorInterfaceTypeEnum.PIN) == true);
-		PlatformPinInterface platformPinInterface = platformInterfacesFactory.getPlatformPinInterface() ;
-		return platformPinInterface.getPlatformName();
-	}
+	
 
 	public List<Property> getSupportedSensorProperties() {
 		return transductorService.getSupportedPropertiesMeasured();
 	}
 
 	public List<String> getSupportedSensorInterfaces() {
-		return platformInterfacesFactory.getAvailableTransductorInterfaces();
+		return this.transductorService.getAvailableTransductorInterfaces();
 	}
 
 	public List<Property> getSupportedActuatorProperties() {
@@ -79,7 +59,7 @@ public class StationService {
 	}
 
 	public List<String> getSupportedActuatorInterfaces() {
-		return platformInterfacesFactory.getAvailableTransductorInterfaces();
+		return this.transductorService.getAvailableTransductorInterfaces();
 	}
 
 	public List<String> getSupportedNotificationTypes() {
@@ -91,15 +71,15 @@ public class StationService {
 	}
 	
 	public String getPlatformName() {
-		return platformInterfacesFactory.getPlatformName();
+		return this.platform;
 	}
 
 	public boolean isInterfaceAvailable(TransductorInterfaceTypeEnum interfaceType) {
-		return platformInterfacesFactory.isInterfaceAvailable(interfaceType);
+		return this.transductorService.getAvailableTransductorInterfaces().contains(interfaceType.toString());
 	}
 
-	public String getMqttInterfaceBroker() {
-		return platformInterfacesFactory.getMqttInterfaceBroker();
+	public String getMqttBroker() {
+		return this.mqttBroker;
 	}
 
 	public boolean isTelegramConnected() {
@@ -142,7 +122,6 @@ public class StationService {
 	public List<String> getSupportedSensorRulesTypes() {
 		return transductorService.getSupportedSensorRulesTypes();
 	}
-
 
 
 	public List<String> getSupportedSensorRulesTimeBetweenTriggers() {

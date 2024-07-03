@@ -27,7 +27,7 @@ public abstract class AnalogPropertyMeasured implements PropertyMeasured{
 	public abstract Integer getMinimumValue();
 	
 	@Override
-	public String toStringWithUnit() {
+	public String getNameWithUnit() {
 		String string = this.getName();
 		String unit = this.getUnit();
 		return string.concat(" ").concat(unit);

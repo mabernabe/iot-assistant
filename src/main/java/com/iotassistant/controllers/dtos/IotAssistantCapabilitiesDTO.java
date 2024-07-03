@@ -2,13 +2,11 @@ package com.iotassistant.controllers.dtos;
 
 import com.iotassistant.controllers.dtos.sensorrules.RuleCapabilitiesDTO;
 
-public class StationCapabilitiesDTO {
+public class IotAssistantCapabilitiesDTO {
 
 	TransductorCapabilitiesDTO sensorCapabilities;
 	
 	TransductorCapabilitiesDTO actuatorCapabilities;
-	
-	PinInterfaceCapabilitiesDTO pinInterfaceCapabilities;
 		
 	ChartCapabilitiesDTO chartCapabilities;
 	
@@ -22,14 +20,13 @@ public class StationCapabilitiesDTO {
 		
 	boolean isTelegramConnected;
 	
-	public StationCapabilitiesDTO(TransductorCapabilitiesDTO sensorCapabilities,
-			TransductorCapabilitiesDTO actuatorCapabilities, PinInterfaceCapabilitiesDTO pinInterfaceCapabilities,
+	public IotAssistantCapabilitiesDTO(TransductorCapabilitiesDTO sensorCapabilities,
+			TransductorCapabilitiesDTO actuatorCapabilities,
 			MQTTInterfaceCapabilitiesDTO mqttInterfaceCapabilities, ChartCapabilitiesDTO chartCapabilities, CameraCapabilitiesDTO cameraCapabilitiesDTO, 
 			NotificationsCapabilitiesDTO notificationsCapabilities, RuleCapabilitiesDTO ruleCapabilities, boolean isTelegramConnected) {
 		super();
 		this.sensorCapabilities = sensorCapabilities;
 		this.actuatorCapabilities = actuatorCapabilities;
-		this.pinInterfaceCapabilities = pinInterfaceCapabilities;
 		this.chartCapabilities = chartCapabilities;
 		this.cameraCapabilities = cameraCapabilitiesDTO;
 		this.notificationsCapabilities = notificationsCapabilities;
@@ -47,11 +44,6 @@ public class StationCapabilitiesDTO {
 
 	public TransductorCapabilitiesDTO getActuatorCapabilities() {
 		return actuatorCapabilities;
-	}
-
-
-	public PinInterfaceCapabilitiesDTO getPinInterfaceCapabilities() {
-		return pinInterfaceCapabilities;
 	}
 
 

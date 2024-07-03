@@ -24,7 +24,10 @@ public class AnalogHumidityPercentage extends AnalogPropertyMeasured{
 
 	@Override
 	public String getDescriptiveInformationFromValue(String value) {
-		return null;
+		float humidity = Float.parseFloat(value);
+		if(humidity < 30) { return "Too dry";}
+        else if(30 < humidity  && humidity < 50) {return "Optimal";}
+        else {return "Too humid";}
 	}
 
 	@Override

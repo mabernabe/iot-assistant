@@ -28,14 +28,14 @@
 					</div>
 					<div class="col-7 col-md-8">
 						<div class="numbers">
-							<p class="card-category">{{propertyMeasured.getShortName()}}</p>						
-							<div ng-switch="sensor.existMeasure(propertyMeasured.getName())">
-								<p ng-switch-when="false" class="card-title unknown-measure">Unknown</p>
+							<p class="card-category">{{propertyMeasured.getName()}}</p>						
+							<div ng-switch="sensor.isActive()">
+								<p ng-switch-when="false" class="card-title sensor-inactive">Unknown</p>
 								<div ng-switch-when="true">
-									<p data-alias="sensor.getMeasure(propertyMeasured.getName()) as measure">		
+									<p data-alias="sensor.getValue(propertyMeasured.getNameWithUnit()) as sensorValue">		
 										<div ng-if="!propertyMeasured.isDigital()">
-										<p class="card-title ">{{measure.getValueWithUnit()}} </p>
-										<p ng-if="sensor.existValueDescription(propertyMeasured.getName())" class="card-title measure-description"><span class="measure-severity-{{measure.getSeverity()}}"> {{measure.getValueDescription()}} </span></p>
+											<p class="card-title ">{{sensorValue.getStringWithUnit()}} </p>
+											<p ng-if="sensorValue.hasDescription()" class="card-title value-description"><span class="value-severity-{{sensorValue.getSeverity()}}"> {{sensorValue.getDescription()}} </span></p>
 										</div>
 										<p ng-if="propertyMeasured.isDigital()" class="card-title">
 											<button ng-if="measure.isHigh()" class="btn btn-warning" disabled>Active</button>
@@ -58,9 +58,9 @@
 							<button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetSensorsController.enableWatchdog(true, sensor.getName())" ng-disabled="!sensor.hasWatchdog()"></button>		
 						</span>
 				</div>
-				<div class="stats" ng-if="sensor.existMeasure(sensor.getProperties()[0].getName())" >
+				<div class="stats" ng-if="sensor.isActive()" >
 					<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>	
-                   {{sensor.getMeasuresDate()}}
+                   {{sensor.getValuesDate()}}
 				</div>
 			</div>
 		</div>

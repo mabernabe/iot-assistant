@@ -19,46 +19,25 @@ sensorAPIService.service ("SensorAPIService",function(RestAPIService, $q){
 	function getSensorsFromResponse(objectResponse) {
 		var sensors = [];
 		objectResponse.sensors.forEach(sensorObject => {
-			var measures = [];
-			sensorObject.measures.forEach(measureObject  => {
-				var measure = new Measure(measureObject.propertyMeasured, measureObject.value, measureObject.unit, measureObject.date, measureObject.severity, measureObject.valueDescription);
-				measures.push(measure);
-			})
 			var properties = [];
 			sensorObject.properties.forEach(propertyObject => {
-				var property = new Property(propertyObject.name, propertyObject.shortName, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
+				var property = new Property(propertyObject.name, propertyObject.unit, propertyObject.shortName, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
 				properties.push(property);
 			})
-			var sensor = new Sensor(measures, sensorObject.name, sensorObject.description, properties, sensorObject.watchdogInterval, sensorObject.watchdogEnabled);
+			sensorValues = null;		
+			if (sensorObject.active) {
+				let values = [];
+				for (const [propertyMeasured, value] of Object.entries(sensorObject.sensorValues.values)) {
+					values[propertyMeasured] = new SensorValue(value.string, value.unit, value.description, value.severity);
+				}
+				sensorValues = new SensorValues(sensorObject.sensorValues.date, values);
+			}
+			var sensor = new Sensor(sensorObject.name, sensorObject.description, sensorObject.active, sensorValues, properties, sensorObject.watchdogInterval, sensorObject.watchdogEnabled);
 			sensors.push(sensor);
 		})
 		return sensors;
 	}
 	
-	self.installPinInterfaceSensor = function (newSensor, sensorPinInterface) {
-		var deferred = $q.defer();
-		var newPinInterfaceSensor = createNewPinInterfaceSensorObjRequest(newSensor, sensorPinInterface);
-		RestAPIService.post(sensorsBaseUri.concat("pinInterfaceSensors/"), newPinInterfaceSensor).then(function(objectResponse) {
-			deferred.resolve(objectResponse);
-		}, function errorCallback(errorResponse) {
-			deferred.reject(errorResponse);
-		});
-		return deferred.promise ;
-	}
-	
-	function createNewPinInterfaceSensorObjRequest(newSensor, sensorPinInterface) {
-		var newPinInterfaceSensor = createSensorObjectRequest(newSensor);
-		newPinInterfaceSensor.pinsConfiguration = Object.fromEntries(sensorPinInterface.getPinsConfiguration());
-		return newPinInterfaceSensor;
-	}
-	
-	function createSensorObjectRequest(newSensor) {
-		var newSensorObject = {};
-		newSensorObject.name = newSensor.getName();
-		newSensorObject.description = newSensor.getDescription();
-		newSensorObject.watchdogInterval = newSensor.getWatchdogInterval();
-		return newSensorObject;
-	}
 	
 	self.installMQttInterfaceSensor = function (newSensor) {
 		var deferred = $q.defer();
@@ -75,6 +54,14 @@ sensorAPIService.service ("SensorAPIService",function(RestAPIService, $q){
 		var newMqttInterfaceSensor = createSensorObjectRequest(newSensor);
 		newMqttInterfaceSensor.propertiesMeasured = newSensor.getPropertiesNames();
 		return newMqttInterfaceSensor;
+	}
+	
+		function createSensorObjectRequest(newSensor) {
+		var newSensorObject = {};
+		newSensorObject.name = newSensor.getName();
+		newSensorObject.description = newSensor.getDescription();
+		newSensorObject.watchdogInterval = newSensor.getWatchdogInterval();
+		return newSensorObject;
 	}
 	
 	self.deleteSensor = function (name) {

@@ -6,13 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iotassistant.controllers.MQTTTransductorsController;
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.Property;
 import com.iotassistant.models.transductor.Sensor;
 import com.iotassistant.models.transductor.Transductor;
+import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
 import com.iotassistant.models.transductor.WatchdogInterval;
+import com.iotassistant.repositories.TransductorsJPARepository;
 
 
 @Service
@@ -23,6 +26,12 @@ public class TransductorsService implements TransductorVisitor{
 	
 	@Autowired
 	private ActuatorsService actuatorService;
+	
+	@Autowired
+	private TransductorsJPARepository transductorsJPARepository;
+	
+	@Autowired
+	private MQTTTransductorsController mqttTransductorsController;
 
 	
 	public List<Property> getSupportedPropertiesMeasured() {
@@ -30,8 +39,8 @@ public class TransductorsService implements TransductorVisitor{
 	}
 
 
-	public boolean existTransductor(String transductorName) {
-	    return sensorService.exist(transductorName) || actuatorService.existActuator(transductorName);
+	public boolean existTransductor(String name) {
+	    return transductorsJPARepository.findById(name).isPresent();
 	}
 
 	public List<Property> getSupportedPropertiesActuated() {
@@ -75,6 +84,15 @@ public class TransductorsService implements TransductorVisitor{
 	@Override
 	public void visit(Actuator actuator) {
 		actuatorService.setUpInterface(actuator);		
+	}
+
+
+	public List<String> getAvailableTransductorInterfaces() {
+		List<String> availableInterfaces = new ArrayList<String>();
+		if (mqttTransductorsController.isConnected()) {
+			availableInterfaces.add(TransductorInterfaceTypeEnum.MQTT.toString());
+		}
+		return availableInterfaces;
 	}
 
 }

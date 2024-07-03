@@ -5,36 +5,36 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.iotassistant.models.transductor.Property;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirCO2PPM;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirCOPPM;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirPressurePA;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirQualityIAQ;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirTVOCPPB;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAmbientLightLux;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogCurrentA;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogEncoder60U;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirCOPPM;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirCO2PPM;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogAirTVOCPPB;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogGeneric;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogGestureId;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogHeartRatePPM;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogHumidityPercentage;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogPowerW;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogPulseOxymeterPercentage;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogSoilMoistureRH;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogTemperatureCentigrades;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVI;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogVoltageV;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogGeneric;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogGestureId;
-import com.iotassistant.models.transductor.propertymeasured.analog.AnalogHeartRatePPM;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVA;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVB;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVI;
+import com.iotassistant.models.transductor.propertymeasured.analog.AnalogVoltageV;
+import com.iotassistant.models.transductor.propertymeasured.digital.DigitalButton;
+import com.iotassistant.models.transductor.propertymeasured.digital.DigitalDualButtonA;
+import com.iotassistant.models.transductor.propertymeasured.digital.DigitalDualButtonB;
 import com.iotassistant.models.transductor.propertymeasured.digital.DigitalFlame;
+import com.iotassistant.models.transductor.propertymeasured.digital.DigitalGeneric;
+import com.iotassistant.models.transductor.propertymeasured.digital.DigitalLimitSwitch;
 import com.iotassistant.models.transductor.propertymeasured.digital.DigitalMotion;
 import com.iotassistant.models.transductor.propertymeasured.digital.DigitalSound;
 import com.iotassistant.models.transductor.propertymeasured.digital.DigitalSteam;
 import com.iotassistant.models.transductor.propertymeasured.digital.DigitalTilt;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalGeneric;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalLimitSwitch;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalButton;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalDualButtonA;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalDualButtonB;
 
 
 public enum PropertyMeasuredEnum implements Property{
@@ -78,8 +78,13 @@ public enum PropertyMeasuredEnum implements Property{
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return propertyMeasured.getName();
+	}
+	
+	@Override
+	public String getNameWithUnit() {
+		return propertyMeasured.getNameWithUnit();
 	}
 
 	@Override
@@ -88,7 +93,7 @@ public enum PropertyMeasuredEnum implements Property{
 	}
 
 
-	public String getDescriptiveInformationFromValue(String value) {
+	public String getDescriptionFromValue(String value) {
 		return propertyMeasured.getDescriptiveInformationFromValue(value);
 	}
 
@@ -111,16 +116,11 @@ public enum PropertyMeasuredEnum implements Property{
 	public static PropertyMeasuredEnum getInstance(String string) {
 		PropertyMeasuredEnum propertyMeasuredEnum= null;
 		for (PropertyMeasuredEnum propertyMeasured : PropertyMeasuredEnum.values()) { 
-			if (propertyMeasured.toStringWithUnit()!= null && propertyMeasured.toStringWithUnit().equals(string)) {
+			if (propertyMeasured.toString().equals(string) || propertyMeasured.getNameWithUnit()!= null && propertyMeasured.getNameWithUnit().equals(string)) {
 				propertyMeasuredEnum = propertyMeasured;
-			}; 
+			}; 		
 		}
 		return propertyMeasuredEnum;
-	}
-
-	@Override
-	public String toStringWithUnit() {
-		return propertyMeasured.toStringWithUnit();
 	}
 
 	public Integer getMaximumValue() {
@@ -143,9 +143,6 @@ public enum PropertyMeasuredEnum implements Property{
 		}
 		return true;
 	}
-
-
-
 
 
 }

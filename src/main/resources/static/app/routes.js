@@ -7,7 +7,7 @@ var camerasRoute = '/cameras';
 
 
 
-stationsAssistant.config(function($routeProvider) {
+iotAssistant.config(function($routeProvider) {
 	$routeProvider
 	.when('/', {
 		templateUrl : 'sensors.html',
@@ -76,8 +76,8 @@ stationsAssistant.config(function($routeProvider) {
 	})
 	.when('/systemInformation', {
 		templateUrl : 'systemInformation.html',
-		controller : 'GetSystemInfoController',
-		controllerAs: "GetSystemInfoController",
+		controller : 'GetIotAssistantController',
+		controllerAs: "GetIotAssistantController",
 	})
 	.when('/systemPowerOff', {
 		templateUrl : 'systemPowerOff.html',

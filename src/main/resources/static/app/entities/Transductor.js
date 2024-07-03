@@ -1,7 +1,7 @@
 class Transductor extends Device{
 	
-	constructor(name, description, properties, watchdogInterval, watchdogEnabled) {
-		super(name, description, watchdogInterval, watchdogEnabled);
+	constructor(name, description, active, properties, watchdogInterval, watchdogEnabled) {
+		super(name, description, active, watchdogInterval, watchdogEnabled);
 		this.properties = properties;
 	}
 	

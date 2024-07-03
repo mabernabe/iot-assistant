@@ -16,6 +16,6 @@ public interface PropertyMeasured {
 
 	public Integer getMinimumValue() ;
 
-	public String toStringWithUnit();
+	public String getNameWithUnit();
 
 }

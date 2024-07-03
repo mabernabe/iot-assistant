@@ -3,9 +3,9 @@ package com.iotassistant.models.transductor;
 
 public interface Property {
 	
-	String toString();
+	String getName();
 	
-	String toStringWithUnit();
+	String getNameWithUnit();
 	
 	boolean isDigital();
 	
@@ -15,6 +15,6 @@ public interface Property {
 
 	Integer getMinimumValue();
 
-	String getDescriptiveInformationFromValue(String value);
+	String getDescriptionFromValue(String value);
 
 }

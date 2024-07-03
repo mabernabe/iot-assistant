@@ -4,6 +4,8 @@ public interface PropertyActuated {
 	
 	public String getName();
 	
+	public String getNameWithUnit();
+	
 	public boolean isDigital();
 	
 	public String getUnit();
@@ -13,7 +15,5 @@ public interface PropertyActuated {
 	public Integer getMaximumValue();
 
 	public Integer getMinimumValue() ;
-
-	public String toStringWithUnit();
 
 }

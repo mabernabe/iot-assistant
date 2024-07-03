@@ -25,10 +25,14 @@ public enum PropertyActuatedEnum implements Property{
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return propertyActuated.getName();
 	}
-
+	
+	@Override
+	public String getNameWithUnit() {
+		return propertyActuated.getNameWithUnit();
+	}
 
 	public boolean isDigital() {
 		return propertyActuated.isDigital();
@@ -43,17 +47,13 @@ public enum PropertyActuatedEnum implements Property{
 	public static PropertyActuatedEnum getInstance(String string) {
 		PropertyActuatedEnum propertyActuatedReturned= null;
 		for (PropertyActuatedEnum propertyActuated : PropertyActuatedEnum.values()) { 
-            if (propertyActuated.toStringWithUnit()!= null && propertyActuated.toStringWithUnit().equals(string)) {
+            if (propertyActuated.getNameWithUnit()!= null && propertyActuated.getNameWithUnit().equals(string)) {
             	return propertyActuatedReturned = propertyActuated;
             }; 
         }
 		return propertyActuatedReturned;
 	}
 
-	@Override
-	public String toStringWithUnit() {
-		return propertyActuated.toStringWithUnit();
-	}
 
 	public Integer getMaximumValue() {
 		return propertyActuated.getMaximumValue();
@@ -63,11 +63,8 @@ public enum PropertyActuatedEnum implements Property{
 		return propertyActuated.getMinimumValue();
 	}
 
-	public String getDescriptiveInformationFromValue(String value) {
-		// TODO Auto-generated method stub
+	public String getDescriptionFromValue(String value) {
 		return null;
 	}
-	
-	
 
 }

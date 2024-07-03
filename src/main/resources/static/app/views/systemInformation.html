@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-lg-3 col-md-6 col-sm-6" ng-repeat="transductorInterface in GetSystemInfoController.station.getTransductorInterfacesCapabilities()">
+	<div class="col-lg-3 col-md-6 col-sm-6" ng-repeat="transductorInterface in GetSystemInfoController.iotAssistant.getTransductorInterfacesCapabilities()">
 		<div class="card card-stats">
 			<div class="card-header ">
 				<h5 class="card-title">Interface {{transductorInterface.getInterfaceName()}}</h5>
@@ -24,10 +24,10 @@
 				<h5 class="card-title">Telegram</h5>
 			</div>
 			<div class="card-footer ">
-				<div class="legend" ng-if="GetSystemInfoController.station.isTelegramConnected()">
+				<div class="legend" ng-if="GetSystemInfoController.iotAssistant.isTelegramConnected()">
 					<i class="fa fa-circle text-success"></i> Available
 				</div>
-				<div class="legend" ng-if="!GetSystemInfoController.station.isTelegramConnected()">
+				<div class="legend" ng-if="!GetSystemInfoController.iotAssistant.isTelegramConnected()">
 					<i class="fa fa-circle text-danger"></i> Unavailable
 				</div>
 				<hr>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="card-footer ">
 				<div class="legend">
-					<i class="fa fa-circle text-gray"></i> Plattform: {{GetSystemInfoController.station.getPlatformName()}}
+					<i class="fa fa-circle text-gray"></i> Plattform: {{GetSystemInfoController.iotAssistant.getPlatformName()}}
 				</div>
 				<hr>
 			</div>

@@ -3,12 +3,13 @@ package com.iotassistant.controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.utils.Date;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 //Sensor Values JSON Example : { "values" : {"TEMPERATURE_CENTIGRADES" : "25"}, "date" : "2022-03-23 15:41:03"}
 public class MQTTSensorValuesDTO {
@@ -25,17 +26,19 @@ public class MQTTSensorValuesDTO {
 		deserialize(values, date);
 	}
 	
-	public boolean hasErrors() {
+	public boolean hasErrors(List<PropertyMeasuredEnum> sensorProperties) {
+		Set<PropertyMeasuredEnum> dtoProperties = this.sensorValues.getValues().keySet();
+		for (PropertyMeasuredEnum sensorProperty: sensorProperties) {
+			if (!dtoProperties.contains(sensorProperty)) {
+				errors.add(sensorProperty.getNameWithUnit() + " not found in DTO");
+			}
+		}
 		return !errors.isEmpty();
 	}
-
-
+	
 	private void deserialize(HashMap<String, String> values, String date)  {
 		if (!Date.isValidDate(date)) {
 			this.errors.add("Invalid date");
-		}
-		if (values.isEmpty()) {
-			this.errors.add("values is empty");
 		}
 		this.sensorValues = new SensorValues(new HashMap<PropertyMeasuredEnum, String>(), date);
 		for(String propertyString : values.keySet() ) {
@@ -54,7 +57,6 @@ public class MQTTSensorValuesDTO {
 
 
 	public SensorValues getValues() {
-		assert(!this.hasErrors());
 		return sensorValues;
 	}
 

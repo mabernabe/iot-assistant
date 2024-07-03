@@ -1,20 +1,25 @@
 class Property {
 	
-	constructor(name, shortName, isDigital, minimumValue, maximumValue) {
+	constructor(name, unit, isDigital, minimumValue, maximumValue) {
 		this.name = name;
-		this.shortName = shortName;
+		this.unit = unit;
 		this.digital = isDigital;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 	}
-
-	getShortName () {
-		return this.shortName;
-	}
-
+	
 	getName () {
 		return this.name;
 	}
+	
+	getUnit () {
+		return this.unit;
+	}
+
+	getNameWithUnit () {
+		return this.unit != null ? this.name + " " + this.unit : this.name;
+	}
+
 	
 	isDigital () {
 		return this.digital;

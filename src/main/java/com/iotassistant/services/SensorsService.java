@@ -2,7 +2,7 @@ package com.iotassistant.services;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,11 @@ public class SensorsService implements SensorInterfaceVisitor {
 	private MQTTTransductorsController mqttTransductorsController;
 	
 	public Sensor getSensorByName(String name) {
-		return sensorsRepository.getOne(name);
+		Optional<Sensor> sensor = sensorsRepository.findById(name);
+		if (sensor.isPresent()) {
+			return sensor.get();
+		}
+		return null;	
 	}
 	
 	public List<Sensor> getAllSensors() {
@@ -116,20 +120,18 @@ public class SensorsService implements SensorInterfaceVisitor {
 				mqttTransductorsController.unsubscribe(sensorMqttInterface);
 			}
 		} catch (MqttException e) {
-			this.getSensorByName(sensorMqttInterface.getTopic().getBaseTopic()).setActive(false);
+			this.getSensorByName(sensorMqttInterface.getTopic()).setActive(false);
 		}
 		
 	}
 
-	public void update(String topic, SensorValues values) {
-		Sensor sensor = this.getSensorByName(topic);
+	public void update(String name, SensorValues values) {
+		Sensor sensor = this.getSensorByName(name);
 		assert(sensor!=null);
 		sensor.setValues(values);
 		sensorsRepository.saveAndFlush(sensor);
 		sensorRulesService.applyRules(sensor.getName(), values);	
 		
 	}
-
-	
 
 }

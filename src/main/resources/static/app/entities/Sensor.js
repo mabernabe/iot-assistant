@@ -2,47 +2,21 @@
 
 class Sensor extends Transductor{
 	
-	constructor(measures, name, description, propertiesMeasured, watchdogInterval, watchdogEnabled) {
-		super(name, description, propertiesMeasured, watchdogInterval, watchdogEnabled);
-		this.measures = measures;
+	constructor(name, description, active, values, propertiesMeasured, watchdogInterval, watchdogEnabled) {
+		super(name, description, active, propertiesMeasured, watchdogInterval, watchdogEnabled);
+		this.values = values;
 	}
 	
 	
-	getMeasuresDate() {
-		return this.measures[0].getDate();
+	getValuesDate() {
+		return this.values.getDate();
+	}
+	
+	getValue(propertyMeasured) {
+		return this.values.getValue(propertyMeasured);
 	}
 	
 	
-	getMeasure(propertyMeasuredName) {
-		var measure = null;
-		var measures = this.measures;
-		for (var i = 0; i < measures.length; i++) {
-    		if(measures[i].getProperty() === propertyMeasuredName) {
-    			measure = measures[i];
-    		}
-		}
-		return measure;
-	}
-	
-	existMeasure(propertyMeasuredName) {
-	    return this.getMeasure(propertyMeasuredName) !== null;
-	}
-	
-	
-	getValueDescription(propertyMeasuredName) {
-		var valueDescription = null;
-		var measures = this.measures;
-		for (var i = 0; i < measures.length; i++) {
-    		if(measures[i].getProperty() === propertyMeasuredName) {
-    			valueDescription = measures[i].getValueDescription();
-    		}
-		}
-		return valueDescription;
-	}
-	
-	existValueDescription(propertyMeasuredName) {
-	    return this.getValueDescription(propertyMeasuredName) !== null;
-	}
 	
 }
 
