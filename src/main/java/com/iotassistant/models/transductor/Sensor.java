@@ -1,6 +1,5 @@
 package com.iotassistant.models.transductor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
@@ -27,7 +29,8 @@ public class Sensor extends Transductor {
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	protected SensorInterface sensorInterface;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Enumerated(EnumType.STRING)
 	private List<PropertyMeasuredEnum> propertiesMeasured;
 
@@ -77,14 +80,6 @@ public class Sensor extends Transductor {
 		return this.values.getDate();
 	}
 	
-	
-	public List<Property> getProperties() {
-		List<Property> properties = new ArrayList<Property>();
-		for (PropertyMeasuredEnum propertyMeasured : propertiesMeasured){
-			properties.add(propertyMeasured);
-		}
-		return properties;
-	}
 
 
 

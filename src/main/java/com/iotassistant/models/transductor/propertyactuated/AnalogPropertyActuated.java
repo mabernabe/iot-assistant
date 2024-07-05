@@ -1,6 +1,4 @@
-package com.iotassistant.models.transductor.propertyactuated.analog;
-
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuated;
+package com.iotassistant.models.transductor.propertyactuated;
 
 public abstract class AnalogPropertyActuated implements PropertyActuated{
 

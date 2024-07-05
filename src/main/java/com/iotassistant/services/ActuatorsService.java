@@ -79,7 +79,7 @@ public class ActuatorsService {
 		assert(existActuator(actuatorName));
 		boolean hasActuatorProperty = true;
 		Actuator actuator = getActuatorByName(actuatorName);
-		if (!actuator.getProperties().contains(propertyActuated)) {
+		if (!actuator.getPropertiesActuated().contains(propertyActuated)) {
 			hasActuatorProperty = false;
 		}
 		return hasActuatorProperty;

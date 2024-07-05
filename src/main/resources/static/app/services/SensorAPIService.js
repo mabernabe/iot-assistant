@@ -19,10 +19,10 @@ sensorAPIService.service ("SensorAPIService",function(RestAPIService, $q){
 	function getSensorsFromResponse(objectResponse) {
 		var sensors = [];
 		objectResponse.sensors.forEach(sensorObject => {
-			var properties = [];
-			sensorObject.properties.forEach(propertyObject => {
-				var property = new Property(propertyObject.name, propertyObject.unit, propertyObject.shortName, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
-				properties.push(property);
+			var propertiesMeasured = [];
+			sensorObject.propertiesMeasured.forEach(PropertyMeasuredObject => {
+				var propertyMeasured = new Property(PropertyMeasuredObject.name, PropertyMeasuredObject.unit, PropertyMeasuredObject.shortName, PropertyMeasuredObject.digital, PropertyMeasuredObject.minimumValue, PropertyMeasuredObject.maximumValue);
+				propertiesMeasured.push(propertyMeasured);
 			})
 			sensorValues = null;		
 			if (sensorObject.active) {
@@ -32,7 +32,7 @@ sensorAPIService.service ("SensorAPIService",function(RestAPIService, $q){
 				}
 				sensorValues = new SensorValues(sensorObject.sensorValues.date, values);
 			}
-			var sensor = new Sensor(sensorObject.name, sensorObject.description, sensorObject.active, sensorValues, properties, sensorObject.watchdogInterval, sensorObject.watchdogEnabled);
+			var sensor = new Sensor(sensorObject.name, sensorObject.description, sensorObject.active, sensorValues, propertiesMeasured, sensorObject.watchdogInterval, sensorObject.watchdogEnabled);
 			sensors.push(sensor);
 		})
 		return sensors;

@@ -51,7 +51,7 @@ public class IotAssistantService {
 	}
 
 	public List<String> getSupportedSensorInterfaces() {
-		return this.transductorService.getAvailableTransductorInterfaces();
+		return this.transductorService.getConnectedTransductorInterfaces();
 	}
 
 	public List<Property> getSupportedActuatorProperties() {
@@ -59,7 +59,7 @@ public class IotAssistantService {
 	}
 
 	public List<String> getSupportedActuatorInterfaces() {
-		return this.transductorService.getAvailableTransductorInterfaces();
+		return this.transductorService.getConnectedTransductorInterfaces();
 	}
 
 	public List<String> getSupportedNotificationTypes() {
@@ -74,8 +74,8 @@ public class IotAssistantService {
 		return this.platform;
 	}
 
-	public boolean isInterfaceAvailable(TransductorInterfaceTypeEnum interfaceType) {
-		return this.transductorService.getAvailableTransductorInterfaces().contains(interfaceType.toString());
+	public boolean isInterfaceConnected(TransductorInterfaceTypeEnum interfaceType) {
+		return this.transductorService.getConnectedTransductorInterfaces().contains(interfaceType.toString());
 	}
 
 	public String getMqttBroker() {
@@ -85,6 +85,11 @@ public class IotAssistantService {
 	public boolean isTelegramConnected() {
 		return telegramBotManager.connected();
 	}
+	
+	public String getBotUsername() {
+		return telegramBotManager.getBotUsername();
+	}
+	
 
 	public List<String> getSupportedChartTypes() {
 		return chartsService.getSupportedChartTypes();

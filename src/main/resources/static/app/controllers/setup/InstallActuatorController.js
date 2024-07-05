@@ -9,28 +9,16 @@ installActuatorController.controller ("InstallActuatorController",function($scop
 
 	self.transductorType = "Actuator";
 
-	self.getTransductorSupportedProperties = function(stationCapabilities) {
-		return stationCapabilities.getActuatorSupportedProperties();
+	self.getTransductorSupportedProperties = function(devicesCapabilities) {
+		return devicesCapabilities.getActuatorSupportedProperties();
 	}
 
-	self.getTransductorSupportedInterfaces = function(stationCapabilities) {
-		return stationCapabilities.getActuatorSupportedInterfaces();
+	self.getTransductorSupportedInterfaces = function(devicesCapabilities) {
+		return devicesCapabilities.getActuatorSupportedInterfaces();
 	}
 	
-	self.getTransductorSupportedWatchdogIntervals = function(stationCapabilities) {
-		return stationCapabilities.getActuatorSupportedWatchdogIntervals();
-	}
-
-	self.isTransductorPinAvailable = function(stationCapabilities, propertyMeasuredName) {
-		return stationCapabilities.isActuatorPinAvailable(propertyMeasuredName);
-	}
-
-	self.getTransductorAvailablePinIds = function(stationCapabilities, propertyMeasuredName) {
-		return stationCapabilities.getActuatorAvailablePinIds(propertyMeasuredName);
-	}
-
-	self.installPinInterfaceTransductor = function(actuator, actuatorPinInterface) {
-		return ActuatorAPIService.installPinInterfaceActuator(actuator, actuatorPinInterface);
+	self.getTransductorSupportedWatchdogIntervals = function(devicesCapabilities) {
+		return devicesCapabilities.getActuatorSupportedWatchdogIntervals();
 	}
 	
 	

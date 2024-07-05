@@ -1,7 +1,5 @@
 package com.iotassistant.models.transductor;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -36,7 +34,6 @@ public abstract class Transductor extends Device{
 	
 	public abstract void accept(TransductorVisitor transductorVisitor);
 
-	public abstract List<Property> getProperties();
 	
 	
 	

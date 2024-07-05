@@ -87,7 +87,7 @@ public class TransductorsService implements TransductorVisitor{
 	}
 
 
-	public List<String> getAvailableTransductorInterfaces() {
+	public List<String> getConnectedTransductorInterfaces() {
 		List<String> availableInterfaces = new ArrayList<String>();
 		if (mqttTransductorsController.isConnected()) {
 			availableInterfaces.add(TransductorInterfaceTypeEnum.MQTT.toString());

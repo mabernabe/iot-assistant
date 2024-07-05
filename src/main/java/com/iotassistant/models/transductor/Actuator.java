@@ -1,6 +1,5 @@
 package com.iotassistant.models.transductor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
@@ -27,7 +29,8 @@ public class Actuator extends Transductor{
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	ActuatorInterface actuatorInterface;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Enumerated(EnumType.STRING)
 	private List<PropertyActuatedEnum> propertiesActuated;
 	
@@ -57,15 +60,6 @@ public class Actuator extends Transductor{
 		
 	}
 
-	@Override
-	public List<Property> getProperties() {
-		List<Property> properties = new ArrayList<Property>();
-		for (PropertyActuatedEnum propertyActuated : propertiesActuated){
-			properties.add(propertyActuated);
-		}
-		return properties;
-	}
-
 
 	@Override
 	public void accept(TransductorVisitor transductorVisitor) {
@@ -82,6 +76,11 @@ public class Actuator extends Transductor{
 
 	public ActuatorValues getValues() {
 		return this.values;	
+	}
+
+
+	public List<PropertyActuatedEnum> getPropertiesActuated() {
+		return this.propertiesActuated;
 	}
 
 

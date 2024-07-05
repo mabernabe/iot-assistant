@@ -1,4 +1,4 @@
-class StationChartCapabilities {
+class ChartCapabilities {
 
 	constructor(supportedChartTypes, supportedChartIntervals, supportedSampleIntervals) {
 		this.supportedChartTypes = supportedChartTypes;

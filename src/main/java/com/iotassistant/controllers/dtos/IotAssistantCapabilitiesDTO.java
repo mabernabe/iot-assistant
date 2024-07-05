@@ -4,46 +4,29 @@ import com.iotassistant.controllers.dtos.sensorrules.RuleCapabilitiesDTO;
 
 public class IotAssistantCapabilitiesDTO {
 
-	TransductorCapabilitiesDTO sensorCapabilities;
-	
-	TransductorCapabilitiesDTO actuatorCapabilities;
+	DevicesCapabilitiesDTO devicesCapabilities;
 		
 	ChartCapabilitiesDTO chartCapabilities;
-	
-	CameraCapabilitiesDTO cameraCapabilities;
 	
 	RuleCapabilitiesDTO ruleCapabilities;
 	
 	NotificationsCapabilitiesDTO notificationsCapabilities;
 	
-	MQTTInterfaceCapabilitiesDTO mqttInterfaceCapabilities;
-		
-	boolean isTelegramConnected;
+	ServersStatusDTO serversStatusDTO;
 	
-	public IotAssistantCapabilitiesDTO(TransductorCapabilitiesDTO sensorCapabilities,
-			TransductorCapabilitiesDTO actuatorCapabilities,
-			MQTTInterfaceCapabilitiesDTO mqttInterfaceCapabilities, ChartCapabilitiesDTO chartCapabilities, CameraCapabilitiesDTO cameraCapabilitiesDTO, 
-			NotificationsCapabilitiesDTO notificationsCapabilities, RuleCapabilitiesDTO ruleCapabilities, boolean isTelegramConnected) {
+	public IotAssistantCapabilitiesDTO(DevicesCapabilitiesDTO devicesCapabilities, ServersStatusDTO serversStatusDTO, 
+			ChartCapabilitiesDTO chartCapabilities, NotificationsCapabilitiesDTO notificationsCapabilities, RuleCapabilitiesDTO ruleCapabilities) {
 		super();
-		this.sensorCapabilities = sensorCapabilities;
-		this.actuatorCapabilities = actuatorCapabilities;
+		this.devicesCapabilities = devicesCapabilities;
 		this.chartCapabilities = chartCapabilities;
-		this.cameraCapabilities = cameraCapabilitiesDTO;
 		this.notificationsCapabilities = notificationsCapabilities;
-		this.mqttInterfaceCapabilities = mqttInterfaceCapabilities;
-		this.isTelegramConnected = isTelegramConnected;
+		this.serversStatusDTO = serversStatusDTO;
 		this.ruleCapabilities = ruleCapabilities;
 		
 	}
 
-
-	public TransductorCapabilitiesDTO getSensorCapabilities() {
-		return sensorCapabilities;
-	}
-
-
-	public TransductorCapabilitiesDTO getActuatorCapabilities() {
-		return actuatorCapabilities;
+	public DevicesCapabilitiesDTO getDevicesCapabilities() {
+		return devicesCapabilities;
 	}
 
 
@@ -52,16 +35,9 @@ public class IotAssistantCapabilitiesDTO {
 	}
 
 
-
-	public CameraCapabilitiesDTO getCameraCapabilities() {
-		return cameraCapabilities;
+	public ServersStatusDTO getServersStatusDTO() {
+		return serversStatusDTO;
 	}
-
-
-	public MQTTInterfaceCapabilitiesDTO getMqttInterfaceCapabilities() {
-		return mqttInterfaceCapabilities;
-	}
-
 
 	public RuleCapabilitiesDTO getRuleCapabilities() {
 		return ruleCapabilities;
@@ -73,16 +49,5 @@ public class IotAssistantCapabilitiesDTO {
 		return notificationsCapabilities;
 	}
 
-
-	public boolean isTelegramConnected() {
-		return isTelegramConnected;
-	}
-
-
-
-	
-	
-	
-	
 
 }

@@ -1,32 +1,32 @@
-var installCameraController= angular.module('installCameraController', ['stationAPIService', 'cameraAPIService', 'sweetAlertService']);
+var installCameraController= angular.module('installCameraController', ['iotAssistantAPIService', 'cameraAPIService', 'sweetAlertService']);
 
 
-installCameraController.controller("InstallCameraController",function(StationAPIService, CameraAPIService, SweetAlertService, $route){
+installCameraController.controller("InstallCameraController",function(IotAssistantAPIService, CameraAPIService, SweetAlertService, $route){
 
 	var self = this;
 	
 	self.camera = new HTTPCamera();
 	
-	self.stationCameraCapabilities = new StationCameraCapabilities();
+	self.cameraCapabilities = new CameraCapabilities();
 	
 	var initializeController = function() {
-		getStationCameraCapabilities();
+		getCameraCapabilities();
 	}
 	
-	var getStationCameraCapabilities = function(){
-		StationAPIService.getCapabilities()
-		.then(function(stationCapabilities) { 
-			self.stationCameraCapabilities = stationCapabilities.getCameraCapabilities();
+	var getCameraCapabilities = function(){
+		IotAssistantAPIService.getCapabilities()
+		.then(function(cameraCapabilities) { 
+			self.cameraCapabilities = cameraCapabilities.getCameraCapabilities();
 		},function() {
 		})
 	}
 	
 	self.getSupportedInterfaces = function() {
-		return self.stationCameraCapabilities.getSupportedInterfaces();
+		return self.cameraCapabilities.getSupportedInterfaces();
 	}
 	
 	self.getSupportedWatchdogIntervals = function() {
-		return self.stationCameraCapabilities.getSupportedWatchdogIntervals();
+		return self.cameraCapabilities.getSupportedWatchdogIntervals();
 	}
 	
 	self.setCameraInterfaceType = function(interfaceType) {

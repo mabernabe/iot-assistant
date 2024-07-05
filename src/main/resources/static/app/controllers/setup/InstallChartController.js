@@ -1,7 +1,7 @@
-var installChartController= angular.module('installChartController', ['stationAPIService', 'sensorAPIService', 'sweetAlertService', 'chartAPIService']);
+var installChartController= angular.module('installChartController', ['iotAssistantAPIService', 'sensorAPIService', 'sweetAlertService', 'chartAPIService']);
 
 
-installChartController.controller("InstallChartController",function(StationAPIService, SensorAPIService, ChartAPIService, SweetAlertService, $route){
+installChartController.controller("InstallChartController",function(IotAssistantAPIService, SensorAPIService, ChartAPIService, SweetAlertService, $route){
 
 	var self = this;
 	
@@ -9,9 +9,9 @@ installChartController.controller("InstallChartController",function(StationAPISe
 	
 	self.sensors = [];
 	
-	self.stationSupportedChartTypes = [];
+	self.supportedChartTypes = [];
 	
-	self.stationSupportedChartIntervals = [];
+	self.supportedChartIntervals = [];
 	
 	self.sensorPropertiesOptions = [];
 
@@ -25,12 +25,12 @@ installChartController.controller("InstallChartController",function(StationAPISe
 		})
 	}
 	
-	var getStationCapabilities = function(){
-		StationAPIService.getCapabilities()
-		.then(function(stationCapabilities) { 
-			self.stationSupportedChartTypes = stationCapabilities.getSupportedChartTypes();
-			self.stationSupportedChartIntervals = stationCapabilities.getSupportedChartIntervals();
-			self.stationSupportedSampleIntervals = stationCapabilities.getSupportedSampleIntervals();
+	var getChartCapabilities = function(){
+		IotAssistantAPIService.getChartCapabilities()
+		.then(function(chartCapabilities) { 
+			self.supportedChartTypes = chartCapabilities.getSupportedChartTypes();
+			self.supportedChartIntervals = chartCapabilities.getSupportedChartIntervals();
+			self.supportedSampleIntervals = chartCapabilities.getSupportedSampleIntervals();
 		},function() {
 		})
 	}
@@ -63,6 +63,6 @@ installChartController.controller("InstallChartController",function(StationAPISe
 	
 	getSensors(); 
 	
-	getStationCapabilities();
+	getIotAssistantCapabilities();
 
 });

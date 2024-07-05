@@ -1,7 +1,7 @@
-var installSensorRuleController= angular.module('installSensorRuleController', ['stationAPIService', 'sweetAlertService', 'actuatorAPIService', 'sensorAPIService', 'sensorRuleAPIService']);
+var installSensorRuleController= angular.module('installSensorRuleController', ['iotAssistantAPIService', 'sweetAlertService', 'actuatorAPIService', 'sensorAPIService', 'sensorRuleAPIService']);
 
 
-installSensorRuleController.controller ("InstallSensorRuleController", function($scope, $controller, StationAPIService, SensorAPIService, SweetAlertService, $route){
+installSensorRuleController.controller ("InstallSensorRuleController", function($scope, $controller, IotAssistantAPIService, SensorAPIService, SweetAlertService, $route){
 
 	var self = this;
 	
@@ -21,13 +21,13 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 	
 	self.installCameraSensorRuleController = $controller('InstallCameraSensorRuleController', {$scope: $scope.$new()});
 	
-	self.stationSensorRulesCapabilities;
+	self.sensorRulesCapabilities;
 	
-	self.stationSupportedNotificationsTypes;
+	self.supportedNotificationsTypes;
 	
 	var initializeController = function() {
 		getSensors();
-		getStationSensorRulesCapabilities();
+		getSensorRulesCapabilities();
 	}
 	
 
@@ -40,11 +40,11 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 		})
 	}
 	
-	var getStationSensorRulesCapabilities = function(){
-		StationAPIService.getCapabilities()
-		.then(function(stationCapabilities) { 
-			self.stationSensorRulesCapabilities = stationCapabilities.getStationSensorRulesCapabilities();
-			self.stationSupportedNotificationsTypes = stationCapabilities.getSupportedNotificationsTypes();
+	var getSensorRulesCapabilities = function(){
+		IotAssistantAPIService.getRulesCapabilities()
+		.then(function(rulesCapabilities) { 
+			self.sensorRulesCapabilities = rulesCapabilities.getSensorRulesCapabilities();
+			self.supportedNotificationsTypes = rulesCapabilities.SupportedNotificationsTypes();
 		},function() {
 		})
 	}

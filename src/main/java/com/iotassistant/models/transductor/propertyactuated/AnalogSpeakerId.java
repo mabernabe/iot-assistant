@@ -1,4 +1,4 @@
-package com.iotassistant.models.transductor.propertyactuated.analog;
+package com.iotassistant.models.transductor.propertyactuated;
 
 public class AnalogSpeakerId extends AnalogPropertyActuated{
 	

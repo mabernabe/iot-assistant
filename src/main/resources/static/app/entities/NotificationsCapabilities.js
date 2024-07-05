@@ -1,4 +1,4 @@
-class StationNotificationsCapabilities {
+class NotificationsCapabilities {
 
 	constructor(supportedNotificationsTypes) {
 		this.supportedNotificationsTypes = supportedNotificationsTypes;

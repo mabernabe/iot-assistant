@@ -1,4 +1,4 @@
-package com.iotassistant.models.transductor.propertyactuated.digital;
+package com.iotassistant.models.transductor.propertyactuated;
 
 public class DigitalSocket extends DigitalPropertyActuated{
 	

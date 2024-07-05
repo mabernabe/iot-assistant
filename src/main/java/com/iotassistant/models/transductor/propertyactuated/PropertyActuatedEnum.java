@@ -5,10 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.iotassistant.models.transductor.Property;
-import com.iotassistant.models.transductor.propertyactuated.digital.DigitalLED;
-import com.iotassistant.models.transductor.propertyactuated.digital.DigitalRelay;
-import com.iotassistant.models.transductor.propertyactuated.digital.DigitalSocket;
-import com.iotassistant.models.transductor.propertyactuated.analog.AnalogSpeakerId;
 
 public enum PropertyActuatedEnum implements Property{
 	DIGITAL_LED(new DigitalLED()),

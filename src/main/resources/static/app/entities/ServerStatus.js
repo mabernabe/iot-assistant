@@ -1,22 +1,23 @@
-class TransductorInterfaceCapabilities {
+class ServerStatus{
 
-	constructor(interfaceName, available, details) {
+	constructor(interfaceName, connected, details) {
 		this.interfaceName = interfaceName;
-		this.available = available;
+		this.connected = connected;
 		this.details = details;
 	}
-
+	
 	getInterfaceName() {
 		return this.interfaceName;
 	}
 
-	isAvailable() {
-		return this.available;
+	isConnected() {
+		return this.connected;
 	}
 	
 	getDetails() {
 		return this.details;
 	}
+	
 
 
 }

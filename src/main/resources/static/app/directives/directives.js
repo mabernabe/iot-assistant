@@ -1,4 +1,4 @@
-stationsAssistant.directive('includeReplace', function () {
+iotAssistant.directive('includeReplace', function () {
     return {
         require: 'ngInclude',
         restrict: 'A', /* optional */
@@ -8,7 +8,7 @@ stationsAssistant.directive('includeReplace', function () {
     };
 });
 
-stationsAssistant.directive('alias', function() {
+iotAssistant.directive('alias', function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -20,7 +20,7 @@ stationsAssistant.directive('alias', function() {
     };
 });
 
-stationsAssistant.directive('setLinkActiveOnRouteChange', ['$location', function ($location) {
+iotAssistant.directive('setLinkActiveOnRouteChange', ['$location', function ($location) {
 	return {
 		restrict: 'A', //use as attribute 
 		replace: false,

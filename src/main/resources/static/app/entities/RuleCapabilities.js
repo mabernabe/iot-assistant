@@ -1,4 +1,4 @@
-class StationRuleCapabilities {
+class RuleCapabilities {
 
 	constructor(supportedSensorRulesTypes, supportedSensorRulesTimeBetweenTriggers) {
 		this.supportedSensorRulesTypes = supportedSensorRulesTypes;

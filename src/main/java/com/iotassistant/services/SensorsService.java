@@ -93,7 +93,7 @@ public class SensorsService implements SensorInterfaceVisitor {
 		assert(exist(sensorName));
 		boolean hasSensorProperty = true;
 		Sensor sensor = getSensorByName(sensorName);
-		if (!sensor.getProperties().contains(propertyObserved)) {
+		if (!sensor.getPropertiesMeasured().contains(propertyObserved)) {
 			hasSensorProperty = false;
 		}
 		return hasSensorProperty;

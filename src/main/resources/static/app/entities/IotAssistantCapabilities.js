@@ -1,19 +1,17 @@
 class IotAssistantCapabilities {
 
-	constructor(sensorCapabilities, actuatorCapabilities, pinInterfaceCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected) {
+	constructor(devicesCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected) {
 		if(!arguments.length) {
-			this.sensorCapabilities = new IotAssistantTransductorCapabilities([], [], []);
-			this.actuatorCapabilities = new IotAssistantTransductorCapabilities([], [], []);
-			this.mqttInterfaceCapabilities = new IotAssistantMqttInterfaceCapabilities("", false, "");
-			this.chartCapabilities = new IotAssistantChartCapabilities([]);
-			this.cameraCapabilities = new IotAssistantCameraCapabilities([], []);
-			this.notificationsCapabilities = new IotAssistantNotificationsCapabilities([]);
-			this.ruleCapabilities = new IotAssistantRuleCapabilities([]);
+			this.devicesCapabilities = new devicesCapabilities([], [], []);
+			this.mqttInterfaceCapabilities = new MqttInterfaceCapabilities("", false, "");
+			this.chartCapabilities = new ChartCapabilities([]);
+			this.cameraCapabilities = new CameraCapabilities([], []);
+			this.notificationsCapabilities = new NotificationsCapabilities([]);
+			this.ruleCapabilities = new RuleCapabilities([]);
 			this.telegramConnected = false;
         }
 		else {
-			this.sensorCapabilities = sensorCapabilities;
-			this.actuatorCapabilities = actuatorCapabilities;
+			this.devicesCapabilities = devicesCapabilities;
 			this.mqttInterfaceCapabilities = mqttInterfaceCapabilities;
 			this.telegramConnected = isTelegramConnected;
 			this.ruleCapabilities = ruleCapabilities;
@@ -24,40 +22,32 @@ class IotAssistantCapabilities {
 	}
 
 	getTransductorInterfacesCapabilities() {
-		return [this.pinInterfaceCapabilities, this.mqttInterfaceCapabilities];
+		return [this.mqttInterfaceCapabilities];
 	}
 
 
 	getSensorSupportedProperties() {
-		return this.sensorCapabilities.getSupportedProperties();
+		return this.devicesCapabilities.getSensorSupportedProperties();
 	}
 	
 	getSensorSupportedInterfaces() {
-		return this.sensorCapabilities.getSupportedInterfaces();
+		return this.devicesCapabilities.getSensorSupportedInterfaces();
 	}
 	
 	getSensorSupportedWatchdogIntervals() {
-		return this.sensorCapabilities.getSupportedWatchdogIntervals();
-	}
-	
-	getSensorSupportedRulesTypes() {
-		return this.sensorCapabilities.getSupportedRulesTypes();
-	}
-	
-	getSupportedSensorRuleTimeBetweenTriggers() {
-		return this.sensorCapabilities.getSensorRuleTimeBetweenTriggers();
+		return this.devicesCapabilities.getSensorSupportedWatchdogIntervals();
 	}
 	
 	getActuatorSupportedWatchdogIntervals() {
-		return this.actuatorCapabilities.getSupportedWatchdogIntervals();
+		return this.devicesCapabilities.getActuatorSupportedWatchdogIntervals();
 	}
 	
 	getActuatorSupportedProperties() {
-		return this.actuatorCapabilities.getSupportedProperties();
+		return this.devicesCapabilities.getActuatorSupportedProperties();
 	}
 
 	getActuatorSupportedInterfaces() {
-		return this.actuatorCapabilities.getSupportedInterfaces();
+		return this.devicesCapabilities.getActuatorSupportedInterfaces();
 	}
 	
 	getMqttInterfaceCapabilities() {
