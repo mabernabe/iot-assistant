@@ -31,4 +31,10 @@ class SensorValue {
 		return this.severity;
 	}
 	
+	isHigh() {
+		return this.string === "true";	
+	}
+	
+	
+	
 }

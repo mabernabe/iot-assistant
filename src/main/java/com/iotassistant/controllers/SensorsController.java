@@ -46,20 +46,21 @@ public class SensorsController {
 		return new ResponseEntity<>(new SensorDTO(sensor), HttpStatus.OK);
 		
 	}	
-	
-
-	private ResponseEntity<?> newSensor(Sensor sensor) throws TransductorInterfaceException {
-		if (transductorsService.existTransductor(sensor.getName())) {
-			ErrorDTO transductorExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
-			return new ResponseEntity<>(transductorExistError, transductorExistError.getHttpStatus());
-		}
-	    sensorsService.newSensor(sensor);
-	    return new ResponseEntity<>(null, HttpStatus.CREATED);	
-	}
 
 	@RequestMapping(value="/mqttInterfaceSensors/", method = RequestMethod.POST)
 	public ResponseEntity<?> newMqttInterfaceSensor(@RequestBody NewMqttInterfaceSensorDTO newMqttInterfaceSensorDTO) throws TransductorInterfaceException  {
-		return this.newSensor(newMqttInterfaceSensorDTO.getSensor());	
+		Sensor sensor = newMqttInterfaceSensorDTO.getSensor();
+		if (transductorsService.existTransductor(sensor.getName())) {
+			ErrorDTO deviceExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
+			return new ResponseEntity<>(deviceExistError, deviceExistError.getHttpStatus());
+		}
+		if (sensor.getPropertiesMeasured() == null || sensor.getPropertiesMeasured().isEmpty()) {
+			ErrorDTO hasNotPropertiesError = ErrorDTO.TRANSDUCTOR_HAS_NOT_PROPERTIES;
+			hasNotPropertiesError.formatMessage("Sensor");
+			return new ResponseEntity<>(hasNotPropertiesError, hasNotPropertiesError.getHttpStatus());
+		}
+	    sensorsService.newSensor(sensor);
+	    return new ResponseEntity<>(null, HttpStatus.CREATED);	
 	}
 	
 

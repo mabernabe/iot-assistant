@@ -25,7 +25,7 @@
 						title="Select" data-header="Select properties"
 						data-size="7">
 						<option
-							ng-repeat="property in InstallTransductorController.getSupportedProperties()"
+							ng-repeat="property in InstallTransductorController.supportedProperties"
 							ng-value="property.getNameWithUnit()">{{property.getNameWithUnit()}}</option>
 					</select>
 					                   
@@ -40,7 +40,7 @@
 				<div class="col-lg-10">
 					<div class="row">
 						<div class="col-sm"
-							ng-repeat="supportedInterface in InstallTransductorController.getSupportedInterfaces()">
+							ng-repeat="supportedInterface in InstallTransductorController.supportedInterfaces">
 							<div class="choice" data-toggle="wizard-radio" ng-class="{active : supportedInterface === InstallTransductorController.transductor.getInterfaceType()}" 
 							ng-click="InstallTransductorController.setTransductorInterface(supportedInterface)">
 								<input type="radio"   name="selectedInterface" ng-value="supportedInterface">
@@ -50,7 +50,7 @@
 								<h6>{{supportedInterface}}</h6>
 							</div>
 						</div>
-						<div ng-if="!InstallTransductorController.getSupportedInterfaces().length" class="col-sm" style="text-align: center;">
+						<div ng-if="!InstallTransductorController.supportedInterfaces.length" class="col-sm" style="text-align: center;">
 							<h3 class="description">No available interfaces</h3>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 	                        data-dropup-auto="false" data-max-options="1" 
 							title="Select" data-header="Wacthdog interval" data-size="12">
 								<option
-									ng-repeat="watchdogIntervalOption in InstallTransductorController.getSupportedWatchdogIntervals()"
+									ng-repeat="watchdogIntervalOption in InstallTransductorController.supportedWatchdogIntervals"
 									ng-value="watchdogIntervalOption">{{watchdogIntervalOption}}</option>
 								<option style="display:none" value=""></option>
 	                        </select>

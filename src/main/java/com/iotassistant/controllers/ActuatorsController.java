@@ -39,19 +39,20 @@ public class ActuatorsController {
 	}
 
 	
-	private ResponseEntity<?> newActuator(Actuator actuator) throws TransductorInterfaceException {
+	@RequestMapping(value="/mqttInterfaceActuators/", method = RequestMethod.POST)
+	public ResponseEntity<?> newMqttInterfaceActuator(@RequestBody NewMqttInterfaceActuatorDTO newMqttInterfaceActuatorDTO) throws TransductorInterfaceException {
+		Actuator actuator = newMqttInterfaceActuatorDTO.getActuator();
 		if (transductorsService.existTransductor(actuator.getName())) {
 			ErrorDTO transductorExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
 			return new ResponseEntity<>(transductorExistError, transductorExistError.getHttpStatus());
 		}
+		if (actuator.getPropertiesActuated() == null || actuator.getPropertiesActuated().isEmpty()) {
+			ErrorDTO hasNotPropertiesError = ErrorDTO.TRANSDUCTOR_HAS_NOT_PROPERTIES;
+			hasNotPropertiesError.formatMessage("Actuator");
+			return new ResponseEntity<>(hasNotPropertiesError, hasNotPropertiesError.getHttpStatus());
+		}
 		actuatorsService.newActuator(actuator);
 	    return new ResponseEntity<>(null, HttpStatus.CREATED);	
-	}
-	
-	@RequestMapping(value="/mqttInterfaceActuators/", method = RequestMethod.POST)
-	public ResponseEntity<?> newMqttInterfaceActuator(@RequestBody NewMqttInterfaceActuatorDTO newMqttInterfaceActuatorDTO) throws TransductorInterfaceException {
-		return this.newActuator(newMqttInterfaceActuatorDTO.getActuator());
-		
 	}
 	
 	

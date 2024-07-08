@@ -38,8 +38,8 @@
 											<p ng-if="sensorValue.hasDescription()" class="card-title value-description"><span class="value-severity-{{sensorValue.getSeverity()}}"> {{sensorValue.getDescription()}} </span></p>
 										</div>
 										<p ng-if="propertyMeasured.isDigital()" class="card-title">
-											<button ng-if="measure.isHigh()" class="btn btn-warning" disabled>Active</button>
-											<button ng-if="!measure.isHigh()" class="btn" disabled>Inactive</button>
+											<button ng-if="sensorValue.isHigh()" class="btn btn-warning" disabled>Active</button>
+											<button ng-if="!sensorValue.isHigh()" class="btn" disabled>Inactive</button>
 										</p>									
 								</div>
 							</div>	

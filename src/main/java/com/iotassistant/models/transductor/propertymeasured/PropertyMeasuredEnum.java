@@ -114,13 +114,12 @@ public enum PropertyMeasuredEnum implements Property{
 
 	@JsonCreator
 	public static PropertyMeasuredEnum getInstance(String string) {
-		PropertyMeasuredEnum propertyMeasuredEnum= null;
 		for (PropertyMeasuredEnum propertyMeasured : PropertyMeasuredEnum.values()) { 
 			if (propertyMeasured.toString().equals(string) || propertyMeasured.getNameWithUnit()!= null && propertyMeasured.getNameWithUnit().equals(string)) {
-				propertyMeasuredEnum = propertyMeasured;
+				return propertyMeasured;
 			}; 		
 		}
-		return propertyMeasuredEnum;
+		return null;
 	}
 
 	public Integer getMaximumValue() {

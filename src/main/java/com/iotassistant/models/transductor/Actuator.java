@@ -40,9 +40,10 @@ public class Actuator extends Transductor{
 	}
 
 
-	public Actuator(String name, String description, ActuatorInterface actuatorInterface, WatchdogInterval watchdogInterval) {
+	public Actuator(String name, String description, List<PropertyActuatedEnum> propertiesActuated, ActuatorInterface actuatorInterface, WatchdogInterval watchdogInterval) {
 		super(name, description, watchdogInterval);
 		this.actuatorInterface = actuatorInterface;
+		this.propertiesActuated = propertiesActuated;
 	}
 
 	

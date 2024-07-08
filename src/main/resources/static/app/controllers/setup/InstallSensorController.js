@@ -8,26 +8,21 @@ installSensorController.controller ("InstallSensorController",function($scope, $
 	angular.extend(this, $controller('InstallTransductorController', {$scope: $scope}));
 
 	self.transductorType = "Sensor";
-
-	self.getTransductorSupportedProperties = function(devicesCapabilities) {
-		return devicesCapabilities.getSensorSupportedProperties();
-	}
-
-	self.getTransductorSupportedInterfaces = function(devicesCapabilities) {
-		return devicesCapabilities.getSensorSupportedInterfaces();
-	}
 	
-	self.getTransductorSupportedWatchdogIntervals = function(devicesCapabilities) {
-		return devicesCapabilities.getSensorSupportedWatchdogIntervals();
+	var fetchSensorCapabilities = function(){
+		self.iotAssistantAPIService.getDevicesCapabilities()
+		.then(function(devicesCapabilities) { 
+			self.supportedProperties = devicesCapabilities.getSensorSupportedProperties();
+			self.supportedWatchdogIntervals = devicesCapabilities.getSensorSupportedWatchdogIntervals();
+			self.supportedInterfaces = devicesCapabilities.getSensorSupportedInterfaces();
+		},function() {
+		})
 	}
 	
 	self.installMQttInterfaceTransductor = function(transductor) {
 		return SensorAPIService.installMQttInterfaceSensor(transductor);
 	}
-
-	self.getTransductorType= function() {
-		return self.transductorType;
-	}
-
+	
+	fetchSensorCapabilities();
 
 });

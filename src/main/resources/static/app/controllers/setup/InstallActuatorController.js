@@ -8,27 +8,21 @@ installActuatorController.controller ("InstallActuatorController",function($scop
 	angular.extend(this, $controller('InstallTransductorController', {$scope: $scope}));
 
 	self.transductorType = "Actuator";
-
-	self.getTransductorSupportedProperties = function(devicesCapabilities) {
-		return devicesCapabilities.getActuatorSupportedProperties();
-	}
-
-	self.getTransductorSupportedInterfaces = function(devicesCapabilities) {
-		return devicesCapabilities.getActuatorSupportedInterfaces();
-	}
 	
-	self.getTransductorSupportedWatchdogIntervals = function(devicesCapabilities) {
-		return devicesCapabilities.getActuatorSupportedWatchdogIntervals();
+	var fetchActuatorCapabilities = function(){
+		self.iotAssistantAPIService.getDevicesCapabilities()
+		.then(function(devicesCapabilities) { 
+			self.supportedProperties = devicesCapabilities.getActuatorSupportedProperties();
+			self.supportedWatchdogIntervals = devicesCapabilities.getActuatorSupportedWatchdogIntervals();
+			self.supportedInterfaces = devicesCapabilities.getActuatorSupportedInterfaces();
+		},function() {
+		})
 	}
-	
 	
 	self.installMQttInterfaceTransductor = function(actuator) {
 		return ActuatorAPIService.installMQttInterfaceActuator(actuator);
 	}
 
-	self.getTransductorType= function() {
-		return self.transductorType;
-	}
-
+	fetchActuatorCapabilities();
 
 });

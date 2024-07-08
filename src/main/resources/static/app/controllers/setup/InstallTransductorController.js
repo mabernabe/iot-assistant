@@ -4,35 +4,14 @@ installTransductorController.controller ("InstallTransductorController",function
 
 	var self = this;
 
-	self.devicesCapabilities;
-
 	self.transductor = new NewTransductor();
-
-	var getTransductorsCapabilities = function(){
-		IotAssistantAPIService.getDevicesCapabilities()
-		.then(function(devicesCapabilities) { 
-			self.devicesCapabilities = devicesCapabilities;
-		},function() {
-		})
-	}
-
-	self.getSupportedProperties = function() {
-		return this.getTransductorSupportedProperties(self.devicesCapabilities);
-	}
 	
-	self.getSupportedWatchdogIntervals = function() {
-		return this.getTransductorSupportedWatchdogIntervals(self.devicesCapabilities);
-	}
-
-	self.getSupportedInterfaces = function() {
-		return this.getTransductorSupportedInterfaces(self.devicesCapabilities);
-	}
+	self.iotAssistantAPIService = IotAssistantAPIService;
 
 	self.setTransductorInterface = function(interfaceType) {
 		self.transductor.setInterfaceType(interfaceType);
 	}
 
-	
 	self.allRequired = function() {
 		var interfaceDataIsSet = false;
 		if (self.transductor.interfaceTypeIsMQTT()) {
@@ -42,13 +21,12 @@ installTransductorController.controller ("InstallTransductorController",function
 		return (transductorDataIsSet && interfaceDataIsSet) 
 	}
 
-
 	self.installAndRedirect = function(withSwal) {
 		var promise;
 		if (self.transductor.interfaceTypeIsMQTT()) {
 			promise = this.installMQttInterfaceTransductor(self.transductor);
 		}
-		self.transductorType =  this.getTransductorType();
+		self.transductorType =  this.transductorType;
 		promise.then(function() {
 			var redirectURL = $route.current.$$route.paramExample;
 			SweetAlertService.showSuccessAlertAndRedirect(self.transductorType + ' installed with success', redirectURL);
@@ -56,9 +34,5 @@ installTransductorController.controller ("InstallTransductorController",function
 			SweetAlertService.showErrorAlert(self.transductorType + ' installation failed' + ' \n Error: ' + error.data.message);
 		})
 	}
-
-
-	getTransductorsCapabilities();
-
 
 });

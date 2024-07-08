@@ -41,13 +41,12 @@ public enum PropertyActuatedEnum implements Property{
 
 	@JsonCreator
 	public static PropertyActuatedEnum getInstance(String string) {
-		PropertyActuatedEnum propertyActuatedReturned= null;
 		for (PropertyActuatedEnum propertyActuated : PropertyActuatedEnum.values()) { 
-            if (propertyActuated.getNameWithUnit()!= null && propertyActuated.getNameWithUnit().equals(string)) {
-            	return propertyActuatedReturned = propertyActuated;
+            if (propertyActuated.toString().equals(string) || propertyActuated.getNameWithUnit()!= null && propertyActuated.getNameWithUnit().equals(string)) {
+            	return propertyActuated;
             }; 
         }
-		return propertyActuatedReturned;
+		return null;
 	}
 
 

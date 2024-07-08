@@ -22,7 +22,7 @@ public class NewMqttInterfaceActuatorDTO extends NewTransductorRequestDTO{
 
 	public Actuator getActuator() {
 		ActuatorInterface actuatorMqttInterface = new ActuatorMqttInterface(super.getName());
-		return new Actuator(super.getName(), super.getDescription(), actuatorMqttInterface, WatchdogInterval.getInstance(super.getWatchdogInterval()));
+		return new Actuator(super.getName(), super.getDescription(), propertiesActuated, actuatorMqttInterface, WatchdogInterval.getInstance(super.getWatchdogInterval()));
 
 	}
 
