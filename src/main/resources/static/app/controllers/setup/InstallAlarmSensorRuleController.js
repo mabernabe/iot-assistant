@@ -1,27 +1,27 @@
-var installSensorRulesModule= angular.module('installSensorRuleController');
+let installSensorRulesModule= angular.module('installSensorRuleController');
 
 installSensorRulesModule.controller ("InstallAlarmSensorRuleController", function(SensorRuleAPIService){
 	
-	var self = this;
+	let self = this;
 
 	
 	self.allRequired = function(sensorRuleSettings) {
-		var alarmSensorRule = buildAlarmSensorRule(sensorRuleSettings);
+		let alarmSensorRule = buildAlarmSensorRule(sensorRuleSettings);
 		return alarmSensorRule.isValid();
 	}
 	
-	var buildAlarmSensorRule = function(sensorRuleSettings) {
-		var sensorMeasureThresholdSettings = sensorRuleSettings.sensorMeasureThresholdSettings;
-		var sensorRuleType = sensorRuleSettings.sensorRuleType;
-		var timeBetweenTriggers = sensorRuleSettings.timeBetweenTriggers;
-		var notificationType = sensorRuleSettings.notificationType;
+	let buildAlarmSensorRule = function(sensorRuleSettings) {
+		let sensorMeasureThresholdSettings = sensorRuleSettings.sensorMeasureThresholdSettings;
+		let sensorRuleType = sensorRuleSettings.sensorRuleType;
+		let timeBetweenTriggers = sensorRuleSettings.timeBetweenTriggers;
+		let notificationType = sensorRuleSettings.notificationType;
 		return new AlarmSensorRule(sensorMeasureThresholdSettings, sensorRuleType, null, true, timeBetweenTriggers, notificationType);
 	}
 	
 
 	self.install = function(sensorRuleSettings) {
-		var alarmSensorRule = buildAlarmSensorRule(sensorRuleSettings);
-		var promise = SensorRuleAPIService.installAlarmSensorRule(alarmSensorRule);	
+		let alarmSensorRule = buildAlarmSensorRule(sensorRuleSettings);
+		let promise = SensorRuleAPIService.installAlarmSensorRule(alarmSensorRule);	
 		return promise;
 	}
 

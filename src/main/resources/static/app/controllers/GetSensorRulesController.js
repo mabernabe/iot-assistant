@@ -15,16 +15,6 @@ getSensorRulesController.controller("GetSensorRulesController",function($scope, 
 	
 	self.triggerActuatorSensorRules = [];
 	
-	var initializeController = function() {
-		getSensorRules();   
-		var refreshRulesInterval = $interval(getSensorRules, RULES_REFRESH_TIME_MS);
-		$scope.$on('$destroy',function(){
-			if(refreshRulesInterval) {
-				$interval.cancel(refreshRulesInterval);
-			}
-		})
-	}
-
 	getSensorRules = function(){		
 		SensorRuleAPIService.getSensorRules()
 		.then(function(sensorRules) { 
@@ -38,6 +28,18 @@ getSensorRulesController.controller("GetSensorRulesController",function($scope, 
 			self.triggerActuatorSensorRules = [];
 		})
 	}
+	
+	var initializeController = function() {
+		getSensorRules();   
+		var refreshRulesInterval = $interval(getSensorRules, RULES_REFRESH_TIME_MS);
+		$scope.$on('$destroy',function(){
+			if(refreshRulesInterval) {
+				$interval.cancel(refreshRulesInterval);
+			}
+		})
+	}	
+	
+	initializeController();
 
 	
 	self.enableSensorRule = function(enable, ruleId){
@@ -62,11 +64,6 @@ getSensorRulesController.controller("GetSensorRulesController",function($scope, 
 		}
 		SweetAlertService.showWarningWithCallback('Are you sure you want to delete sensor rule ' + sensorRuleId + '?', deleteRule);
 	}
-	
-	
-	initializeController();
-
-	
 	
 
 });

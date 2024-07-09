@@ -1,9 +1,9 @@
-var installSensorRuleController= angular.module('installSensorRuleController', ['iotAssistantAPIService', 'sweetAlertService', 'actuatorAPIService', 'sensorAPIService', 'sensorRuleAPIService']);
+let installSensorRuleController= angular.module('installSensorRuleController', ['iotAssistantAPIService', 'sweetAlertService', 'actuatorAPIService', 'sensorAPIService', 'sensorRuleAPIService']);
 
 
 installSensorRuleController.controller ("InstallSensorRuleController", function($scope, $controller, IotAssistantAPIService, SensorAPIService, SweetAlertService, $route){
 
-	var self = this;
+	let self = this;
 	
 	self.sensors = [];
 	
@@ -25,13 +25,7 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 	
 	self.supportedNotificationsTypes;
 	
-	var initializeController = function() {
-		getSensors();
-		getSensorRulesCapabilities();
-	}
-	
-
-	var getSensors = function(){
+	let fetchSensors = function(){
 		SensorAPIService.getSensors()
 		.then(function(sensors) { 
 			self.sensors = sensors;
@@ -40,7 +34,7 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 		})
 	}
 	
-	var getSensorRulesCapabilities = function(){
+	let fetchSensorRulesCapabilities = function(){
 		IotAssistantAPIService.getRulesCapabilities()
 		.then(function(rulesCapabilities) { 
 			self.sensorRulesCapabilities = rulesCapabilities.getSensorRulesCapabilities();
@@ -48,6 +42,13 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 		},function() {
 		})
 	}
+	
+	let initializeController = function() {
+		fetchSensors();
+		fetchSensorRulesCapabilities();
+	}
+	
+	initializeController();
 	
 	self.updateSensorPropertiesOptions = function(){		
 		self.sensors.forEach(sensor  => {
@@ -57,30 +58,29 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 		})
 	}
 	
-	
 	self.setSensorRuleType = function(sensorRuleType) {
 		self.sensorRuleSettings.sensorRuleType = sensorRuleType;
 	}
 	
 	
 	self.isSensorPropertySelected = function() {
-		var sensorProperty = self.sensorRuleSettings.sensorMeasureThresholdSettings.sensorProperty;
+		let sensorProperty = self.sensorRuleSettings.sensorMeasureThresholdSettings.sensorProperty;
 		return sensorProperty != null && 'name' in sensorProperty;
 	}
 	
 	self.allRequired = function() {
 		sensorRuleType = self.sensorRuleSettings.sensorRuleType;
-		var isSensorRuleTypeSelected = sensorRuleType != null;
-		var allRequired = false;
+		let isSensorRuleTypeSelected = sensorRuleType != null;
+		let allRequired = false;
 		if (isSensorRuleTypeSelected) {
-			var sensorRuleController = getSensorRuleController();			
+			let sensorRuleController = getSensorRuleController();			
 			allRequired = sensorRuleController.allRequired(self.sensorRuleSettings);
 		}	
 		return allRequired;
 	}
 	
 	
-	var getSensorRuleController = function() {
+	let getSensorRuleController = function() {
 		let sensorRuleTypeSelected = self.sensorRuleSettings.sensorRuleType
 		if (sensorRuleTypeSelected == AlarmSensorRule.alarmSensorRuleType) {
 				return self.installAlarmSensorRuleController;
@@ -111,18 +111,14 @@ installSensorRuleController.controller ("InstallSensorRuleController", function(
 
 	self.installAndRedirect = function() {
 		sensorRuleType = self.sensorRuleSettings.sensorRuleType;
-		var sensorRuleController = getSensorRuleController(sensorRuleType);	
-		var promise = sensorRuleController.install(self.sensorRuleSettings);
+		let sensorRuleController = getSensorRuleController(sensorRuleType);	
+		let promise = sensorRuleController.install(self.sensorRuleSettings);
 		promise.then(function() {
-			var redirectURL = $route.current.$$route.paramExample;
+			let redirectURL = $route.current.$$route.paramExample;
 			SweetAlertService.showSuccessAlertAndRedirect('Sensor rule installed with success', redirectURL);
 		},function(error) {
 			SweetAlertService.showErrorAlert('Sensor rule installation failed' + ' \n Error: ' + error.data.message);
 		})		
 	}
-	
-	initializeController();
-	
-	
 
 });

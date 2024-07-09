@@ -1,21 +1,16 @@
-var installSensorRulesModule= angular.module('installSensorRuleController');
+let installSensorRulesModule= angular.module('installSensorRuleController');
 
 installSensorRulesModule.controller ("InstallTriggerActuatorSensorRuleController", function(SensorRuleAPIService, ActuatorAPIService){
 	
-	var self = this;
+	let self = this;
 	
 	self.actuators = [];
 
 	self.actuatorSettings = new ActuatorSetValueSettings();
 	
 	self.actuatorPropertiesOptions =  [];
-				
 	
-	var initializeController = function() {
-		getActuators();
-	}
-	
-	var getActuators = function(){
+	let fetchActuators = function(){
 		ActuatorAPIService.getActuators()
 		.then(function(actuators) { 
 			self.actuators = actuators;	
@@ -24,8 +19,14 @@ installSensorRulesModule.controller ("InstallTriggerActuatorSensorRuleController
 		})
 	}
 	
+	let initializeController = function() {
+		fetchActuators();
+	}
+	
+	initializeController();
+	
 	self.isActuatorPropertySelected = function() {
-		var actuatorProperty = self.actuatorSettings.actuatorProperty;
+		let actuatorProperty = self.actuatorSettings.actuatorProperty;
 		return actuatorProperty != null && 'name' in actuatorProperty;
 	}
 	
@@ -38,26 +39,24 @@ installSensorRulesModule.controller ("InstallTriggerActuatorSensorRuleController
 	}
 	
 	self.allRequired = function(sensorRuleSettings) {
-		var triggerActuatorSensorRule = buildTriggerActuatorSensorRule(sensorRuleSettings);
+		let triggerActuatorSensorRule = buildTriggerActuatorSensorRule(sensorRuleSettings);
 		return triggerActuatorSensorRule.isValid();
 	}
 	
-	var buildTriggerActuatorSensorRule = function(sensorRuleSettings) {
-		var sensorMeasureThresholdSettings = sensorRuleSettings.sensorMeasureThresholdSettings;
-		var sensorRuleType = sensorRuleSettings.sensorRuleType;
-		var timeBetweenTriggers = sensorRuleSettings.timeBetweenTriggers;
-		var notificationType = sensorRuleSettings.notificationType;
-		var enabled = true;
+	let buildTriggerActuatorSensorRule = function(sensorRuleSettings) {
+		let sensorMeasureThresholdSettings = sensorRuleSettings.sensorMeasureThresholdSettings;
+		let sensorRuleType = sensorRuleSettings.sensorRuleType;
+		let timeBetweenTriggers = sensorRuleSettings.timeBetweenTriggers;
+		let notificationType = sensorRuleSettings.notificationType;
+		let enabled = true;
 		return new TriggerActuatorSensorRule(sensorMeasureThresholdSettings, sensorRuleType, null, enabled, timeBetweenTriggers, notificationType, self.actuatorSettings);
 	}
 	
 
 	self.install = function(sensorRuleSettings) {
-		var triggerActuatorSensorRule =  buildTriggerActuatorSensorRule(sensorRuleSettings);
-		var promise = SensorRuleAPIService.installTriggerActuatorSensorRule(triggerActuatorSensorRule);	
+		let triggerActuatorSensorRule =  buildTriggerActuatorSensorRule(sensorRuleSettings);
+		let promise = SensorRuleAPIService.installTriggerActuatorSensorRule(triggerActuatorSensorRule);	
 		return promise;
 	}
-	
-	initializeController();
 
 });

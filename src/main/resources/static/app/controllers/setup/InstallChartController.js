@@ -1,9 +1,9 @@
-var installChartController= angular.module('installChartController', ['iotAssistantAPIService', 'sensorAPIService', 'sweetAlertService', 'chartAPIService']);
+let installChartController= angular.module('installChartController', ['iotAssistantAPIService', 'sensorAPIService', 'sweetAlertService', 'chartAPIService']);
 
 
 installChartController.controller("InstallChartController",function(IotAssistantAPIService, SensorAPIService, ChartAPIService, SweetAlertService, $route){
 
-	var self = this;
+	let self = this;
 	
 	self.chart = new SensorChart();
 	
@@ -15,8 +15,7 @@ installChartController.controller("InstallChartController",function(IotAssistant
 	
 	self.sensorPropertiesOptions = [];
 
-
-	var getSensors = function(){
+	let fetchSensors = function(){
 		SensorAPIService.getSensors()
 		.then(function(sensors) { 
 			self.sensors = sensors;
@@ -25,7 +24,7 @@ installChartController.controller("InstallChartController",function(IotAssistant
 		})
 	}
 	
-	var getChartCapabilities = function(){
+	let fetchChartCapabilities = function(){
 		IotAssistantAPIService.getChartCapabilities()
 		.then(function(chartCapabilities) { 
 			self.supportedChartTypes = chartCapabilities.getSupportedChartTypes();
@@ -34,6 +33,13 @@ installChartController.controller("InstallChartController",function(IotAssistant
 		},function() {
 		})
 	}
+	
+	let initializeController = function() {
+		fetchSensors();
+		fetchChartCapabilities();
+	}
+	
+	initializeController(); 
 	
 	self.updateSensorPropertiesOptions = function(selectedSensorName){
 		self.sensors.forEach(sensor  => {
@@ -54,15 +60,11 @@ installChartController.controller("InstallChartController",function(IotAssistant
 
 	self.installAndRedirect = function() {
 		ChartAPIService.installChart(self.chart).then(function() {
-			var redirectURL = $route.current.$$route.paramExample;
+			let redirectURL = $route.current.$$route.paramExample;
 			SweetAlertService.showSuccessAlertAndRedirect('Chart installed with success', redirectURL);
 		},function(error) {
 			SweetAlertService.showErrorAlert('Chart installation failed' + ' \n Error: ' + error.data.message);
 		})
 	}
-	
-	getSensors(); 
-	
-	getIotAssistantCapabilities();
 
 });

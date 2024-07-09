@@ -2,13 +2,13 @@ var getTransductorsController= angular.module('getTransductorsControllers', ['se
 
 getTransductorsController.controller ("GetSensorsController",function($scope, SensorAPIService, $interval, SweetAlertService){
 
-	const SENSORS_REFRESH_TIME_MS = 2000 ;
+	const FETCH_SENSORS_REFRESH_TIME_MS = 2000 ;
 
 	var self = this;
 
 	self.sensors = [];
 
-	self.getSensors = function(){
+	let fetchSensors = function(){
 		SensorAPIService.getSensors()
 		.then(function(sensors) { 
 			self.sensors = sensors;	
@@ -16,6 +16,18 @@ getTransductorsController.controller ("GetSensorsController",function($scope, Se
 			self.sensors = [];
 		})
 	}
+	
+	let initializeController = function() {
+		fetchSensors();   
+		let fetchSensorsInterval = $interval(fetchSensors, FETCH_SENSORS_REFRESH_TIME_MS);
+		$scope.$on('$destroy',function(){
+			if(fetchSensorsInterval) {
+				$interval.cancel(fetchSensorsInterval);
+			}
+		})
+	}
+
+	initializeController();		
 	
 	self.deleteSensor = function(sensorName){
 		function deleteSensor() {
@@ -37,17 +49,7 @@ getTransductorsController.controller ("GetSensorsController",function($scope, Se
 		},function() {
 			SweetAlertService.showErrorAlert('Watchdog could not be ' + enableString);
 		})
-	}
-	
-	self.getSensors();   
-	
-	var intervalIstance = $interval(self.getSensors, SENSORS_REFRESH_TIME_MS);
-
-	$scope.$on('$destroy',function(){
-		if(intervalIstance) {
-			$interval.cancel(intervalIstance);
-		}
-	})
+	} 
 
 });
 
@@ -55,13 +57,13 @@ getTransductorsController.controller ("GetSensorsController",function($scope, Se
 
 getTransductorsController.controller ("GetActuatorsController",function($scope, ActuatorAPIService, SweetAlertService, $interval){
 
-	const ACTUATORS_REFRESH_TIME_MS = 2000 ;
+	const FETCH_ACTUATORS_REFRESH_TIME_MS = 2000 ;
 	
 	var self = this;
 
 	self.actuators = [];
 
-	self.getActuators = function(){
+	let fetchActuators = function(){
 		ActuatorAPIService.getActuators()
 		.then(function(actuators) { 
 			self.actuators = actuators;	
@@ -69,14 +71,18 @@ getTransductorsController.controller ("GetActuatorsController",function($scope, 
 			self.actuators = [];
 		})
 	}
-	self.getActuators();   
-	var intervalIstance = $interval(self.getActuators, ACTUATORS_REFRESH_TIME_MS);
-
-	$scope.$on('$destroy',function(){
-		if(intervalIstance) {
-			$interval.cancel(intervalIstance);
-		}
-	})
+	
+	let initializeController = function() {
+		fetchActuators();   
+		let fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
+		$scope.$on('$destroy',function(){
+			if(fetchActuatorsInterval) {
+				$interval.cancel(fetchActuatorsInterval);
+			}
+		})
+	}
+	
+	initializeController();  
 
 	self.setActuatorDigitalValue = function(actuator, value){
 		$interval.cancel(intervalIstance);
@@ -84,7 +90,7 @@ getTransductorsController.controller ("GetActuatorsController",function($scope, 
 		value.setValue(newValue);
 		ActuatorAPIService.setActuatorValue(actuator, value)
 		.finally(function() { 
-			intervalIstance = $interval(self.getActuators, ACTUATORS_REFRESH_TIME_MS);
+			intervalIstance = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 		})
 	}
 	
@@ -97,7 +103,7 @@ getTransductorsController.controller ("GetActuatorsController",function($scope, 
 		value.setValue(newValue.toString());
 		ActuatorAPIService.setActuatorValue(actuator, value)
 		.finally(function() { 
-			intervalIstance = $interval(self.getActuators, ACTUATORS_REFRESH_TIME_MS);
+			intervalIstance = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 		})
 	}
 	

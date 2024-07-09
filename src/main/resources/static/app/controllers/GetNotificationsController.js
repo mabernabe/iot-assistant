@@ -1,25 +1,15 @@
-var getNotificationsController= angular.module('getNotificationsController', ['notificationAPIService', 'sweetAlertService']);
+let getNotificationsController= angular.module('getNotificationsController', ['notificationAPIService', 'sweetAlertService']);
 
 
 getNotificationsController.controller("GetNotificationsController",function($scope, NotificationAPIService, SweetAlertService, $interval){
 	
 	const NOTIFICATIONS_REFRESH_TIME_MS = 2000 ;
 
-	var self = this;
+	let self = this;
 
 	self.notifications = [];
-
-	var initializeController = function() {
-		getNotificationsSortedByDate();   
-		var refreshNotificationsInterval = $interval(getNotificationsSortedByDate, NOTIFICATIONS_REFRESH_TIME_MS);
-		$scope.$on('$destroy',function(){
-			if(refreshNotificationsInterval) {
-				$interval.cancel(refreshNotificationsInterval);
-			}
-		})
-	}
 	
-	var getNotificationsSortedByDate = function(){
+	let fetchNotifications = function(){
 		NotificationAPIService.getNotifications()
 		.then(function(notifications) { 
 			self.notifications = notifications.getAllNotificationsSortedByDate();	
@@ -27,6 +17,18 @@ getNotificationsController.controller("GetNotificationsController",function($sco
 			self.notifications = [];
 		})
 	}
+	
+		let initializeController = function() {
+		fetchNotifications();   
+		let refreshNotificationsInterval = $interval(fetchNotifications, NOTIFICATIONS_REFRESH_TIME_MS);
+		$scope.$on('$destroy',function(){
+			if(refreshNotificationsInterval) {
+				$interval.cancel(refreshNotificationsInterval);
+			}
+		})
+	}
+	
+	initializeController();
 	
 	self.deleteAllNotifications = function(){
 		function deleteNotifications() {
@@ -47,12 +49,5 @@ getNotificationsController.controller("GetNotificationsController",function($sco
 			SweetAlertService.showErrorAlert('Notification deletion failed');
 		})	
 	}
-	
-	initializeController();
-		
-	
-
-	
-	
 
 });

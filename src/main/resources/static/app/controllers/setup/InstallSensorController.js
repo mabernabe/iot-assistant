@@ -1,15 +1,15 @@
-var installSensorController= angular.module('installSensorController', ['installTransductorController', 'sensorAPIService']);
+let installSensorController= angular.module('installSensorController', ['installTransductorController', 'sensorAPIService']);
 
 
 installSensorController.controller ("InstallSensorController",function($scope, $controller, SensorAPIService){
 
-	var self = this;
+	let self = this;
 	
 	angular.extend(this, $controller('InstallTransductorController', {$scope: $scope}));
 
 	self.transductorType = "Sensor";
 	
-	var fetchSensorCapabilities = function(){
+	let fetchSensorCapabilities = function(){
 		self.iotAssistantAPIService.getDevicesCapabilities()
 		.then(function(devicesCapabilities) { 
 			self.supportedProperties = devicesCapabilities.getSensorSupportedProperties();
@@ -19,10 +19,14 @@ installSensorController.controller ("InstallSensorController",function($scope, $
 		})
 	}
 	
+	let initializeController = function() {
+		fetchSensorCapabilities();
+	}
+	
+	initializeController();
+	
 	self.installMQttInterfaceTransductor = function(transductor) {
 		return SensorAPIService.installMQttInterfaceSensor(transductor);
 	}
-	
-	fetchSensorCapabilities();
 
 });

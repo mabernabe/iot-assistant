@@ -1,15 +1,15 @@
-var installActuatorController= angular.module('installActuatorController', ['installTransductorController', 'actuatorAPIService']);
+let installActuatorController= angular.module('installActuatorController', ['installTransductorController', 'actuatorAPIService']);
 
 installActuatorController.controller ("InstallActuatorController",function($scope, $controller, ActuatorAPIService){
 
 
-	var self = this;
+	let self = this;
 	
 	angular.extend(this, $controller('InstallTransductorController', {$scope: $scope}));
 
 	self.transductorType = "Actuator";
 	
-	var fetchActuatorCapabilities = function(){
+	let fetchActuatorCapabilities = function(){
 		self.iotAssistantAPIService.getDevicesCapabilities()
 		.then(function(devicesCapabilities) { 
 			self.supportedProperties = devicesCapabilities.getActuatorSupportedProperties();
@@ -19,10 +19,14 @@ installActuatorController.controller ("InstallActuatorController",function($scop
 		})
 	}
 	
+	let initializeController = function() {
+		fetchActuatorCapabilities();
+	}
+	
+	initializeController();
+	
 	self.installMQttInterfaceTransductor = function(actuator) {
 		return ActuatorAPIService.installMQttInterfaceActuator(actuator);
 	}
-
-	fetchActuatorCapabilities();
 
 });

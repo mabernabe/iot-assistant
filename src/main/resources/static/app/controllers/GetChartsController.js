@@ -1,13 +1,13 @@
-var getChartsController= angular.module('getChartsController', ['chartAPIService', 'sweetAlertService', 'chartsDrawService']);
+let getChartsController= angular.module('getChartsController', ['chartAPIService', 'sweetAlertService', 'chartsDrawService']);
 
 
 getChartsController.controller("GetChartsController",function($scope, $timeout, ChartAPIService, SweetAlertService, ChartsDrawService, $interval){
 
-	const CHARTS_REFRESH_TIME_MS = 5000 ;
+	const FETCH_CHARTS_REFRESH_TIME_MS = 5000 ;
 	
 	const CHARTS_REDRAW_REFRESH_TIME_MS = 120000 ;
 
-	var self = this;
+	let self = this;
 
 	self.charts = [];
 	
@@ -15,28 +15,28 @@ getChartsController.controller("GetChartsController",function($scope, $timeout, 
 
 	self.getNgRepeatCharts = function(charts) {
 		chartsCopy = [];
-		for (var i = 0; i < charts.length; i++) {
+		for (let i = 0; i < charts.length; i++) {
 			chartsCopy.push(charts[i].getId() + ":" + charts[i].getSensorName() + ":" + charts[i].getSensorPropertyName());
 		}
 		return chartsCopy;
 	}
 	
 	self.getIdFromNgRepeatChart = function(chart) {
-    	var array = chart.split(':');
+    	let array = chart.split(':');
     	return array[0];
 	}
 	
 	self.getSensorNameFromNgRepeatChart = function(chart) {
-    	var array = chart.split(':');
+    	let array = chart.split(':');
     	return array[1];
 	}
 	
 	self.getSensorPropertyNameFromNgRepeatChart = function(chart) {
-    	var array = chart.split(':');
+    	let array = chart.split(':');
     	return array[2];
 	}
 
-	self.getCharts = function(drawCharts){
+	self.fetchCharts = function(drawCharts){
 		ChartAPIService.getCharts()
 		.then(function(charts) { 
 			self.charts = charts;
@@ -52,18 +52,22 @@ getChartsController.controller("GetChartsController",function($scope, $timeout, 
 	}
 	
 	self.drawCharts = function(){
-		for (var i = 0; i < self.charts.length; i++) {
-			var chart = self.charts[i];
-			var chartElementId = document.getElementById(chart.getId()).getContext("2d");
+		for (let i = 0; i < self.charts.length; i++) {
+			let chart = self.charts[i];
+			let chartElementId = document.getElementById(chart.getId()).getContext("2d");
 			ChartsDrawService.drawLineChartWithPoints(chartElementId, chart.getXData(), chart.getYData(), chart.getSensorPropertyName());
 		}
 	}
 	
-	self.getCharts(true);   
+	let initializeController = function() {
+		self.fetchCharts(true);
+	}
 	
-	var refreshChartsInterval = $interval(function() { self.getCharts(false); }, CHARTS_REFRESH_TIME_MS);
+	initializeController();  
 	
-	var redrawChartsInterval = $interval(self.drawCharts, CHARTS_REDRAW_REFRESH_TIME_MS);
+	let refreshChartsInterval = $interval(function() { self.fetchCharts(false); }, FETCH_CHARTS_REFRESH_TIME_MS);
+	
+	let redrawChartsInterval = $interval(self.drawCharts, CHARTS_REDRAW_REFRESH_TIME_MS);
 	
 	$scope.$on('$destroy',function(){
 		if(refreshChartsInterval) {
@@ -87,6 +91,4 @@ getChartsController.controller("GetChartsController",function($scope, $timeout, 
 		SweetAlertService.showWarningWithCallback('Are you sure you want to delete chart ' + chartId + '?', deleteChart);
 	}
 	
-	
-
 });

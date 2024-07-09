@@ -1,25 +1,27 @@
-var installCameraController= angular.module('installCameraController', ['iotAssistantAPIService', 'cameraAPIService', 'sweetAlertService']);
+let installCameraController= angular.module('installCameraController', ['iotAssistantAPIService', 'cameraAPIService', 'sweetAlertService']);
 
 
 installCameraController.controller("InstallCameraController",function(IotAssistantAPIService, CameraAPIService, SweetAlertService, $route){
 
-	var self = this;
+	let self = this;
 	
 	self.camera = new HTTPCamera();
 	
 	self.cameraCapabilities = new CameraCapabilities();
 	
-	var initializeController = function() {
-		getCameraCapabilities();
-	}
-	
-	var getCameraCapabilities = function(){
+	let fetchCameraCapabilities = function(){
 		IotAssistantAPIService.getCapabilities()
 		.then(function(cameraCapabilities) { 
 			self.cameraCapabilities = cameraCapabilities.getCameraCapabilities();
 		},function() {
 		})
 	}
+	
+	let initializeController = function() {
+		fetchCameraCapabilities();
+	}
+	
+	initializeController();
 	
 	self.getSupportedInterfaces = function() {
 		return self.cameraCapabilities.getSupportedInterfaces();
@@ -40,13 +42,11 @@ installCameraController.controller("InstallCameraController",function(IotAssista
 
 	self.installAndRedirect = function() {
 		CameraAPIService.installHTTPCamera(self.camera).then(function() {
-			var redirectURL = $route.current.$$route.paramExample;
+			let redirectURL = $route.current.$$route.paramExample;
 			SweetAlertService.showSuccessAlertAndRedirect('Camera installed with success', redirectURL);
 		},function(error) {
 			SweetAlertService.showErrorAlert('Camera installation failed' + ' \n Error: ' + error.data.message);
 		})
 	}
-	
-	initializeController();
 
 });

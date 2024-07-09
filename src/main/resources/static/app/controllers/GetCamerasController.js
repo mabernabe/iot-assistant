@@ -1,15 +1,15 @@
-var getCamerasController= angular.module('getCamerasController', ['cameraAPIService', 'sweetAlertService']);
+let getCamerasController= angular.module('getCamerasController', ['cameraAPIService', 'sweetAlertService']);
 
 
 getCamerasController.controller("GetCamerasController",function($scope, CameraAPIService, $interval, SweetAlertService){
 
-	const CAMERAS_REFRESH_TIME_MS = 2000 ;
+	const FETCH_CAMERAS_REFRESH_TIME_MS = 2000 ;
 
-	var self = this;
+	let self = this;
 
 	self.cameras = [];
 
-	self.getCameras = function(){
+	let fetchCameras = function(){
 		CameraAPIService.getCameras()
 		.then(function(cameras) { 
 			self.cameras = cameras;	
@@ -17,6 +17,18 @@ getCamerasController.controller("GetCamerasController",function($scope, CameraAP
 			self.cameras = [];
 		})
 	}
+	
+	let initializeController = function() {
+		fetchCameras();   
+		let fetchCamerasInterval = $interval(fetchCameras, FETCH_CAMERAS_REFRESH_TIME_MS);
+		$scope.$on('$destroy',function(){
+			if(fetchCamerasInterval) {
+				$interval.cancel(fetchCamerasInterval);
+			}
+		})
+	}
+	
+	initializeController(); 
 	
 	self.deleteCamera = function(cameraName){
 		function deleteCamera() {
@@ -39,16 +51,6 @@ getCamerasController.controller("GetCamerasController",function($scope, CameraAP
 			SweetAlertService.showErrorAlert('Watchdog could not be ' + enableString);
 		})
 	}
-	
-	self.getCameras();   
-	
-	var intervalIstance = $interval(self.getCameras, CAMERAS_REFRESH_TIME_MS);
-
-	$scope.$on('$destroy',function(){
-		if(intervalIstance) {
-			$interval.cancel(intervalIstance);
-		}
-	})
 
 });
 
