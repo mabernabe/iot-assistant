@@ -1,2 +1,2 @@
-var iotAssistant = angular.module("iotAssistant",['ngRoute', 'getTransductorsControllers', 'installSensorController', 'installActuatorController', 'installChartController', 'installCameraController', 'installSensorRuleController', 'getChartsController', 'getCamerasController', 'getIotAssistantController', 'powerOffSystemController', 'getSensorRulesController', 'getNotificationsController', 'angular-loading-bar', 'ngAnimate'] );
+var iotAssistant = angular.module("iotAssistant",['ngRoute', 'devicesModule',  'sensorRulesModule', 'installChartController', 'getChartsController', 'getIotAssistantController', 'powerOffSystemController', 'getNotificationsController', 'angular-loading-bar', 'ngAnimate'] );
 

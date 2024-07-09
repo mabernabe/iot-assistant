@@ -1,9 +1,7 @@
-let installSensorRulesModule= angular.module('installSensorRuleController');
 
-installSensorRulesModule.controller ("InstallAlarmSensorRuleController", function(SensorRuleAPIService){
+sensorRulesModule.controller ("InstallAlarmSensorRuleController", function(SensorRuleAPIService){
 	
 	let self = this;
-
 	
 	self.allRequired = function(sensorRuleSettings) {
 		let alarmSensorRule = buildAlarmSensorRule(sensorRuleSettings);

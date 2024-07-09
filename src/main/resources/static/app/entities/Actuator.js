@@ -2,8 +2,8 @@
 
 class Actuator extends Transductor{
 	
-	constructor(name, description, propertiesActuated, values, watchdogInterval, watchdogEnabled) {
-		super(name, description, propertiesActuated, watchdogInterval, watchdogEnabled);
+	constructor(name, description, active, values, propertiesActuated, watchdogInterval, watchdogEnabled) {
+		super(name, description, active, propertiesActuated, watchdogInterval, watchdogEnabled);
 		this.values = values;
 	}
 

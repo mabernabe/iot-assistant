@@ -1,6 +1,5 @@
-let installTransductorController= angular.module('installTransductorController', ['iotAssistantAPIService', 'sweetAlertService']);
 
-installTransductorController.controller ("InstallTransductorController",function(IotAssistantAPIService, SweetAlertService, $route){
+devicesModule.controller ("InstallTransductorController",function(IotAssistantAPIService, SweetAlertService, $route){
 
 	let self = this;
 

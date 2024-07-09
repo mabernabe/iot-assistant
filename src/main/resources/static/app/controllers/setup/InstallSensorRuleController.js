@@ -1,7 +1,5 @@
-let installSensorRuleController= angular.module('installSensorRuleController', ['iotAssistantAPIService', 'sweetAlertService', 'actuatorAPIService', 'sensorAPIService', 'sensorRuleAPIService']);
 
-
-installSensorRuleController.controller ("InstallSensorRuleController", function($scope, $controller, IotAssistantAPIService, SensorAPIService, SweetAlertService, $route){
+sensorRulesModule.controller ("InstallSensorRuleController", function($scope, $controller, IotAssistantAPIService, SensorAPIService, SweetAlertService, $route){
 
 	let self = this;
 	

@@ -1,7 +1,5 @@
-let installSensorController= angular.module('installSensorController', ['installTransductorController', 'sensorAPIService']);
 
-
-installSensorController.controller ("InstallSensorController",function($scope, $controller, SensorAPIService){
+devicesModule.controller ("InstallSensorController",function($scope, $controller, SensorAPIService){
 
 	let self = this;
 	

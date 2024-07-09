@@ -1,6 +1,5 @@
-let installActuatorController= angular.module('installActuatorController', ['installTransductorController', 'actuatorAPIService']);
 
-installActuatorController.controller ("InstallActuatorController",function($scope, $controller, ActuatorAPIService){
+devicesModule.controller ("InstallActuatorController",function($scope, $controller, ActuatorAPIService){
 
 
 	let self = this;

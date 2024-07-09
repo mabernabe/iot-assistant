@@ -1,7 +1,5 @@
-var getSensorRulesController= angular.module('getSensorRulesController', ['sensorRuleAPIService', 'sweetAlertService']);
 
-
-getSensorRulesController.controller("GetSensorRulesController",function($scope, SensorRuleAPIService, SweetAlertService, $interval){
+sensorRulesModule.controller("GetSensorRulesController",function($scope, SensorRuleAPIService, SweetAlertService, $interval){
 
 	const RULES_REFRESH_TIME_MS = 5000 ;
 

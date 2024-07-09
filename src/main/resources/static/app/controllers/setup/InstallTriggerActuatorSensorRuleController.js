@@ -1,6 +1,6 @@
-let installSensorRulesModule= angular.module('installSensorRuleController');
 
-installSensorRulesModule.controller ("InstallTriggerActuatorSensorRuleController", function(SensorRuleAPIService, ActuatorAPIService){
+
+sensorRulesModule.controller ("InstallTriggerActuatorSensorRuleController", function(SensorRuleAPIService, ActuatorAPIService){
 	
 	let self = this;
 	

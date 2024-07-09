@@ -23,12 +23,12 @@ actuatorAPIService.service ("ActuatorAPIService",function(RestAPIService, $q){
 				var value = new ActuatorValue(valueObject.propertyActuated, valueObject.value, valueObject.unit, valueObject.date);
 				values.push(value);
 			})
-			var properties = [];
-			actuatorObject.properties.forEach(propertyObject => {
-				var property = new Property(propertyObject.name, propertyObject.shortName, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
-				properties.push(property);
+			var propertiesActuated = [];
+			actuatorObject.propertiesActuated.forEach(propertyActuatedObject => {
+				var propertyActuated = new Property(propertyActuatedObject.name, propertyActuatedObject.unit, propertyActuatedObject.digital, propertyActuatedObject.minimumValue, propertyActuatedObject.maximumValue);
+				propertiesActuated.push(propertyActuated);
 			})
-			var actuator = new Actuator(actuatorObject.name, actuatorObject.description, properties, values, actuatorObject.watchdogInterval, actuatorObject.watchdogEnabled);
+			var actuator = new Actuator(actuatorObject.name, actuatorObject.description, actuatorObject.active, values, propertiesActuated, actuatorObject.watchdogInterval, actuatorObject.watchdogEnabled);
 			actuators.push(actuator);
 		})
 		return actuators;
