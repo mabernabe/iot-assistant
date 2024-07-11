@@ -16,77 +16,77 @@ let systemPowerOffRoute = '/systemPowerOff';
 iotAssistant.config(function($routeProvider) {
 	$routeProvider
 	.when('/', {
-		templateUrl : 'sensors.html',
+		templateUrl : '../devices/transductors/sensors/sensors.html',
 		controller : 'GetSensorsController',
 		controllerAs: "GetSensorsController"
 	})
 	.when(sensorsRoute, {
-		templateUrl : 'sensors.html',
+		templateUrl : '../devices/transductors/sensors/sensors.html',
 		controller : 'GetSensorsController',
 		controllerAs: "GetSensorsController"
 	})
 	.when(actuatorsRoute, {
-		templateUrl : 'actuators.html',
+		templateUrl : '../devices/transductors/actuators/actuators.html',
 		controller : 'GetActuatorsController',
 		controllerAs: "GetActuatorsController"
 	})
 	.when(notificationsRoute, {
-		templateUrl : 'notifications.html',
+		templateUrl : '../notifications/notifications.html',
 		controller : 'GetNotificationsController',
 		controllerAs: "GetNotificationsController",
 	})
 	.when(chartsRoute, {
-		templateUrl : 'charts.html',
+		templateUrl : '../charts/charts.html',
 		controller : 'GetChartsController',
 		controllerAs: "GetChartsController"
 	})
 	.when(sensorRulesRoute, {
-		templateUrl : 'sensorrules.html',
+		templateUrl : '../sensorrules/sensorrules.html',
 		controller : 'GetSensorRulesController',
 		controllerAs: "GetSensorRulesController"
 	})
 	.when(camerasRoute, {
-		templateUrl : 'cameras.html',
+		templateUrl : '../devices/cameras/cameras.html',
 		controller : 'GetCamerasController',
 		controllerAs: "GetCamerasController"
 	})
 	.when(installSensorRoute, {
-		templateUrl : 'setup/transductor/transductorInstallation.html',
+		templateUrl : '../devices/transductors/transductorInstallation.html',
 		controller : 'InstallSensorController',
 		controllerAs: "InstallTransductorController",
 		paramExample: sensorsRoute
 	})
 	.when(installActuatorRoute, {
-		templateUrl : 'setup/transductor/transductorInstallation.html',
+		templateUrl : '../devices/transductors/transductorInstallation.html',
 		controller : 'InstallActuatorController',
 		controllerAs: "InstallTransductorController",
 		paramExample: actuatorsRoute
 	})
 	.when(installChartRoute, {
-		templateUrl : 'setup/chart/chartInstallation.html',
+		templateUrl : './charts/chartInstallation.html',
 		controller : 'InstallChartController',
 		controllerAs: "InstallChartController",
 		paramExample: chartsRoute
 	})
 	.when(installSensorRuleRoute, {
-		templateUrl : 'setup/rules/sensorRuleInstallation.html',
+		templateUrl : '../sensorrules/sensorRuleInstallation.html',
 		controller : 'InstallSensorRuleController',
 		controllerAs: "InstallSensorRuleController",
 		paramExample: sensorRulesRoute
 	})
 	.when(installCameraRoute, {
-		templateUrl : 'setup/camera/cameraInstallation.html',
+		templateUrl : '../devices/cameras/cameraInstallation.html',
 		controller : 'InstallCameraController',
 		controllerAs: "InstallCameraController",
 		paramExample: camerasRoute
 	})
 	.when(systemInformationRoute, {
-		templateUrl : 'systemInformation.html',
+		templateUrl : '../system/systemInformation.html',
 		controller : 'GetIotAssistantController',
 		controllerAs: "GetIotAssistantController",
 	})
 	.when(systemPowerOffRoute, {
-		templateUrl : 'systemPowerOff.html',
+		templateUrl : '../system/systemPowerOff.html',
 		controller : 'PowerOffSystemController',
 		controllerAs: "PowerOffSystemController",
 	})
