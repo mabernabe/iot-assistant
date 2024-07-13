@@ -1,11 +1,11 @@
 
 sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
-	var self = this;	
+	let self = this;	
 	
-	var sensorsBaseUri = "sensors/";
+	let sensorsBaseUri = "sensors/";
 
 	self.getSensors = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(sensorsBaseUri).then(function(objectResponse) {
 			deferred.resolve(getSensorsFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -16,14 +16,14 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 	
 
 	function getSensorsFromResponse(objectResponse) {
-		var sensors = [];
+		let sensors = [];
 		objectResponse.sensors.forEach(sensorObject => {
-			var propertiesMeasured = [];
+			let propertiesMeasured = [];
 			sensorObject.propertiesMeasured.forEach(PropertyMeasuredObject => {
-				var propertyMeasured = new Property(PropertyMeasuredObject.name, PropertyMeasuredObject.unit, PropertyMeasuredObject.digital, PropertyMeasuredObject.minimumValue, PropertyMeasuredObject.maximumValue);
+				let propertyMeasured = new Property(PropertyMeasuredObject.name, PropertyMeasuredObject.unit, PropertyMeasuredObject.digital, PropertyMeasuredObject.minimumValue, PropertyMeasuredObject.maximumValue);
 				propertiesMeasured.push(propertyMeasured);
 			})
-			sensorValues = null;		
+			let sensorValues = null;		
 			if (sensorObject.active) {
 				let values = [];
 				for (const [propertyMeasured, value] of Object.entries(sensorObject.sensorValues.values)) {
@@ -31,7 +31,7 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 				}
 				sensorValues = new SensorValues(sensorObject.sensorValues.date, values);
 			}
-			var sensor = new Sensor(sensorObject.name, sensorObject.description, sensorObject.active, sensorValues, propertiesMeasured, sensorObject.watchdogInterval, sensorObject.watchdogEnabled);
+			let sensor = new Sensor(sensorObject.name, sensorObject.description, sensorObject.active, sensorValues, propertiesMeasured, sensorObject.watchdogInterval, sensorObject.watchdogEnabled);
 			sensors.push(sensor);
 		})
 		return sensors;
@@ -39,8 +39,8 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 	
 	
 	self.installMQttInterfaceSensor = function (newSensor) {
-		var deferred = $q.defer();
-		var newMqttInterfaceSensor = createNewMqttInterfaceSensorObjRequest(newSensor);
+		let deferred = $q.defer();
+		let newMqttInterfaceSensor = createNewMqttInterfaceSensorObjRequest(newSensor);
 		RestAPIService.post(sensorsBaseUri.concat("mqttInterfaceSensors/"), newMqttInterfaceSensor).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
@@ -50,13 +50,13 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 	}
 	
 	function createNewMqttInterfaceSensorObjRequest(newSensor) {
-		var newMqttInterfaceSensor = createSensorObjectRequest(newSensor);
+		let newMqttInterfaceSensor = createSensorObjectRequest(newSensor);
 		newMqttInterfaceSensor.propertiesMeasured = newSensor.getPropertiesNames();
 		return newMqttInterfaceSensor;
 	}
 	
 		function createSensorObjectRequest(newSensor) {
-		var newSensorObject = {};
+		let newSensorObject = {};
 		newSensorObject.name = newSensor.getName();
 		newSensorObject.description = newSensor.getDescription();
 		newSensorObject.watchdogInterval = newSensor.getWatchdogInterval();
@@ -64,7 +64,7 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 	}
 	
 	self.deleteSensor = function (name) {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.delete(sensorsBaseUri.concat(name)).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
@@ -74,8 +74,8 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 	}
 	
 	self.enableWatchdog = function (enable, sensorName) {
-		var deferred = $q.defer();
-		var watchdogEnableRequestObject = {};
+		let deferred = $q.defer();
+		let watchdogEnableRequestObject = {};
 		watchdogEnableRequestObject.enable = enable;
 		RestAPIService.patch(sensorsBaseUri.concat(sensorName), watchdogEnableRequestObject).then(function(objectResponse) {
 			deferred.resolve(objectResponse);

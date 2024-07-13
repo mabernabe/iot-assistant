@@ -1,5 +1,5 @@
 
-sensorRulesModule.controller ("InstallSensorRuleController", function($scope, $controller, IotAssistantAPIService, SensorAPIService, SweetAlertService, $route){
+sensorRulesModule.controller ("InstallSensorRuleController", function($scope, $controller, SystemAPIService, SensorAPIService, SweetAlertService, $route){
 
 	let self = this;
 	
@@ -33,10 +33,10 @@ sensorRulesModule.controller ("InstallSensorRuleController", function($scope, $c
 	}
 	
 	let fetchSensorRulesCapabilities = function(){
-		IotAssistantAPIService.getRulesCapabilities()
+		SystemAPIService.getRulesCapabilities()
 		.then(function(rulesCapabilities) { 
-			self.sensorRulesCapabilities = rulesCapabilities.getSensorRulesCapabilities();
-			self.supportedNotificationsTypes = rulesCapabilities.SupportedNotificationsTypes();
+			self.sensorRulesCapabilities = rulesCapabilities;
+		//	self.supportedNotificationsTypes = rulesCapabilities.SupportedNotificationsTypes();
 		},function() {
 		})
 	}

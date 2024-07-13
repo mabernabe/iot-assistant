@@ -42,7 +42,7 @@
 				<div class="col-lg-10">
 					<div class="row">
 						<div class="col-sm"
-							ng-repeat="sensorRuleType in InstallSensorRuleController.stationSensorRulesCapabilities.getSupportedSensorRulesTypes()">
+							ng-repeat="sensorRuleType in InstallSensorRuleController.sensorRulesCapabilities.getSupportedSensorRulesTypes()">
 							<div class="choice" data-toggle="wizard-radio" name="sensorRuleTypeSelect" ng-click="InstallSensorRuleController.setSensorRuleType(sensorRuleType)"
 							ng-class="{active : sensorRuleType === InstallSensorRuleController.sensorRuleSettings.sensorRuleType}">
 								<input type="radio" ng-value="sensorRuleType" >

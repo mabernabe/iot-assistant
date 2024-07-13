@@ -13,7 +13,7 @@ import com.iotassistant.models.transductor.Property;
 import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
 
 @Service
-public class IotAssistantService {
+public class SystemService {
 	
 	@Value("${mqtt.broker.url}")
 	private String mqttBroker;
@@ -125,7 +125,7 @@ public class IotAssistantService {
 	
 
 	public List<String> getSupportedSensorRulesTypes() {
-		return transductorService.getSupportedSensorRulesTypes();
+		return sensorRulesService.getSupportedSensorRulesTypes();
 	}
 
 

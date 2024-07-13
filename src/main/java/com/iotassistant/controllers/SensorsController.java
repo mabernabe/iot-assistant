@@ -15,7 +15,6 @@ import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceSensorDTO;
 import com.iotassistant.controllers.dtos.transductor.SensorDTO;
 import com.iotassistant.controllers.dtos.transductor.SensorsDTO;
 import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.services.SensorsService;
 import com.iotassistant.services.TransductorsService;
 
@@ -48,7 +47,7 @@ public class SensorsController {
 	}	
 
 	@RequestMapping(value="/mqttInterfaceSensors/", method = RequestMethod.POST)
-	public ResponseEntity<?> newMqttInterfaceSensor(@RequestBody NewMqttInterfaceSensorDTO newMqttInterfaceSensorDTO) throws TransductorInterfaceException  {
+	public ResponseEntity<?> newMqttInterfaceSensor(@RequestBody NewMqttInterfaceSensorDTO newMqttInterfaceSensorDTO){
 		Sensor sensor = newMqttInterfaceSensorDTO.getSensor();
 		if (transductorsService.existTransductor(sensor.getName())) {
 			ErrorDTO deviceExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
@@ -65,7 +64,7 @@ public class SensorsController {
 	
 
 	@RequestMapping(value="/{name}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteSensor(@PathVariable("name") String name) throws TransductorInterfaceException {
+	public ResponseEntity<?> deleteSensor(@PathVariable("name") String name) {
 		if (!sensorsService.exist(name))  {
 			ErrorDTO sensorNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
 			sensorNotFoundError.formatMessage("Sensor");
@@ -77,7 +76,7 @@ public class SensorsController {
 	
 
 	@RequestMapping(value="/{name}", method = RequestMethod.PATCH)
-	public ResponseEntity<?> enableSensorWatchdog(@PathVariable("name") String sensorName, @RequestBody EnableDTO enableWatchdogDTO) throws  TransductorInterfaceException  {
+	public ResponseEntity<?> enableSensorWatchdog(@PathVariable("name") String sensorName, @RequestBody EnableDTO enableWatchdogDTO)  {
 		ErrorDTO errorDTO = null;
 		if (!sensorsService.exist(sensorName))  {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;

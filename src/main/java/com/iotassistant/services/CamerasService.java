@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.iotassistant.models.Camera;
 import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.CameraInterfaceTypeEnum;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.repositories.CamerasRepository;
 
 @Service
@@ -32,7 +31,7 @@ public class CamerasService {
 		return CameraInterfaceTypeEnum.getAllInstancesString();
 	}
 
-	public void deleteCamera(String cameraName) throws TransductorInterfaceException {
+	public void deleteCamera(String cameraName)  {
 		camerasRepository.deleteCameraByName(cameraName);
 		sensorRulesService.deleteCameraSensorRules(cameraName);
 		

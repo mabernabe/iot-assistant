@@ -10,8 +10,10 @@ import com.iotassistant.controllers.MQTTTransductorsController;
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.transductor.Actuator;
+import com.iotassistant.models.transductor.ActuatorValues;
 import com.iotassistant.models.transductor.Property;
 import com.iotassistant.models.transductor.Sensor;
+import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.Transductor;
 import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
 import com.iotassistant.models.transductor.WatchdogInterval;
@@ -48,20 +50,12 @@ public class TransductorsService implements TransductorVisitor{
 	}
 
 
-
 	public List<Transductor> getAllTransductors() {
-		List<Transductor> transductors = new ArrayList<Transductor>();
-		transductors.addAll(sensorService.getAllSensors());
-		transductors.addAll(actuatorService.getAllActuators());
-		return transductors;
+		return transductorsJPARepository.findAll();
 	}
 
 	public List<String> getSupportedWatchdogIntervals() {
 		return WatchdogInterval.getAvailableWatchdogIntervalOptions();
-	}
-
-	public List<String> getSupportedSensorRulesTypes() {
-		return sensorService.getSupportedSensorRulesTypes();
 	}
 
 
@@ -76,7 +70,7 @@ public class TransductorsService implements TransductorVisitor{
 
 
 	@Override
-	public void visit(Sensor sensor) {
+	public void visit(Sensor sensor)  {
 		sensorService.setUpInterface(sensor);		
 	}
 
@@ -93,6 +87,32 @@ public class TransductorsService implements TransductorVisitor{
 			availableInterfaces.add(TransductorInterfaceTypeEnum.MQTT.toString());
 		}
 		return availableInterfaces;
+	}
+
+
+	public Transductor getTransductorByName(String name) {
+		assert(this.existTransductor(name));
+		return transductorsJPARepository.findById(name).get();	
+	}
+
+
+	public void setActive(String name, boolean active) {
+		assert(this.existTransductor(name));
+		Transductor transductor = transductorsJPARepository.findById(name).get();
+		transductor.setActive(false);
+		transductorsJPARepository.saveAndFlush(transductor);
+		
+	}
+
+
+	public void updateSensorValues(String name, SensorValues sensorValues) {
+		sensorService.update(name, sensorValues);	
+	}
+
+
+	public void updateActuatorValues(String name, ActuatorValues actuatorValues) {
+		actuatorService.update(name, actuatorValues);
+		
 	}
 
 }

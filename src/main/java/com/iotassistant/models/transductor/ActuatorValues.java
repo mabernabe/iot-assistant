@@ -1,5 +1,7 @@
 package com.iotassistant.models.transductor;
 
+import java.util.Map;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +17,8 @@ public class ActuatorValues  extends TransductorValues<PropertyActuatedEnum>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	
-	public void set(PropertyActuatedEnum propertyActuated, String value) {
-		this.add(propertyActuated, value);
-		
+	public ActuatorValues(Map<PropertyActuatedEnum, String> values, String date) {
+		super(values, date);
 	}
 	
 

@@ -38,6 +38,7 @@ public abstract class Device {
 		this.name = name;
 		this.description = description;
 		this.watchdogInterval = watchdogInterval;
+		this.active = false;
 		if (!watchdogInterval.equals(WatchdogInterval.NO_WATCHDOG)) {
 			this.watchdogEnabled = true;
 		}

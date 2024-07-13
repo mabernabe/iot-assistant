@@ -1,11 +1,11 @@
 
-transductorsModule.controller ("InstallTransductorController",function(IotAssistantAPIService, SweetAlertService, $route){
+transductorsModule.controller ("InstallTransductorController",function(SystemAPIService, SweetAlertService, $route){
 
 	let self = this;
 
 	self.transductor = new NewTransductor();
 	
-	self.iotAssistantAPIService = IotAssistantAPIService;
+	self.systemAPIService = SystemAPIService;
 
 	self.setTransductorInterface = function(interfaceType) {
 		self.transductor.setInterfaceType(interfaceType);

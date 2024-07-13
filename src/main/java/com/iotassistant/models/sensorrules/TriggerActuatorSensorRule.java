@@ -10,7 +10,6 @@ import com.iotassistant.models.notifications.NotificationHandler;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.notifications.SensorRuleTriggerActuatorNotification;
 import com.iotassistant.models.transductor.SensorMeasureValueEvent;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
 
@@ -50,11 +49,9 @@ public class TriggerActuatorSensorRule extends SensorRule{
 		SensorRuleTriggerActuatorNotification sensorRuleTriggerActuatorNotification = new SensorRuleTriggerActuatorNotification(this, sensorEvent.getValue(), sensorEvent.getDate());
 		boolean triggerIntervalReached = notificationHandler.handle(sensorRuleTriggerActuatorNotification);
 		if (triggerIntervalReached) {			
-			try {
+			
 				actuatorsService.setActuatorValue(propertyActuated, actuatorName, actuatorSetValue);
-			} catch (TransductorInterfaceException e) {
-				e.printStackTrace();
-			}
+	
 		}
 	}
 

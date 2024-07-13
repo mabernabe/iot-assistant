@@ -1,5 +1,5 @@
 
-chartsModule.controller("InstallChartController",function(IotAssistantAPIService, SensorAPIService, ChartAPIService, SweetAlertService, $route){
+chartsModule.controller("InstallChartController",function(SystemAPIService, SensorAPIService, ChartAPIService, SweetAlertService, $route){
 
 	let self = this;
 	
@@ -23,7 +23,7 @@ chartsModule.controller("InstallChartController",function(IotAssistantAPIService
 	}
 	
 	let fetchChartCapabilities = function(){
-		IotAssistantAPIService.getChartCapabilities()
+		SystemAPIService.getChartCapabilities()
 		.then(function(chartCapabilities) { 
 			self.supportedChartTypes = chartCapabilities.getSupportedChartTypes();
 			self.supportedChartIntervals = chartCapabilities.getSupportedChartIntervals();

@@ -1,8 +1,5 @@
 package com.iotassistant.controllers;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -16,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.transductor.Transductor;
 import com.iotassistant.models.transductormqttinterface.MqttInterface;
-import com.iotassistant.services.SensorsService;
-import com.iotassistant.utils.JSONParser;
+import com.iotassistant.services.TransductorsService;
 
 
 
@@ -27,9 +23,9 @@ import com.iotassistant.utils.JSONParser;
 public class MQTTTransductorsController implements MqttCallbackExtended{
 	
 	private volatile IMqttClient mqttclient;
-
+	
 	@Autowired
-	private SensorsService sensorsService;
+	private TransductorsService transductorsService;
 	
 
 	public MQTTTransductorsController(@Value("${mqtt.broker.url}") String brokerURL, @Value("${mqtt.folderpersistence}") String folderPersistence) {
@@ -65,21 +61,11 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 	}
 
 	@Override
-	public void messageArrived(String topic, MqttMessage message)  {		
-		try {
-			MQTTSensorValuesDTO sensorValuesDTO = new JSONParser().parseJsonBodyAs(MQTTSensorValuesDTO.class, message.toString());
-			List<PropertyMeasuredEnum> sensorProperties = sensorsService.getSensorByName(topic).getPropertiesMeasured();
-			if (!sensorValuesDTO.hasErrors(sensorProperties)) {
-				sensorsService.update(topic, sensorValuesDTO.getValues());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-	
+	public void messageArrived(String topic, MqttMessage message)  {
+		Transductor transductor = transductorsService.getTransductorByName(topic);
+		new TransductorMqttMessageService(transductor, message, transductorsService).updateTransductor();
 	}
-
+	
 
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token) {

@@ -1,5 +1,5 @@
 
-camerasModule.controller("InstallCameraController",function(IotAssistantAPIService, CameraAPIService, SweetAlertService, $route){
+camerasModule.controller("InstallCameraController",function(SystemAPIService, CameraAPIService, SweetAlertService, $route){
 
 	let self = this;
 	
@@ -8,7 +8,7 @@ camerasModule.controller("InstallCameraController",function(IotAssistantAPIServi
 	self.cameraCapabilities = new CameraCapabilities();
 	
 	let fetchCameraCapabilities = function(){
-		IotAssistantAPIService.getCapabilities()
+		SystemAPIService.getCapabilities()
 		.then(function(cameraCapabilities) { 
 			self.cameraCapabilities = cameraCapabilities.getCameraCapabilities();
 		},function() {

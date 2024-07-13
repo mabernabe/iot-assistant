@@ -2,7 +2,7 @@ package com.iotassistant.controllers.dtos;
 
 import com.iotassistant.controllers.dtos.sensorrules.RuleCapabilitiesDTO;
 
-public class IotAssistantCapabilitiesDTO {
+public class SystemCapabilitiesDTO {
 
 	DevicesCapabilitiesDTO devicesCapabilities;
 		
@@ -14,7 +14,7 @@ public class IotAssistantCapabilitiesDTO {
 	
 	ServersStatusDTO serversStatusDTO;
 	
-	public IotAssistantCapabilitiesDTO(DevicesCapabilitiesDTO devicesCapabilities, ServersStatusDTO serversStatusDTO, 
+	public SystemCapabilitiesDTO(DevicesCapabilitiesDTO devicesCapabilities, ServersStatusDTO serversStatusDTO, 
 			ChartCapabilitiesDTO chartCapabilities, NotificationsCapabilitiesDTO notificationsCapabilities, RuleCapabilitiesDTO ruleCapabilities) {
 		super();
 		this.devicesCapabilities = devicesCapabilities;

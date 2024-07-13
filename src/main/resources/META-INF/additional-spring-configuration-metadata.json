@@ -28,5 +28,45 @@
     "name": "mqtt.folderpersistence",
     "type": "java.lang.String",
     "description": "A description for 'mqtt.folderpersistence'"
+  },
+  {
+    "name": "sensors.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'sensors.uri'"
+  },
+  {
+    "name": "rest.api.base.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'rest.api.base.uri'"
+  },
+  {
+    "name": "system.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'system.uri'"
+  },
+  {
+    "name": "cameras.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'cameras.uri'"
+  },
+  {
+    "name": "actuators.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'actuators.uri'"
+  },
+  {
+    "name": "charts.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'charts.uri'"
+  },
+  {
+    "name": "notifications.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'notifications.uri'"
+  },
+  {
+    "name": "rules.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'rules.uri'"
   }
 ]}

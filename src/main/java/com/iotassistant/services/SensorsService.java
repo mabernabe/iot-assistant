@@ -3,25 +3,20 @@ package com.iotassistant.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.eclipse.paho.client.mqttv3.MqttException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iotassistant.controllers.MQTTTransductorsController;
-import com.iotassistant.models.sensorrules.SensorRuleType;
 import com.iotassistant.models.transductor.Property;
 import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.SensorInterfaceVisitor;
 import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
-import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
 import com.iotassistant.repositories.SensorsJPARepository;
 
 @Service
 @Transactional
-public class SensorsService implements SensorInterfaceVisitor {
+public class SensorsService  {
 	
 	@Autowired
 	private SensorsJPARepository sensorsRepository;
@@ -33,7 +28,11 @@ public class SensorsService implements SensorInterfaceVisitor {
 	private SensorRulesService sensorRulesService;
 	
 	@Autowired
-	private MQTTTransductorsController mqttTransductorsController;
+	private TransductorSetUpInterfaceService transductorSetUpInterfaceService;
+	
+	@Autowired
+	private TransductorSetDownInterfaceService transductorSetDownInterfaceService;
+	
 	
 	public Sensor getSensorByName(String name) {
 		Optional<Sensor> sensor = sensorsRepository.findById(name);
@@ -47,7 +46,7 @@ public class SensorsService implements SensorInterfaceVisitor {
 		return sensorsRepository.findAll();
 	}
 
-	public Sensor newSensor(Sensor sensor) throws TransductorInterfaceException {
+	public Sensor newSensor(Sensor sensor) {
 		sensor = sensorsRepository.save(sensor);
 		this.setUpInterface(sensor);
 		return sensor;
@@ -62,7 +61,7 @@ public class SensorsService implements SensorInterfaceVisitor {
 		return propertiesMeasured;
 	}
 
-	public void deleteSensorByName(String name) throws TransductorInterfaceException {
+	public void deleteSensorByName(String name)  {
 		Sensor sensor = getSensorByName(name);
 		this.setDownInterface(sensor);
 		deleteSensorDependencies(name);
@@ -71,19 +70,15 @@ public class SensorsService implements SensorInterfaceVisitor {
 	}
 
 	private void setDownInterface(Sensor sensor) {
-		sensor.getInterface().accept(this, false);
+		transductorSetDownInterfaceService.setDown(sensor.getInterface());
 		
 	}
 
-	private void deleteSensorDependencies(String sensorName) throws TransductorInterfaceException {
+	private void deleteSensorDependencies(String sensorName) {
 		chartsService.deleteChartsBySensorName(sensorName);	
 		sensorRulesService.deleteSensorRuleBySensorName(sensorName);
 	}
 	
-
-	public List<String> getSupportedSensorRulesTypes() {
-		return SensorRuleType.getAllInstances();
-	}
 
 	public boolean exist(String sensorName) {
 		return this.getSensorByName(sensorName) != null;
@@ -107,28 +102,14 @@ public class SensorsService implements SensorInterfaceVisitor {
 	}
 
 	public void setUpInterface(Sensor sensor) {
-		sensor.getInterface().accept(this, true);	
-	}
-
-	@Override
-	public void visit(SensorMqttInterface sensorMqttInterface, boolean setUp) {
-		try {
-			if (setUp) {
-				mqttTransductorsController.subscribe(sensorMqttInterface);
-			}
-			else {
-				mqttTransductorsController.unsubscribe(sensorMqttInterface);
-			}
-		} catch (MqttException e) {
-			this.getSensorByName(sensorMqttInterface.getTopic()).setActive(false);
-		}
-		
+		transductorSetUpInterfaceService.setUp(sensor.getInterface());	
 	}
 
 	public void update(String name, SensorValues values) {
 		Sensor sensor = this.getSensorByName(name);
 		assert(sensor!=null);
 		sensor.setValues(values);
+		sensor.setActive(true);
 		sensorsRepository.saveAndFlush(sensor);
 		sensorRulesService.applyRules(sensor.getName(), values);	
 		

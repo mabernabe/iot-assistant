@@ -5,8 +5,8 @@ import com.iotassistant.models.transductor.Sensor;
 
 public interface TransductorVisitor {
 	
-	public void visit(Sensor sensor);
+	public void visit(Sensor sensor) ;
 	
-	public void visit(Actuator actuator);
+	public void visit(Actuator actuator) ;
 
 }

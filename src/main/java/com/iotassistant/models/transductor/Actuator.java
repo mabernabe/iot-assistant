@@ -47,10 +47,6 @@ public class Actuator extends Transductor{
 	}
 
 	
-	public void setValue(PropertyActuatedEnum propertyActuated, String value) throws TransductorInterfaceException {
-		this.values.set(propertyActuated, value);
-	}
-	
 	public ActuatorInterface getInterface() {
 		return actuatorInterface;
 	}
@@ -63,7 +59,7 @@ public class Actuator extends Transductor{
 
 
 	@Override
-	public void accept(TransductorVisitor transductorVisitor) {
+	public void accept(TransductorVisitor transductorVisitor)  {
 		transductorVisitor.visit(this);		
 	}
 
@@ -77,6 +73,13 @@ public class Actuator extends Transductor{
 
 	public ActuatorValues getValues() {
 		return this.values;	
+	}
+	
+	
+
+
+	public void setValues(ActuatorValues values) {
+		this.values = values;
 	}
 
 

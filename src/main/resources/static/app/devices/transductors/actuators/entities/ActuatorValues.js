@@ -1,4 +1,4 @@
-class SensorValues {
+class ActuatorValues {
 	
 	constructor(date, values) {
 		this.date = date;
@@ -11,8 +11,8 @@ class SensorValues {
 	}
 	
 	
-	getValue(propertyMeasured) {
-		return this.values[propertyMeasured];
+	getValue(propertyActuated) {
+		return this.values[propertyActuated];
 	}
 	
 	

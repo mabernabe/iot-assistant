@@ -8,7 +8,7 @@ sensorsModule.controller ("InstallSensorController",function($scope, $controller
 	self.transductorType = "Sensor";
 	
 	let fetchSensorCapabilities = function(){
-		self.iotAssistantAPIService.getDevicesCapabilities()
+		self.systemAPIService.getDevicesCapabilities()
 		.then(function(devicesCapabilities) { 
 			self.supportedProperties = devicesCapabilities.getSensorSupportedProperties();
 			self.supportedWatchdogIntervals = devicesCapabilities.getSensorSupportedWatchdogIntervals();

@@ -9,7 +9,7 @@ actuatorsModule.controller ("InstallActuatorController",function($scope, $contro
 	self.transductorType = "Actuator";
 	
 	let fetchActuatorCapabilities = function(){
-		self.iotAssistantAPIService.getDevicesCapabilities()
+		self.systemAPIService.getDevicesCapabilities()
 		.then(function(devicesCapabilities) { 
 			self.supportedProperties = devicesCapabilities.getActuatorSupportedProperties();
 			self.supportedWatchdogIntervals = devicesCapabilities.getActuatorSupportedWatchdogIntervals();

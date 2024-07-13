@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="actuatorInterface_type")
 @Table(name="actuatorInterface")
-public abstract class ActuatorInterface  {
+public abstract class ActuatorInterface  extends TransductorInterface{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

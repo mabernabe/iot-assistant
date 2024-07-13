@@ -39,7 +39,7 @@ public class IoTAssistantStartupRunner implements CommandLineRunner{
 	}
 
 
-	private void setUpDevicesInterfaces() {
+	private void setUpDevicesInterfaces()  {
 		List<Device> allDevices = devicesService.getAllDevices();
         for (Device device : allDevices) {
         		devicesService.setUpInterface(device);

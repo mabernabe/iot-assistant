@@ -1,20 +1,11 @@
 	
-class SensorValue {
+class SensorValue extends TransductorValue{
 	
 	constructor(string, unit, description, severity) {
-		this.string = string;
+		super(string, unit);
 		this.unit = unit;
 		this.description = description;
 		this.severity = severity;
-	}
-	
-	
-	getString() {
-		return this.string;
-	}
-	
-	getStringWithUnit() {
-		return this.string + ' ' + this.unit;
 	}
 	
 	hasDescription() {
@@ -30,11 +21,6 @@ class SensorValue {
 	getSeverity() {
 		return this.severity;
 	}
-	
-	isHigh() {
-		return this.string === "true";	
-	}
-	
 	
 	
 }

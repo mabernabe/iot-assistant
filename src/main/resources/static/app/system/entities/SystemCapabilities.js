@@ -1,4 +1,4 @@
-class IotAssistantCapabilities {
+class SystemCapabilities {
 
 	constructor(devicesCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected) {
 		if(!arguments.length) {

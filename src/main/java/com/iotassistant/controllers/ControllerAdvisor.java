@@ -11,13 +11,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.exceptions.SystemCantShutdownException;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-	
-	private static int TRANSDUCTOR_INTERFACE_ERROR_CODE = 0xAA;
-	
+		
 	private static int CAMERA_INTERFACE_ERROR_CODE = 0xAC;
 	
 	@ExceptionHandler({CameraInterfaceException.class})
@@ -29,15 +26,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 			
-	@ExceptionHandler({TransductorInterfaceException.class})
-    public ResponseEntity<Object> handleTransductorInterfaceException(
-    		TransductorInterfaceException exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("message", exception.getErrorMessage());
-        body.put("errorCode", TRANSDUCTOR_INTERFACE_ERROR_CODE);
-        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-	
 	
 	@ExceptionHandler({SystemCantShutdownException.class})
     public ResponseEntity<Object> handleSystemCantShutdownException(

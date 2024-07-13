@@ -16,7 +16,6 @@ import com.iotassistant.controllers.dtos.ErrorDTO;
 import com.iotassistant.controllers.dtos.HttpCameraDTO;
 import com.iotassistant.models.Camera;
 import com.iotassistant.models.CameraInterfaceException;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.services.CamerasService;
 
 @RestController
@@ -58,7 +57,7 @@ public class CamerasController {
 	}
 	
 	@RequestMapping(value="/{name}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteCamera(@PathVariable("name") String name) throws TransductorInterfaceException {
+	public ResponseEntity<?> deleteCamera(@PathVariable("name") String name)  {
 		if (!camerasService.existCamera(name))  {
 			ErrorDTO cameraNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
 			cameraNotFoundError.formatMessage("Camera");

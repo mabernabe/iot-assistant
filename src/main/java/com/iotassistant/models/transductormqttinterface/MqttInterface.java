@@ -7,5 +7,7 @@ public interface MqttInterface {
 	public static final String ARRIVE_LWT_TOPIC = "lwt";
 	
 	public List<String> getSubscribedTopics();
+	
+	public String getTopic();
 
 }

@@ -61,7 +61,6 @@ public class Sensor extends Transductor {
 	
 	public void setValues(SensorValues values) {
 		this.values = values;
-		this.setActive(true);
 	}
 
 	public List<PropertyMeasuredEnum> getPropertiesMeasured() {

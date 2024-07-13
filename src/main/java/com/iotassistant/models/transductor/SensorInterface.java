@@ -14,12 +14,11 @@ import javax.persistence.Table;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="sensorInterface_type")
 @Table(name="sensorInterface")
-public abstract class SensorInterface {
+public abstract class SensorInterface extends TransductorInterface{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	
-	public abstract void accept(SensorInterfaceVisitor sensorInterfaceVisitor, boolean setUp);
 
 }

@@ -1,4 +1,4 @@
-class IotAssistant {
+class System {
 
 	constructor(iotAssistantCapabilities, platformName) {
 		this.capabilities = iotAssistantCapabilities;

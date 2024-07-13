@@ -32,7 +32,7 @@ public class DevicesService implements DeviceVisitor {
 		return allDevices;		
 	}
 
-	public void setUpInterface(Device device) {
+	public void setUpInterface(Device device)  {
 		device.accept(this);
 	}
 
@@ -43,9 +43,8 @@ public class DevicesService implements DeviceVisitor {
 	}
 
 	@Override
-	public void visit(Transductor transductor) {
-		transductorsService.setUpInterface(transductor);
-		
+	public void visit(Transductor transductor){
+		transductorsService.setUpInterface(transductor);		
 	}
 
 }

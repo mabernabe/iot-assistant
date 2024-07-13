@@ -7,7 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.iotassistant.models.transductor.SensorInterface;
-import com.iotassistant.models.transductor.SensorInterfaceVisitor;
+import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
 
 @Entity
 @DiscriminatorValue("sensorMQTTInterface")
@@ -34,12 +34,16 @@ public class SensorMqttInterface extends SensorInterface implements MqttInterfac
 	}
 
 	@Override
-	public void accept(SensorInterfaceVisitor sensorInterfaceVisitor, boolean setUp) {
-		sensorInterfaceVisitor.visit(this, setUp);	
+	public void accept(TransductorInterfaceVisitor transductorInterfaceVisitor){
+		transductorInterfaceVisitor.visit(this);	
 	}
 
+	@Override
 	public String getTopic() {
 		return this.topic;
 	}
+
+
+
 	
 }

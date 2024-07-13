@@ -16,7 +16,6 @@ import com.iotassistant.controllers.dtos.transductor.ActuatorValueDTO;
 import com.iotassistant.controllers.dtos.transductor.ActuatorsDTO;
 import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceActuatorDTO;
 import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
 import com.iotassistant.services.TransductorsService;
@@ -40,7 +39,7 @@ public class ActuatorsController {
 
 	
 	@RequestMapping(value="/mqttInterfaceActuators/", method = RequestMethod.POST)
-	public ResponseEntity<?> newMqttInterfaceActuator(@RequestBody NewMqttInterfaceActuatorDTO newMqttInterfaceActuatorDTO) throws TransductorInterfaceException {
+	public ResponseEntity<?> newMqttInterfaceActuator(@RequestBody NewMqttInterfaceActuatorDTO newMqttInterfaceActuatorDTO)  {
 		Actuator actuator = newMqttInterfaceActuatorDTO.getActuator();
 		if (transductorsService.existTransductor(actuator.getName())) {
 			ErrorDTO transductorExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
@@ -57,7 +56,7 @@ public class ActuatorsController {
 	
 	
 	@RequestMapping(value="/{name}", method = RequestMethod.PATCH)
-	public ResponseEntity<?> setActuatorValue(@PathVariable("name") String actuatorName, @RequestBody ActuatorValueDTO actuatorValueDTO) throws TransductorInterfaceException {
+	public ResponseEntity<?> setActuatorValue(@PathVariable("name") String actuatorName, @RequestBody ActuatorValueDTO actuatorValueDTO) {
 		ErrorDTO errorDTO = null;
 		if (!actuatorsService.existActuator(actuatorName))  {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
@@ -76,7 +75,7 @@ public class ActuatorsController {
 	}
 	
 	@RequestMapping(value="/{name}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteActuator(@PathVariable("name") String name) throws TransductorInterfaceException {
+	public ResponseEntity<?> deleteActuator(@PathVariable("name") String name) {
 		if (!actuatorsService.existActuator(name))  {
 			ErrorDTO actuatorNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
 			actuatorNotFoundError.formatMessage("Actuator");
@@ -89,7 +88,7 @@ public class ActuatorsController {
 	
 	
 	@RequestMapping(value="/{name}/watchdog", method = RequestMethod.PATCH)
-	public ResponseEntity<?> enableActuatorWatchdog(@PathVariable("name") String actuatorName, @RequestBody EnableDTO enableWatchdogDTO) throws TransductorInterfaceException  {
+	public ResponseEntity<?> enableActuatorWatchdog(@PathVariable("name") String actuatorName, @RequestBody EnableDTO enableWatchdogDTO)   {
 		ErrorDTO errorDTO = null;
 		if (!actuatorsService.existActuator(actuatorName))  {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;	

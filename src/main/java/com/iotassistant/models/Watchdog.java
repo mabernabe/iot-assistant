@@ -27,7 +27,7 @@ public class Watchdog implements DeviceVisitor {
 	private ConcurrentHashMap<Device, String> devicesOffline = new ConcurrentHashMap<Device, String>(); 
 
 	@Scheduled(fixedRate = 60000)
-	public void watchdog() {
+	public void watchdog()  {
 		List<Device> allDevices = devicesService.getAllDevices();
 		for (Device deviceOffline : devicesOffline.keySet()) {
 			if (!allDevices.contains(deviceOffline)) { //Device no longer exist

@@ -12,10 +12,10 @@ import com.iotassistant.models.sensorrules.CameraSensorRule;
 import com.iotassistant.models.sensorrules.EnableRuleSensorRule;
 import com.iotassistant.models.sensorrules.SensorRule;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
+import com.iotassistant.models.sensorrules.SensorRuleType;
 import com.iotassistant.models.sensorrules.SensorRuleVisitor;
 import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
 import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.repositories.RulesRepository;
 
 @Service
@@ -38,12 +38,12 @@ public class SensorRulesService implements SensorRuleVisitor{
 	NotificationsService notificationsService;
 	
 	
-	public void newSensorRule(SensorRule sensorRule) throws TransductorInterfaceException {
+	public void newSensorRule(SensorRule sensorRule) {
 		rulesRepository.save(sensorRule);
 		setupSensorRule(sensorRule);	
 	}
 	
-	public void setupSensorRule(SensorRule sensorRule) throws TransductorInterfaceException {
+	public void setupSensorRule(SensorRule sensorRule) {
 		setupSensorRuleNotificationHandler(sensorRule);
 		sensorRule.accept(this);		
 	}
@@ -85,11 +85,11 @@ public class SensorRulesService implements SensorRuleVisitor{
 		return rulesRepository.getSensorRuleById(id);
 	}
 
-	public void deleteSensorRuleById(int id) throws TransductorInterfaceException {
+	public void deleteSensorRuleById(int id)  {
 		rulesRepository.deleteById(Integer.valueOf(id));	
 	}
 
-	public void deleteSensorRuleBySensorName(String sensorName) throws TransductorInterfaceException {
+	public void deleteSensorRuleBySensorName(String sensorName) {
 		List<SensorRule> allSensorRules = getAllSensorRules();
 		for (SensorRule sensorRule : allSensorRules ) {
 			if (sensorRule.getSensorName().equals(sensorName)) {
@@ -125,7 +125,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 		return getSensorRule(sensorRuleId) != null;	
 	}
 
-	public void deleteTriggerActuatorSensorRules(String actuatorName) throws TransductorInterfaceException {
+	public void deleteTriggerActuatorSensorRules(String actuatorName)  {
 		List<TriggerActuatorSensorRule> triggerActuatorSensorRules = rulesRepository.getTriggerActuatorSensorRules();
 		for (TriggerActuatorSensorRule triggerActuatorSensorRule : triggerActuatorSensorRules ) {
 			if (triggerActuatorSensorRule.getActuatorName().equals(actuatorName)) {
@@ -134,13 +134,17 @@ public class SensorRulesService implements SensorRuleVisitor{
 		}		
 	}
 	
-	public void deleteCameraSensorRules(String cameraName) throws TransductorInterfaceException  {
+	public void deleteCameraSensorRules(String cameraName)  {
 		List<CameraSensorRule> cameraSensorRules = rulesRepository.getCameraSensorRules();
 		for (CameraSensorRule cameraSensorRule : cameraSensorRules ) {
 			if (cameraSensorRule.getCameraName().equals(cameraName)) {
 				deleteSensorRuleById(cameraSensorRule.getId());
 			}
 		}		
+	}
+	
+	public List<String> getSupportedSensorRulesTypes() {
+		return SensorRuleType.getAllInstances();
 	}
 
 	public void applyRules(String name, SensorValues values) {

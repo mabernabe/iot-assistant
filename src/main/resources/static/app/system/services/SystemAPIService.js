@@ -1,13 +1,13 @@
 
-systemModule.service ("IotAssistantAPIService",function(RestAPIService, $q){
+systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	var self = this;	
 	
-	var iotAssistantBaseUri = "iotassistant/";
+	var systemBaseUri = "system/";
 	
-	self.getIotAssistant = function () {
+	self.getSystem = function () {
 		var deferred = $q.defer();
-		RestAPIService.get(iotAssistantBaseUri).then(function(objectResponse) {
-			deferred.resolve(getIotAssistantFromResponse(objectResponse));
+		RestAPIService.get(systemBaseUri).then(function(objectResponse) {
+			deferred.resolve(getSystemFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);
 		});
@@ -16,7 +16,7 @@ systemModule.service ("IotAssistantAPIService",function(RestAPIService, $q){
 	
 	self.getCapabilities = function () {
 		var deferred = $q.defer();
-		RestAPIService.get(iotAssistantBaseUri.concat("capabilities/")).then(function(objectResponse) {
+		RestAPIService.get(systemBaseUri.concat("capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);
@@ -26,7 +26,7 @@ systemModule.service ("IotAssistantAPIService",function(RestAPIService, $q){
 	
 	self.getDevicesCapabilities = function () {
 		var deferred = $q.defer();
-		RestAPIService.get(iotAssistantBaseUri.concat("devices-capabilities/")).then(function(objectResponse) {
+		RestAPIService.get(systemBaseUri.concat("devices-capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getDevicesCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);
@@ -44,9 +44,23 @@ systemModule.service ("IotAssistantAPIService",function(RestAPIService, $q){
 		
 	}
 	
+	self.getRulesCapabilities = function () {
+		var deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("rules-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getRulesCapabilitiesFromResponse(objectResponse));
+		}, function errorCallback(errorResponse) {
+			deferred.reject(errorResponse);
+		});
+		return deferred.promise ;
+	}
+	
+	function getRulesCapabilitiesFromResponse(objectResponse) {
+		return new RuleCapabilities(objectResponse.supportedSensorRulesTypes, objectResponse.supportedSensorRulesTimeBetweenTriggers);
+	} 
+	
 	self.getTransductorsCapabilities = function () {
 		var deferred = $q.defer();
-		RestAPIService.get(iotAssistantBaseUri.concat("transductors-capabilities/")).then(function(objectResponse) {
+		RestAPIService.get(systemBaseUri.concat("transductors-capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getTransductorsCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);
@@ -54,20 +68,20 @@ systemModule.service ("IotAssistantAPIService",function(RestAPIService, $q){
 		return deferred.promise ;
 	}
 	
-	function getIotAssistantFromResponse(objectResponse) {
-		var iotAssistantCapabilities = getCapabilitiesFromResponse(objectResponse.capabilities);
-		return new IotAssistant(iotAssistantCapabilities, objectResponse.platformName);
+	function getSystemFromResponse(objectResponse) {
+		var systemCapabilities = getCapabilitiesFromResponse(objectResponse.capabilities);
+		return new System(systemCapabilities, objectResponse.platformName);
 	} 
 	
 	function getCapabilitiesFromResponse(objectResponse) {
 		var transductorsCapabilities = getTransductorsCapabilitiesFromResponse(objectResponse);
-		var mqttInterfaceCapabilities = new IotAssistantMqttInterfaceCapabilities(objectResponse.mqttInterfaceCapabilities.interfaceName, objectResponse.mqttInterfaceCapabilities.available, objectResponse.mqttInterfaceCapabilities.broker);
-		var ruleCapabilities = new IotAssistantRuleCapabilities(objectResponse.ruleCapabilities.supportedSensorRulesTypes, objectResponse.ruleCapabilities.supportedSensorRulesTimeBetweenTriggers);
-		var chartCapabilities = new IotAssistantChartCapabilities(objectResponse.chartCapabilities.supportedChartTypes, objectResponse.chartCapabilities.supportedChartIntervals, objectResponse.chartCapabilities.supportedSampleIntervals);
-		var cameraCapabilities = new IotAssistantCameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
-		var notificationsCapabilities = new IotAssistantNotificationsCapabilities(objectResponse.notificationsCapabilities.supportedNotificationsTypes);
+		var mqttInterfaceCapabilities = new MqttInterfaceCapabilities(objectResponse.mqttInterfaceCapabilities.interfaceName, objectResponse.mqttInterfaceCapabilities.available, objectResponse.mqttInterfaceCapabilities.broker);
+		var ruleCapabilities = new RuleCapabilities(objectResponse.ruleCapabilities.supportedSensorRulesTypes, objectResponse.ruleCapabilities.supportedSensorRulesTimeBetweenTriggers);
+		var chartCapabilities = new ChartCapabilities(objectResponse.chartCapabilities.supportedChartTypes, objectResponse.chartCapabilities.supportedChartIntervals, objectResponse.chartCapabilities.supportedSampleIntervals);
+		var cameraCapabilities = new CameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
+		var notificationsCapabilities = new NotificationsCapabilities(objectResponse.notificationsCapabilities.supportedNotificationsTypes);
 		var isTelegramConnected = objectResponse.telegramConnected;
-		return new IotAssistantCapabilities(transductorsCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected);
+		return new SystemCapabilities(transductorsCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected);
 	} 
 	
 	function getTransductorsCapabilitiesFromResponse(objectResponse) {
@@ -91,7 +105,7 @@ systemModule.service ("IotAssistantAPIService",function(RestAPIService, $q){
 
 	self.powerOff = function () {
 		var deferred = $q.defer();
-		RestAPIService.post(iotAssistantBaseUri.concat("powerOff/")).then(function() {
+		RestAPIService.post(systemBaseUri.concat("powerOff/")).then(function() {
 			deferred.resolve();
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);

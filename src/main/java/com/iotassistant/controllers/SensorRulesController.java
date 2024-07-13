@@ -21,7 +21,6 @@ import com.iotassistant.models.sensorrules.CameraSensorRule;
 import com.iotassistant.models.sensorrules.EnableRuleSensorRule;
 import com.iotassistant.models.sensorrules.SensorRule;
 import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
-import com.iotassistant.models.transductor.TransductorInterfaceException;
 import com.iotassistant.services.ActuatorsService;
 import com.iotassistant.services.CamerasService;
 import com.iotassistant.services.SensorRulesService;
@@ -51,7 +50,7 @@ public class SensorRulesController {
 	}
 	
 	@RequestMapping(value="/enableSensorRules/", method = RequestMethod.POST)
-	public ResponseEntity<?> newEnableRuleSensorRule(@RequestBody EnableRuleSensorRuleDTO enableRuleSensorRuleDTO) throws  TransductorInterfaceException  {
+	public ResponseEntity<?> newEnableRuleSensorRule(@RequestBody EnableRuleSensorRuleDTO enableRuleSensorRuleDTO) {
 		EnableRuleSensorRule enableRuleSensorRule = enableRuleSensorRuleDTO.getSensorRule();
 		if (sensorRulesService.getSensorRule(enableRuleSensorRule.getSensorRuleId()) == null) {
 			ErrorDTO sensorRuleNotFoundDTO = ErrorDTO.SENSOR_RULE_NOT_FOUND;
@@ -60,7 +59,7 @@ public class SensorRulesController {
 		return this.newSensorRule(enableRuleSensorRule);
 	}
 	
-	private ResponseEntity<?> newSensorRule(SensorRule sensorRule) throws TransductorInterfaceException {
+	private ResponseEntity<?> newSensorRule(SensorRule sensorRule)  {
 		ErrorDTO errorDTO = null;
 		if (!sensorsService.exist(sensorRule.getSensorName()))  {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
@@ -81,13 +80,13 @@ public class SensorRulesController {
 	}
 
 	@RequestMapping(value="/alarmSensorRules/", method = RequestMethod.POST)
-	public ResponseEntity<?> newAlarmSensorRule(@RequestBody AlarmSensorRuleDTO alarmSensorRuleDTO) throws TransductorInterfaceException  {
+	public ResponseEntity<?> newAlarmSensorRule(@RequestBody AlarmSensorRuleDTO alarmSensorRuleDTO)   {
 	    AlarmSensorRule sensorRule = alarmSensorRuleDTO.getSensorRule();
 	    return this.newSensorRule(sensorRule);
 	}
 	
 	@RequestMapping(value="/sensorRules/{id}", method = RequestMethod.PATCH)
-	public ResponseEntity<?> enableRuleById(@PathVariable("id") int id, @RequestBody EnableDTO enableRuleDTO) throws TransductorInterfaceException  {
+	public ResponseEntity<?> enableRuleById(@PathVariable("id") int id, @RequestBody EnableDTO enableRuleDTO)   {
 		if (sensorRulesService.getSensorRule(id) == null) {
 			ErrorDTO sensorRuleNotFoundDTO = ErrorDTO.SENSOR_RULE_NOT_FOUND;
 			return new ResponseEntity<>(sensorRuleNotFoundDTO, sensorRuleNotFoundDTO.getHttpStatus());
@@ -98,7 +97,7 @@ public class SensorRulesController {
 
 
 	@RequestMapping(value="/sensorRules/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteRuleById(@PathVariable("id") int id) throws TransductorInterfaceException  {
+	public ResponseEntity<?> deleteRuleById(@PathVariable("id") int id)   {
 		if (sensorRulesService.getSensorRule(id) == null) {
 			ErrorDTO sensorRuleNotFoundDTO = ErrorDTO.SENSOR_RULE_NOT_FOUND;
 			return new ResponseEntity<>(sensorRuleNotFoundDTO, sensorRuleNotFoundDTO.getHttpStatus());
@@ -109,7 +108,7 @@ public class SensorRulesController {
 
 
 	@RequestMapping(value="/triggerActuatorSensorRules/", method = RequestMethod.POST)
-	public ResponseEntity<?> newTriggerActuatorSensorRule(@RequestBody TriggerActuatorSensorRuleDTO triggerActuatorSensorRuleDTO) throws TransductorInterfaceException    {
+	public ResponseEntity<?> newTriggerActuatorSensorRule(@RequestBody TriggerActuatorSensorRuleDTO triggerActuatorSensorRuleDTO)     {
 		TriggerActuatorSensorRule sensorRule = triggerActuatorSensorRuleDTO.getSensorRule();
 		if (!actuatorsService.existActuator(sensorRule.getActuatorName())) {
 			ErrorDTO actuatorNotFoundDTO = ErrorDTO.DEVICE_NOT_FOUND;
@@ -122,7 +121,7 @@ public class SensorRulesController {
 	
 	
 	@RequestMapping(value="/cameraSensorRules/", method = RequestMethod.POST)
-	public ResponseEntity<?> newCameraSensorRule(@RequestBody CameraSensorRuleDTO cameraSensorRuleDTO) throws TransductorInterfaceException    {
+	public ResponseEntity<?> newCameraSensorRule(@RequestBody CameraSensorRuleDTO cameraSensorRuleDTO) {
 		CameraSensorRule cameraSensorRule = cameraSensorRuleDTO.getSensorRule();
 		if (!camerasService.existCamera(cameraSensorRule.getCameraName())) {
 			ErrorDTO cameraNotFoundDTO = ErrorDTO.DEVICE_NOT_FOUND;
