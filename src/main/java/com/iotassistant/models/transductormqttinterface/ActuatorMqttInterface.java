@@ -29,7 +29,7 @@ public class ActuatorMqttInterface extends ActuatorInterface implements MqttInte
 	public List<String> getSubscribedTopics() {
 		List<String> subscribedTopics = new ArrayList<String>();
 		subscribedTopics.add(topic);
-		subscribedTopics.add(ARRIVE_LWT_TOPIC);
+		subscribedTopics.add(topic + "/" + ARRIVE_LWT_TOPIC);
 		return subscribedTopics;
 	}
 

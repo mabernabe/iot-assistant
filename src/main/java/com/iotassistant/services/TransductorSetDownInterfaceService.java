@@ -2,6 +2,7 @@ package com.iotassistant.services;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.iotassistant.controllers.MQTTTransductorsController;
 import com.iotassistant.models.transductor.TransductorInterface;
@@ -9,6 +10,7 @@ import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
 import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
 import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
 
+@Service
 public class TransductorSetDownInterfaceService  implements TransductorInterfaceVisitor {
 	
 	@Autowired

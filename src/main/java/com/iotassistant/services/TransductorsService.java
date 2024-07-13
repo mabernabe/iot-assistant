@@ -2,6 +2,7 @@ package com.iotassistant.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,8 +92,11 @@ public class TransductorsService implements TransductorVisitor{
 
 
 	public Transductor getTransductorByName(String name) {
-		assert(this.existTransductor(name));
-		return transductorsJPARepository.findById(name).get();	
+		Optional<Transductor> transductor = transductorsJPARepository.findById(name);
+		if (transductor.isPresent()) {
+			return transductor.get();
+		}
+		return null;		
 	}
 
 

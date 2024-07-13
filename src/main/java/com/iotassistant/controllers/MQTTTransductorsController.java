@@ -63,7 +63,9 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 	@Override
 	public void messageArrived(String topic, MqttMessage message)  {
 		Transductor transductor = transductorsService.getTransductorByName(topic);
-		new TransductorMqttMessageService(transductor, message, transductorsService).updateTransductor();
+		if (transductor != null) {
+			new TransductorMqttMessageService(transductor, message, transductorsService).updateTransductor();
+		}			
 	}
 	
 
