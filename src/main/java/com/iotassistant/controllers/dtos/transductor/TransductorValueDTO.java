@@ -1,37 +1,32 @@
 package com.iotassistant.controllers.dtos.transductor;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.iotassistant.models.transductor.Property;
 
 public abstract class TransductorValueDTO {
 	
-	protected String property;
+	private String string;
 	
-	protected String value;
+	private String unit;
+	
+	private String description;
 
-	@JsonInclude(Include.NON_NULL)
-	protected String unit;
+	public TransductorValueDTO(Property property, String string) {
+		super();
+		this.string = string;
+		this.description = property.getDescriptionFromValue(string);
+		this.unit = property.getUnit();
+	}
 	
-	@JsonInclude(Include.NON_NULL)
-	protected String date;
-	
-	protected String valueDescription;
-	
-	public String getValue() {
-		return value;
+	public String getString() {
+		return string;
 	}
 
 	public String getUnit() {
 		return unit;
 	}
 
-	public String getDate() {
-		return date;
+	public String getDescription() {
+		return description;
 	}
-
-	public String getValueDescription() {
-		return valueDescription;
-	}
-
 
 }

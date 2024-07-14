@@ -16,7 +16,6 @@ import com.iotassistant.controllers.dtos.transductor.ActuatorValueDTO;
 import com.iotassistant.controllers.dtos.transductor.ActuatorsDTO;
 import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceActuatorDTO;
 import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
 import com.iotassistant.services.TransductorsService;
 
@@ -62,15 +61,15 @@ public class ActuatorsController {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
 			errorDTO.formatMessage("Actuator");
 	    }
-		PropertyActuatedEnum propertyActuated = PropertyActuatedEnum.getInstance(actuatorValueDTO.getPropertyActuated());
-		if (!actuatorsService.hasActuatorProperty(actuatorName, propertyActuated)) {
-			errorDTO = ErrorDTO.ACTUATOR_HAS_NOT_PROPERTY;
-			errorDTO.formatMessage(propertyActuated.toString());
-		}
+	//	PropertyActuatedEnum propertyActuated = PropertyActuatedEnum.getInstance(actuatorValueDTO.getPropertyActuated());
+	//	if (!actuatorsService.hasActuatorProperty(actuatorName, propertyActuated)) {
+	//		errorDTO = ErrorDTO.ACTUATOR_HAS_NOT_PROPERTY;
+	//		errorDTO.formatMessage(propertyActuated.toString());
+	//	}
 		if (errorDTO != null) {
 			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 		}	
-		actuatorsService.setActuatorValue(propertyActuated, actuatorName, actuatorValueDTO.getValue());
+	//	actuatorsService.setActuatorValue(propertyActuated, actuatorName, actuatorValueDTO.getValue());
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	

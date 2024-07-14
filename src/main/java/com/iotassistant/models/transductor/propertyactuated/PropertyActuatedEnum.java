@@ -59,7 +59,7 @@ public enum PropertyActuatedEnum implements Property{
 	}
 
 	public String getDescriptionFromValue(String value) {
-		return null;
+		return propertyActuated.getDescriptiveInformationFromValue(value);
 	}
 
 }

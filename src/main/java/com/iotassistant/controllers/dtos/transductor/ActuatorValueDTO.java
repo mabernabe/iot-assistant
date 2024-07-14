@@ -1,33 +1,12 @@
 package com.iotassistant.controllers.dtos.transductor;
 
-import com.iotassistant.models.transductor.ActuatorValues;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
 public class ActuatorValueDTO extends TransductorValueDTO{
 	
-	public ActuatorValueDTO() {};
-	
-	public ActuatorValueDTO(ActuatorValues actuatorValue) {
-		super();
+	public ActuatorValueDTO(PropertyActuatedEnum propertyActuated, String string) {
+		super(propertyActuated, string);
 
 	}
-
-	public String getPropertyActuated() {
-		return property;
-	}
-
-	public void setPropertyActuated(PropertyActuatedEnum propertyActuated) {
-		this.property = propertyActuated.getNameWithUnit();
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-			
 
 }

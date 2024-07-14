@@ -22,7 +22,6 @@ public class AnalogSpeakerId extends AnalogPropertyActuated{
 
 	@Override
 	public String getDescriptiveInformationFromValue(String value) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
