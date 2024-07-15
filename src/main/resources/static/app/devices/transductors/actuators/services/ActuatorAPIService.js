@@ -27,7 +27,7 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 			}
 			let propertiesActuated = [];
 			actuatorObject.propertiesActuated.forEach(propertyActuatedObject => {
-				let propertyActuated = new Property(propertyActuatedObject.name, propertyActuatedObject.unit, propertyActuatedObject.digital, propertyActuatedObject.minimumValue, propertyActuatedObject.maximumValue);
+				let propertyActuated = new Property(propertyActuatedObject.name, propertyActuatedObject.unit, propertyActuatedObject.binary, propertyActuatedObject.minimumValue, propertyActuatedObject.maximumValue);
 				propertiesActuated.push(propertyActuated);
 			})
 			let actuator = new Actuator(actuatorObject.name, actuatorObject.description, actuatorObject.active, actuatorValues, propertiesActuated, actuatorObject.watchdogInterval, actuatorObject.watchdogEnabled);
@@ -36,9 +36,9 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 		return actuators;
 	}
 	
-	self.setActuatorValue = function (actuator, value) {
+	self.setActuatorValue = function (actuator, propertyActuated, newValue) {
 		let deferred = $q.defer();
-		let newActuatorValue = createSetActuatorValueObjRequest(value);
+		let newActuatorValue = createSetActuatorValueObjRequest(propertyActuated, newValue);
 		RestAPIService.patch(actuatorsBaseUri.concat(actuator.getName()), newActuatorValue).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
@@ -47,11 +47,10 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 		return deferred.promise ;
 	}
 	
-	function createSetActuatorValueObjRequest(value) {
+	function createSetActuatorValueObjRequest(propertyActuated, newValue) {
 		let newActuatorValue = {};
-		newActuatorValue.propertyActuated = value.property;
-		newActuatorValue.value = value.value;
-		newActuatorValue.unit = value.unit;
+		newActuatorValue.propertyActuated = propertyActuated;
+		newActuatorValue.value = newValue;
 		return newActuatorValue;
 	}
 	

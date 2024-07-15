@@ -30,14 +30,14 @@
 						<div class="numbers">
 							<p class="card-category">{{propertyMeasured.getName()}}</p>						
 							<div ng-switch="sensor.isActive()">
-								<p ng-switch-when="false" class="card-title sensor-inactive">Unknown</p>
+								<p ng-switch-when="false" class="card-title transductor-inactive">Unknown</p>
 								<div ng-switch-when="true">
 									<p data-alias="sensor.getValue(propertyMeasured.getNameWithUnit()) as sensorValue">		
-										<div ng-if="!propertyMeasured.isDigital()">
+										<div ng-if="!propertyMeasured.isBinary()">
 											<p class="card-title ">{{sensorValue.getStringWithUnit()}} </p>
 											<p ng-if="sensorValue.hasDescription()" class="card-title value-description"><span class="value-severity-{{sensorValue.getSeverity()}}"> {{sensorValue.getDescription()}} </span></p>
 										</div>
-										<p ng-if="propertyMeasured.isDigital()" class="card-title">
+										<p ng-if="propertyMeasured.isBinary()" class="card-title">
 											<button ng-if="sensorValue.isHigh()" class="btn btn-warning" disabled>Active</button>
 											<button ng-if="!sensorValue.isHigh()" class="btn" disabled>Inactive</button>
 										</p>									

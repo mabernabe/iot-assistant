@@ -3,7 +3,6 @@ class SensorValue extends TransductorValue{
 	
 	constructor(string, unit, description, severity) {
 		super(string, unit);
-		this.unit = unit;
 		this.description = description;
 		this.severity = severity;
 	}

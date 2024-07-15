@@ -7,7 +7,7 @@ public interface Property {
 	
 	String getNameWithUnit();
 	
-	boolean isDigital();
+	boolean isBinary();
 	
 	String getUnit();
 
@@ -18,7 +18,7 @@ public interface Property {
 	String getDescriptionFromValue(String value);
 
 	public default boolean isValidValue(String value) {
-		if (this.isDigital()) {
+		if (this.isBinary()) {
 			return value != null && value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
 		} else {
 			try {

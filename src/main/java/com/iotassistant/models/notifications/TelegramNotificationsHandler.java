@@ -92,7 +92,7 @@ public class TelegramNotificationsHandler extends NotificationHandler  implement
 		notificationText += TELEGRAM_MSG_MONOSPACE_TAG;
 		notificationText += "Sensor: " + sensorMeasureNotification.getSensorName() + TELEGRAM_MSG_END_OF_LINE;
 		notificationText += "Property: " + sensorMeasureNotification.getPropertyObserved().getNameWithUnit() + TELEGRAM_MSG_END_OF_LINE;
-		String analogThresholdOperator = (sensorMeasureNotification.getPropertyObserved().isDigital())? "" : sensorMeasureNotification.getValueThresholdOperator().toString(); 
+		String analogThresholdOperator = (sensorMeasureNotification.getPropertyObserved().isBinary())? "" : sensorMeasureNotification.getValueThresholdOperator().toString(); 
 		notificationText += "Measure threshold: " + analogThresholdOperator + sensorMeasureNotification.getValueThresholdObserved() + TELEGRAM_MSG_END_OF_LINE;
 		notificationText += "Measured: " + sensorMeasureNotification.getSensorValue() + TELEGRAM_MSG_END_OF_LINE;
 		notificationText += "Date: " + sensorMeasureNotification.getDate() + TELEGRAM_MSG_END_OF_LINE;

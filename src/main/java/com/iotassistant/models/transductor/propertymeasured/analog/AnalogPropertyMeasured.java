@@ -7,7 +7,7 @@ public abstract class AnalogPropertyMeasured implements PropertyMeasured{
 
 
 	@Override
-	public boolean isDigital() {
+	public boolean isBinary() {
 		return false;
 	}
 

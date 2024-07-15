@@ -8,7 +8,7 @@ public class PropertyDTO {
 	
 	private String unit;
 	
-	boolean isDigital;
+	boolean isBinary;
 	
 	private Integer maximumValue;
 	
@@ -21,7 +21,7 @@ public class PropertyDTO {
 	public PropertyDTO(Property property) {
 		this.name = property.getName();
 		this.unit = property.getUnit();
-		this.isDigital = property.isDigital();
+		this.isBinary = property.isBinary();
 		this.maximumValue = property.getMaximumValue();
 		this.minimumValue = property.getMinimumValue();
 	}
@@ -35,17 +35,10 @@ public class PropertyDTO {
 		return unit;
 	}
 
-	public boolean isDigital() {
-		return isDigital;
+	public boolean isBinary() {
+		return isBinary;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setDigital(boolean isDigital) {
-		this.isDigital = isDigital;
-	}
 
 	public Integer getMaximumValue() {
 		return maximumValue;

@@ -1,13 +1,13 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public abstract class DigitalPropertyActuated  implements PropertyActuated{
+public abstract class BinaryPropertyActuated  implements PropertyActuated{
 	
-	private static final String DIGITAL_HIGH_STRING = "High";
+	private static final String BINARY_HIGH_STRING = "High";
 
-	private static final String DIGITAL_LOW_STRING = "Low";
+	private static final String BINARY_LOW_STRING = "Low";
 	
 	@Override
-	public boolean isDigital() {
+	public boolean isBinary() {
 		return true;
 	}
 	
@@ -32,20 +32,20 @@ public abstract class DigitalPropertyActuated  implements PropertyActuated{
 		return null;
 	}
 	
-	public static String getDigitalValueString(boolean isHigh) {
+	public static String getBinaryValueString(boolean isHigh) {
 		if (isHigh) {
-			return DIGITAL_HIGH_STRING;
+			return BINARY_HIGH_STRING;
 		}
 		else {
-			return DIGITAL_LOW_STRING;
+			return BINARY_LOW_STRING;
 		}
 	}
 
-	public static Boolean getDigitalValueFromString(String value) {
-		if (value.equalsIgnoreCase(DIGITAL_HIGH_STRING)) {
+	public static Boolean getBinaryValueFromString(String value) {
+		if (value.equalsIgnoreCase(BINARY_HIGH_STRING)) {
 			return true;
 		}
-		else if (value.equalsIgnoreCase(DIGITAL_LOW_STRING)){
+		else if (value.equalsIgnoreCase(BINARY_LOW_STRING)){
 			return false;
 		}
 		else return null; 

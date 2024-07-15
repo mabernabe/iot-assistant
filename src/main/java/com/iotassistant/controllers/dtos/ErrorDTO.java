@@ -13,7 +13,7 @@ public enum ErrorDTO {
 	CHART_ALREADY_EXIST("Chart with same properties already exist", HttpStatus.UNPROCESSABLE_ENTITY),
 	CHART_NOT_FOUND("Chart not found", HttpStatus.NOT_FOUND),
 	SENSOR_HAS_NOT_PROPERTY("Sensor has not %s property", HttpStatus.UNPROCESSABLE_ENTITY),
-	ACTUATOR_HAS_NOT_PROPERTY("Actuator has not %s property", HttpStatus.UNPROCESSABLE_ENTITY),
+	ACTUATOR_HAS_NOT_PROPERTY("Actuator has not property", HttpStatus.UNPROCESSABLE_ENTITY),
 	SENSOR_RULE_ALREADY_EXIST("Sensor rule with same properties already exist", HttpStatus.UNPROCESSABLE_ENTITY),
 	SENSOR_RULE_NOT_FOUND("Sensor rule not found", HttpStatus.NOT_FOUND);
 	

@@ -6,7 +6,7 @@ public interface PropertyActuated {
 	
 	public String getNameWithUnit();
 	
-	public boolean isDigital();
+	public boolean isBinary();
 	
 	public String getUnit();
 	

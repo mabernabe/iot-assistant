@@ -19,6 +19,7 @@ public abstract class ActuatorInterface  extends TransductorInterface{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+	public abstract void accept(ActuatorInterfaceVisitor actuatorInterfaceVisitor);
 	
 
 }

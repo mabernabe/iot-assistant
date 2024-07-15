@@ -1,9 +1,9 @@
 class Property {
 	
-	constructor(name, unit, digital, minimumValue, maximumValue) {
+	constructor(name, unit, binary, minimumValue, maximumValue) {
 		this.name = name;
 		this.unit = unit;
-		this.digital = digital;
+		this.binary = binary;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 	}
@@ -21,8 +21,8 @@ class Property {
 	}
 
 	
-	isDigital () {
-		return this.digital;
+	isBinary () {
+		return this.binary;
 	}
 	
 	getMaximumValue(){
@@ -32,6 +32,7 @@ class Property {
 	getMinimumValue() {
 		return this.minimumValue;
 	}
+		
 	
 }
 

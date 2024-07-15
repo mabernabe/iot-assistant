@@ -1,8 +1,8 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public class DigitalRelay extends DigitalPropertyActuated{
+public class BinaryLED extends BinaryPropertyActuated{
 	
-	private static final String NAME = "Relay";
+	private static final String NAME = "Led";
 
 	@Override
 	public String getName() {

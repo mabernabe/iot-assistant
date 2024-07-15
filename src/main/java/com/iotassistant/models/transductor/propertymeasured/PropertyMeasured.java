@@ -4,7 +4,7 @@ public interface PropertyMeasured {
 	
 	public String getName();
 	
-	public boolean isDigital();
+	public boolean isBinary();
 	
 	public String getUnit();
 	

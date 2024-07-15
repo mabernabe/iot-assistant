@@ -25,49 +25,49 @@ import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVA;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVB;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogUVUVI;
 import com.iotassistant.models.transductor.propertymeasured.analog.AnalogVoltageV;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalButton;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalDualButtonA;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalDualButtonB;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalFlame;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalGeneric;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalLimitSwitch;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalMotion;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalSound;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalSteam;
-import com.iotassistant.models.transductor.propertymeasured.digital.DigitalTilt;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryMotion;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryButton;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryDualButtonA;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryDualButtonB;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryFlame;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryGeneric;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryLimitSwitch;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinarySound;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinarySteam;
+import com.iotassistant.models.transductor.propertymeasured.binary.BinaryTilt;
 
 
 public enum PropertyMeasuredEnum implements Property{
-	DIGITAL_MOTION(new DigitalMotion()),
-	ANALOG_TEMPERATURE_CENTIGRADES(new AnalogTemperatureCentigrades()),
-	ANALOG_HUMIDITY_PERCENTAGE(new AnalogHumidityPercentage()),
-	ANALOG_AMBIENT_LIGHT_LUX(new AnalogAmbientLightLux()),
-	DIGITAL_TILT(new DigitalTilt()),
-	ANALOG_AIR_PRESSURE_PA(new AnalogAirPressurePA()),
-	ANALOG_AIR_QUALITY_IAQ(new AnalogAirQualityIAQ()),
-	ANALOG_UV_UVI(new AnalogUVUVI()),
-	ANALOG_UV_UVA(new AnalogUVUVA()),
-	ANALOG_UV_UVB(new AnalogUVUVB()),
-	DIGITAL_FLAME(new DigitalFlame()),
-	DIGITAL_STEAM(new DigitalSteam()),
-	DIGITAL_SOUND(new DigitalSound()),
-	DIGITAL_LIMIT_SWITCH(new DigitalLimitSwitch()),
-	ANALOG_AIR_CO_PPM(new AnalogAirCOPPM()),
-	ANALOG_AIR_CO2_PPM(new AnalogAirCO2PPM()),
-	ANALOG_AIR_TVOC_PPB(new AnalogAirTVOCPPB()),
-	ANALOG_SOIL_MOISTURE_RH(new AnalogSoilMoistureRH()),
-	DIGITAL_DUAL_BUTTON_A(new DigitalDualButtonA()),
-	DIGITAL_DUAL_BUTTON_B(new DigitalDualButtonB()),
-	ANALOG_ENCODER_60U(new AnalogEncoder60U()),
-	ANALOG_HEART_RATE_PPM(new AnalogHeartRatePPM()),
-	ANALOG_PULSE_OXYMETER_PERCENTAGE(new AnalogPulseOxymeterPercentage()),
-	ANALOG_GESTURE_ID(new AnalogGestureId()),
-	ANALOG_VOLTAGE_V(new AnalogVoltageV()),
-	ANALOG_CURRENT_A(new AnalogCurrentA()),
-	ANALOG_POWER_W(new AnalogPowerW()),
-	ANALOG_GENERIC_NA(new AnalogGeneric()),
-	DIGITAL_GENERIC(new DigitalGeneric()),
-	DIGITAL_BUTTON(new DigitalButton());
+	BINARY_MOTION(new BinaryMotion()),
+	TEMPERATURE_CENTIGRADES(new AnalogTemperatureCentigrades()),
+	HUMIDITY_PERCENTAGE(new AnalogHumidityPercentage()),
+	AMBIENT_LIGHT_LUX(new AnalogAmbientLightLux()),
+	BINARY_TILT(new BinaryTilt()),
+	AIR_PRESSURE_PA(new AnalogAirPressurePA()),
+	AIR_QUALITY_IAQ(new AnalogAirQualityIAQ()),
+	UV_UVI(new AnalogUVUVI()),
+	UV_UVA(new AnalogUVUVA()),
+	UV_UVB(new AnalogUVUVB()),
+	BINARY_FLAME(new BinaryFlame()),
+	BINARY_STEAM(new BinarySteam()),
+	BINARY_SOUND(new BinarySound()),
+	BINARY_LIMIT_SWITCH(new BinaryLimitSwitch()),
+	AIR_CO_PPM(new AnalogAirCOPPM()),
+	AIR_CO2_PPM(new AnalogAirCO2PPM()),
+	AIR_TVOC_PPB(new AnalogAirTVOCPPB()),
+	SOIL_MOISTURE_RH(new AnalogSoilMoistureRH()),
+	BINARY_DUAL_BUTTON_A(new BinaryDualButtonA()),
+	BINARY_DUAL_BUTTON_B(new BinaryDualButtonB()),
+	ENCODER_60U(new AnalogEncoder60U()),
+	HEART_RATE_PPM(new AnalogHeartRatePPM()),
+	PULSE_OXYMETER_PERCENTAGE(new AnalogPulseOxymeterPercentage()),
+	GESTURE_ID(new AnalogGestureId()),
+	VOLTAGE_V(new AnalogVoltageV()),
+	CURRENT_A(new AnalogCurrentA()),
+	POWER_W(new AnalogPowerW()),
+	GENERIC_NA(new AnalogGeneric()),
+	BINARY_GENERIC(new BinaryGeneric()),
+	BINARY_BUTTON(new BinaryButton());
 	
 	public static final List<PropertyMeasuredEnum> ALL_INSTANCES = Arrays.asList(PropertyMeasuredEnum.values()); 
 	
@@ -88,8 +88,8 @@ public enum PropertyMeasuredEnum implements Property{
 	}
 
 	@Override
-	public boolean isDigital() {
-		return propertyMeasured.isDigital();
+	public boolean isBinary() {
+		return propertyMeasured.isBinary();
 	}
 
 

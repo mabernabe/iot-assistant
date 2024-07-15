@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.iotassistant.models.transductor.Property;
 
 public enum PropertyActuatedEnum implements Property{
-	DIGITAL_LED(new DigitalLED()),
-	DIGITAL_RELAY(new DigitalRelay()),
-	DIGITAL_SOCKET(new DigitalSocket()),
-	ANALOG_SPEAKER_ID(new AnalogSpeakerId());
+	DIGITAL_LED(new BinaryLED()),
+	DIGITAL_RELAY(new BinaryRelay()),
+	DIGITAL_SOCKET(new BinarySocket()),
+	SPEAKER_ID(new AnalogSpeakerId());
 	
 	public static final List<PropertyActuatedEnum> ALL_INSTANCES = Arrays.asList(PropertyActuatedEnum.values()); 
 
@@ -30,8 +30,8 @@ public enum PropertyActuatedEnum implements Property{
 		return propertyActuated.getNameWithUnit();
 	}
 
-	public boolean isDigital() {
-		return propertyActuated.isDigital();
+	public boolean isBinary() {
+		return propertyActuated.isBinary();
 	}
 
 	public String getUnit() {

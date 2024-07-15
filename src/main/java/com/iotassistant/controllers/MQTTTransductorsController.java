@@ -68,6 +68,10 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 		}			
 	}
 	
+	public void setActuatorValue() {
+		
+	}
+	
 
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token) {

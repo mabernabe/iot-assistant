@@ -6,7 +6,7 @@ public abstract class AnalogPropertyActuated implements PropertyActuated{
 	public abstract String getName();
 
 	@Override
-	public boolean isDigital() {
+	public boolean isBinary() {
 		return false;
 	}
 
@@ -24,12 +24,9 @@ public abstract class AnalogPropertyActuated implements PropertyActuated{
 
 	@Override
 	public String getNameWithUnit() {
-		String stringWithUnit = this.getName();
+		String name = this.getName();
 		String unit = this.getUnit();
-		if (unit != null) {
-			stringWithUnit = stringWithUnit.concat(" ").concat(unit);
-		}
-		return stringWithUnit;
+		return name.concat(" ").concat(unit);
 	}
 
 }

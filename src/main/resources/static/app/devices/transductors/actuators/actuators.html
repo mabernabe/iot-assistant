@@ -25,12 +25,12 @@
 						<div class="numbers">
 							<p class="card-category">{{propertyActuated.getName()}}</p>
 							<div ng-switch="actuator.isActive()">
-								<p ng-switch-when="false" class="card-title unknown-measure">Unknown</p>
+								<p ng-switch-when="false" class="card-title transductor-inactive">Unknown</p>
 								<div ng-switch-when="true">
 								<p data-alias="actuator.getValue(propertyActuated.getNameWithUnit()) as actuatorValue">
-									<p ng-if="!propertyActuated.isDigital()" class="card-title">{{actuatorValue.getStringWithUnit()}}
+									<p ng-if="!propertyActuated.isBinary()" class="card-title">{{actuatorValue.getStringWithUnit()}}
 									<span>
-									<button class="btn" ng-click="GetActuatorsController.setActuatorAnalogValue(actuator, propertyActuated, value)">
+									<button class="btn" ng-click="GetActuatorsController.setActuatorAnalogValue(actuator, propertyActuated, actuatorValue)">
                   						Set value
                   						<span class="btn-label btn-label-right">
                     					<i class="nc-icon nc-minimal-right"></i>                					
@@ -42,9 +42,11 @@
 									</span>
 									</p>
 									
-									<p ng-if="propertyActuated.isDigital()" class="card-title">
-										<label class="switch"> <input type="checkbox"  
-											ng-checked="actuatorValue.isHigh()" ng-model="actuatorValue.string" ng-click="GetActuatorsController.setActuatorDigitalValue(actuator, actuatorValue)"> 
+									<p ng-if="propertyActuated.isBinary()" class="card-title">
+										<label class="switch"> 
+											<input type="checkbox"  ng-model="actuatorValue.string" 
+											ng-true-value="'true'" ng-false-value="'false'"
+											ng-click="GetActuatorsController.setActuatorBinaryValue(actuator, propertyActuated)"> 
 											<span></span>
 										</label>
 									</p>

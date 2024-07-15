@@ -29,14 +29,13 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 	
 	initializeController();  
 
-	self.setActuatorDigitalValue = function(actuator, value){
+	self.setActuatorBinaryValue = function(actuator, propertyActuated){
 		$interval.cancel(fetchActuatorsInterval);
-		var newValue = ActuatorValue.getDigitalStringValue(!value.isHigh());
-		value.setValue(newValue);
-		ActuatorAPIService.setActuatorValue(actuator, value)
-		.finally(function() { 
-			fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
-		})
+		let actuatorValue = actuator.getValue(propertyActuated.getNameWithUnit())
+		let newValue = ActuatorValue.getStringFromBinaryValue(!actuatorValue.isHigh());
+		ActuatorAPIService.setActuatorValue(actuator, propertyActuated, newValue);
+		fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
+
 	}
 	
 	self.setActuatorAnalogValue = function(actuator, propertyActuated, value){

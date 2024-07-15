@@ -30,6 +30,9 @@ public class ActuatorsService {
 	@Autowired
 	private TransductorSetDownInterfaceService transductorSetDownInterfaceService;
 	
+	@Autowired
+	private ActuatorSetValueService actuatorSetValueService;
+	
 	public Actuator newActuator(Actuator actuator)  {
 		actuator = actuatorsRepository.save(actuator);
 		this.setUpInterface(actuator);
@@ -90,7 +93,7 @@ public class ActuatorsService {
 		assert(existActuator(actuatorName));
 		boolean hasActuatorProperty = true;
 		Actuator actuator = getActuatorByName(actuatorName);
-		if (!actuator.getPropertiesActuated().contains(propertyActuated)) {
+		if (propertyActuated == null || !actuator.getPropertiesActuated().contains(propertyActuated)) {
 			hasActuatorProperty = false;
 		}
 		return hasActuatorProperty;
