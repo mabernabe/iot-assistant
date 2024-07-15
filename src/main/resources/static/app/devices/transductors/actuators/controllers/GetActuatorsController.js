@@ -15,9 +15,11 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 		})
 	}
 	
+	let fetchActuatorsInterval;
+	
 	let initializeController = function() {
 		fetchActuators();   
-		let fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
+		fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 		$scope.$on('$destroy',function(){
 			if(fetchActuatorsInterval) {
 				$interval.cancel(fetchActuatorsInterval);
@@ -28,12 +30,12 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 	initializeController();  
 
 	self.setActuatorDigitalValue = function(actuator, value){
-		$interval.cancel(intervalIstance);
+		$interval.cancel(fetchActuatorsInterval);
 		var newValue = ActuatorValue.getDigitalStringValue(!value.isHigh());
 		value.setValue(newValue);
 		ActuatorAPIService.setActuatorValue(actuator, value)
 		.finally(function() { 
-			intervalIstance = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
+			fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 		})
 	}
 	
@@ -42,11 +44,11 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 		if (isNaN(newValue) ||  newValue === "") {
 			return;
 		}
-		$interval.cancel(intervalIstance);
+		$interval.cancel(fetchActuatorsInterval);
 		value.setValue(newValue.toString());
 		ActuatorAPIService.setActuatorValue(actuator, value)
 		.finally(function() { 
-			intervalIstance = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
+			fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 		})
 	}
 	

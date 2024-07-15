@@ -23,12 +23,12 @@
 					</div>
 					<div class="col-7 col-md-8">
 						<div class="numbers">
-							<p class="card-category">{{propertyActuated.getShortName()}}</p>
-							<div ng-switch="actuator.existValue(propertyActuated.getName())">
+							<p class="card-category">{{propertyActuated.getName()}}</p>
+							<div ng-switch="actuator.isActive()">
 								<p ng-switch-when="false" class="card-title unknown-measure">Unknown</p>
 								<div ng-switch-when="true">
-								<p data-alias="actuator.getValue(propertyActuated.getName()) as value">
-									<p ng-if="!value.isDigital()" class="card-title">{{value.getValueWithUnit()}}
+								<p data-alias="actuator.getValue(propertyActuated.getNameWithUnit()) as actuatorValue">
+									<p ng-if="!propertyActuated.isDigital()" class="card-title">{{actuatorValue.getStringWithUnit()}}
 									<span>
 									<button class="btn" ng-click="GetActuatorsController.setActuatorAnalogValue(actuator, propertyActuated, value)">
                   						Set value
@@ -42,9 +42,9 @@
 									</span>
 									</p>
 									
-									<p ng-if="value.isDigital()" class="card-title">
+									<p ng-if="propertyActuated.isDigital()" class="card-title">
 										<label class="switch"> <input type="checkbox"  
-											ng-checked="value.isHigh()" ng-model="value.value" ng-click="GetActuatorsController.setActuatorDigitalValue(actuator, value)"> 
+											ng-checked="actuatorValue.isHigh()" ng-model="actuatorValue.string" ng-click="GetActuatorsController.setActuatorDigitalValue(actuator, actuatorValue)"> 
 											<span></span>
 										</label>
 									</p>
