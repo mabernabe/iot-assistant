@@ -1,5 +1,7 @@
 package com.iotassistant.controllers;
 
+import javax.annotation.PostConstruct;
+
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -13,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iotassistant.models.transductor.Transductor;
+import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.models.transductormqttinterface.MqttInterface;
 import com.iotassistant.services.TransductorsService;
 
@@ -23,6 +28,8 @@ import com.iotassistant.services.TransductorsService;
 public class MQTTTransductorsController implements MqttCallbackExtended{
 	
 	private volatile IMqttClient mqttclient;
+	
+	private static MQTTTransductorsController instance;
 	
 	@Autowired
 	private TransductorsService transductorsService;
@@ -39,6 +46,16 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 		} 	
 	}
 	
+	@PostConstruct
+	private void registerInstance() {
+		instance = this;
+	} 
+	
+	
+	public static MQTTTransductorsController getInstance() {
+		return instance;
+	}
+
 	private MqttConnectOptions getMqttConnectOptions() {
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setAutomaticReconnect(true);
@@ -68,7 +85,15 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 		}			
 	}
 	
-	public void setActuatorValue() {
+	public void setActuatorValue(String actuatorName, PropertyActuatedEnum propertyActuated, String value) {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			MQTTSetActuatorValueDTO mqttSetActuatorValueDTO = new MQTTSetActuatorValueDTO(propertyActuated, value);
+			byte[] jsonBytes = objectMapper.writeValueAsString(mqttSetActuatorValueDTO).getBytes();
+			this.mqttclient.publish(actuatorName, new MqttMessage(jsonBytes));
+		} catch (JsonProcessingException | MqttException e) {
+			e.printStackTrace();
+		} 
 		
 	}
 	

@@ -16,22 +16,13 @@ import com.iotassistant.repositories.ActuatorsJPARepository;
 
 @Service
 @Transactional
-public class ActuatorsService {
+public class ActuatorsService  {
 	
 	@Autowired
 	ActuatorsJPARepository actuatorsRepository;
 	
 	@Autowired
 	private SensorRulesService sensorRulesService;
-	
-	@Autowired
-	private TransductorSetUpInterfaceService transductorSetUpInterfaceService;
-	
-	@Autowired
-	private TransductorSetDownInterfaceService transductorSetDownInterfaceService;
-	
-	@Autowired
-	private ActuatorSetValueService actuatorSetValueService;
 	
 	public Actuator newActuator(Actuator actuator)  {
 		actuator = actuatorsRepository.save(actuator);
@@ -41,8 +32,9 @@ public class ActuatorsService {
 
 	
 	public void setActuatorValue(PropertyActuatedEnum propertyActuated, String actuatorName, String value)  {
-		//Actuator actuator = actuatorsRepository.getActuatorByName(actuatorName);
-		//actuator.setValue(propertyActuated, value);
+		assert(this.existActuator(actuatorName));
+		Actuator actuator = actuatorsRepository.findById(actuatorName).get();
+		new ActuatorSetValueService(actuator, propertyActuated, value).setValue();
 		
 	}
 	
@@ -79,7 +71,7 @@ public class ActuatorsService {
 	}
 
 	private void setDownInterface(Actuator actuator) {
-		transductorSetDownInterfaceService.setDown(actuator.getInterface());
+		new TransductorSetDownInterfaceService().setDown(actuator.getInterface());
 		
 	}
 
@@ -108,7 +100,7 @@ public class ActuatorsService {
 
 
 	public void setUpInterface(Actuator actuator) {
-		transductorSetUpInterfaceService.setUp(actuator.getInterface());
+		new TransductorSetUpInterfaceService().setUp(actuator.getInterface());
 		
 	}
 

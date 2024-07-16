@@ -100,15 +100,6 @@ public class TransductorsService implements TransductorVisitor{
 	}
 
 
-	public void setActive(String name, boolean active) {
-		assert(this.existTransductor(name));
-		Transductor transductor = transductorsJPARepository.findById(name).get();
-		transductor.setActive(false);
-		transductorsJPARepository.saveAndFlush(transductor);
-		
-	}
-
-
 	public void updateSensorValues(String name, SensorValues sensorValues) {
 		sensorService.update(name, sensorValues);	
 	}
