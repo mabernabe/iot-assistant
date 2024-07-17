@@ -27,11 +27,6 @@ public class SensorsService  {
 	@Autowired
 	private SensorRulesService sensorRulesService;
 	
-	@Autowired
-	private TransductorSetUpInterfaceService transductorSetUpInterfaceService;
-	
-	@Autowired
-	private TransductorSetDownInterfaceService transductorSetDownInterfaceService;
 	
 	
 	public Sensor getSensorByName(String name) {
@@ -70,7 +65,7 @@ public class SensorsService  {
 	}
 
 	private void setDownInterface(Sensor sensor) {
-		transductorSetDownInterfaceService.setDown(sensor.getInterface());
+		new TransductorSetDownInterfaceService().setDown(sensor.getInterface());;
 		
 	}
 
@@ -102,7 +97,7 @@ public class SensorsService  {
 	}
 
 	public void setUpInterface(Sensor sensor) {
-		transductorSetUpInterfaceService.setUp(sensor.getInterface());	
+		new TransductorSetUpInterfaceService().setUp(sensor.getInterface());	
 	}
 
 	public void update(String name, SensorValues values) {

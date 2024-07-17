@@ -72,7 +72,7 @@ public class DevicesService implements DeviceVisitor {
 		
 	}
 
-	private boolean existDevice(String name) {
+	public boolean existDevice(String name) {
 		return devicesJPARepository.findById(name) != null;
 	}
 	

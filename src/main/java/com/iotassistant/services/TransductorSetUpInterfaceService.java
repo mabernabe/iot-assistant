@@ -6,20 +6,14 @@ import com.iotassistant.controllers.MQTTTransductorsController;
 import com.iotassistant.models.transductor.TransductorInterface;
 import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
 import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
+import com.iotassistant.models.transductormqttinterface.MqttInterface;
 import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
 
 
 public class TransductorSetUpInterfaceService implements TransductorInterfaceVisitor {
-	
-	private DevicesService devicesService;
-	
-	private MQTTTransductorsController mqttTransductorsController;
-	
 
 	public TransductorSetUpInterfaceService() {
 		super();
-		this.devicesService = DevicesService.getInstance();
-		this.mqttTransductorsController = MQTTTransductorsController.getInstance();
 	}
 
 	public void setUp(TransductorInterface transductorInterface) {
@@ -28,22 +22,21 @@ public class TransductorSetUpInterfaceService implements TransductorInterfaceVis
 
 	@Override
 	public void visit(SensorMqttInterface sensorMqttInterface) {
-		try {
-			mqttTransductorsController.subscribe(sensorMqttInterface);
-		} catch (MqttException e) {
-			this.devicesService.setActive(sensorMqttInterface.getTopic(), false);
-		}	
+			this.setUpMqttInterface(sensorMqttInterface);
 	}
+	
+	private void setUpMqttInterface(MqttInterface mqttInterface) {
+		try {
+			MQTTTransductorsController.getInstance().subscribe(mqttInterface);
+		} catch (MqttException e) {
+			DevicesService.getInstance().setActive(mqttInterface.getTopic(), false);
+		} 	
+	}
+
 
 	@Override
 	public void visit(ActuatorMqttInterface actuatorMqttInterface) {
-		try {
-			mqttTransductorsController.subscribe(actuatorMqttInterface);
-		} catch (MqttException e) {
-			this.devicesService.setActive(actuatorMqttInterface.getTopic(), false);
-		}
-		
+		this.setUpMqttInterface(actuatorMqttInterface);	
 	}
-
 
 }

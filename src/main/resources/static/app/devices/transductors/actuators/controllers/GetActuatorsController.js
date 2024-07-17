@@ -31,9 +31,8 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 
 	self.setActuatorBinaryValue = function(actuator, propertyActuated){
 		$interval.cancel(fetchActuatorsInterval);
-		let actuatorValue = actuator.getValue(propertyActuated.getNameWithUnit())
-		let newValue = ActuatorValue.getStringFromBinaryValue(!actuatorValue.isHigh());
-		ActuatorAPIService.setActuatorValue(actuator, propertyActuated, newValue);
+		let newValue = actuator.getValue(propertyActuated.getNameWithUnit())
+		ActuatorAPIService.setActuatorValue(actuator, propertyActuated, newValue.getString());
 		fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 
 	}

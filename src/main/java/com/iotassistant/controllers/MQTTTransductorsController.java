@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iotassistant.models.transductor.Transductor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
 import com.iotassistant.models.transductormqttinterface.MqttInterface;
 import com.iotassistant.services.TransductorsService;
 
@@ -85,12 +86,12 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 		}			
 	}
 	
-	public void setActuatorValue(String actuatorName, PropertyActuatedEnum propertyActuated, String value) {
+	public void setActuatorValue(ActuatorMqttInterface actuatorMqttInterface, PropertyActuatedEnum propertyActuated, String value) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			MQTTSetActuatorValueDTO mqttSetActuatorValueDTO = new MQTTSetActuatorValueDTO(propertyActuated, value);
 			byte[] jsonBytes = objectMapper.writeValueAsString(mqttSetActuatorValueDTO).getBytes();
-			this.mqttclient.publish(actuatorName, new MqttMessage(jsonBytes));
+			this.mqttclient.publish(actuatorMqttInterface.getSetValueTopic(), new MqttMessage(jsonBytes));
 		} catch (JsonProcessingException | MqttException e) {
 			e.printStackTrace();
 		} 

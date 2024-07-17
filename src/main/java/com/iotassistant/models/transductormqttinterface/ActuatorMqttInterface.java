@@ -15,10 +15,11 @@ import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
 public class ActuatorMqttInterface extends ActuatorInterface implements MqttInterface{
 	
 	private String topic;
+	
+	private static String SET_VALUE_TOPIC = "/value";
 
 	public ActuatorMqttInterface() {
-		super();
-		
+		super();		
 	}
 
 	public ActuatorMqttInterface(String topic) {
@@ -48,6 +49,10 @@ public class ActuatorMqttInterface extends ActuatorInterface implements MqttInte
 	@Override
 	public void accept(ActuatorInterfaceVisitor actuatorInterfaceVisitor) {
 		actuatorInterfaceVisitor.visit(this);		
+	}
+	
+	public String getSetValueTopic() {
+		return this.topic.concat(SET_VALUE_TOPIC);
 	}
 	
 

@@ -49,7 +49,7 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 	
 	function createSetActuatorValueObjRequest(propertyActuated, newValue) {
 		let newActuatorValue = {};
-		newActuatorValue.propertyActuated = propertyActuated;
+		newActuatorValue.propertyActuated = propertyActuated.getNameWithUnit();
 		newActuatorValue.value = newValue;
 		return newActuatorValue;
 	}

@@ -18,7 +18,7 @@ import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceActuatorDTO
 import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
-import com.iotassistant.services.TransductorsService;
+import com.iotassistant.services.DevicesService;
 
 @RestController
 @RequestMapping("${actuators.uri}")
@@ -28,7 +28,7 @@ public class ActuatorsController {
 	private ActuatorsService actuatorsService;
 	
 	@Autowired
-	private TransductorsService transductorsService;
+	private DevicesService devicessService;
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllActuators() {
@@ -41,7 +41,7 @@ public class ActuatorsController {
 	@RequestMapping(value="/mqttInterfaceActuators/", method = RequestMethod.POST)
 	public ResponseEntity<?> newMqttInterfaceActuator(@RequestBody NewMqttInterfaceActuatorDTO newMqttInterfaceActuatorDTO)  {
 		Actuator actuator = newMqttInterfaceActuatorDTO.getActuator();
-		if (transductorsService.existTransductor(actuator.getName())) {
+		if (devicessService.existDevice(actuator.getName())) {
 			ErrorDTO transductorExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
 			return new ResponseEntity<>(transductorExistError, transductorExistError.getHttpStatus());
 		}

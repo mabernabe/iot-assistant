@@ -1,14 +1,11 @@
 package com.iotassistant.services;
 
-import org.springframework.stereotype.Service;
-
 import com.iotassistant.controllers.MQTTTransductorsController;
 import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.ActuatorInterfaceVisitor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
 
-@Service
 public class ActuatorSetValueService implements ActuatorInterfaceVisitor{
 	
 	private Actuator actuator;
@@ -30,7 +27,7 @@ public class ActuatorSetValueService implements ActuatorInterfaceVisitor{
 
 	@Override
 	public void visit(ActuatorMqttInterface actuatorMqttInterface) {
-		MQTTTransductorsController.getInstance().setActuatorValue(actuator.getName(), propertyActuated, value);
+		MQTTTransductorsController.getInstance().setActuatorValue(actuatorMqttInterface, propertyActuated, value);
 		
 	}
 
