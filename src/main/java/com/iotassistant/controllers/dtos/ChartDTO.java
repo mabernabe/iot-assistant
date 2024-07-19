@@ -47,7 +47,7 @@ public class ChartDTO {
 
 	@JsonIgnore
 	public SensorChart getChart() {
-		PropertyMeasuredEnum propertyMeasuredEnum = PropertyMeasuredEnum.getInstance(propertyObserved.getName());
+		PropertyMeasuredEnum propertyMeasuredEnum = PropertyMeasuredEnum.getInstance(propertyObserved.getNameWithUnit());
 		SensorChartIntervalEnum totalIntervalEnum = SensorChartIntervalEnum.getInstance(totalInterval);
 		SensorChartSampleIntervalEnum sampleIntervalEnum = SensorChartSampleIntervalEnum.getInstance(sampleInterval);
 		SensorChartTypeEnum typeEnum = SensorChartTypeEnum.getInstance(type);

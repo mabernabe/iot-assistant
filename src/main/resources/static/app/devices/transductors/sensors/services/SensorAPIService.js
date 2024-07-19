@@ -19,8 +19,8 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 		let sensors = [];
 		objectResponse.sensors.forEach(sensorObject => {
 			let propertiesMeasured = [];
-			sensorObject.propertiesMeasured.forEach(PropertyMeasuredObject => {
-				let propertyMeasured = new Property(PropertyMeasuredObject.name, PropertyMeasuredObject.unit, PropertyMeasuredObject.binary, PropertyMeasuredObject.minimumValue, PropertyMeasuredObject.maximumValue);
+			sensorObject.propertiesMeasured.forEach(propertyMeasuredObject => {
+				let propertyMeasured = new Property(propertyMeasuredObject.name, propertyMeasuredObject.nameWithUnit, propertyMeasuredObject.unit, propertyMeasuredObject.binary, propertyMeasuredObject.minimumValue, propertyMeasuredObject.maximumValue);
 				propertiesMeasured.push(propertyMeasured);
 			})
 			let sensorValues = null;		

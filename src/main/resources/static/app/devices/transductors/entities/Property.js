@@ -1,7 +1,8 @@
 class Property {
 	
-	constructor(name, unit, binary, minimumValue, maximumValue) {
+	constructor(name, nameWithUnit, unit, binary, minimumValue, maximumValue) {
 		this.name = name;
+		this.nameWithUnit = nameWithUnit;
 		this.unit = unit;
 		this.binary = binary;
 		this.minimumValue = minimumValue;
@@ -17,7 +18,7 @@ class Property {
 	}
 
 	getNameWithUnit () {
-		return this.unit != null ? this.name + " " + this.unit : this.name;
+		return this.nameWithUnit;
 	}
 
 	

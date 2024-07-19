@@ -104,7 +104,7 @@ public class SystemController {
 		return new ServerStatusDTO( NotificationTypeEnum.TELEGRAM.toString(), systemService.isTelegramConnected(), "Bot: " + systemService.getBotUsername());
 	}
 	
-	@RequestMapping(value="/chart-capabilities/", method = RequestMethod.GET)
+	@RequestMapping(value="/charts-capabilities/", method = RequestMethod.GET)
 	public ChartCapabilitiesDTO getChartCapabilities()  {	
 		List<String> supportedChartTypes = systemService.getSupportedChartTypes();
 		List<String> supportedChartIntervals = systemService.getSupportedChartIntervals();
@@ -113,7 +113,7 @@ public class SystemController {
 
 	}
 	
-	@RequestMapping(value="/camera-capabilities/", method = RequestMethod.GET)
+	@RequestMapping(value="/cameras-capabilities/", method = RequestMethod.GET)
 	public CameraCapabilitiesDTO getCameraCapabilities()  {	
 		return new CameraCapabilitiesDTO(systemService.getSupportedCameraInterfaces(), systemService.getSupportedTransductorsWatchdogIntervals());
 	}

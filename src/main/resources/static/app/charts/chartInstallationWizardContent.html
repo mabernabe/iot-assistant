@@ -42,7 +42,7 @@
 				<div class="col-lg-10">
 					<div class="row">
 						<div class="col-sm"
-							ng-repeat="chartType in InstallChartController.stationSupportedChartTypes">
+							ng-repeat="chartType in InstallChartController.supportedChartTypes">
 							<div class="choice" data-toggle="wizard-radio" name="chartTypeSelect" ng-click="InstallChartController.setChartType(chartType)"
 							ng-class="{active : chartType === InstallChartController.chart.getType()}">
 								<input type="radio" ng-value="chartType" >
@@ -90,7 +90,7 @@
 								data-dropup-auto="false" data-max-options="1" 
 								title="Select" data-header="Total Chart interval">
 									<option
-										ng-repeat="chartIntervalOption in InstallChartController.stationSupportedChartIntervals"
+										ng-repeat="chartIntervalOption in InstallChartController.supportedChartIntervals"
 										ng-value="chartIntervalOption">{{chartIntervalOption}}</option>
 									<option style="display:none" value=""></option>
 								</select>
@@ -105,7 +105,7 @@
 								title="Select" data-header="Sample interval"
 								>
 									<option
-										ng-repeat="sampleIntervalOption in InstallChartController.stationSupportedSampleIntervals"
+										ng-repeat="sampleIntervalOption in InstallChartController.supportedSampleIntervals"
 										ng-value="sampleIntervalOption">{{sampleIntervalOption}}</option>
 									<option style="display:none" value=""></option>
 								</select>

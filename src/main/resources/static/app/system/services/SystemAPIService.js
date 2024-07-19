@@ -68,6 +68,20 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 		return deferred.promise ;
 	}
 	
+	self.getChartCapabilities = function () {
+		var deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("charts-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getChartsCapabilitiesFromResponse(objectResponse));
+		}, function errorCallback(errorResponse) {
+			deferred.reject(errorResponse);
+		});
+		return deferred.promise ;
+	}
+	
+	function getChartsCapabilitiesFromResponse(objectResponse) {
+		return new ChartCapabilities(objectResponse.supportedChartTypes, objectResponse.supportedChartIntervals, objectResponse.supportedSampleIntervals);	
+	} 
+	
 	function getSystemFromResponse(objectResponse) {
 		var systemCapabilities = getCapabilitiesFromResponse(objectResponse.capabilities);
 		return new System(systemCapabilities, objectResponse.platformName);
@@ -77,7 +91,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 		var transductorsCapabilities = getTransductorsCapabilitiesFromResponse(objectResponse);
 		var mqttInterfaceCapabilities = new MqttInterfaceCapabilities(objectResponse.mqttInterfaceCapabilities.interfaceName, objectResponse.mqttInterfaceCapabilities.available, objectResponse.mqttInterfaceCapabilities.broker);
 		var ruleCapabilities = new RuleCapabilities(objectResponse.ruleCapabilities.supportedSensorRulesTypes, objectResponse.ruleCapabilities.supportedSensorRulesTimeBetweenTriggers);
-		var chartCapabilities = new ChartCapabilities(objectResponse.chartCapabilities.supportedChartTypes, objectResponse.chartCapabilities.supportedChartIntervals, objectResponse.chartCapabilities.supportedSampleIntervals);
+		var chartCapabilities = getChartsCapabilitiesFromResponse(objectResponse);
 		var cameraCapabilities = new CameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
 		var notificationsCapabilities = new NotificationsCapabilities(objectResponse.notificationsCapabilities.supportedNotificationsTypes);
 		var isTelegramConnected = objectResponse.telegramConnected;
@@ -96,7 +110,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	function getPropertiesFromPropertiesObject(propertiesObject) {
 		var properties = [];
 		propertiesObject.forEach(propertyObject => {
-			var property = new Property(propertyObject.name, propertyObject.unit, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
+			var property = new Property(propertyObject.name, propertyObject.nameWithUnit, propertyObject.unit, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
 			properties.push(property);
 		})
 		return properties;

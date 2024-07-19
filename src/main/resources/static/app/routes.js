@@ -63,7 +63,7 @@ iotAssistant.config(function($routeProvider) {
 		paramExample: actuatorsRoute
 	})
 	.when(installChartRoute, {
-		templateUrl : './charts/chartInstallation.html',
+		templateUrl : '../charts/chartInstallation.html',
 		controller : 'InstallChartController',
 		controllerAs: "InstallChartController",
 		paramExample: chartsRoute

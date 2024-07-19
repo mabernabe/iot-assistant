@@ -17,15 +17,8 @@ class TransductorValue {
 		return this.string === "true";	
 	}
 	
-	static getStringFromBinaryValue(value) {
-		if (value) {
-			return "true";
-		} else {
-			return "false";
-		}
-	}
 	
-	static getDigitalIntValue(value) {
+	static getBooleanFromStringValue(value) {
 		if (value === "true") {
 			return 1;
 		} else {

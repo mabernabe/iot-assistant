@@ -28,7 +28,7 @@ chartsModule.service ("ChartAPIService",function(RestAPIService, $q){
 	function getChartFromObjectResponse(chartObject) {
 		var chart = new SensorChart();
 		chart.setSensorName(chartObject.sensorName);
-		var property = new Property(chartObject.propertyObserved.name, chartObject.propertyObserved.shortName, chartObject.propertyObserved.digital, chartObject.propertyObserved.minimumValue, chartObject.propertyObserved.maximumValue);
+		var property = new Property(chartObject.propertyObserved.name, chartObject.propertyObserved.nameWithUnit, chartObject.propertyObserved.binary, chartObject.propertyObserved.digital, chartObject.propertyObserved.minimumValue, chartObject.propertyObserved.maximumValue);
 		chart.setSensorProperty(property);
 		chart.setType(chartObject.type);
 		chart.setId(chartObject.id);

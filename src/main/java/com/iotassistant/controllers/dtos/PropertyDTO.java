@@ -6,6 +6,8 @@ public class PropertyDTO {
 		
 	private String name;
 	
+	private String nameWithUnit;
+	
 	private String unit;
 	
 	private boolean isBinary;
@@ -21,6 +23,7 @@ public class PropertyDTO {
 	public PropertyDTO(Property property) {
 		this.name = property.getName();
 		this.unit = property.getUnit();
+		this.nameWithUnit = property.getNameWithUnit();
 		this.isBinary = property.isBinary();
 		this.maximumValue = property.getMaximumValue();
 		this.minimumValue = property.getMinimumValue();
@@ -33,6 +36,11 @@ public class PropertyDTO {
 
 	public String getUnit() {
 		return unit;
+	}
+	
+	
+	public String getNameWithUnit() {
+		return nameWithUnit;
 	}
 
 	public boolean isBinary() {
@@ -47,7 +55,6 @@ public class PropertyDTO {
 	public Integer getMinimumValue() {
 		return minimumValue;
 	}
-	
 	
 	
 }

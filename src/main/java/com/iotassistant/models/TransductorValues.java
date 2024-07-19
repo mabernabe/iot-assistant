@@ -8,6 +8,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.iotassistant.models.transductor.Property;
 
 @MappedSuperclass
@@ -15,6 +18,7 @@ public abstract class TransductorValues<T extends Property> {
 	
 	@ElementCollection
     @CollectionTable
+    @LazyCollection(LazyCollectionOption.FALSE)
     @MapKeyColumn(name = "property")
     @Column(name = "value")
 	private Map<T, String> values;

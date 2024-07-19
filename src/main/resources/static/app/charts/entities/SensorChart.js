@@ -112,8 +112,8 @@ class SensorChart {
 		var yData = [];
 		for (var i = 0; i < this.sensorChartSamples.length; i++) {
 			var value = this.sensorChartSamples[i].getValue();
-			if (this.sensorProperty.isDigital()) {
-				value = TransductorValue.getDigitalIntValue(value);
+			if (this.sensorProperty.isBinary()) {
+				value = TransductorValue.getBooleanFromStringValue(value);
 			}
     		yData.push(value);
 		}

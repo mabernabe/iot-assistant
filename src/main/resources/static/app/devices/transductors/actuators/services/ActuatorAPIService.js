@@ -27,7 +27,7 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 			}
 			let propertiesActuated = [];
 			actuatorObject.propertiesActuated.forEach(propertyActuatedObject => {
-				let propertyActuated = new Property(propertyActuatedObject.name, propertyActuatedObject.unit, propertyActuatedObject.binary, propertyActuatedObject.minimumValue, propertyActuatedObject.maximumValue);
+				let propertyActuated = new Property(propertyActuatedObject.name, propertyActuatedObject.nameWithUnit, propertyActuatedObject.unit, propertyActuatedObject.binary, propertyActuatedObject.minimumValue, propertyActuatedObject.maximumValue);
 				propertiesActuated.push(propertyActuated);
 			})
 			let actuator = new Actuator(actuatorObject.name, actuatorObject.description, actuatorObject.active, actuatorValues, propertiesActuated, actuatorObject.watchdogInterval, actuatorObject.watchdogEnabled);
