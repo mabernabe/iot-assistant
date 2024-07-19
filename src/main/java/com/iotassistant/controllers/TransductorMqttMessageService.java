@@ -38,7 +38,7 @@ public class TransductorMqttMessageService implements TransductorVisitor{
 	@Override
 	public void visit(Sensor sensor) {
 		try {
-			MQTTSensorValuesDTO sensorValuesDTO = new JSONParser().parseJsonBodyAs(MQTTSensorValuesDTO.class, message.toString());
+			MqttSensorValuesDTO sensorValuesDTO = new JSONParser().parseJsonBodyAs(MqttSensorValuesDTO.class, message.toString());
 			List<PropertyMeasuredEnum> sensorProperties = sensor.getPropertiesMeasured();
 			if (!sensorValuesDTO.hasErrors(sensorProperties)) {
 				transductorsService.updateSensorValues(transductor.getName(), sensorValuesDTO.getSensorValues());
@@ -51,7 +51,7 @@ public class TransductorMqttMessageService implements TransductorVisitor{
 	@Override
 	public void visit(Actuator actuator) {
 		try {
-			MQTTActuatorValuesDTO actuatorValuesDTO = new JSONParser().parseJsonBodyAs(MQTTActuatorValuesDTO.class, message.toString());
+			MqttActuatorValuesDTO actuatorValuesDTO = new JSONParser().parseJsonBodyAs(MqttActuatorValuesDTO.class, message.toString());
 			List<PropertyActuatedEnum> actuatorProperties = actuator.getPropertiesActuated();
 			if (!actuatorValuesDTO.hasErrors(actuatorProperties)) {
 				transductorsService.updateActuatorValues(actuator.getName(), actuatorValuesDTO.getSensorValues());

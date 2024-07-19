@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.iotassistant.models.Camera;
+import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.Device;
 import com.iotassistant.models.DeviceVisitor;
 import com.iotassistant.models.transductor.Transductor;
@@ -73,7 +74,7 @@ public class DevicesService implements DeviceVisitor {
 	}
 
 	public boolean existDevice(String name) {
-		return devicesJPARepository.findById(name) != null;
+		return this.getDeviceByName(name) != null;
 	}
 	
 	public Device getDeviceByName(String name) {
@@ -83,5 +84,10 @@ public class DevicesService implements DeviceVisitor {
 		}
 		return null;	
 	}
+	public byte[] getCameraPicture(Camera camera) throws CameraInterfaceException {
+		return camerasService.getPicture(camera.getName());
+		
+	}
+	
 
 }

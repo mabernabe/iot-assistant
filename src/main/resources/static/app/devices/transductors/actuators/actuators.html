@@ -36,9 +36,9 @@
                     					<i class="nc-icon nc-minimal-right"></i>                					
                   						</span>
                 					</button>
-                					<input type="number" id="{{ 'newValue-' + actuator.getName() + '-' + propertyActuated.getShortName()}}"
-                					value={{propertyActuated.getMinimumValue()}}
-                					min={{propertyActuated.getMinimumValue()}} max={{propertyActuated.getMaximumValue()}}>  
+                					<input type="number" id="{{ 'newValue-' + actuator.getName() + '-' + propertyActuated.getNameWithUnit()}}"
+                					value='{{propertyActuated.getMinimumValue()}}' required="true"
+                					min='{{propertyActuated.getMinimumValue()}}' max='{{propertyActuated.getMaximumValue()}}'>  
 									</span>
 									</p>
 									

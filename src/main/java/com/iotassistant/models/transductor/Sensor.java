@@ -75,8 +75,7 @@ public class Sensor extends Transductor {
 
 	@Override
 	public String getLastValueDate() {
-		assert(this.isActive());
-		return this.values.getDate();
+		return ( values == null)? null: values.getDate();
 	}
 	
 

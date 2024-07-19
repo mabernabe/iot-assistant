@@ -2,7 +2,6 @@ package com.iotassistant.models;
 
 import java.text.ParseException;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +16,8 @@ import com.iotassistant.utils.Date;
 
 @Component
 public class Watchdog implements DeviceVisitor {
+	
+	private static int TIME_MINUTES_BETWEEN_OFFLINE_NOTIFICATIONS = 60; 
 
 	@Autowired
 	DevicesService devicesService;
@@ -24,16 +25,10 @@ public class Watchdog implements DeviceVisitor {
 	@Autowired
 	NotificationsService notificationService;
 
-	private ConcurrentHashMap<Device, String> devicesOffline = new ConcurrentHashMap<Device, String>(); 
 
 	@Scheduled(fixedRate = 60000)
 	public void watchdog()  {
 		List<Device> allDevices = devicesService.getAllDevices();
-		for (Device deviceOffline : devicesOffline.keySet()) {
-			if (!allDevices.contains(deviceOffline)) { //Device no longer exist
-				devicesOffline.remove(deviceOffline);
-			}
-		}
 		for (Device device : allDevices) {
 			if (device.isWatchdogEnabled()) {
 				device.accept(this);
@@ -43,20 +38,27 @@ public class Watchdog implements DeviceVisitor {
 	
 	@Override
 	public void visit(Transductor transductor) {
-		if (transductor.isActive() && lastValueDateReachedWatchdogInterval(transductor.getLastValueDate(), transductor.getWatchdogInterval())) {
+		String lastValueDate = transductor.getLastValueDate();
+		if (lastValueDate != null && 
+			timeSincelastValueReachedWatchdogInterval(lastValueDate, transductor.getWatchdogInterval()) &&
+			timeSinceLastNotificationReachMinInterval(transductor) ) {
 				sendNotification(transductor);
 		}	
 	}
 
 
-	private boolean OfflineDateReachedWatchdotInterval(Device device) {
-		if (devicesOffline.containsKey(device)) {
-			String deviceOfflineDate = devicesOffline.get(device);
-			return lastValueDateReachedWatchdogInterval(deviceOfflineDate,  device.getWatchdogInterval());
+	private boolean timeSinceLastNotificationReachMinInterval(Device device) {
+		DeviceOfflineNotification deviceOfflineNotification = notificationService.getLastOfflineNotification(device);
+		if (deviceOfflineNotification == null) {
+			return true;
 		}
-		return false;
-		
+		try {
+			return Date.havePassedMinutesBetweenDates(deviceOfflineNotification.getDate(), Date.getCurrentDate(), TIME_MINUTES_BETWEEN_OFFLINE_NOTIFICATIONS);
+		} catch (ParseException e) {
+			return true;
+		}
 	}
+
 
 	private void sendNotification(Device device) {
 		DeviceOfflineNotification offlineNotification = new DeviceOfflineNotification(device, Date.getCurrentDate());
@@ -67,35 +69,24 @@ public class Watchdog implements DeviceVisitor {
 
 	@Override
 	public void visit(Camera camera) {
-		boolean offlineReachedWatchdogInterval = false;
 		try {
-			camera.getPicture();
+			devicesService.getCameraPicture(camera);
 		} catch (CameraInterfaceException e) {
-			offlineReachedWatchdogInterval = OfflineDateReachedWatchdotInterval(camera);
-			if (!devicesOffline.containsKey(camera)) {
-				devicesOffline.put(camera, Date.getCurrentDate());			
+			if (timeSinceLastNotificationReachMinInterval(camera)) {
+				sendNotification(camera);
 			}
-		}
-		if (offlineReachedWatchdogInterval) {
-			sendNotification(camera);
 		}
 	}
 	
 
 
-	private boolean lastValueDateReachedWatchdogInterval(String date, WatchdogInterval watchdogInterval) {	
-		boolean isWatchdogIntervalReached = false;
+	private boolean timeSincelastValueReachedWatchdogInterval(String date, WatchdogInterval watchdogInterval) {	
 		try {
-			if (watchdogInterval.isWatchdogIntervalReached(date)) {
-				isWatchdogIntervalReached = true;
-			}
+			return watchdogInterval.isWatchdogIntervalReached(date);
 		} catch (ParseException e) {
+			return false;
 		}
-		return isWatchdogIntervalReached;
+
 	}
-
-
-
-
 
 }

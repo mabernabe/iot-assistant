@@ -37,8 +37,10 @@ public class CamerasService {
 		
 	}
 
-	public byte[] getPicture(String name) throws CameraInterfaceException {
-		return camerasRepository.getCameraByName(name).getPicture();
+	public byte[] getPicture(String cameraName) throws CameraInterfaceException {
+		assert(existCamera(cameraName));
+		Camera camera = camerasRepository.getCameraByName(cameraName);
+		return new CameraGetPictureService().getPicture(camera.getInterface());
 		
 	}
 

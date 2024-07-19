@@ -17,17 +17,17 @@ public interface Property {
 
 	String getDescriptionFromValue(String value);
 
-	public default boolean isValidValue(String value) {
+	public default boolean isValidValue(String string) {
 		if (this.isBinary()) {
-			return value != null && value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
+			return string != null && string.equalsIgnoreCase("true") || string.equalsIgnoreCase("false");
 		} else {
 			try {
-				Float.parseFloat(value);
+				float number = Float.parseFloat(string);
+				return this.getMinimumValue() <= number && number <= this.getMaximumValue();
 			} catch(  NullPointerException | NumberFormatException e) {
 				return false;
 			}		
 		}
-		return true;
 	}
 
 }

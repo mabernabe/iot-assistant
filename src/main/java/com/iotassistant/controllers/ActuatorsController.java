@@ -66,6 +66,9 @@ public class ActuatorsController {
 		if (!actuatorsService.hasActuatorProperty(actuatorName, propertyActuated)) {
 			errorDTO = ErrorDTO.ACTUATOR_HAS_NOT_PROPERTY;
 		}
+		if (!propertyActuated.isValidValue(actuatorValueDTO.getValue()) ) {
+			errorDTO = ErrorDTO.VALUE_IS_NOT_VALID;
+		}
 		if (errorDTO != null) {
 			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 		}	

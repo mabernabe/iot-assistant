@@ -58,36 +58,6 @@
 			</div>
 		</div>
 		<div class="tab-pane" id="configuration">
-			<div class="row justify-content-center" ng-if="InstallTransductorController.transductor.interfaceTypeIsPIN()">
-				<div class="col-sm-12">
-					<h5 class="info-text">Interface configuration</h5>
-				</div>
-				<div class="row col-sm-12 justify-content-center">
-					<a href="/app/assets/img/{{InstallTransductorController.getPlatformPinInterfaceName()}}-pinout.png" target="_blank">Platform Pinout</a>
-				</div>
-				<div class="row col-sm-12 justify-content-center"
-					ng-repeat="propertyName in InstallTransductorController.transductor.propertiesNames">
-					<div class="col-sm-5">
-						<div class="form-group">
-							<label>Property</label> <input type="text"
-								class="form-control"  ng-value="propertyName" disabled>
-						</div>
-					</div>
-					<div class="col-sm-6 mt-3">
-						<div class="form-group">
-							<label>PIN ID</label> <select name="pinIdInput" 
-								ng-disabled="!InstallTransductorController.isPinAvailable(propertyName)"
-								class="selectpicker dropdown col-sm-6" ng-model="InstallTransductorController.selectedPinId"
-								data-style="btn btn-info btn-round" data-dropup-auto="false" multiple data-max-options="1"
-								title="Pin ID" data-size="7" ng-change="InstallTransductorController.setPin(propertyName)">
-								<option ng-repeat="pinId in InstallTransductorController.getAvailablePinIds(propertyName)"
-									ng-value="pinId">{{pinId}}</option>
-							</select>
-							<label ng-if="!InstallTransductorController.isPinAvailable(propertyName)">No available</label>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="row justify-content-center" ng-if="InstallTransductorController.transductor.interfaceTypeIsMQTT()">
 				<div class="col-sm-12">
 					<h5 class="info-text">Interface configuration</h5>
@@ -114,7 +84,7 @@
 	                </div>
 					<div class="col-sm-6">
 	                    <div class="form-group">
-	                    	<label>Watchdog</label>
+	                    	<label>Watchdog interval</label>
 	                        <select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="watchdogIntervalSelect" 
 	                        ng-model="InstallTransductorController.transductor.watchdogInterval"
 	                        data-dropup-auto="false" data-max-options="1" 

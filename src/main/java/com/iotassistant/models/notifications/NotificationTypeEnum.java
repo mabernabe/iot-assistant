@@ -5,8 +5,7 @@ import java.util.List;
 
 
 public enum NotificationTypeEnum {
-	TELEGRAM("TELEGRAM"),
-	WEB("WEB");
+	TELEGRAM("TELEGRAM");
 
 	private String string;
 
@@ -20,13 +19,10 @@ public enum NotificationTypeEnum {
 		return string;
 	}
 
-	public static List<String >getAvailableNotificationTypes(boolean isTelegramAvailable) {
+	public static List<String >getAvailableNotificationTypes() {
 		List<String> availableTypes = new ArrayList<String>();
 		for (NotificationTypeEnum notificationType : NotificationTypeEnum.values()) {
 			availableTypes.add(notificationType.toString());
-		}
-		if (!isTelegramAvailable) {
-			availableTypes.remove(TELEGRAM.toString());
 		}
 		return availableTypes;
 	}

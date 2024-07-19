@@ -25,11 +25,6 @@ public class Camera extends Device {
 		super(name, description, watchdogInterval);
 		this.cameraInterface = cameraInterface;
 	}
-	
-	public byte[] getPicture() throws CameraInterfaceException{
-		return cameraInterface.getPicture();
-		
-	}
 
 	public void setInterface(CameraInterface cameraInterface) {
 		this.cameraInterface = cameraInterface;

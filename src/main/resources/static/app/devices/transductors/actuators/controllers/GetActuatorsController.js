@@ -38,13 +38,16 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 	}
 	
 	self.setActuatorAnalogValue = function(actuator, propertyActuated, value){
-		let newValue = document.getElementById(`newValue-${actuator.getName()}-${propertyActuated.getShortName()}`).value;
+		let newValue = document.getElementById(`newValue-${actuator.getName()}-${propertyActuated.getNameWithUnit()}`).value;
 		if (isNaN(newValue) ||  newValue === "") {
 			return;
 		}
 		$interval.cancel(fetchActuatorsInterval);
-		value.setValue(newValue.toString());
-		ActuatorAPIService.setActuatorValue(actuator, value)
+		ActuatorAPIService.setActuatorValue(actuator, propertyActuated, newValue)
+		.then(function() { 
+		},function(error) {
+			SweetAlertService.showErrorAlert('Error: ' + error.data.message);
+		})
 		.finally(function() { 
 			fetchActuatorsInterval = $interval(fetchActuators, FETCH_ACTUATORS_REFRESH_TIME_MS);
 		})

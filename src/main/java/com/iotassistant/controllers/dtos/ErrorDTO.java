@@ -15,7 +15,8 @@ public enum ErrorDTO {
 	SENSOR_HAS_NOT_PROPERTY("Sensor has not %s property", HttpStatus.UNPROCESSABLE_ENTITY),
 	ACTUATOR_HAS_NOT_PROPERTY("Actuator has not property", HttpStatus.UNPROCESSABLE_ENTITY),
 	SENSOR_RULE_ALREADY_EXIST("Sensor rule with same properties already exist", HttpStatus.UNPROCESSABLE_ENTITY),
-	SENSOR_RULE_NOT_FOUND("Sensor rule not found", HttpStatus.NOT_FOUND);
+	SENSOR_RULE_NOT_FOUND("Sensor rule not found", HttpStatus.NOT_FOUND), 
+	VALUE_IS_NOT_VALID("Value is invalid", HttpStatus.UNPROCESSABLE_ENTITY);
 	
 	private String message;
 	

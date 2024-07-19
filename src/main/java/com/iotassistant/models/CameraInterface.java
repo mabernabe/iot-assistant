@@ -19,5 +19,6 @@ public abstract class CameraInterface {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	
-	public abstract byte[] getPicture() throws CameraInterfaceException;
+	public abstract void accept(CameraInterfaceVisitor cameraInterfaceVisitor) throws CameraInterfaceException;
+	
 }

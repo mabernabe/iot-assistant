@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.controllers.MQTTTransductorsController;
+import com.iotassistant.controllers.MqttTransductorsController;
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.transductor.Actuator;
@@ -34,7 +34,7 @@ public class TransductorsService implements TransductorVisitor{
 	private TransductorsJPARepository transductorsJPARepository;
 	
 	@Autowired
-	private MQTTTransductorsController mqttTransductorsController;
+	private MqttTransductorsController mqttTransductorsController;
 
 	
 	public List<Property> getSupportedPropertiesMeasured() {

@@ -8,11 +8,11 @@ import com.iotassistant.models.TransductorValues;
 import com.iotassistant.models.transductor.ActuatorValues;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
-public class MQTTActuatorValuesDTO extends MQTTTransductorValuesDTO<PropertyActuatedEnum>{
+public class MqttActuatorValuesDTO extends MqttTransductorValuesDTO<PropertyActuatedEnum>{
 	
 		
 	@JsonCreator
-	public MQTTActuatorValuesDTO(@JsonProperty(value = "values" , required = true) HashMap<String, String> values, @JsonProperty(value = "date", required = true) String date){
+	public MqttActuatorValuesDTO(@JsonProperty(value = "values" , required = true) HashMap<String, String> values, @JsonProperty(value = "date", required = true) String date){
 		super(values, date);
 	}
 	

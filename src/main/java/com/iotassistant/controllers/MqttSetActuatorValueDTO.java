@@ -2,13 +2,13 @@ package com.iotassistant.controllers;
 
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
-public class MQTTSetActuatorValueDTO {
+public class MqttSetActuatorValueDTO {
 	
 private PropertyActuatedEnum propertyActuated;
 	
 	private String value;
 
-	public MQTTSetActuatorValueDTO(PropertyActuatedEnum propertyActuated, String value) {
+	public MqttSetActuatorValueDTO(PropertyActuatedEnum propertyActuated, String value) {
 		super();
 		this.propertyActuated = propertyActuated;
 		this.value = value;

@@ -17,17 +17,19 @@ public class CameraHttpInterface extends CameraInterface{
 	public CameraHttpInterface(String url) {
 		this();
 		this.url = url;
+	}
 
+
+	public String getUrl() {
+		return url;
 	}
 
 
 	@Override
-	public byte[] getPicture() throws CameraInterfaceException {
-		try {
-			return url.getBytes() ; //httpPlatformInterface.getForObject(url + "/jpg", byte[].class);
-		} catch(Exception e) {
-			throw new CameraInterfaceException(e.getMessage());
-		}
+	public void accept(CameraInterfaceVisitor cameraInterfaceVisitor) throws CameraInterfaceException {
+		cameraInterfaceVisitor.visit(this);
+		
 	}
-
+	
+	
 }

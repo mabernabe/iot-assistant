@@ -26,20 +26,22 @@ import com.iotassistant.services.TransductorsService;
 
 
 @Controller
-public class MQTTTransductorsController implements MqttCallbackExtended{
+public class MqttTransductorsController implements MqttCallbackExtended{
 	
 	private volatile IMqttClient mqttclient;
 	
-	private static MQTTTransductorsController instance;
+	private static MqttTransductorsController instance;
 	
 	@Autowired
 	private TransductorsService transductorsService;
 	
 
-	public MQTTTransductorsController(@Value("${mqtt.broker.url}") String brokerURL, @Value("${mqtt.folderpersistence}") String folderPersistence) {
+	public MqttTransductorsController(@Value("${mqtt.broker.url}") String brokerURL, 
+			@Value("${mqtt.folderpersistence}") String folderPersistence, 
+			@Value("${mqtt.clientid}") String clientId) {
 		super();	
 		try {
-			mqttclient = new MqttClient(brokerURL, MqttClient.generateClientId(), new MqttDefaultFilePersistence(folderPersistence));
+			mqttclient = new MqttClient(brokerURL, clientId, new MqttDefaultFilePersistence(folderPersistence));
 			mqttclient.setCallback(this);
 			mqttclient.connect(this.getMqttConnectOptions());
 		} catch (MqttException e) { 
@@ -47,20 +49,21 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 		} 	
 	}
 	
+
 	@PostConstruct
 	private void registerInstance() {
 		instance = this;
 	} 
 	
 	
-	public static MQTTTransductorsController getInstance() {
+	public static MqttTransductorsController getInstance() {
 		return instance;
 	}
 
 	private MqttConnectOptions getMqttConnectOptions() {
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setAutomaticReconnect(true);
-		options.setCleanSession(true);
+		options.setCleanSession(false);
 		options.setConnectionTimeout(0);
 		return options;
 	}
@@ -89,7 +92,7 @@ public class MQTTTransductorsController implements MqttCallbackExtended{
 	public void setActuatorValue(ActuatorMqttInterface actuatorMqttInterface, PropertyActuatedEnum propertyActuated, String value) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
-			MQTTSetActuatorValueDTO mqttSetActuatorValueDTO = new MQTTSetActuatorValueDTO(propertyActuated, value);
+			MqttSetActuatorValueDTO mqttSetActuatorValueDTO = new MqttSetActuatorValueDTO(propertyActuated, value);
 			byte[] jsonBytes = objectMapper.writeValueAsString(mqttSetActuatorValueDTO).getBytes();
 			this.mqttclient.publish(actuatorMqttInterface.getSetValueTopic(), new MqttMessage(jsonBytes));
 		} catch (JsonProcessingException | MqttException e) {

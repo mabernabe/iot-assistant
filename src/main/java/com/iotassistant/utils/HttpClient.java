@@ -1,4 +1,4 @@
-package com.iotassistant.models;
+package com.iotassistant.utils;
 
 import java.io.IOException;
 
@@ -6,11 +6,11 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-public class HttpPlatformInterface {
+public class HttpClient {
 	
 	private RestTemplate restTemplate;
 
-	public HttpPlatformInterface() {
+	public HttpClient() {
 		super();
 		SimpleClientHttpRequestFactory restTemplateactory = new SimpleClientHttpRequestFactory();
 		restTemplateactory.setConnectTimeout(6000);
@@ -26,8 +26,5 @@ public class HttpPlatformInterface {
 			throw new IOException(e.getMessage());
 		}
 	}
-	
-
-	
 
 }
