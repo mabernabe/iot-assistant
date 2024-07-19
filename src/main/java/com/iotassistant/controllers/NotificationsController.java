@@ -18,9 +18,9 @@ import com.iotassistant.services.NotificationsService;
 @RequestMapping("${notifications.uri}")
 public class NotificationsController {
 	
-	
 	public static final String CAMERA_SENSOR_RULE_NOTIFICATION_ATTACHMENT = "/attachment";
-	@Autowired
+	
+	private @Autowired
 	NotificationsService notificationsService;
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)

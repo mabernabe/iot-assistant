@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public interface PropertyActuated {
+interface PropertyActuated {
 	
 	public String getName();
 	

@@ -9,10 +9,6 @@ public class EnableDTO {
 		super();
 	}
 
-	public EnableDTO(boolean enable) {
-		super();
-		this.enable = enable;
-	}
 
 	public boolean isEnable() {
 		return enable;

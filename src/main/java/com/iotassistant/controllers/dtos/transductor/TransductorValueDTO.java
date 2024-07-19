@@ -2,7 +2,7 @@ package com.iotassistant.controllers.dtos.transductor;
 
 import com.iotassistant.models.transductor.Property;
 
-public abstract class TransductorValueDTO {
+abstract class TransductorValueDTO {
 	
 	private String string;
 	
@@ -10,7 +10,7 @@ public abstract class TransductorValueDTO {
 	
 	private String description;
 
-	public TransductorValueDTO(Property property, String string) {
+	TransductorValueDTO(Property property, String string) {
 		super();
 		this.string = string;
 		this.description = property.getDescriptionFromValue(string);

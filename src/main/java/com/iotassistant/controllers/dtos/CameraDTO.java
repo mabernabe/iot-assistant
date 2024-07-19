@@ -3,9 +3,9 @@ package com.iotassistant.controllers.dtos;
 import com.iotassistant.controllers.CamerasController;
 import com.iotassistant.models.Camera;
 
-public class CameraDTO extends DeviceDTO{
+class CameraDTO extends DeviceDTO{
 		
-	protected String urlPicture;
+	private String urlPicture;
 
 	
 	public CameraDTO() {
@@ -13,7 +13,7 @@ public class CameraDTO extends DeviceDTO{
 	}
 	
 
-	public CameraDTO(Camera camera,  String baseUrlCameraPicture) {
+	CameraDTO(Camera camera,  String baseUrlCameraPicture) {
 		super(camera);
 		this.urlPicture = baseUrlCameraPicture + camera.getName() + CamerasController.CAMERA_PICTURE_URL;
 	}

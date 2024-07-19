@@ -18,18 +18,18 @@ public class SensorMeasureThresholdSettings {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	protected Integer id;
+	private Integer id;
 	
 	@NotNull
 	private String sensorName;
 	
 	@Enumerated(EnumType.STRING)
-	protected PropertyMeasuredEnum propertyObserved;
+	private PropertyMeasuredEnum propertyObserved;
 	
 	@Enumerated(EnumType.STRING)
-	protected AnalogThresholdOperatorEnum analogThresholdOperator;
+	private AnalogThresholdOperatorEnum analogThresholdOperator;
 	
-	protected String valueThresholdObserved;
+	private String valueThresholdObserved;
 	
 	public SensorMeasureThresholdSettings() {};
 

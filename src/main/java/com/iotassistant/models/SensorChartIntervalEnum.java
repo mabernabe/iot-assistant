@@ -31,7 +31,7 @@ public enum SensorChartIntervalEnum {
 		return string;
 	}
 
-	public boolean isTotalIntervalReached(String firstSampleDate, String secondSampleDate) throws ParseException {
+	boolean isTotalIntervalReached(String firstSampleDate, String secondSampleDate) throws ParseException {
 		if (this.equals(INFINITE)) {
 			return false;
 		}

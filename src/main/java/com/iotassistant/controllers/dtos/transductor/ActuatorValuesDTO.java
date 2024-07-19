@@ -6,13 +6,13 @@ import java.util.Map;
 import com.iotassistant.models.transductor.ActuatorValues;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
-public class ActuatorValuesDTO  {
+class ActuatorValuesDTO  {
 	
 	private Map<String, ActuatorValueDTO> values;
 	
 	private String date;
 
-	public ActuatorValuesDTO(ActuatorValues actuatorValues) {
+	ActuatorValuesDTO(ActuatorValues actuatorValues) {
 		this.date = actuatorValues.getDate();
 		this.values = new HashMap<String, ActuatorValueDTO>();
 		for (PropertyActuatedEnum propertyActuated: actuatorValues.getValues().keySet()) {

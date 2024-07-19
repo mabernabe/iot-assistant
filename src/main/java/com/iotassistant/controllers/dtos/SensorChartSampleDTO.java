@@ -2,7 +2,7 @@ package com.iotassistant.controllers.dtos;
 
 import com.iotassistant.models.SensorChartSample;
 
-public class SensorChartSampleDTO {
+class SensorChartSampleDTO {
 	
 	 private Integer id;
 		
@@ -11,7 +11,7 @@ public class SensorChartSampleDTO {
 	 private String value;
 	 
 
-	public SensorChartSampleDTO(SensorChartSample chartSample) {
+	SensorChartSampleDTO(SensorChartSample chartSample) {
 		this.id = chartSample.getId();
 		this.date = chartSample.getDate();
 		this.value = chartSample.getValue();

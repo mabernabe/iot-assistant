@@ -26,7 +26,7 @@ public class Actuator extends Transductor{
 	@OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
 	private ActuatorValues values;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	private @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	ActuatorInterface actuatorInterface;
 	
 	@ElementCollection

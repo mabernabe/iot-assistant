@@ -8,7 +8,7 @@ import com.iotassistant.models.TransductorValues;
 import com.iotassistant.models.transductor.ActuatorValues;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
-public class MqttActuatorValuesDTO extends MqttTransductorValuesDTO<PropertyActuatedEnum>{
+class MqttActuatorValuesDTO extends MqttTransductorValuesDTO<PropertyActuatedEnum>{
 	
 		
 	@JsonCreator

@@ -20,7 +20,7 @@ import com.iotassistant.services.CamerasService;
 
 @RestController
 @RequestMapping("${cameras.uri}")
-public class CamerasController {
+public class CamerasController { 
 	
 	public static final String CAMERA_PICTURE_URL = "/picture";
 	
@@ -34,7 +34,7 @@ public class CamerasController {
 	}
 	
 	@RequestMapping(value="/httpCameras/", method = RequestMethod.POST)
-	public ResponseEntity<?> newHTTPInterfaceCamera(@RequestBody HttpCameraDTO httpCameraDTO)  {
+	public ResponseEntity<?> newHTTPInterfaceCamera(@RequestBody HttpCameraDTO httpCameraDTO)  { 
 		Camera camera = httpCameraDTO.getCamera();
 		if (camerasService.existCamera(camera.getName())) {
 			ErrorDTO deviceExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
@@ -57,7 +57,7 @@ public class CamerasController {
 	}
 	
 	@RequestMapping(value="/{name}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteCamera(@PathVariable("name") String name)  {
+	public ResponseEntity<?> deleteCamera(@PathVariable("name") String name)  { 
 		if (!camerasService.existCamera(name))  {
 			ErrorDTO cameraNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
 			cameraNotFoundError.formatMessage("Camera");

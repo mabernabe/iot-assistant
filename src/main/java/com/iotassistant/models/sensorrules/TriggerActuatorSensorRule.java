@@ -25,7 +25,7 @@ public class TriggerActuatorSensorRule extends SensorRule{
 	private String actuatorSetValue;
 	
 	@Transient
-	ActuatorsService actuatorsService;
+	private ActuatorsService actuatorsService;
 	
 	@Transient
 	private NotificationHandler notificationHandler;

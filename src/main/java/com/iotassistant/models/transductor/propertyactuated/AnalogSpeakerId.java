@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public class AnalogSpeakerId extends AnalogPropertyActuated{
+class AnalogSpeakerId extends AnalogPropertyActuated{
 	
 	private static final String NAME = "Speaker";
 	

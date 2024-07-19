@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iotassistant.models.SensorChart;
 import com.iotassistant.models.SensorChartIntervalEnum;
-import com.iotassistant.models.SensorChartSample;
 import com.iotassistant.models.SensorChartSampleIntervalEnum;
 import com.iotassistant.models.SensorChartTypeEnum;
 import com.iotassistant.repositories.ChartsJPARepository;
@@ -18,24 +17,12 @@ import com.iotassistant.repositories.ChartsJPARepository;
 @Transactional
 public class ChartsService {
 
-	@Autowired
+	private @Autowired
 	ChartsJPARepository chartsRepository;
 
 
 	public List<SensorChart> getAllCharts() {
 		return chartsRepository.findAll();
-	}
-
-	public SensorChartSample getLastSample(Integer id) {
-		SensorChart chart = chartsRepository.findById(id).get();
-		List<SensorChartSample> chartSamples = chart.getSensorsChartSamples();
-		if (chartSamples.size() == 0) {
-			return null;
-		}
-		else {
-			return chartSamples.get(chartSamples.size() - 1);
-		}
-
 	}
 
 	public void updateChart( SensorChart sensorChart) {
@@ -66,7 +53,7 @@ public class ChartsService {
 		return getChart(chart) != null;
 	}
 
-	public SensorChart getChart(SensorChart chart) {
+	private SensorChart getChart(SensorChart chart) {
 		List<SensorChart> allCharts = chartsRepository.findAll();
 		SensorChart chartRet = null;
 		for (SensorChart installedchart : allCharts ) {
@@ -88,7 +75,7 @@ public class ChartsService {
 		}
 	}
 
-	public void deleteChartsBySensorName(String sensorName) {
+	void deleteChartsBySensorName(String sensorName) {
 		List<SensorChart> allCharts = chartsRepository.findAll();
 		for (SensorChart chart : allCharts ) {
 			if (chart.getSensorName().equals(sensorName)) {

@@ -15,11 +15,4 @@ public class SystemCantShutdownException extends Exception {
 		return reason;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-	
-
 }

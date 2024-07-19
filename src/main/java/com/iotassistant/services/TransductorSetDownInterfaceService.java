@@ -9,7 +9,7 @@ import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
 import com.iotassistant.models.transductormqttinterface.MqttInterface;
 import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
 
-public class TransductorSetDownInterfaceService  implements TransductorInterfaceVisitor {
+class TransductorSetDownInterfaceService  implements TransductorInterfaceVisitor {
 	
 
 	public TransductorSetDownInterfaceService() {

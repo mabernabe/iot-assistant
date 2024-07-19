@@ -21,7 +21,7 @@ public class TriggerActuatorSensorRuleDTO extends SensorRuleDTO{
 		super();
 	}
 
-	public TriggerActuatorSensorRuleDTO(TriggerActuatorSensorRule triggerActuatorSensorRule) {
+	TriggerActuatorSensorRuleDTO(TriggerActuatorSensorRule triggerActuatorSensorRule) {
 		super(triggerActuatorSensorRule);
 		this.actuatorName = triggerActuatorSensorRule.getActuatorName();
 		this.actuatorProperty = new PropertyDTO(triggerActuatorSensorRule.getPropertyActuated());
@@ -33,9 +33,9 @@ public class TriggerActuatorSensorRuleDTO extends SensorRuleDTO{
 	public TriggerActuatorSensorRule getSensorRule() {
 		PropertyActuatedEnum propertyActuatedEnum = PropertyActuatedEnum.getInstance(actuatorProperty.getName());
 		SensorRuleTriggerIntervalEnum timeBetweenTriggers = SensorRuleTriggerIntervalEnum.getInstance(this.getTimeBetweenTriggers());
-		NotificationTypeEnum notificationType = NotificationTypeEnum.getInstance(this.notificationType);
+		NotificationTypeEnum notificationType = NotificationTypeEnum.getInstance(this.getNotificationType());
 		SensorMeasureThresholdSettings sensorMeasureThresholdSettings = this.sensorMeasureThresholdSettings.getSensorMeasureThresholdSettings();
-		return new TriggerActuatorSensorRule(sensorMeasureThresholdSettings, enabled, timeBetweenTriggers, actuatorName, actuatorSetValue, propertyActuatedEnum, notificationType);
+		return new TriggerActuatorSensorRule(sensorMeasureThresholdSettings, this.isEnabled(), timeBetweenTriggers, actuatorName, actuatorSetValue, propertyActuatedEnum, notificationType);
 	}
 
 	public String getActuatorName() {

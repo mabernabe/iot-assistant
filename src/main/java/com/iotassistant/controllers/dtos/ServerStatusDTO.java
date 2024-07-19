@@ -6,7 +6,7 @@ public class ServerStatusDTO{
 	
 	private boolean isConnected;
 	
-	String detail;
+	private String detail;
 
 	public ServerStatusDTO(String interfaceName, boolean isAvailable, String broker) {
 		this.interfaceName = interfaceName;

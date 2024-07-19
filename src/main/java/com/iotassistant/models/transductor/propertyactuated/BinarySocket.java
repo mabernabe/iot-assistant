@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public class BinarySocket extends BinaryPropertyActuated{
+class BinarySocket extends BinaryPropertyActuated{
 	
 	private static final String NAME = "Socket";
 

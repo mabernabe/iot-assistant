@@ -12,9 +12,5 @@ public class JSONParser {
 		return objectMapper.readValue(body, dataClass);
 	}
 	
-	public String objectToJSONString(Object object) throws IOException {
-		ObjectMapper objectMapper = new ObjectMapper(); 
-		return objectMapper.writeValueAsString(object);
-	}
 	
 }

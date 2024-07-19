@@ -16,16 +16,16 @@ import com.iotassistant.models.notifications.DeviceOfflineNotification;
 @Scope("singleton")
 public class NotificationsRepository {
 	
-	@Autowired
+	private @Autowired
 	NotificationsJPARepository notificationsJPARepository;
 	
-	@Autowired
+	private @Autowired
 	SensorRuleNotificationsJPARepository sensorRuleNotificationsJPARepository;
 	
-	@Autowired
+	private @Autowired
 	TransductorOfflineNotificationsJPARepository transductorOfflineNotificationsJPARepository;
 	
-	@Autowired
+	private @Autowired
 	CameraSensorRuleNotificationJPARepository cameraSensorRuleNotificationJPARepository;
 
 

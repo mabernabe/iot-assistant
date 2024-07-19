@@ -7,13 +7,13 @@ import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
 
-public class SensorValuesDTO {
+class SensorValuesDTO {
 	
 	private Map<String, SensorValueDTO> values;
 	
 	private String date;
 	
-	public SensorValuesDTO(SensorValues sensorValues) {
+	SensorValuesDTO(SensorValues sensorValues) {
 		this.date = sensorValues.getDate();
 		this.values = new HashMap<String, SensorValueDTO>();
 		for (PropertyMeasuredEnum propertyMeasured: sensorValues.getValues().keySet()) {

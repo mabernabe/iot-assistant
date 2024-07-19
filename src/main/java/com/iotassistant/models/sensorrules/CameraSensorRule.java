@@ -16,7 +16,7 @@ public class CameraSensorRule extends SensorRule{
 	
 	private String cameraName;
 	
-	@Transient
+	private @Transient
 	CamerasService camerasService;
 
 	

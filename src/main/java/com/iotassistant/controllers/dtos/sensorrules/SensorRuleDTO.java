@@ -3,27 +3,26 @@ package com.iotassistant.controllers.dtos.sensorrules;
 import com.iotassistant.controllers.dtos.SensorMeasureThresholdSettingsDTO;
 import com.iotassistant.models.sensorrules.SensorRule;
 
-public class SensorRuleDTO {
+class SensorRuleDTO {
 	
 	SensorMeasureThresholdSettingsDTO sensorMeasureThresholdSettings;
 	
-	protected int id;
+	private int id;
 	
-	protected String type;
+	private String type;
 	
-	protected boolean enabled;
+	private boolean enabled;
 	
-	protected String timeBetweenTriggers;
+	private String timeBetweenTriggers;
 	
-	protected String notificationType;
+	private String notificationType;
 
 	public SensorRuleDTO() {
 		super();
 	}
 
 
-
-	public SensorRuleDTO(SensorRule sensorRule) {
+	SensorRuleDTO(SensorRule sensorRule) {
 		this.id = sensorRule.getId();
 		this.type = sensorRule.getType().getString();
 		this.enabled = sensorRule.isEnabled();

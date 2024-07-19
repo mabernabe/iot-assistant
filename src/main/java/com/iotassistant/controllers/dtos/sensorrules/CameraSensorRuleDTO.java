@@ -15,7 +15,7 @@ public class CameraSensorRuleDTO extends SensorRuleDTO{
 		super();
 	}
 
-	public CameraSensorRuleDTO(CameraSensorRule cameraSensorRule) {
+	CameraSensorRuleDTO(CameraSensorRule cameraSensorRule) {
 		super(cameraSensorRule);
 		this.cameraName = cameraSensorRule.getCameraName();
 	}
@@ -27,9 +27,9 @@ public class CameraSensorRuleDTO extends SensorRuleDTO{
 	@JsonIgnore
 	public CameraSensorRule getSensorRule() {
 		SensorRuleTriggerIntervalEnum timeBetweenTriggers = SensorRuleTriggerIntervalEnum.getInstance(this.getTimeBetweenTriggers());		
-		NotificationTypeEnum notificationType = NotificationTypeEnum.getInstance(this.notificationType);
+		NotificationTypeEnum notificationType = NotificationTypeEnum.getInstance(this.getNotificationType());
 		SensorMeasureThresholdSettings sensorMeasureThresholdSettings = this.sensorMeasureThresholdSettings.getSensorMeasureThresholdSettings();
-		return new CameraSensorRule(sensorMeasureThresholdSettings, cameraName, notificationType, timeBetweenTriggers, enabled);
+		return new CameraSensorRule(sensorMeasureThresholdSettings, cameraName, notificationType, timeBetweenTriggers, this.isEnabled());
 	}
 	
 

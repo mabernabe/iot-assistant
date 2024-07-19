@@ -7,22 +7,13 @@ import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum
 
 public class SensorMeasureThresholdSettingsDTO {
 	
-	protected String sensorName;
+	private String sensorName;
 	
-	protected PropertyDTO sensorProperty;
+	private PropertyDTO sensorProperty;
 	
-	protected String sensorValueThreshold;
+	private String sensorValueThreshold;
 	
-	protected String sensorAnalogThresholdOperator;
-
-	public SensorMeasureThresholdSettingsDTO(String sensorName, PropertyDTO sensorProperty, String sensorValueThreshold,
-			String sensorAnalogThresholdOperator) {
-		super();
-		this.sensorName = sensorName;
-		this.sensorProperty = sensorProperty;
-		this.sensorValueThreshold = sensorValueThreshold;
-		this.sensorAnalogThresholdOperator = sensorAnalogThresholdOperator;
-	}
+	private String sensorAnalogThresholdOperator;
 	
 	public SensorMeasureThresholdSettingsDTO(SensorMeasureThresholdSettings sensorMeasureThresholdSettings) {
 		this.sensorName = sensorMeasureThresholdSettings.getSensorName();

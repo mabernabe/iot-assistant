@@ -4,15 +4,15 @@ import com.iotassistant.controllers.dtos.sensorrules.RuleCapabilitiesDTO;
 
 public class SystemCapabilitiesDTO {
 
-	DevicesCapabilitiesDTO devicesCapabilities;
+	private DevicesCapabilitiesDTO devicesCapabilities;
 		
-	ChartCapabilitiesDTO chartCapabilities;
+	private ChartCapabilitiesDTO chartCapabilities;
 	
-	RuleCapabilitiesDTO ruleCapabilities;
+	private RuleCapabilitiesDTO ruleCapabilities;
 	
-	NotificationsCapabilitiesDTO notificationsCapabilities;
+	private NotificationsCapabilitiesDTO notificationsCapabilities;
 	
-	ServersStatusDTO serversStatusDTO;
+	private ServersStatusDTO serversStatusDTO;
 	
 	public SystemCapabilitiesDTO(DevicesCapabilitiesDTO devicesCapabilities, ServersStatusDTO serversStatusDTO, 
 			ChartCapabilitiesDTO chartCapabilities, NotificationsCapabilitiesDTO notificationsCapabilities, RuleCapabilitiesDTO ruleCapabilities) {

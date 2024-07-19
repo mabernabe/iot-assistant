@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ServersStatusDTO {
 	
-	List<ServerStatusDTO> serversStatus;
+	private List<ServerStatusDTO> serversStatus;
 
 	public ServersStatusDTO(List<ServerStatusDTO> serversInterfaceStatus) {
 		super();

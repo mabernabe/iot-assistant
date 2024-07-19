@@ -22,19 +22,16 @@ import com.iotassistant.repositories.RulesRepository;
 @Transactional
 public class SensorRulesService implements SensorRuleVisitor{
 
-	@Autowired
+	private @Autowired
 	RulesRepository rulesRepository;
 	
 	@Autowired
-	SensorsService sensorsService;
+	private ActuatorsService actuatorsService;
 	
-	@Autowired
-	ActuatorsService actuatorsService;
-	
-	@Autowired
+	private @Autowired
 	CamerasService camerasService;
 	
-	@Autowired
+	private @Autowired
 	NotificationsService notificationsService;
 	
 	
@@ -60,7 +57,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 	}
 
 
-	public SensorRule getSensorRule(SensorRule sensorRule) {
+	private SensorRule getSensorRule(SensorRule sensorRule) {
 		List<SensorRule> allSensorRules = getAllSensorRules();
 		SensorRule sensorRuleRet = null;
 		for (SensorRule installedSensorRule : allSensorRules ) {
@@ -89,7 +86,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 		rulesRepository.deleteById(Integer.valueOf(id));	
 	}
 
-	public void deleteSensorRuleBySensorName(String sensorName) {
+	void deleteSensorRuleBySensorName(String sensorName) {
 		List<SensorRule> allSensorRules = getAllSensorRules();
 		for (SensorRule sensorRule : allSensorRules ) {
 			if (sensorRule.getSensorName().equals(sensorName)) {
@@ -121,11 +118,8 @@ public class SensorRulesService implements SensorRuleVisitor{
 		return SensorRuleTriggerIntervalEnum.getAvailableTriggerIntervalOptions();
 	}
 
-	public boolean existSensorRule(int sensorRuleId) {
-		return getSensorRule(sensorRuleId) != null;	
-	}
 
-	public void deleteTriggerActuatorSensorRules(String actuatorName)  {
+	void deleteTriggerActuatorSensorRules(String actuatorName)  {
 		List<TriggerActuatorSensorRule> triggerActuatorSensorRules = rulesRepository.getTriggerActuatorSensorRules();
 		for (TriggerActuatorSensorRule triggerActuatorSensorRule : triggerActuatorSensorRules ) {
 			if (triggerActuatorSensorRule.getActuatorName().equals(actuatorName)) {
@@ -134,7 +128,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 		}		
 	}
 	
-	public void deleteCameraSensorRules(String cameraName)  {
+	void deleteCameraSensorRules(String cameraName)  {
 		List<CameraSensorRule> cameraSensorRules = rulesRepository.getCameraSensorRules();
 		for (CameraSensorRule cameraSensorRule : cameraSensorRules ) {
 			if (cameraSensorRule.getCameraName().equals(cameraName)) {
@@ -147,7 +141,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 		return SensorRuleType.getAllInstances();
 	}
 
-	public void applyRules(String name, SensorValues values) {
+	void applyRules(String name, SensorValues values) {
 		// TODO Auto-generated method stub
 		
 	}

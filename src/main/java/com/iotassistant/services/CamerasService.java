@@ -1,5 +1,6 @@
 package com.iotassistant.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,23 +9,24 @@ import org.springframework.stereotype.Service;
 import com.iotassistant.models.Camera;
 import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.CameraInterfaceTypeEnum;
-import com.iotassistant.repositories.CamerasRepository;
+import com.iotassistant.models.transductor.WatchdogInterval;
+import com.iotassistant.repositories.CamerasJPARepository;
 
 @Service
 public class CamerasService {
 	
 	@Autowired
-	CamerasRepository camerasRepository;
+	private CamerasJPARepository camerasJPARepository;
 	
 	@Autowired
 	private SensorRulesService sensorRulesService;
 
 	public List<Camera> getAllCameras() {
-		return camerasRepository.getAllCameras();	
+		return camerasJPARepository.findAll();	
 	}
 
 	public void newHTTPCamera(Camera camera) {
-		camerasRepository.save(camera);
+		camerasJPARepository.save(camera);
 	}
 
 	public List<String> getSupportedInterfaces() {
@@ -32,25 +34,32 @@ public class CamerasService {
 	}
 
 	public void deleteCamera(String cameraName)  {
-		camerasRepository.deleteCameraByName(cameraName);
+		camerasJPARepository.deleteById(cameraName);
 		sensorRulesService.deleteCameraSensorRules(cameraName);
 		
 	}
 
 	public byte[] getPicture(String cameraName) throws CameraInterfaceException {
 		assert(existCamera(cameraName));
-		Camera camera = camerasRepository.getCameraByName(cameraName);
+		Camera camera = camerasJPARepository.findById(cameraName).get();
 		return new CameraGetPictureService().getPicture(camera.getInterface());
 		
 	}
 
 	public boolean existCamera(String cameraName) {
-		return camerasRepository.getCameraByName(cameraName) != null;
+		return camerasJPARepository.findById(cameraName).isPresent();
 	}
 
 	public void setUpInterface(Camera camera) {
 		camera.getInterface();
 		
+	}
+
+	public List<String> getSupportedWatchdogIntervals() {
+		List<String> supportedWatchdogIntervals = new ArrayList<String>();
+		supportedWatchdogIntervals.add(WatchdogInterval.NO_WATCHDOG.toString());
+		supportedWatchdogIntervals.add(WatchdogInterval.ONE_MINUTE.toString());
+		return supportedWatchdogIntervals;
 	}
 
 

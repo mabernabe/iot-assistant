@@ -13,7 +13,7 @@ import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.exceptions.SystemCantShutdownException;
 
 @ControllerAdvice
-public class ControllerAdvisor extends ResponseEntityExceptionHandler {
+public class ControllerAdvisor extends ResponseEntityExceptionHandler { 
 		
 	private static int CAMERA_INTERFACE_ERROR_CODE = 0xAC;
 	

@@ -100,7 +100,7 @@ public class SensorsService  {
 		new TransductorSetUpInterfaceService().setUp(sensor.getInterface());	
 	}
 
-	public void update(String name, SensorValues values) {
+	void update(String name, SensorValues values) {
 		Sensor sensor = this.getSensorByName(name);
 		assert(sensor!=null);
 		sensor.setValues(values);

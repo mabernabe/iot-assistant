@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public class BinaryLED extends BinaryPropertyActuated{
+class BinaryLED extends BinaryPropertyActuated{
 	
 	private static final String NAME = "Led";
 

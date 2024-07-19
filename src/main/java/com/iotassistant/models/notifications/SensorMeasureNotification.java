@@ -3,7 +3,7 @@ package com.iotassistant.models.notifications;
 import com.iotassistant.models.AnalogThresholdOperatorEnum;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
-public interface SensorMeasureNotification {
+interface SensorMeasureNotification {
 	
 	public String getSensorName();
 	

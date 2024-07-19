@@ -18,7 +18,7 @@ import com.iotassistant.repositories.ActuatorsJPARepository;
 @Transactional
 public class ActuatorsService  {
 	
-	@Autowired
+	private @Autowired
 	ActuatorsJPARepository actuatorsRepository;
 	
 	@Autowired
@@ -105,7 +105,7 @@ public class ActuatorsService  {
 	}
 
 
-	public void update(String name, ActuatorValues actuatorValues) {
+	void update(String name, ActuatorValues actuatorValues) {
 		Actuator actuator = this.getActuatorByName(name);
 		assert(actuator!=null);
 		actuator.setValues(actuatorValues);

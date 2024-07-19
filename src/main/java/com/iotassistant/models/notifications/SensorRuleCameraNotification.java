@@ -20,7 +20,7 @@ public class SensorRuleCameraNotification extends SensorRuleNotification {
 	@NotNull
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	protected CameraSensorRule cameraSensorRule;
+	private CameraSensorRule cameraSensorRule;
 
 	@Lob
 	@Column(columnDefinition="BLOB")

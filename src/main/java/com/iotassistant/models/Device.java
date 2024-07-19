@@ -18,16 +18,16 @@ import com.iotassistant.models.transductor.WatchdogInterval;
 public abstract class Device {
 	
 	@Id
-	protected String name;
+	private String name;
 
-	protected String description;
+	private String description;
 	
-	protected boolean active;
+	private boolean active;
 	
 	@Enumerated(EnumType.STRING)
-	protected WatchdogInterval watchdogInterval;
+	private WatchdogInterval watchdogInterval;
 	
-	protected boolean watchdogEnabled;
+	private boolean watchdogEnabled;
 	
 	public Device() {
 		super();

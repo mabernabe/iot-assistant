@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Date {
 	
-	public static final String APPLICATION_DATES_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static final String APPLICATION_DATES_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	
 	public static String getCurrentDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getApplicationDatesFormat());
@@ -16,7 +16,7 @@ public class Date {
 	    return formatter.format(currentDate);  
 	}
 	
-	public static final String getApplicationDatesFormat() {
+	private static final String getApplicationDatesFormat() {
 		return APPLICATION_DATES_FORMAT;
 	}
 

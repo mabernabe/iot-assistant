@@ -17,7 +17,7 @@ public abstract class  SensorRuleNotification extends Notification implements Se
 	@NotNull
 	private String sensorValue;
 	
-	public SensorRuleNotification(String sensorValue, String date) {
+	SensorRuleNotification(String sensorValue, String date) {
 		super(date);
 		this.sensorValue = sensorValue;
 	}

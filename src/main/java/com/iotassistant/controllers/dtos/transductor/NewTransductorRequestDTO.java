@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class NewTransductorRequestDTO {
+class NewTransductorRequestDTO {
 	
 	@JsonProperty(required = true)
     @NotNull
@@ -27,7 +27,7 @@ public class NewTransductorRequestDTO {
 	}
 
 
-	public void name(String sensorName) {
+	public void setName(String sensorName) {
 		this.name = sensorName;
 	}
 

@@ -7,14 +7,14 @@ import com.iotassistant.controllers.dtos.TransductorDTO;
 import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 
-public class ActuatorDTO extends TransductorDTO{
+class ActuatorDTO extends TransductorDTO{
 	
 	private ActuatorValuesDTO actuatorValues;
 	
 	private List<PropertyActuatedDTO> propertiesActuated;
 	
 
-	public ActuatorDTO(Actuator actuator) {
+	ActuatorDTO(Actuator actuator) {
 		super(actuator);
 		this.actuatorValues = actuator.isActive() ? new ActuatorValuesDTO(actuator.getValues()) : null;
 		this.propertiesActuated = new ArrayList<PropertyActuatedDTO>();

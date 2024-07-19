@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 
-public interface TransductorOfflineNotificationsJPARepository extends JpaRepository<DeviceOfflineNotification, Integer>{
+interface TransductorOfflineNotificationsJPARepository extends JpaRepository<DeviceOfflineNotification, Integer>{
 
 
 	List<DeviceOfflineNotification> findAllByOrderByIdDesc();

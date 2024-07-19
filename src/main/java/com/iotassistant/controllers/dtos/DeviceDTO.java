@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.iotassistant.models.Device;
 
-public class DeviceDTO {
+class DeviceDTO {
 	
 	@JsonProperty(required = true)
     @NotNull
@@ -29,7 +29,7 @@ public class DeviceDTO {
 	
 	private boolean watchdogEnabled;
 	
-	public DeviceDTO(Device device) {
+	DeviceDTO(Device device) {
 		super();
 		this.name = device.getName();
 		this.description = device.getDescription();

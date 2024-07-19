@@ -9,7 +9,7 @@ import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
 //Sensor Values JSON Example : { "values" : {"TEMPERATURE_CENTIGRADES" : "25"}, "date" : "2022-03-23 15:41:03"} or  { "values" : {"Motion" : "true"}, "date" : "2022-03-23 15:41:03"}
-public class MqttSensorValuesDTO extends MqttTransductorValuesDTO<PropertyMeasuredEnum>{
+class MqttSensorValuesDTO extends MqttTransductorValuesDTO<PropertyMeasuredEnum>{
 	
 		
 	@JsonCreator

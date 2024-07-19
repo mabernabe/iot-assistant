@@ -35,7 +35,7 @@ public class DevicesService implements DeviceVisitor {
 	private void registerInstance() {
 		instance = this;
 	} 
-	public static DevicesService getInstance() {
+	static DevicesService getInstance() {
 		return instance;
 	}
 
@@ -65,7 +65,7 @@ public class DevicesService implements DeviceVisitor {
 		transductorsService.setUpInterface(transductor);		
 	}
 	
-	public void setActive(String name, boolean active) {
+	void setActive(String name, boolean active) {
 		assert(this.existDevice(name));
 		Device device = devicesJPARepository.findById(name).get();
 		device.setActive(false);
@@ -77,7 +77,7 @@ public class DevicesService implements DeviceVisitor {
 		return this.getDeviceByName(name) != null;
 	}
 	
-	public Device getDeviceByName(String name) {
+	private Device getDeviceByName(String name) {
 		Optional<Device> device = devicesJPARepository.findById(name);
 		if (device.isPresent()) {
 			return device.get();

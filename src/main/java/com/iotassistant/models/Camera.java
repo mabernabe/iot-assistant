@@ -15,7 +15,7 @@ import com.iotassistant.models.transductor.WatchdogInterval;
 public class Camera extends Device {
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	protected CameraInterface cameraInterface;
+	private CameraInterface cameraInterface;
 
 	public Camera() {
 		super();

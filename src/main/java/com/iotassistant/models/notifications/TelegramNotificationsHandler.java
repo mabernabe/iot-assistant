@@ -15,7 +15,7 @@ public class TelegramNotificationsHandler extends NotificationHandler  implement
 	
 	private static final String TELEGRAM_MSG_MONOSPACE_TAG = "`";
 
-	@Autowired
+	private @Autowired
 	TelegramBotManager telegramBotManager;
 	
 	@Autowired

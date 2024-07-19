@@ -16,7 +16,7 @@ public class EnableRuleSensorRuleDTO extends SensorRuleDTO {
 		super();
 	}
 
-	public EnableRuleSensorRuleDTO(EnableRuleSensorRule enableRuleSensorRule) {
+	EnableRuleSensorRuleDTO(EnableRuleSensorRule enableRuleSensorRule) {
 		super(enableRuleSensorRule);
 		this.sensorRuleId = enableRuleSensorRule.getSensorRuleId();
 		this.enableAction = enableRuleSensorRule.isEnableAction();
@@ -26,7 +26,7 @@ public class EnableRuleSensorRuleDTO extends SensorRuleDTO {
 	public EnableRuleSensorRule getSensorRule() {
 		SensorRuleTriggerIntervalEnum timeBetweenTriggers = SensorRuleTriggerIntervalEnum.getInstance(this.getTimeBetweenTriggers());
 		SensorMeasureThresholdSettings sensorMeasureThresholdSettings = this.sensorMeasureThresholdSettings.getSensorMeasureThresholdSettings();
-		return new EnableRuleSensorRule(sensorMeasureThresholdSettings, enabled, sensorRuleId, timeBetweenTriggers, NotificationTypeEnum.TELEGRAM, enableAction);
+		return new EnableRuleSensorRule(sensorMeasureThresholdSettings, this.isEnabled(), sensorRuleId, timeBetweenTriggers, NotificationTypeEnum.TELEGRAM, enableAction);
 
 	}
 

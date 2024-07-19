@@ -44,7 +44,7 @@ public class SensorChart {
 	@Enumerated(EnumType.STRING)
 	private SensorChartTypeEnum type;
 	
-	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade=CascadeType.ALL)
+	private @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade=CascadeType.ALL)
 	List<SensorChartSample> sensorsChartSamples = new ArrayList<SensorChartSample>();
 	
 	
@@ -90,7 +90,7 @@ public class SensorChart {
 		return sensorsChartSamples;
 	}
 
-	public boolean shouldAddNewSample(Sensor sensor) {
+	boolean shouldAddNewSample(Sensor sensor) {
 		boolean shouldAddNewSample = false;
 		try {			
 			shouldAddNewSample = (sensor.isActive() && isChartSampleIntervalReached(sensor.getValues()));
@@ -98,7 +98,7 @@ public class SensorChart {
 		return shouldAddNewSample;
 	}
 	
-	public void addNewSensorSample(Sensor sensor) {
+	void addNewSensorSample(Sensor sensor) {
 		assert(this.shouldAddNewSample(sensor) == true);
 		SensorChartSample sample = null;
 		sample = new SensorChartSample(sensor.getValues().getValue(propertyObserved), sensor.getValues().getDate());

@@ -27,7 +27,7 @@ public class Sensor extends Transductor {
 	private SensorValues values;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	protected SensorInterface sensorInterface;
+	private SensorInterface sensorInterface;
 	
 	@ElementCollection
 	@LazyCollection(LazyCollectionOption.FALSE)

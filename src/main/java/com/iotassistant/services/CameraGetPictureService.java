@@ -6,7 +6,7 @@ import com.iotassistant.models.CameraInterface;
 import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.CameraInterfaceVisitor;
 
-public class CameraGetPictureService implements CameraInterfaceVisitor{
+class CameraGetPictureService implements CameraInterfaceVisitor{
 	
 	private byte[] picture;
 	
@@ -14,7 +14,7 @@ public class CameraGetPictureService implements CameraInterfaceVisitor{
 		super();
 	}
 	
-	public byte[] getPicture(CameraInterface cameraInterface) throws CameraInterfaceException {
+	byte[] getPicture(CameraInterface cameraInterface) throws CameraInterfaceException {
 		cameraInterface.accept(this);
 		return this.picture;
 	}

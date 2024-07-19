@@ -44,11 +44,4 @@ public abstract class TransductorValues<T extends Property> {
 	public String getDate() {
 		return date;
 	}
-
-	public void add(T property, String value) {
-		this.values.put(property, value);	
-	}	
-	
-	
-
 }

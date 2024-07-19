@@ -9,11 +9,11 @@ import com.iotassistant.utils.Date;
 
 public abstract class NotificationHandler{
 	
-	protected NotificationsRepository notificationsRepository;
+	private NotificationsRepository notificationsRepository;
 	
 	private static final int MIN_INTERVALM_BETWEEN_DEVICE_OFFLINE_NOTIFICATIONS = 60;
 
-    public NotificationHandler(NotificationsRepository notificationsRepository) {
+    NotificationHandler(NotificationsRepository notificationsRepository) {
         this.notificationsRepository = notificationsRepository;
     }
 

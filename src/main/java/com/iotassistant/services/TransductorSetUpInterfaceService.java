@@ -10,7 +10,7 @@ import com.iotassistant.models.transductormqttinterface.MqttInterface;
 import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
 
 
-public class TransductorSetUpInterfaceService implements TransductorInterfaceVisitor {
+class TransductorSetUpInterfaceService implements TransductorInterfaceVisitor {
 
 	public TransductorSetUpInterfaceService() {
 		super();

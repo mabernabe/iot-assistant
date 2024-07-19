@@ -21,7 +21,7 @@ public abstract class Transductor extends Device{
 		super();
 	}
 
-	public Transductor(String name, String description, WatchdogInterval watchdogInterval) {
+	Transductor(String name, String description, WatchdogInterval watchdogInterval) {
 		super(name, description, watchdogInterval);
 	}
 	

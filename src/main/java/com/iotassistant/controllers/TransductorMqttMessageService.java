@@ -14,7 +14,7 @@ import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum
 import com.iotassistant.services.TransductorsService;
 import com.iotassistant.utils.JSONParser;
 
-public class TransductorMqttMessageService implements TransductorVisitor{
+class TransductorMqttMessageService implements TransductorVisitor{
 	
 	private Transductor transductor;
 	
@@ -23,7 +23,7 @@ public class TransductorMqttMessageService implements TransductorVisitor{
 	private TransductorsService transductorsService;
 
 	
-	public TransductorMqttMessageService(Transductor transductor, MqttMessage message,
+	TransductorMqttMessageService(Transductor transductor, MqttMessage message,
 			TransductorsService transductorsService) {
 		super();
 		this.transductor = transductor;
@@ -31,7 +31,7 @@ public class TransductorMqttMessageService implements TransductorVisitor{
 		this.transductorsService = transductorsService;
 	}
 
-	public void updateTransductor() {
+	void updateTransductor() {
 		this.transductor.accept(this);
 	}
 	

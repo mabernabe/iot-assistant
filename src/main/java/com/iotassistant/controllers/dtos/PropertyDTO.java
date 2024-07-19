@@ -8,7 +8,7 @@ public class PropertyDTO {
 	
 	private String unit;
 	
-	boolean isBinary;
+	private boolean isBinary;
 	
 	private Integer maximumValue;
 	

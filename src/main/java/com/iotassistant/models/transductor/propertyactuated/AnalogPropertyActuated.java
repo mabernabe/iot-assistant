@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public abstract class AnalogPropertyActuated implements PropertyActuated{
+abstract class AnalogPropertyActuated implements PropertyActuated{
 
 	@Override
 	public abstract String getName();

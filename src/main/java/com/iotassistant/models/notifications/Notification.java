@@ -24,7 +24,7 @@ public abstract class Notification {
 	}
 
 
-	public Notification(String date) {
+	Notification(String date) {
 		this();
 		this.date = date;
 	}

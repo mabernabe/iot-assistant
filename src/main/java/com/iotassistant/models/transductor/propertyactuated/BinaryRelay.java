@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor.propertyactuated;
 
-public class BinaryRelay extends BinaryPropertyActuated{
+class BinaryRelay extends BinaryPropertyActuated{
 	
 	private static final String NAME = "Relay";
 

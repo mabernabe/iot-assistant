@@ -25,21 +25,21 @@ public class SystemService {
 	private String platform;
 	
 	@Autowired
-	private TransductorsService transductorService;
+	private TransductorsService transductorsService;
 	
 	@Autowired
-	private CamerasService cameraService;
+	private CamerasService camerasService;
 
-	@Autowired
+	private @Autowired
 	NotificationsService notificationsService;
 	
-	@Autowired
+	private @Autowired
 	SensorRulesService sensorRulesService;
 	
 	@Autowired
 	private ChartsService chartsService;
 	
-	@Autowired
+	private @Autowired
 	TelegramBotManager telegramBotManager;
 	
 	
@@ -47,19 +47,19 @@ public class SystemService {
 	
 
 	public List<Property> getSupportedSensorProperties() {
-		return transductorService.getSupportedPropertiesMeasured();
+		return transductorsService.getSupportedPropertiesMeasured();
 	}
 
 	public List<String> getSupportedSensorInterfaces() {
-		return this.transductorService.getConnectedTransductorInterfaces();
+		return this.transductorsService.getConnectedTransductorInterfaces();
 	}
 
 	public List<Property> getSupportedActuatorProperties() {
-		return transductorService.getSupportedPropertiesActuated();
+		return transductorsService.getSupportedPropertiesActuated();
 	}
 
 	public List<String> getSupportedActuatorInterfaces() {
-		return this.transductorService.getConnectedTransductorInterfaces();
+		return this.transductorsService.getConnectedTransductorInterfaces();
 	}
 
 	public List<String> getSupportedNotificationTypes() {
@@ -75,7 +75,7 @@ public class SystemService {
 	}
 
 	public boolean isInterfaceConnected(TransductorInterfaceTypeEnum interfaceType) {
-		return this.transductorService.getConnectedTransductorInterfaces().contains(interfaceType.toString());
+		return this.transductorsService.getConnectedTransductorInterfaces().contains(interfaceType.toString());
 	}
 
 	public String getMqttBroker() {
@@ -103,8 +103,12 @@ public class SystemService {
 		return chartsService.getSupportedSampleIntervals();
 	}
 
-	public List<String> getSupportedWatchdogIntervals() {
-		return transductorService.getSupportedWatchdogIntervals();
+	public List<String> getSupportedTransductorsWatchdogIntervals() {
+		return transductorsService.getSupportedWatchdogIntervals();
+	}
+	
+	public List<String> getSupportedCamerasWatchdogIntervals() {
+		return camerasService.getSupportedWatchdogIntervals();
 	}
 
 	public void powerOff() throws SystemCantShutdownException{
@@ -130,11 +134,11 @@ public class SystemService {
 
 
 	public List<String> getSupportedSensorRulesTimeBetweenTriggers() {
-		return transductorService.getSupportedSensorRulesTimeBetweenTriggers();
+		return transductorsService.getSupportedSensorRulesTimeBetweenTriggers();
 	}
 
 	public List<String> getSupportedCameraInterfaces() {
-		return cameraService.getSupportedInterfaces();
+		return camerasService.getSupportedInterfaces();
 	}
 
 

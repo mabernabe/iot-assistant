@@ -3,7 +3,7 @@ package com.iotassistant.models.transductor.propertymeasured.analog;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasured;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredSeverity;
 
-public abstract class AnalogPropertyMeasured implements PropertyMeasured{
+abstract class AnalogPropertyMeasured implements PropertyMeasured{
 
 
 	@Override

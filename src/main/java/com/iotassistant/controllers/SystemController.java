@@ -72,7 +72,7 @@ public class SystemController {
 	public TransductorCapabilitiesDTO getSensorCapabilities()  {	
 		List<Property> sensorSupportedProperties = systemService.getSupportedSensorProperties();
 		List<String> sensorSupportedInterfaces = systemService.getSupportedSensorInterfaces();
-		List<String> sensorSupportedWatchdogsIntervals =  systemService.getSupportedWatchdogIntervals();
+		List<String> sensorSupportedWatchdogsIntervals =  systemService.getSupportedTransductorsWatchdogIntervals();
 		return new TransductorCapabilitiesDTO(sensorSupportedProperties, sensorSupportedInterfaces, sensorSupportedWatchdogsIntervals);
 
 	}
@@ -81,7 +81,7 @@ public class SystemController {
 	public TransductorCapabilitiesDTO getActuatorCapabilities()  {	
 		List<Property> actuatorSupportedProperties = systemService.getSupportedActuatorProperties();
 		List<String> actuatorSupportedInterfaces = systemService.getSupportedActuatorInterfaces();
-		List<String> actuatorSupportedWatchdogIntervals = systemService.getSupportedWatchdogIntervals();
+		List<String> actuatorSupportedWatchdogIntervals = systemService.getSupportedTransductorsWatchdogIntervals();
 		return new TransductorCapabilitiesDTO(actuatorSupportedProperties, actuatorSupportedInterfaces, actuatorSupportedWatchdogIntervals);
 
 	}
@@ -115,7 +115,7 @@ public class SystemController {
 	
 	@RequestMapping(value="/camera-capabilities/", method = RequestMethod.GET)
 	public CameraCapabilitiesDTO getCameraCapabilities()  {	
-		return new CameraCapabilitiesDTO(systemService.getSupportedCameraInterfaces(), systemService.getSupportedWatchdogIntervals());
+		return new CameraCapabilitiesDTO(systemService.getSupportedCameraInterfaces(), systemService.getSupportedTransductorsWatchdogIntervals());
 	}
 	
 	@RequestMapping(value="/rules-capabilities/", method = RequestMethod.GET)

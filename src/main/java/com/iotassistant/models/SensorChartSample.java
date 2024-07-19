@@ -24,7 +24,7 @@ public class SensorChartSample {
 		super();
 	}
 
-	public SensorChartSample(String value, String date) {
+	SensorChartSample(String value, String date) {
 		super();
 		this.value = value;
 		this.date = date;

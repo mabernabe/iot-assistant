@@ -30,7 +30,7 @@ public enum SensorChartSampleIntervalEnum {
 		return string;
 	}
 	
-	public boolean isChartSampleIntervalReached(String firstSampleDate, String secondSampleDate) throws ParseException {
+	boolean isChartSampleIntervalReached(String firstSampleDate, String secondSampleDate) throws ParseException {
 		return Date.havePassedMinutesBetweenDates(firstSampleDate, secondSampleDate, minutes);
 		
 	}

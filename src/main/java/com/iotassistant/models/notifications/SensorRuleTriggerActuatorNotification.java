@@ -18,7 +18,7 @@ public class SensorRuleTriggerActuatorNotification extends  SensorRuleNotificati
 	@NotNull
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE) 
-	protected TriggerActuatorSensorRule triggerActuatorSensorRule;
+	private TriggerActuatorSensorRule triggerActuatorSensorRule;
 	
 	public SensorRuleTriggerActuatorNotification() {
 		super();

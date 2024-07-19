@@ -1,7 +1,6 @@
 package com.iotassistant.models.transductor;
 
 public enum TransductorInterfaceTypeEnum {
-	PIN("PIN"),
 	MQTT("MQTT");
 
 	private String string;

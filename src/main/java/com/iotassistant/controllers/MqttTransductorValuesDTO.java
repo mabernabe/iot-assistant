@@ -11,14 +11,13 @@ import com.iotassistant.models.TransductorValues;
 import com.iotassistant.models.transductor.Property;
 import com.iotassistant.utils.Date;
 
-public abstract class MqttTransductorValuesDTO<T extends Property> {
+abstract class MqttTransductorValuesDTO<T extends Property> {
 	
 	private TransductorValues<T> transductorValues;
 	
 	private List<String> errors;
 	
-	@JsonCreator
-	public MqttTransductorValuesDTO(@JsonProperty(value = "values" , required = true) HashMap<String, String> values, @JsonProperty(value = "date", required = true) String date){
+	@JsonCreator MqttTransductorValuesDTO(@JsonProperty(value = "values" , required = true) HashMap<String, String> values, @JsonProperty(value = "date", required = true) String date){
 		super();
 		this.errors = new ArrayList<String>();
 		deserialize(values, date);
@@ -47,11 +46,11 @@ public abstract class MqttTransductorValuesDTO<T extends Property> {
 
 	protected abstract TransductorValues<T> createTransductorValues(String date);
 
-	protected List<String> getErrors() {
+	private List<String> getErrors() {
 		return errors;
 	}
 	
-	public boolean hasErrors(List<T> properties) {
+	boolean hasErrors(List<T> properties) {
 		Set<T> dtoProperties = this.transductorValues.getValues().keySet();
 		for (T property: properties) {
 			if (!dtoProperties.contains(property)) {

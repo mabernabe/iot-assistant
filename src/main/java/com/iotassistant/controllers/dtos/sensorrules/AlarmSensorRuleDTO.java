@@ -12,16 +12,16 @@ public class AlarmSensorRuleDTO extends SensorRuleDTO{
 		super();
 	}
 
-	public AlarmSensorRuleDTO(AlarmSensorRule alarmSensorRule) {
+	AlarmSensorRuleDTO(AlarmSensorRule alarmSensorRule) {
 		super(alarmSensorRule);
 	}
 
 	@JsonIgnore
 	public AlarmSensorRule getSensorRule() {
 			SensorRuleTriggerIntervalEnum timeBetweenTriggers = SensorRuleTriggerIntervalEnum.getInstance(this.getTimeBetweenTriggers());
-			NotificationTypeEnum notificationType = NotificationTypeEnum.getInstance(this.notificationType);
+			NotificationTypeEnum notificationType = NotificationTypeEnum.getInstance(this.getNotificationType());
 			SensorMeasureThresholdSettings sensorMeasureThresholdSettings = this.sensorMeasureThresholdSettings.getSensorMeasureThresholdSettings();
-			return new AlarmSensorRule(sensorMeasureThresholdSettings, notificationType, timeBetweenTriggers, enabled);
+			return new AlarmSensorRule(sensorMeasureThresholdSettings, notificationType, timeBetweenTriggers, this.isEnabled());
 	}
 
 

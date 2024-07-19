@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iotassistant.models.Device;
-import com.iotassistant.models.TelegramBotManager;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.Notification;
 import com.iotassistant.models.notifications.NotificationHandler;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 import com.iotassistant.models.notifications.TelegramNotificationsHandler;
-import com.iotassistant.models.notifications.WebNotificationsHandler;
 import com.iotassistant.repositories.NotificationsRepository;
 
 @Service
@@ -23,25 +21,18 @@ import com.iotassistant.repositories.NotificationsRepository;
 public class NotificationsService {
 	
 	@Autowired
-	NotificationsRepository notificationsRepository;
+	private NotificationsRepository notificationsRepository;
 	
 	@Autowired
-	WebNotificationsHandler webNotificationHandler;
+	private TelegramNotificationsHandler telegramNotificationHandler;
 	
-	@Autowired
-	TelegramNotificationsHandler telegramNotificationHandler;
-	
-	@Autowired
-	TelegramBotManager telegramBotManager;
-	
-
 	public void deleteNotificationById(int id) {
 		notificationsRepository.deleteNotificationById(Integer.valueOf(id));
 		
 	}
 
 
-	public NotificationHandler getNotificationHandler(NotificationTypeEnum notificationType) {
+	NotificationHandler getNotificationHandler(NotificationTypeEnum notificationType) {
 		assert(notificationType == NotificationTypeEnum.TELEGRAM);
 		return telegramNotificationHandler;		
 	}

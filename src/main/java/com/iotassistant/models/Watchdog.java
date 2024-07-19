@@ -26,7 +26,7 @@ public class Watchdog implements DeviceVisitor {
 	NotificationsService notificationService;
 
 
-	@Scheduled(fixedRate = 60000)
+	@Scheduled(fixedRate = WatchdogInterval.WATCHDOG_MINIMUM_INTERVAL_SEC)
 	public void watchdog()  {
 		List<Device> allDevices = devicesService.getAllDevices();
 		for (Device device : allDevices) {

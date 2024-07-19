@@ -15,7 +15,7 @@ public class DeviceOfflineNotification extends Notification{
 	@NotNull
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	protected Device device;
+	private Device device;
 
 	public DeviceOfflineNotification() {
 		super();

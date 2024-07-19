@@ -25,14 +25,14 @@ public class ChartDTO {
 	
 	private String type;
 	
-	List<SensorChartSampleDTO> sensorsChartSamples; 
+	private List<SensorChartSampleDTO> sensorsChartSamples; 
 	
 
 	public ChartDTO() {
 		super();
 	}
 
-	public ChartDTO(SensorChart chart) {
+	ChartDTO(SensorChart chart) {
 		this.id = chart.getId();
 		this.sensorName = chart.getSensorName();
 		this.propertyObserved = new PropertyDTO(chart.getPropertyObserved());

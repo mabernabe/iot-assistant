@@ -19,7 +19,7 @@ import com.iotassistant.services.SensorsService;
 
 @RestController
 @RequestMapping("${charts.uri}")
-public class ChartsController {
+public class ChartsController { // NO_UCD (unused code)
  
 	
 	@Autowired
@@ -60,7 +60,7 @@ public class ChartsController {
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteChartById(@PathVariable("id") int id)  {
 		if(chartsService.getChartById(id) == null) {
-			ErrorDTO chartnofFoundError = ErrorDTO.CHART_ALREADY_EXIST;
+			ErrorDTO chartnofFoundError = ErrorDTO.CHART_NOT_FOUND;
 			return new ResponseEntity<>(chartnofFoundError, chartnofFoundError.getHttpStatus());
         }
 		chartsService.deleteChartById(id);

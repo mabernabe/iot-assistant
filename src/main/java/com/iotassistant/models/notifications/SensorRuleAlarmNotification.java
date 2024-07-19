@@ -19,7 +19,7 @@ public class SensorRuleAlarmNotification extends SensorRuleNotification {
 	@NotNull
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE) 
-	protected AlarmSensorRule alarmSensorRule;
+	private AlarmSensorRule alarmSensorRule;
 	
 	public SensorRuleAlarmNotification() {
 		super();

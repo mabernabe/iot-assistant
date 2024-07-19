@@ -18,6 +18,8 @@ public enum WatchdogInterval {
 	TEN_HOURS("10 hours", 600),
 	ONE_DAY("24 hours", 1440);
 	
+	public static final int WATCHDOG_MINIMUM_INTERVAL_SEC = 60 * 1000;
+	
 	private String string;
 	
 	private int minutes;

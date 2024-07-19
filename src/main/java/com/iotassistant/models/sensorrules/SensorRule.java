@@ -38,7 +38,7 @@ public abstract class SensorRule implements SensorMeasureObserver{
 	private boolean enabled;
 	
 	@Enumerated(EnumType.STRING)
-	protected SensorRuleTriggerIntervalEnum timeBetweenTriggers;
+	private SensorRuleTriggerIntervalEnum timeBetweenTriggers;
 	
 	@Enumerated(EnumType.STRING)
 	private SensorRuleType type;
@@ -55,7 +55,7 @@ public abstract class SensorRule implements SensorMeasureObserver{
 		super();
 	}
 
-	public SensorRule(SensorMeasureThresholdSettings sensorMeasureThresholdSettings, boolean enabled, SensorRuleType type, 
+	SensorRule(SensorMeasureThresholdSettings sensorMeasureThresholdSettings, boolean enabled, SensorRuleType type, 
 			SensorRuleTriggerIntervalEnum timeBetweenTriggers, NotificationTypeEnum notificationType) {
 		this.sensorMeasureThresholdSettings = sensorMeasureThresholdSettings;
 		this.enabled = enabled;

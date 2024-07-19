@@ -68,7 +68,7 @@
 					</span>
 				</div>
 				<div class="stats"  >
-					<span ng-if="actuator.existValue(actuator.getProperties()[0].getName())">
+					<span ng-if="actuator.isActive()">
 						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>
 						{{actuator.getValuesDate()}}	
 					</span>                

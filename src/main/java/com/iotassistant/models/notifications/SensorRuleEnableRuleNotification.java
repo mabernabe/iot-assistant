@@ -20,7 +20,7 @@ public class SensorRuleEnableRuleNotification extends SensorRuleNotification{
 	@NotNull
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE) 
-	protected EnableRuleSensorRule enableSensorRule;
+	private EnableRuleSensorRule enableSensorRule;
 
 	
 	public SensorRuleEnableRuleNotification() {

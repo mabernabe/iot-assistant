@@ -5,7 +5,7 @@ import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 
 public class SensorRuleCameraNotificationDTO extends SensorRuleNotificationDTO{
 	
-	CameraSensorRuleDTO cameraSensorRule;
+	private CameraSensorRuleDTO cameraSensorRule;
 	
 	private String pictureURL;
 
