@@ -1,5 +1,7 @@
 package com.iotassistant.controllers.dtos;
 
+import com.iotassistant.models.ServerStatus;
+
 public class ServerStatusDTO{
 	
 	private String interfaceName;
@@ -8,13 +10,14 @@ public class ServerStatusDTO{
 	
 	private String detail;
 
-	public ServerStatusDTO(String interfaceName, boolean isAvailable, String broker) {
-		this.interfaceName = interfaceName;
-		this.isConnected = isAvailable;
-		this.detail = broker;
+
+	public ServerStatusDTO(ServerStatus serverStatus) {
+		this.interfaceName = serverStatus.getInterfaceName();
+		this.isConnected = serverStatus.isConnected();
+		this.detail = serverStatus.getDetail();
 	}
 
-	public String getBroker() {
+	public String getDetail() {
 		return detail;
 	}
 	
@@ -22,7 +25,7 @@ public class ServerStatusDTO{
 		return interfaceName;
 	}
 
-	public boolean isAvailable() {
+	public boolean isConnected() {
 		return isConnected;
 	}
 

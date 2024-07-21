@@ -1,36 +1,20 @@
 <div class="row">
-	<div class="col-lg-3 col-md-6 col-sm-6" ng-repeat="transductorInterface in GetSystemInfoController.iotAssistant.getTransductorInterfacesCapabilities()">
+	<div class="col-lg-3 col-md-6 col-sm-6" ng-repeat="serverStatus in GetSystemInfoController.system.getServersStatus()">
 		<div class="card card-stats">
 			<div class="card-header ">
-				<h5 class="card-title">Interface {{transductorInterface.getInterfaceName()}}</h5>
+				<h5 class="card-title">Interface {{serverStatus.getInterfaceName()}}</h5>
 			</div>
 			<div class="card-footer ">
-				<div class="legend" ng-if="transductorInterface.isAvailable()">
-					<i class="fa fa-circle text-success"></i> Available
+				<div class="legend" ng-if="serverStatus.isConnected()">
+					<i class="fa fa-circle text-success"></i> Connected
 				</div>
-				<div class="legend" ng-if="!transductorInterface.isAvailable()">
-					<i class="fa fa-circle text-danger"></i> Unavailable
-				</div>
-				<hr>
-				<div class="stats" ng-if="transductorInterface.isAvailable()">
-					<i class="fa fa-info-circle"></i> {{transductorInterface.getDetails()}}
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-6 col-sm-6"">
-		<div class="card card-stats">
-			<div class="card-header ">
-				<h5 class="card-title">Telegram</h5>
-			</div>
-			<div class="card-footer ">
-				<div class="legend" ng-if="GetSystemInfoController.iotAssistant.isTelegramConnected()">
-					<i class="fa fa-circle text-success"></i> Available
-				</div>
-				<div class="legend" ng-if="!GetSystemInfoController.iotAssistant.isTelegramConnected()">
-					<i class="fa fa-circle text-danger"></i> Unavailable
+				<div class="legend" ng-if="!serverStatus.isConnected()">
+					<i class="fa fa-circle text-danger"></i> Not connected
 				</div>
 				<hr>
+				<div class="stats" ng-if="serverStatus.isConnected()">
+					<i class="fa fa-info-circle"></i> {{serverStatus.getDetails()}}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -40,11 +24,11 @@
 	<div class="col-lg-3 col-md-6 col-sm-6">
 		<div class="card card-stats">
 			<div class="card-header ">
-				<h5 class="card-title">Plattform</h5>
+				<h5 class="card-title">Platform</h5>
 			</div>
 			<div class="card-footer ">
 				<div class="legend">
-					<i class="fa fa-circle text-gray"></i> Plattform: {{GetSystemInfoController.iotAssistant.getPlatformName()}}
+					<i class="fa fa-circle text-gray"></i> Name: {{GetSystemInfoController.system.getPlatformName()}}
 				</div>
 				<hr>
 			</div>

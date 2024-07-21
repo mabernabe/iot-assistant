@@ -1,7 +1,7 @@
 class Camera extends Device{
 	
-	constructor(name, description, watchdogInterval, watchdogEnabled, urlPicture) {
-		super(name, description, watchdogInterval, watchdogEnabled);
+	constructor(name, description, active, watchdogInterval, watchdogEnabled, urlPicture) {
+		super(name, description, active, watchdogInterval, watchdogEnabled);
 		this.urlPicture = urlPicture + '?decache=' + Math.random();
 	}
 		

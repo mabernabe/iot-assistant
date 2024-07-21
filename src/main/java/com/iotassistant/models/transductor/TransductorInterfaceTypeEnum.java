@@ -1,5 +1,8 @@
 package com.iotassistant.models.transductor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum TransductorInterfaceTypeEnum {
 	MQTT("MQTT");
 
@@ -15,6 +18,15 @@ public enum TransductorInterfaceTypeEnum {
 	@Override
 	public String toString() {
 		return string;
+	}
+
+
+	public static List<String> getAllInstances() {
+		List<String> instances = new ArrayList<String>();
+		for (TransductorInterfaceTypeEnum instance : TransductorInterfaceTypeEnum.values()) {
+			instances.add(instance.toString());
+		}
+		return instances;
 	}
 
 

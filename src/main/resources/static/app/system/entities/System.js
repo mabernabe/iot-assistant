@@ -1,7 +1,7 @@
 class System {
 
-	constructor(iotAssistantCapabilities, platformName) {
-		this.capabilities = iotAssistantCapabilities;
+	constructor(systemCapabilities, platformName) {
+		this.capabilities = systemCapabilities;
 		this.platformName = platformName;
     }
 	
@@ -13,12 +13,8 @@ class System {
 		return this.platformName;
 	}
 	
-	getTransductorInterfacesCapabilities() {
-		return this.capabilities.getTransductorInterfacesCapabilities();
-	}	
-	
-	isTelegramConnected() {
-		return this.capabilities.isTelegramConnected();
+	getServersStatus() {
+		return this.capabilities.getServersStatus();
 	}
 
 }

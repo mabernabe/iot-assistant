@@ -38,8 +38,8 @@ class SensorRule {
 	}
 	
 	
-	isSensorPropertyDigital() {
-		return this.sensorMeasureThresholdSettings.isSensorPropertyDigital();
+	isSensorPropertyBinary() {
+		return this.sensorMeasureThresholdSettings.isSensorPropertyBinary();
 	}
 	
 	getSensorProperty() {

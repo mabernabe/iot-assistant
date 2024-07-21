@@ -1,11 +1,11 @@
 
 systemModule.service ("SystemAPIService",function(RestAPIService, $q){
-	var self = this;	
+	let self = this;	
 	
-	var systemBaseUri = "system/";
+	let systemBaseUri = "system/";
 	
 	self.getSystem = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(systemBaseUri).then(function(objectResponse) {
 			deferred.resolve(getSystemFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -15,7 +15,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	self.getCapabilities = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(systemBaseUri.concat("capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -25,7 +25,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	self.getDevicesCapabilities = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(systemBaseUri.concat("devices-capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getDevicesCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -35,17 +35,17 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	function getDevicesCapabilitiesFromResponse(objectResponse) {
-		var sensorProperties = getPropertiesFromPropertiesObject(objectResponse.sensorCapabilities.supportedProperties);
-		var sensorCapabilities = new TransductorCapabilities(sensorProperties, objectResponse.sensorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
-		var actuatorProperties = getPropertiesFromPropertiesObject(objectResponse.actuatorCapabilities.supportedProperties);
-		var actuatorCapabilities = new TransductorCapabilities(actuatorProperties, objectResponse.actuatorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
-		var cameraCapabilities = new CameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
+		let sensorProperties = getPropertiesFromPropertiesObject(objectResponse.sensorCapabilities.supportedProperties);
+		let sensorCapabilities = new TransductorCapabilities(sensorProperties, objectResponse.sensorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
+		let actuatorProperties = getPropertiesFromPropertiesObject(objectResponse.actuatorCapabilities.supportedProperties);
+		let actuatorCapabilities = new TransductorCapabilities(actuatorProperties, objectResponse.actuatorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
+		let cameraCapabilities = new CameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
 		return new DevicesCapabilities(sensorCapabilities, actuatorCapabilities, cameraCapabilities);
 		
 	}
 	
 	self.getRulesCapabilities = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(systemBaseUri.concat("rules-capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getRulesCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -54,22 +54,20 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 		return deferred.promise ;
 	}
 	
-	function getRulesCapabilitiesFromResponse(objectResponse) {
-		return new RuleCapabilities(objectResponse.supportedSensorRulesTypes, objectResponse.supportedSensorRulesTimeBetweenTriggers);
-	} 
-	
-	self.getTransductorsCapabilities = function () {
-		var deferred = $q.defer();
-		RestAPIService.get(systemBaseUri.concat("transductors-capabilities/")).then(function(objectResponse) {
-			deferred.resolve(getTransductorsCapabilitiesFromResponse(objectResponse));
+	self.getNotificationsCapabilities = function () {
+		let deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("notifications-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getNotificationsCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);
 		});
 		return deferred.promise ;
 	}
 	
+	
+	
 	self.getChartCapabilities = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(systemBaseUri.concat("charts-capabilities/")).then(function(objectResponse) {
 			deferred.resolve(getChartsCapabilitiesFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -83,34 +81,43 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	} 
 	
 	function getSystemFromResponse(objectResponse) {
-		var systemCapabilities = getCapabilitiesFromResponse(objectResponse.capabilities);
+		let systemCapabilities = getCapabilitiesFromResponse(objectResponse.capabilities);
 		return new System(systemCapabilities, objectResponse.platformName);
 	} 
 	
 	function getCapabilitiesFromResponse(objectResponse) {
-		var transductorsCapabilities = getTransductorsCapabilitiesFromResponse(objectResponse);
-		var mqttInterfaceCapabilities = new MqttInterfaceCapabilities(objectResponse.mqttInterfaceCapabilities.interfaceName, objectResponse.mqttInterfaceCapabilities.available, objectResponse.mqttInterfaceCapabilities.broker);
-		var ruleCapabilities = new RuleCapabilities(objectResponse.ruleCapabilities.supportedSensorRulesTypes, objectResponse.ruleCapabilities.supportedSensorRulesTimeBetweenTriggers);
-		var chartCapabilities = getChartsCapabilitiesFromResponse(objectResponse);
-		var cameraCapabilities = new CameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
-		var notificationsCapabilities = new NotificationsCapabilities(objectResponse.notificationsCapabilities.supportedNotificationsTypes);
-		var isTelegramConnected = objectResponse.telegramConnected;
-		return new SystemCapabilities(transductorsCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected);
+		let devicesCapabilities = getDevicesCapabilitiesFromResponse(objectResponse.devicesCapabilities);
+		let serversStatus = getServerStatusFromResponse(objectResponse.serversStatus);
+		let rulesCapabilities = getRulesCapabilitiesFromResponse(objectResponse.ruleCapabilities);
+		let chartCapabilities = getChartsCapabilitiesFromResponse(objectResponse.chartCapabilities);
+		let notificationsCapabilities = getNotificationsCapabilitiesFromResponse(objectResponse.notificationsCapabilities);
+		return new SystemCapabilities(devicesCapabilities, serversStatus, chartCapabilities, notificationsCapabilities, rulesCapabilities);
 	} 
 	
-	function getTransductorsCapabilitiesFromResponse(objectResponse) {
-		var sensorProperties = getPropertiesFromPropertiesObject(objectResponse.sensorCapabilities.supportedProperties);
-		var actuatorProperties = getPropertiesFromPropertiesObject(objectResponse.actuatorCapabilities.supportedProperties);
-		var sensorCapabilities = new SensorCapabilities(sensorProperties, objectResponse.sensorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
-		var actuatorCapabilities = new ActuatorCapabilities(actuatorProperties, objectResponse.actuatorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
-		return new TransductorsCapabilities(sensorCapabilities, actuatorCapabilities);
+	
+	function getRulesCapabilitiesFromResponse(objectResponse) {
+		return 	new RuleCapabilities(objectResponse.supportedSensorRulesTypes, objectResponse.supportedSensorRulesTimeBetweenTriggers);
+	}
+	
+	function getNotificationsCapabilitiesFromResponse(objectResponse) {
+		return 	new NotificationsCapabilities(objectResponse.supportedNotificationsTypes);
+	}
+	
+	
+	function getServerStatusFromResponse(objectResponse) {
+		let serversStatus = [];
+		objectResponse.serversStatus.forEach(serverStatusObject => {
+			let serverStatus = new ServerStatus(serverStatusObject.interfaceName, serverStatusObject.connected, serverStatusObject.detail);
+			serversStatus.push(serverStatus);
+		})
+		return serversStatus;
 		
 	}
 	
 	function getPropertiesFromPropertiesObject(propertiesObject) {
-		var properties = [];
+		let properties = [];
 		propertiesObject.forEach(propertyObject => {
-			var property = new Property(propertyObject.name, propertyObject.nameWithUnit, propertyObject.unit, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
+			let property = new Property(propertyObject.name, propertyObject.nameWithUnit, propertyObject.unit, propertyObject.digital, propertyObject.minimumValue, propertyObject.maximumValue);
 			properties.push(property);
 		})
 		return properties;
@@ -118,7 +125,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	
 
 	self.powerOff = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.post(systemBaseUri.concat("powerOff/")).then(function() {
 			deferred.resolve();
 		}, function errorCallback(errorResponse) {

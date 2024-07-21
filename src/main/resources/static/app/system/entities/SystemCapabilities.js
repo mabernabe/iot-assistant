@@ -1,28 +1,16 @@
 class SystemCapabilities {
 
-	constructor(devicesCapabilities, mqttInterfaceCapabilities, chartCapabilities, cameraCapabilities, notificationsCapabilities, ruleCapabilities, isTelegramConnected) {
-		if(!arguments.length) {
-			this.devicesCapabilities = new devicesCapabilities([], [], []);
-			this.mqttInterfaceCapabilities = new MqttInterfaceCapabilities("", false, "");
-			this.chartCapabilities = new ChartCapabilities([]);
-			this.cameraCapabilities = new CameraCapabilities([], []);
-			this.notificationsCapabilities = new NotificationsCapabilities([]);
-			this.ruleCapabilities = new RuleCapabilities([]);
-			this.telegramConnected = false;
-        }
-		else {
-			this.devicesCapabilities = devicesCapabilities;
-			this.mqttInterfaceCapabilities = mqttInterfaceCapabilities;
-			this.telegramConnected = isTelegramConnected;
-			this.ruleCapabilities = ruleCapabilities;
-			this.chartCapabilities = chartCapabilities;
-			this.cameraCapabilities = cameraCapabilities;
-			this.notificationsCapabilities = notificationsCapabilities;
-		}
+	constructor(devicesCapabilities, serversStatus, chartCapabilities, notificationsCapabilities, ruleCapabilities) {
+		this.devicesCapabilities = devicesCapabilities;
+		this.serversStatus = serversStatus;
+		this.ruleCapabilities = ruleCapabilities;
+		this.chartCapabilities = chartCapabilities;
+		this.notificationsCapabilities = notificationsCapabilities;
+		
 	}
 
-	getTransductorInterfacesCapabilities() {
-		return [this.mqttInterfaceCapabilities];
+	getServersStatus() {
+		return this.serversStatus;
 	}
 
 
@@ -49,10 +37,7 @@ class SystemCapabilities {
 	getActuatorSupportedInterfaces() {
 		return this.devicesCapabilities.getActuatorSupportedInterfaces();
 	}
-	
-	getMqttInterfaceCapabilities() {
-		return this.mqttInterfaceCapabilities;
-	}
+
 	
 	getSupportedChartTypes() {
 		return this.chartCapabilities.getSupportedChartTypes();
@@ -66,9 +51,6 @@ class SystemCapabilities {
 		return this.chartCapabilities.getSupportedSampleIntervals();
 	}
 	
-	getCameraCapabilities() {
-		return this.cameraCapabilities;
-	}
 	
 	getSensorRulesCapabilities() {
 	 	return this.ruleCapabilities;
@@ -76,10 +58,6 @@ class SystemCapabilities {
 	
 	getSupportedNotificationsTypes() {
 		return this.notificationsCapabilities.getSupportedNotificationsTypes();
-	}
-	
-	isTelegramConnected() {
-	    return this.telegramConnected;
 	}
 
 }

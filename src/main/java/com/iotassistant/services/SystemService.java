@@ -7,21 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.models.TelegramBotManager;
+import com.iotassistant.models.ServerStatus;
 import com.iotassistant.models.exceptions.SystemCantShutdownException;
 import com.iotassistant.models.transductor.Property;
-import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
 
 @Service
 public class SystemService {
 	
-	@Value("${mqtt.broker.url}")
-	private String mqttBroker;
-	
-	@Value("${mqtt.folderpersistence}")
-	private String mqttFolderPersistence;
-	
-	@Value("${mqtt.folderpersistence}")
+	@Value("${platform}")
 	private String platform;
 	
 	@Autowired
@@ -39,11 +32,8 @@ public class SystemService {
 	@Autowired
 	private ChartsService chartsService;
 	
-	private @Autowired
-	TelegramBotManager telegramBotManager;
-	
-	
-	
+	@Autowired
+	ServersStatusService serversStatusService;
 	
 
 	public List<Property> getSupportedSensorProperties() {
@@ -51,7 +41,7 @@ public class SystemService {
 	}
 
 	public List<String> getSupportedSensorInterfaces() {
-		return this.transductorsService.getConnectedTransductorInterfaces();
+		return this.transductorsService.getSupportedTransductorInterfaces();
 	}
 
 	public List<Property> getSupportedActuatorProperties() {
@@ -59,7 +49,7 @@ public class SystemService {
 	}
 
 	public List<String> getSupportedActuatorInterfaces() {
-		return this.transductorsService.getConnectedTransductorInterfaces();
+		return this.transductorsService.getSupportedTransductorInterfaces();
 	}
 
 	public List<String> getSupportedNotificationTypes() {
@@ -74,22 +64,6 @@ public class SystemService {
 		return this.platform;
 	}
 
-	public boolean isInterfaceConnected(TransductorInterfaceTypeEnum interfaceType) {
-		return this.transductorsService.getConnectedTransductorInterfaces().contains(interfaceType.toString());
-	}
-
-	public String getMqttBroker() {
-		return this.mqttBroker;
-	}
-
-	public boolean isTelegramConnected() {
-		return telegramBotManager.connected();
-	}
-	
-	public String getBotUsername() {
-		return telegramBotManager.getBotUsername();
-	}
-	
 
 	public List<String> getSupportedChartTypes() {
 		return chartsService.getSupportedChartTypes();
@@ -139,6 +113,10 @@ public class SystemService {
 
 	public List<String> getSupportedCameraInterfaces() {
 		return camerasService.getSupportedInterfaces();
+	}
+
+	public List<ServerStatus> getServersStatus() {
+		return serversStatusService.getServersStatus();
 	}
 
 

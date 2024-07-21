@@ -5,12 +5,11 @@ camerasModule.controller("InstallCameraController",function(SystemAPIService, Ca
 	
 	self.camera = new HTTPCamera();
 	
-	self.cameraCapabilities = new CameraCapabilities();
-	
 	let fetchCameraCapabilities = function(){
-		SystemAPIService.getCapabilities()
-		.then(function(cameraCapabilities) { 
-			self.cameraCapabilities = cameraCapabilities.getCameraCapabilities();
+		SystemAPIService.getDevicesCapabilities()
+		.then(function(devicesCapabilities) { 
+			self.supportedInterfaces = devicesCapabilities.getCameraSupportedInterfaces();
+			self.supportedWatchdogIntervals = devicesCapabilities.getCameraSupportedWatchdogIntervals();
 		},function() {
 		})
 	}
@@ -21,14 +20,6 @@ camerasModule.controller("InstallCameraController",function(SystemAPIService, Ca
 	
 	initializeController();
 	
-	self.getSupportedInterfaces = function() {
-		return self.cameraCapabilities.getSupportedInterfaces();
-	}
-	
-	self.getSupportedWatchdogIntervals = function() {
-		return self.cameraCapabilities.getSupportedWatchdogIntervals();
-	}
-	
 	self.setCameraInterfaceType = function(interfaceType) {
 		self.camera.setInterfaceType(interfaceType);
 	}
@@ -36,7 +27,6 @@ camerasModule.controller("InstallCameraController",function(SystemAPIService, Ca
 	self.allRequired = function() {
 		return (self.camera.isValid());
 	}
-
 
 	self.installAndRedirect = function() {
 		CameraAPIService.installHTTPCamera(self.camera).then(function() {

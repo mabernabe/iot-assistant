@@ -39,7 +39,7 @@ class ActuatorSetValueSettings {
 			allValuesAreSet = true;
 		}
 		var setValueIsValid = true;
-		if (allValuesAreSet && this.actuatorProperty.isDigital() && this.actuatorSetValue != 'High' && this.actuatorSetValue != 'Low') {
+		if (allValuesAreSet && this.actuatorProperty.isBinary() && this.actuatorSetValue != 'High' && this.actuatorSetValue != 'Low') {
 			setValueIsValid = false;
 		}		
 		return allValuesAreSet && setValueIsValid;
@@ -62,8 +62,8 @@ class ActuatorSetValueSettings {
 		this.actuatorSetValue = value;
 	}
 	
-	isActuatorPropertyDigital() {
-		return this.actuatorProperty.isDigital();
+	isActuatorPropertyBinary() {
+		return this.actuatorProperty.isBinary();
 	}
 	
 	

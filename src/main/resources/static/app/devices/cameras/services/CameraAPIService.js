@@ -17,7 +17,7 @@ camerasModule.service ("CameraAPIService",function(RestAPIService, $q){
 	function getCamerasFromResponse(objectResponse) {
 		var cameras = [];
 		objectResponse.cameras.forEach(cameraObject => {
-			var camera = new Camera(cameraObject.name, cameraObject.description, cameraObject.watchdogInterval, cameraObject.watchdogEnabled, cameraObject.urlPicture);
+			var camera = new Camera(cameraObject.name, cameraObject.description, cameraObject.active, cameraObject.watchdogInterval, cameraObject.watchdogEnabled, cameraObject.urlPicture);
 			cameras.push(camera);
 		})
 		return cameras;

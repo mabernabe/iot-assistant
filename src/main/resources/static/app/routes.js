@@ -82,8 +82,8 @@ iotAssistant.config(function($routeProvider) {
 	})
 	.when(systemInformationRoute, {
 		templateUrl : '../system/systemInformation.html',
-		controller : 'GetIotAssistantController',
-		controllerAs: "GetIotAssistantController",
+		controller : 'GetSystemInfoController',
+		controllerAs: "GetSystemInfoController",
 	})
 	.when(systemPowerOffRoute, {
 		templateUrl : '../system/systemPowerOff.html',

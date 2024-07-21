@@ -17,8 +17,8 @@ class TriggerActuatorSensorRule extends SensorRule{
 		return this.actuatorSettings.getActuatorPropertyMaximumValue();
 	}
 	
-	isActuatorPropertyDigital() {
-		return this.actuatorSettings.isActuatorPropertyDigital();
+	isActuatorPropertyBinary() {
+		return this.actuatorSettings.isActuatorPropertyBinary();
 	}
 	
 	getActuatorProperty() {

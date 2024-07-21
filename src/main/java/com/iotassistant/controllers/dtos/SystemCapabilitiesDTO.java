@@ -12,7 +12,7 @@ public class SystemCapabilitiesDTO {
 	
 	private NotificationsCapabilitiesDTO notificationsCapabilities;
 	
-	private ServersStatusDTO serversStatusDTO;
+	private ServersStatusDTO serversStatus;
 	
 	public SystemCapabilitiesDTO(DevicesCapabilitiesDTO devicesCapabilities, ServersStatusDTO serversStatusDTO, 
 			ChartCapabilitiesDTO chartCapabilities, NotificationsCapabilitiesDTO notificationsCapabilities, RuleCapabilitiesDTO ruleCapabilities) {
@@ -20,7 +20,7 @@ public class SystemCapabilitiesDTO {
 		this.devicesCapabilities = devicesCapabilities;
 		this.chartCapabilities = chartCapabilities;
 		this.notificationsCapabilities = notificationsCapabilities;
-		this.serversStatusDTO = serversStatusDTO;
+		this.serversStatus = serversStatusDTO;
 		this.ruleCapabilities = ruleCapabilities;
 		
 	}
@@ -35,8 +35,8 @@ public class SystemCapabilitiesDTO {
 	}
 
 
-	public ServersStatusDTO getServersStatusDTO() {
-		return serversStatusDTO;
+	public ServersStatusDTO getServersStatus() {
+		return serversStatus;
 	}
 
 	public RuleCapabilitiesDTO getRuleCapabilities() {

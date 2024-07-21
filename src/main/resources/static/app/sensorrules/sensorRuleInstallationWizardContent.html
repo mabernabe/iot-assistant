@@ -83,7 +83,7 @@
 				</div>	
 				<div class="row col-sm-12">
 						<div class="col-sm-12">					
-							<div class="form-group" ng-if="InstallSensorRuleController.isSensorPropertySelected() && InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.isSensorPropertyDigital()">
+							<div class="form-group" ng-if="InstallSensorRuleController.isSensorPropertySelected() && InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.isSensorPropertyBinary()">
 								<label>Threshold {{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyName()}}</label> 
 								<select name="threshold" data-header="Select value threshold"
 									class="selectpicker dropdown" ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorValueThreshold"
@@ -94,7 +94,7 @@
 									<option style="display:none" value=""></option>
 								</select>
 							</div>						
-							<div class="form-group" ng-if="InstallSensorRuleController.isSensorPropertySelected() && !InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.isSensorPropertyDigital()">
+							<div class="form-group" ng-if="InstallSensorRuleController.isSensorPropertySelected() && !InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.isSensorPropertyBinary()">
 								<label>Threshold {{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyName()}} <code>range=[{{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyMinimumValue()}},{{InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.getSensorPropertyMaximumValue()}}]</code></label> 
 								<select name="sensorAnalogThresholdOperator" ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorAnalogThresholdOperator"
 									data-style="btn btn-info btn-round" data-dropup-auto="false" 
@@ -124,7 +124,7 @@
 								title="Select" data-header="Select minimum time between triggers"
 								data-size="12">
 									<option
-										ng-repeat="timeBetweenTriggersOption in InstallSensorRuleController.stationSensorRulesCapabilities.getSupportedSensorRulesTimeBetweenTriggers()"
+										ng-repeat="timeBetweenTriggersOption in InstallSensorRuleController.sensorRulesCapabilities.getSupportedSensorRulesTimeBetweenTriggers()"
 										ng-value="timeBetweenTriggersOption">{{timeBetweenTriggersOption}}</option>
 									<option style="display:none" value=""></option>
 								</select>
@@ -141,7 +141,7 @@
 								title="Select" data-header="Select notification type"
 								data-size="12">
 									<option
-										ng-repeat="notificationTypeOption in InstallSensorRuleController.stationSupportedNotificationsTypes"
+										ng-repeat="notificationTypeOption in InstallSensorRuleController.supportedNotificationsTypes"
 										ng-value="notificationTypeOption">{{notificationTypeOption}}</option>
 									<option style="display:none" value=""></option>
 								</select>
@@ -240,7 +240,7 @@
 				</div>
 				<div class="row col-sm-12 " ng-if="InstallSensorRuleController.isTriggerActuatorSensorRuleTypeSelected() && InstallSensorRuleController.installTriggerActuatorSensorRuleController.isActuatorPropertySelected()">			
 					<div class="col-sm-6">					
-							<div class="form-group" ng-if="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.isActuatorPropertyDigital()">
+							<div class="form-group" ng-if="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.isActuatorPropertyBinary()">
 								<label>Threshold {{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyName()}}</label> 
 								<select name="actuatorThreshold" data-header="Select value to set"
 									class="customSelect dropdown" 
@@ -252,7 +252,7 @@
 									<option style="display:none" value=""></option>
 								</select>
 							</div>						
-							<div class="form-group" ng-if="!InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.isActuatorPropertyDigital()">
+							<div class="form-group" ng-if="!InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.isActuatorPropertyBinary()">
 								<label>Value {{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyName()}} <code>range=[{{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMinimumValue()}},{{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMaximumValue()}}]</code></label> 
 								<input type="number" min={{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMinimumValue()}} 
 								max={{InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.getActuatorPropertyMaximumValue()}} 

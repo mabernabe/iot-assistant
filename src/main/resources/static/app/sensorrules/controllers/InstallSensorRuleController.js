@@ -36,7 +36,14 @@ sensorRulesModule.controller ("InstallSensorRuleController", function($scope, $c
 		SystemAPIService.getRulesCapabilities()
 		.then(function(rulesCapabilities) { 
 			self.sensorRulesCapabilities = rulesCapabilities;
-		//	self.supportedNotificationsTypes = rulesCapabilities.SupportedNotificationsTypes();
+		},function() {
+		})
+	}
+	
+	let fetchNotificationsCapabilities = function(){
+		SystemAPIService.getNotificationsCapabilities()
+		.then(function(notificationsCapabilities) { 
+			self.supportedNotificationsTypes = notificationsCapabilities.getSupportedNotificationsTypes();
 		},function() {
 		})
 	}
@@ -44,6 +51,7 @@ sensorRulesModule.controller ("InstallSensorRuleController", function($scope, $c
 	let initializeController = function() {
 		fetchSensors();
 		fetchSensorRulesCapabilities();
+		fetchNotificationsCapabilities();
 	}
 	
 	initializeController();

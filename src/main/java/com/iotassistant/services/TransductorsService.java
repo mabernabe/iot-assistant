@@ -1,13 +1,11 @@
 package com.iotassistant.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.controllers.MqttTransductorsController;
 import com.iotassistant.models.TransductorVisitor;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.transductor.Actuator;
@@ -33,8 +31,6 @@ public class TransductorsService implements TransductorVisitor{
 	@Autowired
 	private TransductorsJPARepository transductorsJPARepository;
 	
-	@Autowired
-	private MqttTransductorsController mqttTransductorsController;
 
 	
 	public List<Property> getSupportedPropertiesMeasured() {
@@ -81,16 +77,6 @@ public class TransductorsService implements TransductorVisitor{
 		actuatorService.setUpInterface(actuator);		
 	}
 
-
-	public List<String> getConnectedTransductorInterfaces() {
-		List<String> availableInterfaces = new ArrayList<String>();
-		if (mqttTransductorsController.isConnected()) {
-			availableInterfaces.add(TransductorInterfaceTypeEnum.MQTT.toString());
-		}
-		return availableInterfaces;
-	}
-
-
 	public Transductor getTransductorByName(String name) {
 		Optional<Transductor> transductor = transductorsJPARepository.findById(name);
 		if (transductor.isPresent()) {
@@ -109,5 +95,11 @@ public class TransductorsService implements TransductorVisitor{
 		actuatorService.update(name, actuatorValues);
 		
 	}
+
+
+	public List<String> getSupportedTransductorInterfaces() {
+		return TransductorInterfaceTypeEnum.getAllInstances();
+	}
+
 
 }

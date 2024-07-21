@@ -12,7 +12,7 @@ class  SensorRuleNotification{
 		var sensorValue = this.sensorValue;
 		var sensorRule = this.sensorRule;
 		var sensorValue = this.sensorValue
-		var analogThresholdOperator = sensorRule.isSensorPropertyDigital() ? '' : sensorRule.getSensorAnalogThresholdOperator();
+		var analogThresholdOperator = sensorRule.isSensorPropertyBinary() ? '' : sensorRule.getSensorAnalogThresholdOperator();
 		var text =  "#" + sensorRule.getId() + " Notification: "  + ": " + "Sensor " + sensorRule.getSensorName() + " with property " 
 		+ sensorRule.getSensorPropertyName() +  " reached threshold " + analogThresholdOperator + sensorRule.getSensorValueThreshold() + ". Sensor value was " + sensorValue
 		+ ". Date: " + this.date;
