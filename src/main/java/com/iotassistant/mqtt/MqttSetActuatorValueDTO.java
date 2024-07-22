@@ -1,6 +1,6 @@
 package com.iotassistant.mqtt;
 
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 
 class MqttSetActuatorValueDTO {
 	

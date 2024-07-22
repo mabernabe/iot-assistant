@@ -1,8 +1,8 @@
 package com.iotassistant.services;
 
-import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.ActuatorInterfaceVisitor;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.ActuatorInterfaceVisitor;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.mqtt.ActuatorMqttInterface;
 import com.iotassistant.mqtt.MqttTransductorsController;
 

@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 
 import com.iotassistant.models.CameraHttpInterface;
-import com.iotassistant.models.CameraInterfaceException;
+import com.iotassistant.models.devices.CameraInterfaceException;
 import com.iotassistant.utils.HttpClient;
 
 @Controller

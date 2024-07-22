@@ -6,8 +6,8 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.iotassistant.models.transductor.SensorInterface;
-import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
+import com.iotassistant.models.devices.SensorInterface;
+import com.iotassistant.models.devices.TransductorInterfaceVisitor;
 
 @Entity
 @DiscriminatorValue("sensorMQTTInterface")

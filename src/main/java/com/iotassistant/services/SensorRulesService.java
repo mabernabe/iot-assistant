@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iotassistant.models.sensorrules.CameraSensorRule;
-import com.iotassistant.models.sensorrules.SensorRule;
-import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
-import com.iotassistant.models.sensorrules.SensorRuleType;
-import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
-import com.iotassistant.models.transductor.SensorValues;
+import com.iotassistant.models.CameraSensorRule;
+import com.iotassistant.models.SensorRule;
+import com.iotassistant.models.SensorRuleTriggerIntervalEnum;
+import com.iotassistant.models.SensorRuleType;
+import com.iotassistant.models.TriggerActuatorSensorRule;
+import com.iotassistant.models.devices.SensorValues;
 import com.iotassistant.repositories.CameraSensorRuleJPARepository;
 import com.iotassistant.repositories.SensorRuleJPARepository;
 import com.iotassistant.repositories.TriggerActuatorSensorRuleJPARepository;

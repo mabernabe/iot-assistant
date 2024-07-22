@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.iotassistant.models.devices.Camera;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.models.devices.Device;
+import com.iotassistant.models.devices.DeviceVisitor;
+import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.models.transductor.Transductor;
-import com.iotassistant.models.transductor.WatchdogInterval;
 import com.iotassistant.services.DevicesService;
 import com.iotassistant.services.NotificationsService;
 import com.iotassistant.utils.Date;

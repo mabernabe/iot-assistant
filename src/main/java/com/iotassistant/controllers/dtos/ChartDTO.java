@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iotassistant.controllers.dtos.devices.transductors.PropertyDTO;
 import com.iotassistant.models.SensorChart;
 import com.iotassistant.models.SensorChartIntervalEnum;
 import com.iotassistant.models.SensorChartSample;
 import com.iotassistant.models.SensorChartSampleIntervalEnum;
 import com.iotassistant.models.SensorChartTypeEnum;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 public class ChartDTO {
 

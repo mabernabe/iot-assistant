@@ -9,11 +9,11 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.iotassistant.models.Camera;
-import com.iotassistant.models.CameraInterfaceException;
-import com.iotassistant.models.Device;
-import com.iotassistant.models.DeviceVisitor;
-import com.iotassistant.models.transductor.Transductor;
+import com.iotassistant.models.devices.Camera;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.models.devices.Device;
+import com.iotassistant.models.devices.DeviceVisitor;
+import com.iotassistant.models.devices.Transductor;
 import com.iotassistant.repositories.DevicesJPARepository;
 
 

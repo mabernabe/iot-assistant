@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iotassistant.models.Device;
+import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.Notification;
 import com.iotassistant.models.notifications.SendNotificationService;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 import com.iotassistant.models.notifications.SensorRuleNotification;
-import com.iotassistant.models.notifications.SendNotificationTelegramService;
 import com.iotassistant.repositories.NotificationsRepository;
 
 @Service

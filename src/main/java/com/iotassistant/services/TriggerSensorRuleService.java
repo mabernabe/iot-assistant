@@ -2,20 +2,20 @@ package com.iotassistant.services;
 
 import java.text.ParseException;
 
-import com.iotassistant.models.CameraInterfaceException;
+import com.iotassistant.models.AlarmSensorRule;
+import com.iotassistant.models.CameraSensorRule;
+import com.iotassistant.models.EnableRuleSensorRule;
+import com.iotassistant.models.SensorRule;
+import com.iotassistant.models.SensorRuleVisitor;
+import com.iotassistant.models.TriggerActuatorSensorRule;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.models.devices.SensorValues;
 import com.iotassistant.models.notifications.Notification;
 import com.iotassistant.models.notifications.SensorRuleAlarmNotification;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 import com.iotassistant.models.notifications.SensorRuleEnableRuleNotification;
 import com.iotassistant.models.notifications.SensorRuleNotification;
 import com.iotassistant.models.notifications.SensorRuleTriggerActuatorNotification;
-import com.iotassistant.models.sensorrules.AlarmSensorRule;
-import com.iotassistant.models.sensorrules.CameraSensorRule;
-import com.iotassistant.models.sensorrules.EnableRuleSensorRule;
-import com.iotassistant.models.sensorrules.SensorRule;
-import com.iotassistant.models.sensorrules.SensorRuleVisitor;
-import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
-import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.utils.Date;
 
 public class TriggerSensorRuleService implements SensorRuleVisitor{
@@ -60,7 +60,7 @@ public class TriggerSensorRuleService implements SensorRuleVisitor{
 	public void visit(EnableRuleSensorRule enableRuleSensorRule) {
 		SensorRuleEnableRuleNotification sensorRuleEnableRuleNotification = new SensorRuleEnableRuleNotification(enableRuleSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());			
 		this.sendNotification( enableRuleSensorRule, sensorRuleEnableRuleNotification);	
-		SensorRulesService.getInstance().enableDisableRule(enableRuleSensorRule.isEnableAction(), enableRuleSensorRule.getId());
+		SensorRulesService.getInstance().enableDisableRule(enableRuleSensorRule.isEnableAction(), enableRuleSensorRule.getSensorRuleId());
 			
 	}
 	

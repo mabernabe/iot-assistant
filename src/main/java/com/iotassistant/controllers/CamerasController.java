@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.iotassistant.controllers.dtos.CamerasDTO;
 import com.iotassistant.controllers.dtos.ErrorDTO;
-import com.iotassistant.controllers.dtos.HttpCameraDTO;
-import com.iotassistant.models.Camera;
-import com.iotassistant.models.CameraInterfaceException;
+import com.iotassistant.controllers.dtos.devices.CamerasDTO;
+import com.iotassistant.controllers.dtos.devices.HttpCameraDTO;
+import com.iotassistant.models.devices.Camera;
+import com.iotassistant.models.devices.CameraInterfaceException;
 import com.iotassistant.services.CamerasService;
 
 @RestController

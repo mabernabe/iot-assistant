@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import com.iotassistant.models.TransductorVisitor;
-import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.Transductor;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.TransductorVisitor;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.services.TransductorsService;
 import com.iotassistant.utils.JSONParser;
 

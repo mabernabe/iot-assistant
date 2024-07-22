@@ -6,16 +6,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.models.TransductorVisitor;
-import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
-import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.ActuatorValues;
-import com.iotassistant.models.transductor.Property;
-import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.models.transductor.Transductor;
-import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
-import com.iotassistant.models.transductor.WatchdogInterval;
+import com.iotassistant.models.SensorRuleTriggerIntervalEnum;
+import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.ActuatorValues;
+import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.TransductorInterfaceTypeEnum;
+import com.iotassistant.models.devices.TransductorVisitor;
+import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.repositories.TransductorsJPARepository;
 
 

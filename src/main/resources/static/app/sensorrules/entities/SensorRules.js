@@ -24,10 +24,10 @@ class SensorRules {
 	}
 	
 	getAllSensorRules() {
-		var allSensorRules = this.alarmSensorRules;
-		allSensorRules.concat(this.enableSensorRules);
-		allSensorRules.concat(this.triggerActuatorSensorRules);
-		allSensorRules.concat(this.cameraSensorRules);
+		let allSensorRules = this.alarmSensorRules;
+		allSensorRules = allSensorRules.concat(this.enableSensorRules);
+		allSensorRules = allSensorRules.concat(this.triggerActuatorSensorRules);
+		allSensorRules = allSensorRules.concat(this.cameraSensorRules);
 		return allSensorRules;
 	}
 	

@@ -2,9 +2,9 @@ package com.iotassistant.services;
 
 import com.iotassistant.controllers.HttpDevicesController;
 import com.iotassistant.models.CameraHttpInterface;
-import com.iotassistant.models.CameraInterface;
-import com.iotassistant.models.CameraInterfaceException;
-import com.iotassistant.models.CameraInterfaceVisitor;
+import com.iotassistant.models.devices.CameraInterface;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.models.devices.CameraInterfaceVisitor;
 
 class CameraGetPictureService implements CameraInterfaceVisitor{
 	

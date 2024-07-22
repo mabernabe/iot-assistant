@@ -1,6 +1,7 @@
 package com.iotassistant.controllers.dtos;
 
-import com.iotassistant.controllers.dtos.sensorrules.RuleCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.devices.DevicesCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.notifications.NotificationsCapabilitiesDTO;
 
 public class SystemCapabilitiesDTO {
 

@@ -17,8 +17,8 @@ import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iotassistant.models.transductor.Transductor;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.TransductorsService;
 
 

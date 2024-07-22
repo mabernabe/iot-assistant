@@ -3,6 +3,10 @@ package com.iotassistant.models;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.iotassistant.models.devices.CameraInterface;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.models.devices.CameraInterfaceVisitor;
+
 @Entity
 @DiscriminatorValue("cameraHTTPInterface")
 public class CameraHttpInterface extends CameraInterface{

@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.iotassistant.models.sensorrules.CameraSensorRule;
-import com.iotassistant.models.sensorrules.SensorRule;
-import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
+import com.iotassistant.models.CameraSensorRule;
+import com.iotassistant.models.SensorRule;
+import com.iotassistant.models.TriggerActuatorSensorRule;
 
 @Repository
 @Scope("singleton")

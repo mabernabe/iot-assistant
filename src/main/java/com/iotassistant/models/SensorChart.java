@@ -17,9 +17,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
 @DiscriminatorValue("chart")

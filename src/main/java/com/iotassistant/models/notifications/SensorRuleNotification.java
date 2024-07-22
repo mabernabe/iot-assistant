@@ -6,8 +6,8 @@ import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
 import com.iotassistant.models.AnalogThresholdOperatorEnum;
-import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.SensorRuleTriggerIntervalEnum;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)

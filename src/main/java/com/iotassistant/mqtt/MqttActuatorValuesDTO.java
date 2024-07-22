@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.iotassistant.models.TransductorValues;
-import com.iotassistant.models.transductor.ActuatorValues;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.devices.ActuatorValues;
+import com.iotassistant.models.devices.TransductorValues;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 
 class MqttActuatorValuesDTO extends MqttTransductorValuesDTO<PropertyActuatedEnum>{
 	

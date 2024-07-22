@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iotassistant.controllers.dtos.CameraCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.ChartCapabilitiesDTO;
-import com.iotassistant.controllers.dtos.DevicesCapabilitiesDTO;
-import com.iotassistant.controllers.dtos.NotificationsCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.RuleCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.ServersStatusDTO;
 import com.iotassistant.controllers.dtos.SystemCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.SystemDTO;
-import com.iotassistant.controllers.dtos.TransductorCapabilitiesDTO;
-import com.iotassistant.controllers.dtos.sensorrules.RuleCapabilitiesDTO;
-import com.iotassistant.models.exceptions.SystemCantShutdownException;
-import com.iotassistant.models.transductor.Property;
+import com.iotassistant.controllers.dtos.devices.CameraCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.devices.DevicesCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.TransductorCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.notifications.NotificationsCapabilitiesDTO;
+import com.iotassistant.models.devices.Property;
+import com.iotassistant.services.SystemCantShutdownException;
 import com.iotassistant.services.SystemService;
 
 @RestController

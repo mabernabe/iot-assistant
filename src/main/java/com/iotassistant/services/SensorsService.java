@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iotassistant.models.transductor.Property;
-import com.iotassistant.models.transductor.Sensor;
-import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.repositories.SensorsJPARepository;
 
 @Service

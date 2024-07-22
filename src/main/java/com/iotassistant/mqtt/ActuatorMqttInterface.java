@@ -6,9 +6,9 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.iotassistant.models.transductor.ActuatorInterface;
-import com.iotassistant.models.transductor.ActuatorInterfaceVisitor;
-import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
+import com.iotassistant.models.devices.ActuatorInterface;
+import com.iotassistant.models.devices.ActuatorInterfaceVisitor;
+import com.iotassistant.models.devices.TransductorInterfaceVisitor;
 
 @Entity
 @DiscriminatorValue("actuatorMQTTInterface")

@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.ActuatorValues;
-import com.iotassistant.models.transductor.Property;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.ActuatorValues;
+import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.repositories.ActuatorsJPARepository;
 
 @Service

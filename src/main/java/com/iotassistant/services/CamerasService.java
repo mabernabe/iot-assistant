@@ -8,10 +8,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.models.Camera;
-import com.iotassistant.models.CameraInterfaceException;
-import com.iotassistant.models.CameraInterfaceTypeEnum;
-import com.iotassistant.models.transductor.WatchdogInterval;
+import com.iotassistant.models.devices.Camera;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.models.devices.CameraInterfaceTypeEnum;
+import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.repositories.CamerasJPARepository;
 
 @Service

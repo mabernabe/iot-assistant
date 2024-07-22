@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iotassistant.controllers.dtos.EnableDTO;
 import com.iotassistant.controllers.dtos.ErrorDTO;
-import com.iotassistant.controllers.dtos.transductor.ActuatorNewValueDTO;
-import com.iotassistant.controllers.dtos.transductor.ActuatorsDTO;
-import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceActuatorDTO;
-import com.iotassistant.models.transductor.Actuator;
-import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
+import com.iotassistant.controllers.dtos.devices.EnableDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.ActuatorNewValueDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.ActuatorsDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.NewMqttInterfaceActuatorDTO;
+import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
 import com.iotassistant.services.DevicesService;
 

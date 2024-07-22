@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.iotassistant.models.Device;
+import com.iotassistant.models.devices.Device;
 
 @Entity
 public class DeviceOfflineNotification extends Notification{

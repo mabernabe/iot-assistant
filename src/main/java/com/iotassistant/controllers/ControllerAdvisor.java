@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.iotassistant.models.CameraInterfaceException;
-import com.iotassistant.models.exceptions.SystemCantShutdownException;
+import com.iotassistant.models.devices.CameraInterfaceException;
+import com.iotassistant.services.SystemCantShutdownException;
 
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler { 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.iotassistant.models.transductor.Sensor;
+import com.iotassistant.models.devices.Sensor;
 import com.iotassistant.services.ChartsService;
 import com.iotassistant.services.SensorsService;
 

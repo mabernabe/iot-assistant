@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.iotassistant.controllers.dtos.ErrorDTO;
-import com.iotassistant.controllers.dtos.NotificationsDTO;
+import com.iotassistant.controllers.dtos.notifications.NotificationsDTO;
 import com.iotassistant.services.NotificationsService;
 
 @RestController

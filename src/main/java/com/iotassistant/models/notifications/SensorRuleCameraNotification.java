@@ -10,9 +10,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.iotassistant.models.AnalogThresholdOperatorEnum;
-import com.iotassistant.models.sensorrules.CameraSensorRule;
-import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.CameraSensorRule;
+import com.iotassistant.models.SensorRuleTriggerIntervalEnum;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
 public class SensorRuleCameraNotification extends SensorRuleNotification {

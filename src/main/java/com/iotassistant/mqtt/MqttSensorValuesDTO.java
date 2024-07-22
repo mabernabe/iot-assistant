@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.iotassistant.models.TransductorValues;
-import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.TransductorValues;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 //Sensor Values JSON Example : { "values" : {"TEMPERATURE_CENTIGRADES" : "25"}, "date" : "2022-03-23 15:41:03"} or  { "values" : {"Motion" : "true"}, "date" : "2022-03-23 15:41:03"}
 class MqttSensorValuesDTO extends MqttTransductorValuesDTO<PropertyMeasuredEnum>{

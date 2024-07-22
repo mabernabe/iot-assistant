@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.iotassistant.models.ServerStatus;
-import com.iotassistant.models.exceptions.SystemCantShutdownException;
-import com.iotassistant.models.transductor.Property;
+import com.iotassistant.models.devices.Property;
 
 @Service
 public class SystemService {

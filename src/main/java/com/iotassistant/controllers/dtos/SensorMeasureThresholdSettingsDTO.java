@@ -1,9 +1,10 @@
 package com.iotassistant.controllers.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iotassistant.controllers.dtos.devices.transductors.PropertyDTO;
 import com.iotassistant.models.AnalogThresholdOperatorEnum;
-import com.iotassistant.models.sensorrules.SensorMeasureThresholdSettings;
-import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
+import com.iotassistant.models.SensorMeasureThresholdSettings;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 public class SensorMeasureThresholdSettingsDTO {
 	

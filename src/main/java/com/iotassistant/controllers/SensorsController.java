@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iotassistant.controllers.dtos.EnableDTO;
 import com.iotassistant.controllers.dtos.ErrorDTO;
-import com.iotassistant.controllers.dtos.transductor.NewMqttInterfaceSensorDTO;
-import com.iotassistant.controllers.dtos.transductor.SensorDTO;
-import com.iotassistant.controllers.dtos.transductor.SensorsDTO;
-import com.iotassistant.models.transductor.Sensor;
+import com.iotassistant.controllers.dtos.devices.EnableDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.NewMqttInterfaceSensorDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.SensorDTO;
+import com.iotassistant.controllers.dtos.devices.transductors.SensorsDTO;
+import com.iotassistant.models.devices.Sensor;
 import com.iotassistant.services.SensorsService;
 import com.iotassistant.services.TransductorsService;
 
