@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iotassistant.models.Device;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.Notification;
-import com.iotassistant.models.notifications.NotificationHandler;
+import com.iotassistant.models.notifications.SendNotificationService;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;
-import com.iotassistant.models.notifications.TelegramNotificationsHandler;
+import com.iotassistant.models.notifications.SensorRuleNotification;
+import com.iotassistant.models.notifications.SendNotificationTelegramService;
 import com.iotassistant.repositories.NotificationsRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class NotificationsService {
 	private NotificationsRepository notificationsRepository;
 	
 	@Autowired
-	private TelegramNotificationsHandler telegramNotificationHandler;
+	private SendNotificationTelegramService telegramNotificationHandler;
 	
 	@PostConstruct
 	private void registerInstance() {
@@ -45,7 +46,7 @@ public class NotificationsService {
 	}
 
 
-	NotificationHandler getNotificationHandler(NotificationTypeEnum notificationType) {
+	private SendNotificationService getSendNotificationService(NotificationTypeEnum notificationType) {
 		assert(notificationType == NotificationTypeEnum.TELEGRAM);
 		return telegramNotificationHandler;		
 	}
@@ -64,7 +65,7 @@ public class NotificationsService {
 		return NotificationTypeEnum.getAvailableNotificationTypes();
 	}
 
-	public NotificationHandler getAvailableNotificationHandler() {
+	public SendNotificationService getAvailableNotificationHandler() {
 			return telegramNotificationHandler;	
 	}
 
@@ -92,6 +93,14 @@ public class NotificationsService {
 			}
 		}
 		return null;	
+	}
+	
+	public void sendNotification(NotificationTypeEnum notificationType, Notification notification) {
+		getSendNotificationService(notificationType).send(notification);;
+	}
+
+	public List<SensorRuleNotification> getSensorRulesNotificationsByIdDesc() {
+		return notificationsRepository.findAllSensorRulesNotificationsByOrderByIdDesc();
 	}
 
 }

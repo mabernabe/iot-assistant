@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
+import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.transductor.Transductor;
 import com.iotassistant.models.transductor.WatchdogInterval;
 import com.iotassistant.services.DevicesService;
@@ -18,6 +19,8 @@ import com.iotassistant.utils.Date;
 public class Watchdog implements DeviceVisitor {
 	
 	private static int TIME_MINUTES_BETWEEN_OFFLINE_NOTIFICATIONS = 60; 
+	
+	private static NotificationTypeEnum DEVICE_OFFLINE_NOTIFICATION_TYPE = NotificationTypeEnum.TELEGRAM;
 
 	@Autowired
 	DevicesService devicesService;
@@ -62,7 +65,7 @@ public class Watchdog implements DeviceVisitor {
 
 	private void sendNotification(Device device) {
 		DeviceOfflineNotification offlineNotification = new DeviceOfflineNotification(device, Date.getCurrentDate());
-		notificationService.getAvailableNotificationHandler().handle(offlineNotification);
+		notificationService.sendNotification(DEVICE_OFFLINE_NOTIFICATION_TYPE, offlineNotification);
 
 		
 	}

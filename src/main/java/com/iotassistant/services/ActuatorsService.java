@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,18 +20,28 @@ import com.iotassistant.repositories.ActuatorsJPARepository;
 @Transactional
 public class ActuatorsService  {
 	
+	private static ActuatorsService instance;
+
 	private @Autowired
 	ActuatorsJPARepository actuatorsRepository;
 	
 	@Autowired
 	private SensorRulesService sensorRulesService;
 	
+	@PostConstruct
+	private void registerInstance() {
+		instance = this;
+	} 
+
+	public static ActuatorsService getInstance() {
+		return instance;
+	}
+	
 	public Actuator newActuator(Actuator actuator)  {
 		actuator = actuatorsRepository.save(actuator);
 		this.setUpInterface(actuator);
 		return actuator;	
 	}
-
 	
 	public void setActuatorValue(PropertyActuatedEnum propertyActuated, String actuatorName, String value)  {
 		assert(this.existActuator(actuatorName));
@@ -112,7 +124,6 @@ public class ActuatorsService  {
 		actuator.setActive(true);
 		actuatorsRepository.saveAndFlush(actuator);
 	}
-
 	
 
 }

@@ -6,7 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 
-import com.iotassistant.models.notifications.NotificationHandler;
+import com.iotassistant.models.notifications.SendNotificationService;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
@@ -26,7 +26,7 @@ public class TriggerActuatorSensorRule extends SensorRule{
 	private ActuatorsService actuatorsService;
 	
 	@Transient
-	private NotificationHandler notificationHandler;
+	private SendNotificationService notificationHandler;
 	
 	
 
@@ -69,7 +69,7 @@ public class TriggerActuatorSensorRule extends SensorRule{
 	}
 
 
-	public void setNotificationHandler(NotificationHandler notificationHandler) {
+	public void setNotificationHandler(SendNotificationService notificationHandler) {
 		this.notificationHandler = notificationHandler;
 	}
 	

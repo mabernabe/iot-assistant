@@ -1,8 +1,13 @@
 package com.iotassistant.services;
 
-import com.iotassistant.models.notifications.NotificationHandler;
+import java.text.ParseException;
+
+import com.iotassistant.models.CameraInterfaceException;
+import com.iotassistant.models.notifications.Notification;
 import com.iotassistant.models.notifications.SensorRuleAlarmNotification;
+import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 import com.iotassistant.models.notifications.SensorRuleEnableRuleNotification;
+import com.iotassistant.models.notifications.SensorRuleNotification;
 import com.iotassistant.models.notifications.SensorRuleTriggerActuatorNotification;
 import com.iotassistant.models.sensorrules.AlarmSensorRule;
 import com.iotassistant.models.sensorrules.CameraSensorRule;
@@ -11,6 +16,7 @@ import com.iotassistant.models.sensorrules.SensorRule;
 import com.iotassistant.models.sensorrules.SensorRuleVisitor;
 import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
 import com.iotassistant.models.transductor.SensorValues;
+import com.iotassistant.utils.Date;
 
 public class TriggerSensorRuleService implements SensorRuleVisitor{
 	
@@ -18,54 +24,75 @@ public class TriggerSensorRuleService implements SensorRuleVisitor{
 	
 	private SensorValues values;
 
-	private NotificationHandler notificationHandler;
-
 	public TriggerSensorRuleService(SensorRule sensorRule, SensorValues values) {
 		super();
 		this.sensorRule = sensorRule;
 		this.values = values;
-		this.notificationHandler = NotificationsService.getInstance().getNotificationHandler(sensorRule.getNotificationType());
 	}
 
 	public void trigger() {
-		sensorRule.accept(this);
+		if (this.isTriggerIntervalReached()) {
+			sensorRule.accept(this);
+		}
 	}
+
+	private boolean isTriggerIntervalReached() {
+		try {
+			SensorRuleNotification lastNotification = getLastNotification(this.sensorRule.getId());
+			return (lastNotification == null) ? true : Date.havePassedMinutesBetweenDates(lastNotification.getDate(), values.getDate(), sensorRule.getTimeBetweenTriggers().getMinutes());
+		} catch (ParseException e) {
+			return false;
+		}
+		
+	}
+	
+	private SensorRuleNotification getLastNotification(Integer sensorRuleId) {
+		for(SensorRuleNotification sensorRuleNotification: NotificationsService.getInstance().getSensorRulesNotificationsByIdDesc()) {
+			if (sensorRuleNotification.getSensorRuleId().equals(sensorRuleId)) {
+				return sensorRuleNotification;
+			}
+		}
+		return null;
+	}
+	
 
 	@Override
 	public void visit(EnableRuleSensorRule enableRuleSensorRule) {
-		SensorRuleEnableRuleNotification sensorRuleEnableRuleNotification = new SensorRuleEnableRuleNotification(enableRuleSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());
-		boolean triggerIntervalReached = notificationHandler.handle(sensorRuleEnableRuleNotification);
-		if (triggerIntervalReached) {			
-			SensorRulesService.getInstance().enableDisableRule(enableRuleSensorRule.isEnableAction(), enableRuleSensorRule.getId());
-		}	
+		SensorRuleEnableRuleNotification sensorRuleEnableRuleNotification = new SensorRuleEnableRuleNotification(enableRuleSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());			
+		this.sendNotification( enableRuleSensorRule, sensorRuleEnableRuleNotification);	
+		SensorRulesService.getInstance().enableDisableRule(enableRuleSensorRule.isEnableAction(), enableRuleSensorRule.getId());
+			
+	}
+	
+	public void sendNotification(SensorRule sensorRule, Notification notification) {
+		NotificationsService.getInstance().sendNotification(sensorRule.getNotificationType(), notification);
 	}
 
 	@Override
 	public void visit(TriggerActuatorSensorRule triggerActuatorSensorRule) {
-		SensorRuleTriggerActuatorNotification sensorRuleTriggerActuatorNotification = new SensorRuleTriggerActuatorNotification(triggerActuatorSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());
-		boolean triggerIntervalReached = notificationHandler.handle(sensorRuleTriggerActuatorNotification);
-		if (triggerIntervalReached) {			
-	//		try {
-	//			actuatorsService.setActuatorValue(propertyActuated, actuatorName, actuatorSetValue);
-	//		} catch (TransductorInterfaceException e) {
-	//			e.printStackTrace();
-	//		}
-		}
-		
+		SensorRuleTriggerActuatorNotification sensorRuleTriggerActuatorNotification = new SensorRuleTriggerActuatorNotification(triggerActuatorSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());			
+		this.sendNotification( triggerActuatorSensorRule, sensorRuleTriggerActuatorNotification);	
+		ActuatorsService.getInstance().setActuatorValue(triggerActuatorSensorRule.getPropertyActuated(), triggerActuatorSensorRule.getActuatorName(), triggerActuatorSensorRule.getActuatorSetValue());	
 	}
 
 	@Override
 	public void visit(AlarmSensorRule alarmSensorRule) {
-		SensorRuleAlarmNotification SensorRuleAlarmNotification = new SensorRuleAlarmNotification(alarmSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());
-		notificationHandler.handle( SensorRuleAlarmNotification);	
+		SensorRuleAlarmNotification sensorRuleAlarmNotification = new SensorRuleAlarmNotification(alarmSensorRule, values.getValue(sensorRule.getPropertyObserved()), values.getDate());
+		this.sendNotification( alarmSensorRule, sensorRuleAlarmNotification);	
 	}
 
 	@Override
 	public void visit(CameraSensorRule cameraSensorRule) {
-		// TODO Auto-generated method stub
+		byte[] picture = null;
+		try {
+			picture = CamerasService.getInstance().getPicture(cameraSensorRule.getCameraName());		
+		} catch (CameraInterfaceException e) {
+		} finally	{
+			SensorRuleCameraNotification SensorRuleAlarmNotification = new SensorRuleCameraNotification(cameraSensorRule, picture, values.getValue(sensorRule.getPropertyObserved()), values.getDate());
+			this.sendNotification( cameraSensorRule, SensorRuleAlarmNotification);
+		}
 		
 	}
 
 	
-
 }

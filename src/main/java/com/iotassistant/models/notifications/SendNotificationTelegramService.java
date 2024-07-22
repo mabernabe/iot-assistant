@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.iotassistant.models.TelegramBotManager;
-import com.iotassistant.repositories.NotificationsRepository;
 
 @Component
-public class TelegramNotificationsHandler extends NotificationHandler  implements NotificationVisitor{
+public class SendNotificationTelegramService extends SendNotificationService {
 	
 	private static final String TELEGRAM_MSG_END_OF_LINE = "\n";
 	
@@ -18,15 +17,6 @@ public class TelegramNotificationsHandler extends NotificationHandler  implement
 	private @Autowired
 	TelegramBotManager telegramBotManager;
 	
-	@Autowired
-    public TelegramNotificationsHandler(NotificationsRepository notificationsRepository) {
-        super(notificationsRepository);
-    }
-	
-	@Override
-	protected void sendNotification(Notification notification) {
-		notification.accept(this);	
-	}
 	
 	@Override
 	public void visit(SensorRuleAlarmNotification sensorMeasureNotification)  {	

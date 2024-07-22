@@ -3,6 +3,8 @@ package com.iotassistant.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,22 @@ import com.iotassistant.repositories.CamerasJPARepository;
 @Service
 public class CamerasService {
 	
+	private static CamerasService instance;
+
 	@Autowired
 	private CamerasJPARepository camerasJPARepository;
 	
 	@Autowired
 	private SensorRulesService sensorRulesService;
+	
+	@PostConstruct
+	private void registerInstance() {
+		instance = this;
+	} 
+
+	public static CamerasService getInstance() {
+		return instance;
+	}
 
 	public List<Camera> getAllCameras() {
 		return camerasJPARepository.findAll();	
@@ -61,7 +74,5 @@ public class CamerasService {
 		supportedWatchdogIntervals.add(WatchdogInterval.ONE_MINUTE.toString());
 		return supportedWatchdogIntervals;
 	}
-
-
 
 }
