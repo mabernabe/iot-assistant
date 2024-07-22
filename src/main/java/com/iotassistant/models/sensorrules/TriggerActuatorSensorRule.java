@@ -8,8 +8,6 @@ import javax.persistence.Transient;
 
 import com.iotassistant.models.notifications.NotificationHandler;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.models.notifications.SensorRuleTriggerActuatorNotification;
-import com.iotassistant.models.transductor.SensorMeasureValueEvent;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.services.ActuatorsService;
 
@@ -43,18 +41,6 @@ public class TriggerActuatorSensorRule extends SensorRule{
 		this.actuatorSetValue = actuatorSetValue;
 		this.propertyActuated = propertyActuated;
 	}
-
-	@Override
-	protected void triggerRule(SensorMeasureValueEvent sensorEvent) {
-		SensorRuleTriggerActuatorNotification sensorRuleTriggerActuatorNotification = new SensorRuleTriggerActuatorNotification(this, sensorEvent.getValue(), sensorEvent.getDate());
-		boolean triggerIntervalReached = notificationHandler.handle(sensorRuleTriggerActuatorNotification);
-		if (triggerIntervalReached) {			
-			
-				actuatorsService.setActuatorValue(propertyActuated, actuatorName, actuatorSetValue);
-	
-		}
-	}
-
 
 	public String getActuatorName() {
 		return actuatorName;

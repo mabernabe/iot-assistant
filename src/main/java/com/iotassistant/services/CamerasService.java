@@ -25,7 +25,7 @@ public class CamerasService {
 		return camerasJPARepository.findAll();	
 	}
 
-	public void newHTTPCamera(Camera camera) {
+	public void newCamera(Camera camera) {
 		camerasJPARepository.save(camera);
 	}
 

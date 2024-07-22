@@ -1,89 +1,84 @@
 package com.iotassistant.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iotassistant.models.notifications.NotificationHandler;
-import com.iotassistant.models.sensorrules.AlarmSensorRule;
 import com.iotassistant.models.sensorrules.CameraSensorRule;
-import com.iotassistant.models.sensorrules.EnableRuleSensorRule;
 import com.iotassistant.models.sensorrules.SensorRule;
 import com.iotassistant.models.sensorrules.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.sensorrules.SensorRuleType;
-import com.iotassistant.models.sensorrules.SensorRuleVisitor;
 import com.iotassistant.models.sensorrules.TriggerActuatorSensorRule;
 import com.iotassistant.models.transductor.SensorValues;
-import com.iotassistant.repositories.RulesRepository;
+import com.iotassistant.repositories.CameraSensorRuleJPARepository;
+import com.iotassistant.repositories.SensorRuleJPARepository;
+import com.iotassistant.repositories.TriggerActuatorSensorRuleJPARepository;
 
 @Service
 @Transactional
-public class SensorRulesService implements SensorRuleVisitor{
+public class SensorRulesService {
 
-	private @Autowired
-	RulesRepository rulesRepository;
+	@Autowired
+	private SensorRuleJPARepository sensorRuleJPARepository;
 	
 	@Autowired
-	private ActuatorsService actuatorsService;
+	private CameraSensorRuleJPARepository cameraSensorRuleJPARepository;
 	
-	private @Autowired
-	CamerasService camerasService;
+	@Autowired
+	private TriggerActuatorSensorRuleJPARepository triggerActuatorSensorRuleJPARepository;
+
+	private static SensorRulesService instance;
+
+	@PostConstruct
+	private void registerInstance() {
+		instance = this;
+	} 
 	
-	private @Autowired
-	NotificationsService notificationsService;
-	
+	public static SensorRulesService getInstance() {
+		return instance;
+	}
 	
 	public void newSensorRule(SensorRule sensorRule) {
-		rulesRepository.save(sensorRule);
-		setupSensorRule(sensorRule);	
+		sensorRuleJPARepository.save(sensorRule);	
 	}
 	
-	public void setupSensorRule(SensorRule sensorRule) {
-		setupSensorRuleNotificationHandler(sensorRule);
-		sensorRule.accept(this);		
-	}
-
-	
-	private void setupSensorRuleNotificationHandler(SensorRule sensorRule) {
-		NotificationHandler notificationHandler = notificationsService.getNotificationHandler(sensorRule.getNotificationType());
-		sensorRule.setNotificationHandler(notificationHandler);	
-	}
-
 
 	public List<SensorRule> getAllSensorRules() {
-		return rulesRepository.getAllSensorRules();
+		return sensorRuleJPARepository.findAll();
 	}
 
-
-	private SensorRule getSensorRule(SensorRule sensorRule) {
-		List<SensorRule> allSensorRules = getAllSensorRules();
-		SensorRule sensorRuleRet = null;
-		for (SensorRule installedSensorRule : allSensorRules ) {
-			if (installedSensorRule.equals(sensorRule)) {
-				sensorRuleRet = installedSensorRule;
-			}
-		}
-		return sensorRuleRet;
-	}
 
 	public boolean existSensorRule(SensorRule sensorRule) {
-		return getSensorRule(sensorRule) != null;
+		for (SensorRule installedSensorRule : sensorRuleJPARepository.findAll()) {
+			if (sensorRule.equals(installedSensorRule)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void enableDisableRule(boolean enable, int id) {
-		SensorRule sensorRule = rulesRepository.getSensorRuleById(id);
+		assert(getSensorRule(id) != null);
+		SensorRule sensorRule = this.getSensorRule(id);
 		sensorRule.setEnabled(enable);
-		rulesRepository.updateSensorRule(sensorRule);		
+		sensorRuleJPARepository.saveAndFlush(sensorRule);	
 	}
 
 	public SensorRule getSensorRule(int id) {
-		return rulesRepository.getSensorRuleById(id);
+		Optional<SensorRule> sensorRule = sensorRuleJPARepository.findById(id);
+		if (sensorRule.isPresent()) {
+			return sensorRule.get();
+		}
+		return null;
 	}
 
 	public void deleteSensorRuleById(int id)  {
-		rulesRepository.deleteById(Integer.valueOf(id));	
+		sensorRuleJPARepository.deleteById(Integer.valueOf(id));	
 	}
 
 	void deleteSensorRuleBySensorName(String sensorName) {
@@ -95,24 +90,6 @@ public class SensorRulesService implements SensorRuleVisitor{
 		}		
 	}
 
-	@Override
-	public void visit(EnableRuleSensorRule enableRuleSensorRule) {
-		enableRuleSensorRule.setSensorRulesService(this);		
-	}
-
-	@Override
-	public void visit(TriggerActuatorSensorRule triggerActuatorSensorRule) {
-		triggerActuatorSensorRule.setActuatorsService(actuatorsService);	
-	}
-	
-	@Override
-	public void visit(AlarmSensorRule alarmSensorRule) {	
-	}
-	
-	@Override
-	public void visit(CameraSensorRule cameraSensorRule) {
-		cameraSensorRule.setCamerasService(camerasService);
-	}
 
 	public List<String> getSupportedSensorRuleTriggerIntervalEnum() {
 		return SensorRuleTriggerIntervalEnum.getAvailableTriggerIntervalOptions();
@@ -120,8 +97,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 
 
 	void deleteTriggerActuatorSensorRules(String actuatorName)  {
-		List<TriggerActuatorSensorRule> triggerActuatorSensorRules = rulesRepository.getTriggerActuatorSensorRules();
-		for (TriggerActuatorSensorRule triggerActuatorSensorRule : triggerActuatorSensorRules ) {
+		for (TriggerActuatorSensorRule triggerActuatorSensorRule :  triggerActuatorSensorRuleJPARepository.findAll() ) {
 			if (triggerActuatorSensorRule.getActuatorName().equals(actuatorName)) {
 				deleteSensorRuleById(triggerActuatorSensorRule.getId());
 			}
@@ -129,8 +105,7 @@ public class SensorRulesService implements SensorRuleVisitor{
 	}
 	
 	void deleteCameraSensorRules(String cameraName)  {
-		List<CameraSensorRule> cameraSensorRules = rulesRepository.getCameraSensorRules();
-		for (CameraSensorRule cameraSensorRule : cameraSensorRules ) {
+		for (CameraSensorRule cameraSensorRule : cameraSensorRuleJPARepository.findAll() ) {
 			if (cameraSensorRule.getCameraName().equals(cameraName)) {
 				deleteSensorRuleById(cameraSensorRule.getId());
 			}
@@ -141,15 +116,13 @@ public class SensorRulesService implements SensorRuleVisitor{
 		return SensorRuleType.getAllInstances();
 	}
 
-	void applyRules(String name, SensorValues values) {
-		// TODO Auto-generated method stub
+	void applyRules(String sensorName, SensorValues values) {
+		 List<SensorRule> sensorRules = sensorRuleJPARepository.findAll();
+		 for (SensorRule sensorRule : sensorRules) {
+			 if (sensorRule.apply(sensorName, values)) {
+				 new TriggerSensorRuleService(sensorRule, values).trigger();
+			 }
+		 }
 		
 	}
-
-	
-
-
-	
-
-
 }

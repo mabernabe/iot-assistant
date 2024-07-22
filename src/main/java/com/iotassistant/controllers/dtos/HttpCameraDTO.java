@@ -22,7 +22,9 @@ public class HttpCameraDTO extends CameraDTO{
 	@JsonIgnore
 	public Camera getCamera() {
 		CameraHttpInterface cameraHttpInterface = new CameraHttpInterface(url);
-		return new Camera(this.getName(), this.getDescription(), cameraHttpInterface, WatchdogInterval.getInstance(this.getWatchdogInterval()));
+		Camera camera = new Camera(this.getName(), this.getDescription(), cameraHttpInterface, WatchdogInterval.getInstance(this.getWatchdogInterval()));
+		camera.setActive(true);
+		return camera;
 	}
 	
 	public String getUrl() {

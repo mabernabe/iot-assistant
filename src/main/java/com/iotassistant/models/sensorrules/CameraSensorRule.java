@@ -4,10 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import com.iotassistant.models.CameraInterfaceException;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.models.notifications.SensorRuleCameraNotification;
-import com.iotassistant.models.transductor.SensorMeasureValueEvent;
 import com.iotassistant.services.CamerasService;
 
 @Entity
@@ -30,20 +27,6 @@ public class CameraSensorRule extends SensorRule{
 		this.cameraName = cameraName;
 	}
 
-	@Override
-	protected void triggerRule(SensorMeasureValueEvent sensorEvent) {
-		byte[] picture = null;
-		try {
-			picture = camerasService.getPicture(cameraName);		
-		} catch (CameraInterfaceException e) {
-		} finally	{
-			SensorRuleCameraNotification SensorRuleAlarmNotification = new SensorRuleCameraNotification(this, picture, sensorEvent.getValue(), sensorEvent.getDate());
-			notificationHandler.handle( SensorRuleAlarmNotification);
-		}
-		
-		
-		
-	}
 
 	@Override
 	public void accept(SensorRuleVisitor sensorRuleVisitor) {

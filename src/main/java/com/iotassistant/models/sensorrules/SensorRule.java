@@ -12,21 +12,18 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import com.iotassistant.models.transductor.SensorMeasureValueEvent;
 import com.iotassistant.models.AnalogThresholdOperatorEnum;
-import com.iotassistant.models.notifications.NotificationHandler;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.models.transductor.SensorMeasureObserver;
+import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="sensorrule_type")
 @Table(name="sensorRule")
-public abstract class SensorRule implements SensorMeasureObserver{
+public abstract class SensorRule{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,9 +43,6 @@ public abstract class SensorRule implements SensorMeasureObserver{
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private NotificationTypeEnum notificationType;
-	
-	@Transient
-	protected NotificationHandler notificationHandler;
 	
 
 	public SensorRule() {
@@ -95,9 +89,6 @@ public abstract class SensorRule implements SensorMeasureObserver{
 		return sensorMeasureThresholdSettings;
 	}
 
-	public NotificationHandler getNotificationHandler() {
-		return notificationHandler;
-	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
@@ -133,19 +124,6 @@ public abstract class SensorRule implements SensorMeasureObserver{
 		this.notificationType = notificationType;
 	}
 
-	public void setNotificationHandler(NotificationHandler notificationHandler) {
-		this.notificationHandler = notificationHandler;
-	}
-	
-	
-	@Override
-	public void notify(SensorMeasureValueEvent sensorEvent) {
-		if (this.isEnabled()) {
-			this.triggerRule(sensorEvent);
-		}		
-	}
-
-	protected abstract void triggerRule(SensorMeasureValueEvent sensorEvent);
 
 	@Override
 	public boolean equals(Object obj) {
@@ -162,6 +140,11 @@ public abstract class SensorRule implements SensorMeasureObserver{
 	}
 	
 	public abstract void accept(SensorRuleVisitor sensorRuleVisitor);
+
+	public boolean apply(String sensorName, SensorValues values) {
+		return sensorMeasureThresholdSettings.apply(sensorName, values);
+		
+	}
 
 	
 

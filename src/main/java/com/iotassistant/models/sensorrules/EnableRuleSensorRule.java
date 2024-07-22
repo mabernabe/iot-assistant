@@ -4,10 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import com.iotassistant.models.notifications.NotificationHandler;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.models.notifications.SensorRuleEnableRuleNotification;
-import com.iotassistant.models.transductor.SensorMeasureValueEvent;
 import com.iotassistant.services.SensorRulesService;
 
 
@@ -38,15 +35,6 @@ public class EnableRuleSensorRule extends SensorRule {
 		return sensorRuleId;
 	}
 	
-	@Override
-	protected void triggerRule(SensorMeasureValueEvent sensorMeasureEvent) {
-		SensorRuleEnableRuleNotification sensorRuleEnableRuleNotification = new SensorRuleEnableRuleNotification(this, sensorMeasureEvent.getValue(), sensorMeasureEvent.getDate(), enableAction);
-		boolean triggerIntervalReached = notificationHandler.handle(sensorRuleEnableRuleNotification);
-		if (triggerIntervalReached) {			
-			sensorRulesService.enableDisableRule(enableAction, sensorRuleId);
-
-		}
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -66,9 +54,6 @@ public class EnableRuleSensorRule extends SensorRule {
 		this.sensorRulesService = sensorRulesService;
 	}
 
-	public void setNotificationHandler(NotificationHandler notificationHandler) {
-		this.notificationHandler = notificationHandler;
-	}
 
 	@Override
 	public void accept(SensorRuleVisitor sensorRuleVisitor) {

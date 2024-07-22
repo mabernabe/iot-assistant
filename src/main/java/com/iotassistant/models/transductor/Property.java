@@ -3,6 +3,10 @@ package com.iotassistant.models.transductor;
 
 public interface Property {
 	
+	public static final String BINARY_PROPERTY_TRUE_STRING_VALUE = "true";
+	
+	public static final String BINARY_PROPERTY_FALSE_STRING_VALUE = "false";
+	
 	String getName();
 	
 	String getNameWithUnit();
@@ -19,7 +23,8 @@ public interface Property {
 
 	public default boolean isValidValue(String string) {
 		if (this.isBinary()) {
-			return string != null && string.equalsIgnoreCase("true") || string.equalsIgnoreCase("false");
+			return string != null && string.equalsIgnoreCase(BINARY_PROPERTY_TRUE_STRING_VALUE) 
+					|| string.equalsIgnoreCase(BINARY_PROPERTY_FALSE_STRING_VALUE);
 		} else {
 			try {
 				float number = Float.parseFloat(string);

@@ -4,8 +4,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.models.notifications.SensorRuleAlarmNotification;
-import com.iotassistant.models.transductor.SensorMeasureValueEvent;
 
 @Entity
 @DiscriminatorValue("alarmSensorRule")
@@ -32,11 +30,6 @@ public class AlarmSensorRule extends SensorRule{
 		this.id = id;
 	}
 	
-	@Override
-	protected void triggerRule(SensorMeasureValueEvent sensorEvent) {
-		SensorRuleAlarmNotification SensorRuleAlarmNotification = new SensorRuleAlarmNotification(this, sensorEvent.getValue(), sensorEvent.getDate());
-		notificationHandler.handle( SensorRuleAlarmNotification);		
-	}
 
 	@Override
 	public void accept(SensorRuleVisitor sensorRuleVisitor) {

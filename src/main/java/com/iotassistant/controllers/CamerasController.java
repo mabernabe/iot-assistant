@@ -40,7 +40,7 @@ public class CamerasController {
 			ErrorDTO deviceExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
 			return new ResponseEntity<>(deviceExistError, deviceExistError.getHttpStatus());
 		}
-		camerasService.newHTTPCamera(camera);
+		camerasService.newCamera(camera);
 		return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}
 	

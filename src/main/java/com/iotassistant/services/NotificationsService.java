@@ -3,6 +3,8 @@ package com.iotassistant.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +22,22 @@ import com.iotassistant.repositories.NotificationsRepository;
 @Transactional
 public class NotificationsService {
 	
+	private static NotificationsService instance;
+
 	@Autowired
 	private NotificationsRepository notificationsRepository;
 	
 	@Autowired
 	private TelegramNotificationsHandler telegramNotificationHandler;
+	
+	@PostConstruct
+	private void registerInstance() {
+		instance = this;
+	} 
+	
+	public static NotificationsService getInstance() {
+		return instance;
+	}
 	
 	public void deleteNotificationById(int id) {
 		notificationsRepository.deleteNotificationById(Integer.valueOf(id));
@@ -78,10 +91,7 @@ public class NotificationsService {
 				return offlineNotification;
 			}
 		}
-		return null;
-		
+		return null;	
 	}
-
-	
 
 }

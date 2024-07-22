@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.iotassistant.models.AnalogThresholdOperatorEnum;
+import com.iotassistant.models.transductor.SensorValues;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
@@ -85,6 +86,22 @@ public class SensorMeasureThresholdSettings {
 			return false;
 		return true;
 	}
+
+	public boolean apply(String sensorName, SensorValues values) {
+		if (!this.sensorName.equals(sensorName) || values.getValue(propertyObserved) == null) {
+			return false;
+		}
+		return isThresholdReached(values.getValue(getPropertyObserved()));
+		
+	}
+	
+	private boolean isThresholdReached(String value){
+		if (propertyObserved.isBinary()) {
+			return valueThresholdObserved.equals(value);
+		}
+		return this.analogThresholdOperator.isThresholdReached(Integer.valueOf(valueThresholdObserved), Float.valueOf(value));
+	}
+
 	
 	
 

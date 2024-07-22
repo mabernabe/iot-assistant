@@ -28,9 +28,9 @@ public class SensorRuleEnableRuleNotification extends SensorRuleNotification{
 	}
 
 
-	public SensorRuleEnableRuleNotification(EnableRuleSensorRule enableSensorRule, String sensorValue, String date, boolean sensorRuleNewState) {
+	public SensorRuleEnableRuleNotification(EnableRuleSensorRule enableSensorRule, String sensorValue, String date) {
 		super(sensorValue, date );
-		this.sensorRuleNewState = sensorRuleNewState;
+		this.sensorRuleNewState = enableSensorRule.isEnableAction();
 		this.enableSensorRule = enableSensorRule;
 	}
 
