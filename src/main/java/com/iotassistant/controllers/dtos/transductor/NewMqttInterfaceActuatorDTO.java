@@ -6,7 +6,7 @@ import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.ActuatorInterface;
 import com.iotassistant.models.transductor.WatchdogInterval;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
+import com.iotassistant.mqtt.ActuatorMqttInterface;
 
 public class NewMqttInterfaceActuatorDTO extends NewTransductorRequestDTO{
 	

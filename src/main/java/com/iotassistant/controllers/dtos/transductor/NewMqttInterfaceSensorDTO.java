@@ -6,7 +6,7 @@ import java.util.List;
 import com.iotassistant.models.transductor.Sensor;
 import com.iotassistant.models.transductor.WatchdogInterval;
 import com.iotassistant.models.transductor.propertymeasured.PropertyMeasuredEnum;
-import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
+import com.iotassistant.mqtt.SensorMqttInterface;
 
 public class NewMqttInterfaceSensorDTO extends NewTransductorRequestDTO{
 	

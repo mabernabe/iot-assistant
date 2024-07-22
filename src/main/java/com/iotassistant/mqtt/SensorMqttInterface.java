@@ -1,4 +1,4 @@
-package com.iotassistant.models.transductormqttinterface;
+package com.iotassistant.mqtt;
 
 import java.util.ArrayList;
 import java.util.List;

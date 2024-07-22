@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.controllers.MqttTransductorsController;
 import com.iotassistant.models.ServerStatus;
 import com.iotassistant.models.TelegramBotManager;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.models.transductor.TransductorInterfaceTypeEnum;
+import com.iotassistant.mqtt.MqttTransductorsController;
 
 @Service
 public class ServersStatusService {

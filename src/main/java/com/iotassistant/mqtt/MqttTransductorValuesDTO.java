@@ -1,4 +1,4 @@
-package com.iotassistant.controllers;
+package com.iotassistant.mqtt;
 
 import java.util.ArrayList;
 import java.util.HashMap;

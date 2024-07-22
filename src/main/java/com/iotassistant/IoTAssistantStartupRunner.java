@@ -1,4 +1,4 @@
-package com.iotassistant.commandlinerunner;
+package com.iotassistant;
 
 import java.util.List;
 

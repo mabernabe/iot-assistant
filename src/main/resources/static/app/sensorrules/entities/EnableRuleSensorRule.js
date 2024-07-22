@@ -28,7 +28,7 @@ class EnableRuleSensorRule extends SensorRule{
 	}
 	
 	static get enableRuleSensorRuleType() {
-    	return 'Switch sensor rule';
+    	return 'Enable sensor rule';
   	}
 	
 }

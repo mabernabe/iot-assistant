@@ -1,10 +1,10 @@
 package com.iotassistant.services;
 
-import com.iotassistant.controllers.MqttTransductorsController;
 import com.iotassistant.models.transductor.Actuator;
 import com.iotassistant.models.transductor.ActuatorInterfaceVisitor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
+import com.iotassistant.mqtt.ActuatorMqttInterface;
+import com.iotassistant.mqtt.MqttTransductorsController;
 
 class ActuatorSetValueService implements ActuatorInterfaceVisitor{
 	

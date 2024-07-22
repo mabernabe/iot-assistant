@@ -2,12 +2,12 @@ package com.iotassistant.services;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import com.iotassistant.controllers.MqttTransductorsController;
 import com.iotassistant.models.transductor.TransductorInterface;
 import com.iotassistant.models.transductor.TransductorInterfaceVisitor;
-import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
-import com.iotassistant.models.transductormqttinterface.MqttInterface;
-import com.iotassistant.models.transductormqttinterface.SensorMqttInterface;
+import com.iotassistant.mqtt.ActuatorMqttInterface;
+import com.iotassistant.mqtt.MqttInterface;
+import com.iotassistant.mqtt.MqttTransductorsController;
+import com.iotassistant.mqtt.SensorMqttInterface;
 
 class TransductorSetDownInterfaceService  implements TransductorInterfaceVisitor {
 	

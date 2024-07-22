@@ -1,6 +1,6 @@
 package com.iotassistant.models.transductor;
 
-import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
+import com.iotassistant.mqtt.ActuatorMqttInterface;
 
 public interface ActuatorInterfaceVisitor {
 	

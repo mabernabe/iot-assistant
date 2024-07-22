@@ -1,4 +1,4 @@
-package com.iotassistant.controllers;
+package com.iotassistant.mqtt;
 
 import javax.annotation.PostConstruct;
 
@@ -19,8 +19,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iotassistant.models.transductor.Transductor;
 import com.iotassistant.models.transductor.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.models.transductormqttinterface.ActuatorMqttInterface;
-import com.iotassistant.models.transductormqttinterface.MqttInterface;
 import com.iotassistant.services.TransductorsService;
 
 

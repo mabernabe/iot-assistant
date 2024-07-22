@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum SensorRuleType {
-	ENABLE_DISABLE_SENSOR_RULE ("Switch sensor rule"),
+	ENABLE_DISABLE_SENSOR_RULE ("Enable sensor rule"),
 	TRIGGER_ACTUATOR("Trigger actuator"),
 	SENSOR_ALARM("Sensor alarm"),
 	CAMERA("Take camera picture");

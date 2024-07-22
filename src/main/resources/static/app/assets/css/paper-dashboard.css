@@ -7525,7 +7525,7 @@ color: #fbc658 ;
   content: "\ea53";
 }
 
-.nc-switch-sensor-rule::before {
+.nc-enable-sensor-rule::before {
   content: "\ea19";
 }
 
