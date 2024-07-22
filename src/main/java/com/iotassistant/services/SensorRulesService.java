@@ -119,7 +119,7 @@ public class SensorRulesService {
 	void applyRules(String sensorName, SensorValues values) {
 		 List<SensorRule> sensorRules = sensorRuleJPARepository.findAll();
 		 for (SensorRule sensorRule : sensorRules) {
-			 if (sensorRule.apply(sensorName, values)) {
+			 if (sensorRule.isEnabled() && sensorRule.apply(sensorName, values)) {
 				 new TriggerSensorRuleService(sensorRule, values).trigger();
 			 }
 		 }

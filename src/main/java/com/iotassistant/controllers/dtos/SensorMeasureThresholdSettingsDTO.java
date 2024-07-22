@@ -15,6 +15,12 @@ public class SensorMeasureThresholdSettingsDTO {
 	
 	private String sensorAnalogThresholdOperator;
 	
+	
+	
+	public SensorMeasureThresholdSettingsDTO() {
+		super();
+	}
+
 	public SensorMeasureThresholdSettingsDTO(SensorMeasureThresholdSettings sensorMeasureThresholdSettings) {
 		this.sensorName = sensorMeasureThresholdSettings.getSensorName();
 		this.sensorProperty = new PropertyDTO(sensorMeasureThresholdSettings.getPropertyObserved());
@@ -24,7 +30,7 @@ public class SensorMeasureThresholdSettingsDTO {
 
 	@JsonIgnore
 	public SensorMeasureThresholdSettings getSensorMeasureThresholdSettings() {
-		PropertyMeasuredEnum sensorProperty = PropertyMeasuredEnum.getInstance(this.getSensorProperty().getName());
+		PropertyMeasuredEnum sensorProperty = PropertyMeasuredEnum.getInstance(this.getSensorProperty().getNameWithUnit());
 		AnalogThresholdOperatorEnum analogThresholdOperator = (sensorProperty.isBinary())? null : AnalogThresholdOperatorEnum.getInstance(this.getSensorAnalogThresholdOperator());
 		return new SensorMeasureThresholdSettings(sensorName, sensorProperty, analogThresholdOperator, sensorValueThreshold);
 	}

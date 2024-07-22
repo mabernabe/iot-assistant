@@ -83,8 +83,8 @@ public class SendNotificationTelegramService extends SendNotificationService {
 		notificationText += "Sensor: " + sensorMeasureNotification.getSensorName() + TELEGRAM_MSG_END_OF_LINE;
 		notificationText += "Property: " + sensorMeasureNotification.getPropertyObserved().getNameWithUnit() + TELEGRAM_MSG_END_OF_LINE;
 		String analogThresholdOperator = (sensorMeasureNotification.getPropertyObserved().isBinary())? "" : sensorMeasureNotification.getValueThresholdOperator().toString(); 
-		notificationText += "Measure threshold: " + analogThresholdOperator + sensorMeasureNotification.getValueThresholdObserved() + TELEGRAM_MSG_END_OF_LINE;
-		notificationText += "Measured: " + sensorMeasureNotification.getSensorValue() + TELEGRAM_MSG_END_OF_LINE;
+		notificationText += "Value threshold: " + analogThresholdOperator + sensorMeasureNotification.getValueThresholdObserved() + TELEGRAM_MSG_END_OF_LINE;
+		notificationText += "Value: " + sensorMeasureNotification.getSensorValue() + TELEGRAM_MSG_END_OF_LINE;
 		notificationText += "Date: " + sensorMeasureNotification.getDate() + TELEGRAM_MSG_END_OF_LINE;
 		return notificationText;
 	}
