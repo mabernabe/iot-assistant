@@ -1,6 +1,8 @@
 package com.iotassistant.services;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.iotassistant.models.ServerStatus;
 import com.iotassistant.models.devices.Property;
+import com.iotassistant.utils.Date;
 
 @Service
 public class SystemService {
@@ -116,6 +119,11 @@ public class SystemService {
 
 	public List<ServerStatus> getServersStatus() {
 		return serversStatusService.getServersStatus();
+	}
+
+	public String getUptime() {
+		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
+		return Date.getTimeFromUptime(rb.getUptime());
 	}
 
 

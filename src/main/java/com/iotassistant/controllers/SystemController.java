@@ -33,7 +33,7 @@ public class SystemController {
 	public SystemDTO getSystem() {	
 		SystemCapabilitiesDTO systemCabalitiesDTO = getSystemCapabilitiesDTO();
 		String platformName = systemService.getPlatformName();
-		return new SystemDTO(systemCabalitiesDTO, platformName);
+		return new SystemDTO(systemCabalitiesDTO, platformName, systemService.getUptime());
 	}
 
 	@RequestMapping(value="/capabilities/", method = RequestMethod.GET)

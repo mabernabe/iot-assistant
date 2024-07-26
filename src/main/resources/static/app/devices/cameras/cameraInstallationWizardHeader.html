@@ -61,11 +61,11 @@
 					$(element).closest('.input-group').removeClass('has-danger').addClass('has-success');
 				}
 				
-			}
-			wizard.initWizard(validatorRules);
+			}			
 			setTimeout(function() {
 				$('.card.card-wizard').addClass('active');
 				$(".selectpicker").selectpicker('refresh');
+				wizard.initWizard(validatorRules);
 			}, 200);
 
 		

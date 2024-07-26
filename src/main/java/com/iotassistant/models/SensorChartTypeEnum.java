@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum SensorChartTypeEnum {
-	LINE_POINTS("Line Chart"),
-	BAR("Bar Chart");
+	LINE_POINTS("Line Chart");
 
 	private String string;
 	

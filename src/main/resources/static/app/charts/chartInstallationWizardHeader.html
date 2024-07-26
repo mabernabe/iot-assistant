@@ -61,10 +61,10 @@
 			}
 			
 		}
-		wizard.initWizard(validatorRules);
 		setTimeout(function() {
 			$('.card.card-wizard').addClass('active');
 			$(".selectpicker").selectpicker('refresh');
+			wizard.initWizard(validatorRules);
 		}, 200);
 
 		

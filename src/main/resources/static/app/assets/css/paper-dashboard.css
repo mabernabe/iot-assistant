@@ -11549,6 +11549,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 .customSelect{
 
     width:160px;
+    text-align: center;
     -webkit-border-top-right-radius: 15px;
     -webkit-border-bottom-right-radius: 15px;
     -webkit-border-top-left-radius: 15px;
@@ -11563,7 +11564,13 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
     border-bottom-left-radius: 15px;
     padding:5px;
     background: #54bfd1;
-
+    border-color: #54bfd1;
+    color: #FFFFFF;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.8571em;
+    line-height: 1.35em;
 }
 
 .dropdown .dropdown-menu[x-placement="top-start"]:before,

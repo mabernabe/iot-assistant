@@ -1,8 +1,9 @@
 class System {
 
-	constructor(systemCapabilities, platformName) {
+	constructor(systemCapabilities, platformName, uptime) {
 		this.capabilities = systemCapabilities;
 		this.platformName = platformName;
+		this.uptime = uptime;
     }
 	
 	getCapabilities() {
@@ -11,6 +12,10 @@ class System {
 	
 	getPlatformName() {
 		return this.platformName;
+	}
+	
+	getUptime() {
+		return this.uptime;
 	}
 	
 	getServersStatus() {

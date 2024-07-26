@@ -82,7 +82,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	
 	function getSystemFromResponse(objectResponse) {
 		let systemCapabilities = getCapabilitiesFromResponse(objectResponse.capabilities);
-		return new System(systemCapabilities, objectResponse.platformName);
+		return new System(systemCapabilities, objectResponse.platformName, objectResponse.uptime);
 	} 
 	
 	function getCapabilitiesFromResponse(objectResponse) {

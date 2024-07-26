@@ -5,11 +5,14 @@ public class SystemDTO  {
 	private SystemCapabilitiesDTO capabilities;
 	
 	private String platformName;
-
-	public SystemDTO(SystemCapabilitiesDTO capabilities, String platformName) {
+	
+	private String uptime;
+	
+	public SystemDTO(SystemCapabilitiesDTO capabilities, String platformName, String uptime) {
 		super();
 		this.capabilities = capabilities;
 		this.platformName = platformName;
+		this.uptime = uptime;
 	}
 
 	public SystemCapabilitiesDTO getCapabilities() {
@@ -18,6 +21,10 @@ public class SystemDTO  {
 
 	public String getPlatformName() {
 		return platformName;
+	}
+
+	public String getUptime() {
+		return uptime;
 	}
 
 	

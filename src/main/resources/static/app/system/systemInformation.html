@@ -2,7 +2,7 @@
 	<div class="col-lg-3 col-md-6 col-sm-6" ng-repeat="serverStatus in GetSystemInfoController.system.getServersStatus()">
 		<div class="card card-stats">
 			<div class="card-header ">
-				<h5 class="card-title">Interface {{serverStatus.getInterfaceName()}}</h5>
+				<h5 class="card-title">{{serverStatus.getInterfaceName()}}</h5>
 			</div>
 			<div class="card-footer ">
 				<div class="legend" ng-if="serverStatus.isConnected()">
@@ -24,13 +24,16 @@
 	<div class="col-lg-3 col-md-6 col-sm-6">
 		<div class="card card-stats">
 			<div class="card-header ">
-				<h5 class="card-title">Platform</h5>
+				<h5 class="card-title">SYSTEM</h5>
 			</div>
 			<div class="card-footer ">
 				<div class="legend">
-					<i class="fa fa-circle text-gray"></i> Name: {{GetSystemInfoController.system.getPlatformName()}}
+					<i class="fa fa-circle text-gray"></i> Plattform: {{GetSystemInfoController.system.getPlatformName()}}	
 				</div>
 				<hr>
+				<div class="stats">
+					<i class="fa fa-info-circle"></i> Uptime: {{GetSystemInfoController.system.getUptime()}}
+				</div>
 			</div>
 		</div>
 	</div>

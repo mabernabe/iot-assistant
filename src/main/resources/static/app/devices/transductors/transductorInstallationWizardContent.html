@@ -79,12 +79,12 @@
 				</div>
 				<div class="row col-sm-12 justify-content-left">
 					<div class="col-sm-6">
-                        <p align="right" ><small>Watchdog interval is used to get a notification via telegram if the {{InstallTransductorController.transductorType}} fails to communicate within defined interval period </small></p>
+                        <p align="right" ><small>Watchdog time interval is used to get a notification if the {{InstallTransductorController.transductorType}} fails to communicate its value within defined time</small></p>
                       	<hr>               		
 	                </div>
 					<div class="col-sm-6">
 	                    <div class="form-group">
-	                    	<label>Watchdog interval</label>
+	                    	<label>Watchdog time interval</label>
 	                        <select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="watchdogIntervalSelect" 
 	                        ng-model="InstallTransductorController.transductor.watchdogInterval"
 	                        data-dropup-auto="false" data-max-options="1" 
@@ -103,11 +103,3 @@
 	</div>
 </div>
 
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		setTimeout(() => {
-			$(".selectpicker").selectpicker('refresh');
-		}, 3000);
-	});
-</script>
