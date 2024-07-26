@@ -62,15 +62,15 @@
 				<div class="stats">
 					<i class="fa fa-info" ng-style="{ color: '#A29F9E' }"></i> 
 					{{actuator.getDescription()}}
+				</div>
+				<div class="stats" ng-if="actuator.isActive()" >
+					<span>
+						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>
+						{{actuator.getValuesDate()}}	
+					</span>
 					<span ng-switch="actuator.isWatchdogEnabled()"  ng-style="{float: 'right'}">
 					    <button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetActuatorsController.enableWatchdog(false, actuator.getName())" ></button>
 					    <button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetActuatorsController.enableWatchdog(true, actuator.getName())" ng-disabled="!actuator.hasWatchdog()"></button>		
-					</span>
-				</div>
-				<div class="stats"  >
-					<span ng-if="actuator.isActive()">
-						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>
-						{{actuator.getValuesDate()}}	
 					</span>                
 				</div>
 			</div>

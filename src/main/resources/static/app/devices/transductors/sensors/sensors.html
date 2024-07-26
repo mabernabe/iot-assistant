@@ -53,14 +53,16 @@
 				<div class="stats">        
                     <i class="fa fa-info" ng-style="{ color: '#A29F9E' }"></i>
 					{{sensor.getDescription()}}
-						<span ng-switch="sensor.isWatchdogEnabled()"  ng-style="{float: 'right'}">
-						    <button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetSensorsController.enableWatchdog(false, sensor.getName())" ></button>
-							<button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetSensorsController.enableWatchdog(true, sensor.getName())" ng-disabled="!sensor.hasWatchdog()"></button>		
-						</span>
 				</div>
 				<div class="stats" ng-if="sensor.isActive()" >
-					<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>	
-                   {{sensor.getValuesDate()}}
+					<span>
+						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>	
+                   		{{sensor.getValuesDate()}}
+                   	</span>
+                   	<span ng-switch="sensor.isWatchdogEnabled()"  ng-style="{float: 'right'}">
+						<button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetSensorsController.enableWatchdog(false, sensor.getName())" ></button>
+						<button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetSensorsController.enableWatchdog(true, sensor.getName())" ng-disabled="!sensor.hasWatchdog()"></button>		
+					</span>
 				</div>
 			</div>
 		</div>

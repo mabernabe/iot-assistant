@@ -7536,14 +7536,14 @@ color: #fbc658 ;
 /*------- watchdog -------- */
 
 .watchdog-enabled {
-  color: #9BB696;
+  color: #d7ddd5;
   padding: 0;
   border: none;
   background: none;
 }
 
 .watchdog-disabled {
-  color: #AA8282;
+  color: #e8dbdb;
   padding: 0;
   border: none;
   background: none;
