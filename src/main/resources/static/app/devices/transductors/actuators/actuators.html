@@ -28,7 +28,9 @@
 								<p ng-switch-when="false" class="card-title transductor-inactive">Unknown</p>
 								<div ng-switch-when="true">
 								<p data-alias="actuator.getValue(propertyActuated.getNameWithUnit()) as actuatorValue">
-									<p ng-if="!propertyActuated.isBinary()" class="card-title">{{actuatorValue.getStringWithUnit()}}
+									<p ng-if="!propertyActuated.isBinary()" class="card-title">
+										<span class="value-string">{{actuatorValue.getString()}}</span> 
+										<span class="value-unit">{{actuatorValue.getUnit()}}</span> 
 									<span>
 									<button class="btn" ng-click="GetActuatorsController.setActuatorAnalogValue(actuator, propertyActuated, actuatorValue)">
                   						Set value
@@ -60,12 +62,12 @@
 			<div class="card-footer ">
 				<hr>
 				<div class="stats">
-					<i class="fa fa-info" ng-style="{ color: '#A29F9E' }"></i> 
+					<i class="fa fa-info device-description"></i> 
 					{{actuator.getDescription()}}
 				</div>
 				<div class="stats" ng-if="actuator.isActive()" >
 					<span>
-						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>
+						<i class="fa fa-clock-o values-date"></i>
 						{{actuator.getValuesDate()}}	
 					</span>
 					<span ng-switch="actuator.isWatchdogEnabled()"  ng-style="{float: 'right'}">

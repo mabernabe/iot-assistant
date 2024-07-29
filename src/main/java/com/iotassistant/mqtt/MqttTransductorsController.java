@@ -11,6 +11,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,8 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 	@Autowired
 	private TransductorsService transductorsService;
 	
+	Logger logger = LoggerFactory.getLogger(MqttTransductorsController.class);
+	
 
 	public MqttTransductorsController(@Value("${mqtt.broker.url}") String brokerURL, 
 			@Value("${mqtt.folderpersistence}") String folderPersistence, 
@@ -43,7 +47,7 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 			mqttclient.setCallback(this);
 			mqttclient.connect(this.getMqttConnectOptions());
 		} catch (MqttException e) { 
-			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 		} 	
 	}
 	
@@ -75,7 +79,7 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 	
 	public void unsubscribe(MqttInterface mqttinterface) throws MqttSecurityException, MqttException {
 		for (String topic : mqttinterface.getSubscribedTopics()) {
-			this.mqttclient.subscribe(topic);
+			this.mqttclient.unsubscribe(topic);
 		}
 	}
 
@@ -83,7 +87,7 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 	public void messageArrived(String topic, MqttMessage message)  {
 		Transductor transductor = transductorsService.getTransductorByName(topic);
 		if (transductor != null) {
-			new TransductorMqttMessageService(transductor, message, transductorsService).updateTransductor();
+			new MqttArrivedMessageService(transductor, message, transductorsService).updateTransductor();
 		}			
 	}
 	
@@ -94,7 +98,7 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 			byte[] jsonBytes = objectMapper.writeValueAsString(mqttSetActuatorValueDTO).getBytes();
 			this.mqttclient.publish(actuatorMqttInterface.getSetValueTopic(), new MqttMessage(jsonBytes));
 		} catch (JsonProcessingException | MqttException e) {
-			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 		} 
 		
 	}
@@ -102,21 +106,31 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void connectComplete(boolean reconnect, String serverURI) {
-		
+		logger.info("Connection to MQTT broker completed: " + serverURI);
 	}
 	
 	@Override
 	public void connectionLost(Throwable cause) {
+		logger.info("Connection to MQTT broker lost");
 	}
 
 	public boolean isConnected() {
 		return mqttclient.isConnected();
+	}
+	
+	@Override
+	public void finalize() {
+		try {
+			logger.info("Disconnecting from MQTT broker");
+			mqttclient.disconnect();
+		} catch (MqttException e) {
+			logger.error(e.getLocalizedMessage());
+		}
 	}
 
 }

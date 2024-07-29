@@ -2,7 +2,6 @@ package com.iotassistant.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -67,7 +66,7 @@ public class DevicesService implements DeviceVisitor {
 	
 	void setActive(String name, boolean active) {
 		assert(this.existDevice(name));
-		Device device = devicesJPARepository.findById(name).get();
+		Device device = devicesJPARepository.findOne(name);
 		device.setActive(false);
 		devicesJPARepository.saveAndFlush(device);
 		
@@ -78,12 +77,9 @@ public class DevicesService implements DeviceVisitor {
 	}
 	
 	private Device getDeviceByName(String name) {
-		Optional<Device> device = devicesJPARepository.findById(name);
-		if (device.isPresent()) {
-			return device.get();
-		}
-		return null;	
+		return devicesJPARepository.findOne(name);	
 	}
+	
 	public byte[] getCameraPicture(Camera camera) throws CameraInterfaceException {
 		return camerasService.getPicture(camera.getName());
 		

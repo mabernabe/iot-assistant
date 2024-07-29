@@ -1,16 +1,15 @@
 package com.iotassistant.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.Notification;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 import com.iotassistant.models.notifications.SensorRuleNotification;
-import com.iotassistant.models.notifications.DeviceOfflineNotification;
 
 @Repository
 @Scope("singleton")
@@ -29,12 +28,12 @@ public class NotificationsRepository {
 	CameraSensorRuleNotificationJPARepository cameraSensorRuleNotificationJPARepository;
 
 
-	public Optional<Notification> findNotificationById(int id) {
-		return notificationsJPARepository.findById(id); 
+	public Notification findNotificationById(int id) {
+		return notificationsJPARepository.findOne(id); 
 	}
 
 	public void deleteNotificationById(Integer id) {
-		notificationsJPARepository.deleteById(id);;
+		notificationsJPARepository.delete(id);;
 		
 	}
 
@@ -59,8 +58,8 @@ public class NotificationsRepository {
 		return transductorOfflineNotificationsJPARepository.findAllByOrderByIdDesc();
 	}
 
-	public Optional<SensorRuleCameraNotification> findCameraSensorRuleNotificationById(Integer id) {
-		return cameraSensorRuleNotificationJPARepository.findById(id);
+	public SensorRuleCameraNotification findCameraSensorRuleNotificationById(Integer id) {
+		return cameraSensorRuleNotificationJPARepository.findOne(id);
 	}
 
 }

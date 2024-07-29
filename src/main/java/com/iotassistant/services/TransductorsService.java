@@ -1,7 +1,6 @@
 package com.iotassistant.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +38,7 @@ public class TransductorsService implements TransductorVisitor{
 
 
 	public boolean existTransductor(String name) {
-	    return transductorsJPARepository.findById(name).isPresent();
+	    return transductorsJPARepository.findOne(name) != null;
 	}
 
 	public List<Property> getSupportedPropertiesActuated() {
@@ -78,11 +77,8 @@ public class TransductorsService implements TransductorVisitor{
 	}
 
 	public Transductor getTransductorByName(String name) {
-		Optional<Transductor> transductor = transductorsJPARepository.findById(name);
-		if (transductor.isPresent()) {
-			return transductor.get();
-		}
-		return null;		
+		return transductorsJPARepository.findOne(name);
+	
 	}
 
 

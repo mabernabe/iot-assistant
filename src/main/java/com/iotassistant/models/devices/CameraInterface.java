@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public abstract class CameraInterface {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
 	
 	public abstract void accept(CameraInterfaceVisitor cameraInterfaceVisitor) throws CameraInterfaceException;

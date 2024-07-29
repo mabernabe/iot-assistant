@@ -55,7 +55,7 @@ public class RulesRepository {
 	}
 
 	public void deleteById(Integer id) {
-		sensorRuleJPARepository.deleteById(id);
+		sensorRuleJPARepository.delete(id);
 		inMemorySensorRules.remove(id);
 		
 	}

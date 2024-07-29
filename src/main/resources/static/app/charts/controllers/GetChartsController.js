@@ -81,7 +81,7 @@ chartsModule.controller("GetChartsController",function($scope, $timeout, ChartAP
 		function deleteChart() {
 			ChartAPIService.deleteChart(chartId)
 			.then(function() { 
-				SweetAlertService.showSuccessAlert('Chart deleted');
+				SweetAlertService.showSuccessAlert('Chart deleted with success');
 			},function() {
 				SweetAlertService.showErrorAlert('Chart deletion failed');
 			})

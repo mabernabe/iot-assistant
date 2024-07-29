@@ -1,7 +1,6 @@
 package com.iotassistant.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,8 @@ import com.iotassistant.models.SensorChart;
 import com.iotassistant.models.SensorChartIntervalEnum;
 import com.iotassistant.models.SensorChartSampleIntervalEnum;
 import com.iotassistant.models.SensorChartTypeEnum;
+import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.repositories.ChartsJPARepository;
 
 @Service
@@ -29,12 +30,12 @@ public class ChartsService {
 		chartsRepository.save(sensorChart);
 	}
 
-	public void newChart(SensorChart chart, String sensorName) {
+	public void newChart(SensorChart chart) {
 		chartsRepository.save(chart);		
 	}
 
 	public void deleteChartById(int id) {
-		chartsRepository.deleteById(id);		
+		chartsRepository.delete(id);		
 	}
 
 	public List<String> getSupportedChartTypes() {
@@ -66,13 +67,7 @@ public class ChartsService {
 	}
 
 	public SensorChart getChartById(int id) {
-		Optional<SensorChart> optionalSensorChart = chartsRepository.findById(id);
-		if (optionalSensorChart.isPresent()) {
-			return optionalSensorChart.get();
-		}
-		else {
-			return null;
-		}
+		return chartsRepository.findOne(id);
 	}
 
 	void deleteChartsBySensorName(String sensorName) {
@@ -83,6 +78,13 @@ public class ChartsService {
 			}
 		}
 		
+	}
+
+	public void newChart(Sensor sensor) {
+		for (PropertyMeasuredEnum propertyObserved: sensor.getPropertiesMeasured()) {
+			SensorChart chart = new SensorChart(sensor.getName(), propertyObserved, SensorChartIntervalEnum.ONE_WEEK, SensorChartSampleIntervalEnum.ONE_MINUTE, SensorChartTypeEnum.LINE_POINTS);
+			this.newChart(chart);
+		}
 	}
 
 

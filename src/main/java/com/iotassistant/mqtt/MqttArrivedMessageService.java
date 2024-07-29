@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.iotassistant.models.devices.Actuator;
 import com.iotassistant.models.devices.Sensor;
@@ -14,7 +16,9 @@ import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMea
 import com.iotassistant.services.TransductorsService;
 import com.iotassistant.utils.JSONParser;
 
-class TransductorMqttMessageService implements TransductorVisitor{
+class MqttArrivedMessageService implements TransductorVisitor{
+	
+	Logger logger = LoggerFactory.getLogger(MqttArrivedMessageService.class);
 	
 	private Transductor transductor;
 	
@@ -23,7 +27,7 @@ class TransductorMqttMessageService implements TransductorVisitor{
 	private TransductorsService transductorsService;
 
 	
-	TransductorMqttMessageService(Transductor transductor, MqttMessage message,
+	MqttArrivedMessageService(Transductor transductor, MqttMessage message,
 			TransductorsService transductorsService) {
 		super();
 		this.transductor = transductor;
@@ -44,7 +48,7 @@ class TransductorMqttMessageService implements TransductorVisitor{
 				transductorsService.updateSensorValues(transductor.getName(), sensorValuesDTO.getSensorValues());
 			}	
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 		}
 	}
 
@@ -57,7 +61,7 @@ class TransductorMqttMessageService implements TransductorVisitor{
 				transductorsService.updateActuatorValues(actuator.getName(), actuatorValuesDTO.getSensorValues());
 			}	
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 		}
 		
 	}

@@ -46,7 +46,7 @@ public class ChartsController { // NO_UCD (unused code)
 		if (errorDTO != null) {
 			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 		}
-		chartsService.newChart(chart, chartDTO.getSensorName());
+		chartsService.newChart(chart);
 		return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}
 	

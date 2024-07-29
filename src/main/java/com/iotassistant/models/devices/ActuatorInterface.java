@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public abstract class ActuatorInterface  extends TransductorInterface{
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
 
 	public abstract void accept(ActuatorInterfaceVisitor actuatorInterfaceVisitor);

@@ -32,7 +32,7 @@ camerasModule.controller("GetCamerasController",function($scope, CameraAPIServic
 		function deleteCamera() {
 			CameraAPIService.deleteCamera(cameraName)
 			.then(function() { 
-				SweetAlertService.showSuccessAlert('Camera deleted');
+				SweetAlertService.showSuccessAlert('Camera deleted with success');
 			},function() {
 				SweetAlertService.showErrorAlert('Camera deletion failed');
 			})

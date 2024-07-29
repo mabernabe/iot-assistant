@@ -2,7 +2,6 @@ package com.iotassistant.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,12 +29,9 @@ public class SensorsService  {
 	
 	
 	public Sensor getSensorByName(String name) {
-		Optional<Sensor> sensor = sensorsRepository.findById(name);
-		if (sensor.isPresent()) {
-			return sensor.get();
-		}
-		return null;	
+		return sensorsRepository.findOne(name);
 	}
+
 	
 	public List<Sensor> getAllSensors() {
 		return sensorsRepository.findAll();
@@ -44,6 +40,7 @@ public class SensorsService  {
 	public Sensor newSensor(Sensor sensor) {
 		sensor = sensorsRepository.save(sensor);
 		this.setUpInterface(sensor);
+		chartsService.newChart(sensor);
 		return sensor;
 	}
 	
@@ -60,7 +57,7 @@ public class SensorsService  {
 		Sensor sensor = getSensorByName(name);
 		this.setDownInterface(sensor);
 		deleteSensorDependencies(name);
-		sensorsRepository.deleteById(name);
+		sensorsRepository.delete(name);
 			
 	}
 

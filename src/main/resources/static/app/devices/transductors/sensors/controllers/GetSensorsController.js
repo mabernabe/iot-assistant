@@ -32,7 +32,7 @@ sensorsModule.controller ("GetSensorsController",function($scope, SensorAPIServi
 		function deleteSensor() {
 			SensorAPIService.deleteSensor(sensorName)
 			.then(function() { 
-				SweetAlertService.showSuccessAlert('Sensor deleted');
+				SweetAlertService.showSuccessAlert('Sensor deleted with success');
 			},function() {
 				SweetAlertService.showErrorAlert('Sensor deletion failed');
 			})

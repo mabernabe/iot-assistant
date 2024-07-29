@@ -12,7 +12,7 @@ import javax.persistence.InheritanceType;
 public abstract class Notification {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 	
 	private String date;

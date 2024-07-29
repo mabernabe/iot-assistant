@@ -16,8 +16,6 @@ public class ActuatorValues  extends TransductorValues<PropertyActuatedEnum>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	
-	
-	
 	public ActuatorValues() {
 		super();
 	}

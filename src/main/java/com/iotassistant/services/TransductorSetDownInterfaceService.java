@@ -1,6 +1,8 @@
 package com.iotassistant.services;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.iotassistant.models.devices.TransductorInterface;
 import com.iotassistant.models.devices.TransductorInterfaceVisitor;
@@ -11,6 +13,7 @@ import com.iotassistant.mqtt.SensorMqttInterface;
 
 class TransductorSetDownInterfaceService  implements TransductorInterfaceVisitor {
 	
+	Logger logger = LoggerFactory.getLogger(TransductorSetDownInterfaceService.class);
 
 	public TransductorSetDownInterfaceService() {
 		super();	
@@ -29,7 +32,7 @@ class TransductorSetDownInterfaceService  implements TransductorInterfaceVisitor
 		try {
 			MqttTransductorsController.getInstance().unsubscribe(mqttInterface);
 		} catch (MqttException e) {
-			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 		}		
 	}
 

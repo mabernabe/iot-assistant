@@ -2,7 +2,6 @@ package com.iotassistant.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -45,7 +44,7 @@ public class ActuatorsService  {
 	
 	public void setActuatorValue(PropertyActuatedEnum propertyActuated, String actuatorName, String value)  {
 		assert(this.existActuator(actuatorName));
-		Actuator actuator = actuatorsRepository.findById(actuatorName).get();
+		Actuator actuator = actuatorsRepository.findOne(actuatorName);
 		new ActuatorSetValueService(actuator, propertyActuated, value).setValue();
 		
 	}
@@ -67,11 +66,8 @@ public class ActuatorsService  {
 	}
 
 	public Actuator getActuatorByName(String name) {
-		Optional<Actuator> actuator = actuatorsRepository.findById(name);
-		if (actuator.isPresent()) {
-			return actuator.get();
-		}
-		return null;	
+		return actuatorsRepository.findOne(name);
+
 	}
 
 
@@ -79,7 +75,7 @@ public class ActuatorsService  {
 		Actuator actuator = getActuatorByName(name);
 		this.setDownInterface(actuator);
 		deleteActuatorDependencies(name);
-		actuatorsRepository.deleteById(name);		
+		actuatorsRepository.delete(name);		
 	}
 
 	private void setDownInterface(Actuator actuator) {

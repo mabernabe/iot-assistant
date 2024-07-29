@@ -24,7 +24,7 @@
 			<div class="card-footer ">
 				<hr>
 				<div class="stats">
-					<i class="fa fa-info" ng-style="{ color: '#A29F9E' }"></i> 
+					<i class="fa fa-info device-description"></i> 
 					{{camera.getDescription()}}
 					<span ng-switch="camera.isWatchdogEnabled()"  ng-style="{float: 'right'}">
 					    <button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetCamerasController.enableWatchdog(false, camera.getName())" ></button>

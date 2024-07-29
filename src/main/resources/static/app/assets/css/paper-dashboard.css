@@ -7305,7 +7305,22 @@ License - nucleoapp.com/license/
 	font icons
 -------------------------*/
 
+/*------- devices -------- */
+
+.device-description {
+	color: #A29F9E!important;
+}
+
 /*------- sensors and actuators -------- */
+
+.values-date {
+	color: #ef8157!important;
+}
+
+.value-unit {
+	color: #7b7575;
+	font-size: 19px;
+}
 
 .nc-sensor::before {
   content: "\ea61"; 

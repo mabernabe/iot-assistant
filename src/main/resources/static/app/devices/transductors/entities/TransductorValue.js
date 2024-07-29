@@ -13,6 +13,10 @@ class TransductorValue {
 		return this.string + ' ' + this.unit;
 	}
 	
+	getUnit() {
+		return this.unit;
+	}
+	
 	isHigh() {
 		return this.string === "true";	
 	}

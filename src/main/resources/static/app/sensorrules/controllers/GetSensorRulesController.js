@@ -55,7 +55,7 @@ sensorRulesModule.controller("GetSensorRulesController",function($scope, SensorR
 		function deleteRule() {
 			SensorRuleAPIService.deleteSensorRule(sensorRuleId)
 			.then(function() { 
-				SweetAlertService.showSuccessAlert('Sensor rule deleted');
+				SweetAlertService.showSuccessAlert('Sensor rule deleted with success');
 			},function() {
 				SweetAlertService.showErrorAlert('Sensor rule deletion failed');
 			})

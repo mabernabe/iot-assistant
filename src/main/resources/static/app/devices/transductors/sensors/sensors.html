@@ -34,7 +34,10 @@
 								<div ng-switch-when="true">
 									<p data-alias="sensor.getValue(propertyMeasured.getNameWithUnit()) as sensorValue">		
 										<div ng-if="!propertyMeasured.isBinary()">
-											<p class="card-title ">{{sensorValue.getStringWithUnit()}} </p>
+											<p class="card-title ">
+												<span class="value-string">{{sensorValue.getString()}}</span> 
+												<span class="value-unit">{{sensorValue.getUnit()}}</span> 
+											</p>
 											<p ng-if="sensorValue.hasDescription()" class="card-title value-description"><span class="value-severity-{{sensorValue.getSeverity()}}"> {{sensorValue.getDescription()}} </span></p>
 										</div>
 										<p ng-if="propertyMeasured.isBinary()" class="card-title">
@@ -51,12 +54,12 @@
 			<div class="card-footer ">
 				<hr>
 				<div class="stats">        
-                    <i class="fa fa-info" ng-style="{ color: '#A29F9E' }"></i>
+                    <i class="fa fa-info device-description"></i>
 					{{sensor.getDescription()}}
 				</div>
 				<div class="stats" ng-if="sensor.isActive()" >
 					<span>
-						<i class="fa fa-clock-o" ng-style="{ color: 'red' }"></i>	
+						<i class="fa fa-clock-o values-date"></i>	
                    		{{sensor.getValuesDate()}}
                    	</span>
                    	<span ng-switch="sensor.isWatchdogEnabled()"  ng-style="{float: 'right'}">

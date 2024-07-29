@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public abstract class SensorInterface extends TransductorInterface{
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
 	
 

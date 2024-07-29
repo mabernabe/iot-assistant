@@ -1,7 +1,6 @@
 package com.iotassistant.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -70,15 +69,11 @@ public class SensorRulesService {
 	}
 
 	public SensorRule getSensorRule(int id) {
-		Optional<SensorRule> sensorRule = sensorRuleJPARepository.findById(id);
-		if (sensorRule.isPresent()) {
-			return sensorRule.get();
-		}
-		return null;
+		return sensorRuleJPARepository.findOne(id);
 	}
 
 	public void deleteSensorRuleById(int id)  {
-		sensorRuleJPARepository.deleteById(Integer.valueOf(id));	
+		sensorRuleJPARepository.delete(Integer.valueOf(id));	
 	}
 
 	void deleteSensorRuleBySensorName(String sensorName) {

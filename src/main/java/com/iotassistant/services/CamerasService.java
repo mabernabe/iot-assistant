@@ -47,20 +47,20 @@ public class CamerasService {
 	}
 
 	public void deleteCamera(String cameraName)  {
-		camerasJPARepository.deleteById(cameraName);
+		camerasJPARepository.delete(cameraName);
 		sensorRulesService.deleteCameraSensorRules(cameraName);
 		
 	}
 
 	public byte[] getPicture(String cameraName) throws CameraInterfaceException {
 		assert(existCamera(cameraName));
-		Camera camera = camerasJPARepository.findById(cameraName).get();
+		Camera camera = camerasJPARepository.findOne(cameraName);
 		return new CameraGetPictureService().getPicture(camera.getInterface());
 		
 	}
 
 	public boolean existCamera(String cameraName) {
-		return camerasJPARepository.findById(cameraName).isPresent();
+		return camerasJPARepository.findOne(cameraName) != null;
 	}
 
 	public void setUpInterface(Camera camera) {

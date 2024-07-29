@@ -1,7 +1,6 @@
 package com.iotassistant.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -12,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.Notification;
-import com.iotassistant.models.notifications.SendNotificationService;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
+import com.iotassistant.models.notifications.SendNotificationService;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;
 import com.iotassistant.models.notifications.SensorRuleNotification;
 import com.iotassistant.repositories.NotificationsRepository;
@@ -51,13 +50,8 @@ public class NotificationsService {
 	}
 
     public Notification getNotificationById(int id) {
-        Optional<Notification> optionalNotification = notificationsRepository.findNotificationById(id);
-        if (optionalNotification.isPresent()) {
-            return optionalNotification.get();
-        }
-        else {
-            return null;
-        }
+       return notificationsRepository.findNotificationById(id);
+
     }
 
 	public List<String> getAvailableNotificationTypes() {
@@ -79,7 +73,7 @@ public class NotificationsService {
 
 
 	public byte[] getCameraSensorRuleAttachment(int id) {
-		SensorRuleCameraNotification sensorRuleCameraNotification = notificationsRepository.findCameraSensorRuleNotificationById(id).get();
+		SensorRuleCameraNotification sensorRuleCameraNotification = notificationsRepository.findCameraSensorRuleNotificationById(id);
 		return sensorRuleCameraNotification.getPicture();
 	}
 

@@ -57,7 +57,7 @@ actuatorsModule.controller ("GetActuatorsController",function($scope, ActuatorAP
 		function deleteActuator() {
 			ActuatorAPIService.deleteActuator(actuatorName)
 			.then(function() { 
-				SweetAlertService.showSuccessAlert('Actuator deleted');
+				SweetAlertService.showSuccessAlert('Actuator deleted with success');
 			},function() {
 				SweetAlertService.showErrorAlert('Actuator deletion failed');
 			})
