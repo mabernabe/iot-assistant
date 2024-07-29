@@ -89,7 +89,10 @@ public class NotificationsService {
 	}
 	
 	public void sendNotification(NotificationTypeEnum notificationType, Notification notification) {
-		getSendNotificationService(notificationType).send(notification);;
+		notificationsRepository.saveNotification(notification);
+		if (notificationType != NotificationTypeEnum.NONE) {
+			getSendNotificationService(notificationType).send(notification);
+		}
 	}
 
 	public List<SensorRuleNotification> getSensorRulesNotificationsByIdDesc() {
