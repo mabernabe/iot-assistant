@@ -49,7 +49,6 @@ public class CamerasController {
 	public ResponseEntity<?> getCameraPicture(@PathVariable("name") String name) throws CameraInterfaceException {
 		if (!camerasService.existCamera(name))  {
 			ErrorDTO cameraNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
-			cameraNotFoundError.formatMessage("Camera");
 			return new ResponseEntity<>(cameraNotFoundError, cameraNotFoundError.getHttpStatus());
 	    }
 		return new ResponseEntity<>(camerasService.getPicture(name), HttpStatus.OK);	
@@ -60,7 +59,6 @@ public class CamerasController {
 	public ResponseEntity<?> deleteCamera(@PathVariable("name") String name)  { 
 		if (!camerasService.existCamera(name))  {
 			ErrorDTO cameraNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
-			cameraNotFoundError.formatMessage("Camera");
 			return new ResponseEntity<>(cameraNotFoundError, cameraNotFoundError.getHttpStatus());
 	    }
 		camerasService.deleteCamera(name);

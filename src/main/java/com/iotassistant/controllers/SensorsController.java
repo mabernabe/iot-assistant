@@ -38,11 +38,9 @@ public class SensorsController {
 	public ResponseEntity<?> getSensorByName(@PathVariable("name") String name) {
 		if (!sensorsService.exist(name))  {
 			ErrorDTO sensorNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
-			sensorNotFoundError.formatMessage("Sensor");
 			return new ResponseEntity<>(sensorNotFoundError, sensorNotFoundError.getHttpStatus());
 	    }
-		Sensor sensor = sensorsService.getSensorByName(name);
-		return new ResponseEntity<>(new SensorDTO(sensor), HttpStatus.OK);
+		return new ResponseEntity<>(new SensorDTO(sensorsService.getSensorByName(name)), HttpStatus.OK);
 		
 	}	
 
@@ -55,7 +53,6 @@ public class SensorsController {
 		}
 		if (sensor.getPropertiesMeasured() == null || sensor.getPropertiesMeasured().isEmpty()) {
 			ErrorDTO hasNotPropertiesError = ErrorDTO.TRANSDUCTOR_HAS_NOT_PROPERTIES;
-			hasNotPropertiesError.formatMessage("Sensor");
 			return new ResponseEntity<>(hasNotPropertiesError, hasNotPropertiesError.getHttpStatus());
 		}
 	    sensorsService.newSensor(sensor);
@@ -67,7 +64,6 @@ public class SensorsController {
 	public ResponseEntity<?> deleteSensor(@PathVariable("name") String name) {
 		if (!sensorsService.exist(name))  {
 			ErrorDTO sensorNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
-			sensorNotFoundError.formatMessage("Sensor");
 			return new ResponseEntity<>(sensorNotFoundError, sensorNotFoundError.getHttpStatus());
 	    }
 	    sensorsService.deleteSensorByName(name);
@@ -82,10 +78,9 @@ public class SensorsController {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
 	    }
 		if (!sensorsService.getSensorByName(sensorName).hasWatchdog())  {
-			errorDTO = ErrorDTO.TRANSDUCTOR_HAS_NOT_WATCHDOG;		
+			errorDTO = ErrorDTO.DEVICE_HAS_NOT_WATCHDOG;		
 	    }
 		if (errorDTO != null)  {
-			errorDTO.formatMessage("Sensor");
 			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 	    }
 	    sensorsService.enableDisableWatchdog(enableWatchdogDTO.isEnable(), sensorName);

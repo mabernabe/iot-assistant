@@ -47,7 +47,6 @@ public class ActuatorsController {
 		}
 		if (actuator.getPropertiesActuated() == null || actuator.getPropertiesActuated().isEmpty()) {
 			ErrorDTO hasNotPropertiesError = ErrorDTO.TRANSDUCTOR_HAS_NOT_PROPERTIES;
-			hasNotPropertiesError.formatMessage("Actuator");
 			return new ResponseEntity<>(hasNotPropertiesError, hasNotPropertiesError.getHttpStatus());
 		}
 		actuatorsService.newActuator(actuator);
@@ -60,7 +59,6 @@ public class ActuatorsController {
 		ErrorDTO errorDTO = null;
 		if (!actuatorsService.existActuator(actuatorName))  {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
-			errorDTO.formatMessage("Actuator");
 	    }
 		PropertyActuatedEnum propertyActuated = actuatorValueDTO.getPropertyActuated();
 		if (!actuatorsService.hasActuatorProperty(actuatorName, propertyActuated)) {
@@ -80,7 +78,6 @@ public class ActuatorsController {
 	public ResponseEntity<?> deleteActuator(@PathVariable("name") String name) {
 		if (!actuatorsService.existActuator(name))  {
 			ErrorDTO actuatorNotFoundError = ErrorDTO.DEVICE_NOT_FOUND;
-			actuatorNotFoundError.formatMessage("Actuator");
 			return new ResponseEntity<>(actuatorNotFoundError, actuatorNotFoundError.getHttpStatus());
 	    }
 	    actuatorsService.deleteActuatorByName(name);
@@ -96,10 +93,9 @@ public class ActuatorsController {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;	
 	    }
 		if (!actuatorsService.getActuatorByName(actuatorName).hasWatchdog())  {
-			errorDTO = ErrorDTO.TRANSDUCTOR_HAS_NOT_WATCHDOG;		
+			errorDTO = ErrorDTO.DEVICE_HAS_NOT_WATCHDOG;		
 	    }
 		if (errorDTO != null) {
-			errorDTO.formatMessage("Actuator");
 			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 		}
 	    actuatorsService.enableDisableWatchdog(enableWatchdogDTO.isEnable(), actuatorName);

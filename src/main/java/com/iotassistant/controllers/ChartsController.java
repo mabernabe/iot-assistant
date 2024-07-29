@@ -37,7 +37,6 @@ public class ChartsController { // NO_UCD (unused code)
 		}
 		if (!sensorsService.exist(chart.getSensorName()))  {
 			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
-			errorDTO.formatMessage("Sensor");
 	    }
 		if (!sensorsService.hasSensorProperty(chart.getSensorName(), chart.getPropertyObserved()))  {
 			errorDTO = ErrorDTO.SENSOR_HAS_NOT_PROPERTY;
