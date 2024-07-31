@@ -42,48 +42,46 @@ Coded by www.creative-tim.com
 
 
 <body class="login-page">
-<div id="particles-js">
- 
-      <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
-      <div class="content">
-        <div class="container">
-          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-            <form class="form" action="/login" method="post">
-              <div class="card card-login">
-                <div class="card-header ">
-                  <div class="card-header">
-            		<img src="/app/assets/img/iot.png">
-                    <h3 class="header text-center">Iot Assistant</h3>
-                  </div>
-                </div>
-                <div class="card-body ">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="nc-icon nc-single-02"></i>
-                      </span>
-                    </div>
-                    <input type="text" name="username" class="form-control">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="nc-icon nc-key-25"></i>
-                      </span>
-                    </div>
-                    <input type="password" name="password" class="form-control">
-                  </div>
-                  <br />
-                  	<span class="login-error" id="login-error">
-             		    	<a href="#">Invalid credentials.</a>
-             		    </span>        	
-                </div>
-                <div class="card-footer ">
-                  <input type="submit" class="btn btn-warning btn-round btn-block mb-3" value="Login" />
-                </div>
-              </div>
-            </form>
-          </div>
+   <div id="worldMap" class="map map-big"></div>
+     <div class="content">
+       <div class="container">
+         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+           <form class="form" action="/login" method="post">
+             <div class="card card-login">
+               <div class="card-header ">
+                 <div class="card-header">
+           		<img src="/app/assets/img/iot.png">
+                   <h3 class="header text-center">Iot Assistant</h3>
+                 </div>
+               </div>
+               <div class="card-body ">
+                 <div class="input-group">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text">
+                       <i class="nc-icon nc-single-02"></i>
+                     </span>
+                   </div>
+                   <input type="text" name="username" class="form-control">
+                 </div>
+                 <div class="input-group">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text">
+                       <i class="nc-icon nc-key-25"></i>
+                     </span>
+                   </div>
+                   <input type="password" name="password" class="form-control">
+                 </div>
+                 <br />
+                 	<span class="login-error" id="login-error">
+            		    	<a href="#">Invalid credentials.</a>
+            		    </span>        	
+               </div>
+               <div class="card-footer ">
+                 <input type="submit" class="btn btn-warning btn-round btn-block mb-3" value="Login" />
+               </div>
+             </div>
+           </form>
+         </div>
           
         </div>
         <footer class="footer" style="position: absolute; bottom: 0; width: -webkit-fill-available;">
@@ -97,19 +95,38 @@ Coded by www.creative-tim.com
 		</div>
 	</div>
 </footer>
-      </div>
 </div>
 
 </body>
-<script src="/app/libraries/plugins/particles.js"></script>
-<script src="/app/libraries/plugins/particles-config.js"></script>
+<script src="/app/libraries/jquery.min.js"></script>
+<script src="/app/libraries/plugins/jquery-jvectormap.js"></script>
 <script type="text/javascript">
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-if (urlParams.has('error')) {
-	document.getElementById("login-error").style.display='inline-block';
-}
-
-
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	if (urlParams.has('error')) {
+		document.getElementById("login-error").style.display='inline-block';
+	}	
+</script>
+<script>
+    $(document).ready(function() {
+	    $('#worldMap').vectorMap({
+	      map: 'world_merc',
+          focusOn: {
+              x: 0.5,
+              y: 0.5,
+              scale: 1.9
+          },
+	      backgroundColor: "transparent",
+	      zoomOnScroll: false,
+	      zoomButtons:false,
+	      regionStyle: {
+	        initial: {
+	          fill: '#ececec',
+	          "fill-opacity": 0.9,
+	          stroke: 'none',
+	        }
+	      },
+	    });
+    });
 </script>
 </html>
