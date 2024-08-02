@@ -103,7 +103,8 @@ public class SensorsService  {
 		sensor.setValues(values);
 		sensor.setActive(true);
 		sensorsRepository.saveAndFlush(sensor);
-		sensorRulesService.applyRules(sensor.getName(), values);	
+		sensorRulesService.applyRules(sensor.getName(), values);
+		chartsService.updateCharts(sensor);
 		
 	}
 

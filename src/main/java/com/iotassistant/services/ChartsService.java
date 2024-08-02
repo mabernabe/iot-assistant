@@ -82,12 +82,20 @@ public class ChartsService {
 
 	public void newChart(Sensor sensor) {
 		for (PropertyMeasuredEnum propertyObserved: sensor.getPropertiesMeasured()) {
-			SensorChart chart = new SensorChart(sensor.getName(), propertyObserved, SensorChartIntervalEnum.ONE_WEEK, SensorChartSampleIntervalEnum.ONE_MINUTE, SensorChartTypeEnum.LINE_POINTS);
+			SensorChart chart = new SensorChart(sensor.getName(), propertyObserved, SensorChartIntervalEnum.ONE_WEEK, SensorChartSampleIntervalEnum.FIVE_MINUTES, SensorChartTypeEnum.LINE_POINTS);
 			this.newChart(chart);
 		}
 	}
 
-
+	public void updateCharts(Sensor sensor) {
+		for (SensorChart chart: this.getAllCharts()) {
+			if (chart.shouldAddNewSample(sensor)) {
+				chart.addNewSensorSample(sensor);
+				chartsRepository.save(chart);
+			}
+		}	
+	}
+		
 
 
 }

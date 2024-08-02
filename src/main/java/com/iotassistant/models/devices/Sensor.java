@@ -76,6 +76,10 @@ public class Sensor extends Transductor {
 	public String getLastValueDate() {
 		return ( values == null)? null: values.getDate();
 	}
+
+	public String getValue(PropertyMeasuredEnum propertyMeasured) {
+		return values.getValue(propertyMeasured);
+	}
 	
 
 

@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.iotassistant.models.devices.Sensor;
-import com.iotassistant.models.devices.SensorValues;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 @Entity
@@ -90,32 +89,32 @@ public class SensorChart {
 		return sensorsChartSamples;
 	}
 
-	boolean shouldAddNewSample(Sensor sensor) {
-		boolean shouldAddNewSample = false;
-		try {			
-			shouldAddNewSample = (sensor.isActive() && isChartSampleIntervalReached(sensor.getValues()));
-		} catch ( ParseException e) {}
-		return shouldAddNewSample;
+	public boolean shouldAddNewSample(Sensor sensor) {
+		assert(sensor.isActive());
+		if (!this.sensorName.equals(sensor.getName())) {
+			return false;
+		}
+		if (this.getLastSample() == null) {
+			return true;
+		}
+		try {
+			boolean isSampleintervalReached = sampleInterval.isSampleIntervalReached(this.getLastSample().getDate(), sensor.getLastValueDate());
+			return this.propertyObserved.isBinary() && !this.getLastSample().getValue().equals(sensor.getValue(this.propertyObserved))
+					|| isSampleintervalReached;
+		} catch (ParseException e) {
+			assert(true);
+			return false;
+		} 
 	}
 	
-	void addNewSensorSample(Sensor sensor) {
+	public void addNewSensorSample(Sensor sensor) {
 		assert(this.shouldAddNewSample(sensor) == true);
-		SensorChartSample sample = null;
-		sample = new SensorChartSample(sensor.getValues().getValue(propertyObserved), sensor.getValues().getDate());
+		SensorChartSample sample = new SensorChartSample(sensor.getValues().getValue(propertyObserved), sensor.getValues().getDate());
 		this.addSample(sample);
-		sortSamplesIfTotalIntervalReached(sample);
+		deleteSamplesIfTotalIntervalReached(sample);
 						
 	}
 
-	private boolean isChartSampleIntervalReached(SensorValues sensorValues) throws ParseException {
-		SensorChartSample lastSample = getLastSample();
-		if (lastSample == null) {
-			return true;
-		}
-		else {
-			return sampleInterval.isChartSampleIntervalReached(lastSample.getDate(), sensorValues.getDate() );
-		}
-	}
 
 	private SensorChartSample getLastSample() {
 		if (sensorsChartSamples.size() == 0) {
@@ -127,7 +126,7 @@ public class SensorChart {
 	}
 	
 	
-	private void sortSamplesIfTotalIntervalReached(SensorChartSample lastSample) {
+	private void deleteSamplesIfTotalIntervalReached(SensorChartSample lastSample) {
 		Iterator<SensorChartSample> samplesIterator = sensorsChartSamples.iterator();
 		while (samplesIterator.hasNext()) {
 			SensorChartSample sample = samplesIterator.next();

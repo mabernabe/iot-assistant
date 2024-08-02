@@ -8,6 +8,7 @@ import com.iotassistant.utils.Date;
 
 public enum SensorChartSampleIntervalEnum {
 	ONE_MINUTE("1 minute", 1),
+	FIVE_MINUTES("5 minute", 5),
 	HALF_HOUR("Half hour", 30),
 	ONE_HOUR("1 hour", 60),
 	FIVE_HOURS("5 hours", 300),
@@ -30,7 +31,7 @@ public enum SensorChartSampleIntervalEnum {
 		return string;
 	}
 	
-	boolean isChartSampleIntervalReached(String firstSampleDate, String secondSampleDate) throws ParseException {
+	boolean isSampleIntervalReached(String firstSampleDate, String secondSampleDate) throws ParseException {
 		return Date.havePassedMinutesBetweenDates(firstSampleDate, secondSampleDate, minutes);
 		
 	}
