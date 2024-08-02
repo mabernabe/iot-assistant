@@ -44,7 +44,10 @@ class MqttArrivedMessageService implements TransductorVisitor{
 		try {
 			MqttSensorValuesDTO sensorValuesDTO = new JSONParser().parseJsonBodyAs(MqttSensorValuesDTO.class, message.toString());
 			List<PropertyMeasuredEnum> sensorProperties = sensor.getPropertiesMeasured();
-			if (!sensorValuesDTO.hasErrors(sensorProperties)) {
+			if (sensorValuesDTO.hasErrors(sensorProperties)) {
+				this.logError(sensor, sensorValuesDTO.getErrors());
+			}
+			else {
 				transductorsService.updateSensorValues(transductor.getName(), sensorValuesDTO.getSensorValues());
 			}	
 		} catch (IOException e) {
@@ -52,12 +55,17 @@ class MqttArrivedMessageService implements TransductorVisitor{
 		}
 	}
 
+	private void logError(Transductor transductor, List<String> errors) {
+		logger.error(transductor.getName() + ": " + errors.toString());
+	}
+
 	@Override
 	public void visit(Actuator actuator) {
 		try {
 			MqttActuatorValuesDTO actuatorValuesDTO = new JSONParser().parseJsonBodyAs(MqttActuatorValuesDTO.class, message.toString());
 			List<PropertyActuatedEnum> actuatorProperties = actuator.getPropertiesActuated();
-			if (!actuatorValuesDTO.hasErrors(actuatorProperties)) {
+			if (actuatorValuesDTO.hasErrors(actuatorProperties)) {
+				this.logError(actuator, actuatorValuesDTO.getErrors());			} else {
 				transductorsService.updateActuatorValues(actuator.getName(), actuatorValuesDTO.getSensorValues());
 			}	
 		} catch (IOException e) {

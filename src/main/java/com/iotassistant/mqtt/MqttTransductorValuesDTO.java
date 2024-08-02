@@ -46,7 +46,7 @@ abstract class MqttTransductorValuesDTO<T extends Property> {
 
 	protected abstract TransductorValues<T> createTransductorValues(String date);
 
-	private List<String> getErrors() {
+	List<String> getErrors() {
 		return errors;
 	}
 	
