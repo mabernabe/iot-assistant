@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.iotassistant.models.SensorChart;
 import com.iotassistant.models.SensorChartIntervalEnum;
@@ -15,7 +14,6 @@ import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMea
 import com.iotassistant.repositories.ChartsJPARepository;
 
 @Service
-@Transactional
 public class ChartsService {
 
 	private @Autowired

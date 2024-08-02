@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.iotassistant.models.devices.Actuator;
 import com.iotassistant.models.devices.ActuatorValues;
@@ -16,7 +15,6 @@ import com.iotassistant.models.devices.transductors.propertyactuated.PropertyAct
 import com.iotassistant.repositories.ActuatorsJPARepository;
 
 @Service
-@Transactional
 public class ActuatorsService  {
 	
 	private static ActuatorsService instance;

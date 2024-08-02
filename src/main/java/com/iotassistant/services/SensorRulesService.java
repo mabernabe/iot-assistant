@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.iotassistant.models.CameraSensorRule;
 import com.iotassistant.models.SensorRule;
@@ -19,7 +18,6 @@ import com.iotassistant.repositories.SensorRuleJPARepository;
 import com.iotassistant.repositories.TriggerActuatorSensorRuleJPARepository;
 
 @Service
-@Transactional
 public class SensorRulesService {
 
 	@Autowired

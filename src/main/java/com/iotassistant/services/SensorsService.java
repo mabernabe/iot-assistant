@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.iotassistant.models.devices.Property;
 import com.iotassistant.models.devices.Sensor;
@@ -14,7 +13,6 @@ import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMea
 import com.iotassistant.repositories.SensorsJPARepository;
 
 @Service
-@Transactional
 public class SensorsService  {
 	
 	@Autowired
@@ -38,7 +36,7 @@ public class SensorsService  {
 	}
 
 	public Sensor newSensor(Sensor sensor) {
-		sensor = sensorsRepository.save(sensor);
+		sensor = sensorsRepository.saveAndFlush(sensor);
 		this.setUpInterface(sensor);
 		chartsService.newChart(sensor);
 		return sensor;
