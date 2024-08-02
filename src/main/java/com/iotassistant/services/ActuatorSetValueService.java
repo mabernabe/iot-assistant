@@ -4,7 +4,7 @@ import com.iotassistant.models.devices.Actuator;
 import com.iotassistant.models.devices.ActuatorInterfaceVisitor;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.mqtt.ActuatorMqttInterface;
-import com.iotassistant.mqtt.MqttTransductorsController;
+import com.iotassistant.mqtt.MqttDevicesController;
 
 class ActuatorSetValueService implements ActuatorInterfaceVisitor{
 	
@@ -27,7 +27,7 @@ class ActuatorSetValueService implements ActuatorInterfaceVisitor{
 
 	@Override
 	public void visit(ActuatorMqttInterface actuatorMqttInterface) {
-		MqttTransductorsController.getInstance().setActuatorValue(actuatorMqttInterface, propertyActuated, value);	
+		MqttDevicesController.getInstance().setActuatorValue(actuatorMqttInterface, propertyActuated, value);	
 	}
 
 

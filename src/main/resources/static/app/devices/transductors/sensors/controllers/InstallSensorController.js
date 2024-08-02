@@ -8,11 +8,11 @@ sensorsModule.controller ("InstallSensorController",function($scope, $controller
 	self.transductorType = "Sensor";
 	
 	let fetchSensorCapabilities = function(){
-		self.systemAPIService.getDevicesCapabilities()
-		.then(function(devicesCapabilities) { 
-			self.supportedProperties = devicesCapabilities.getSensorSupportedProperties();
-			self.supportedWatchdogIntervals = devicesCapabilities.getSensorSupportedWatchdogIntervals();
-			self.supportedInterfaces = devicesCapabilities.getSensorSupportedInterfaces();
+		self.systemAPIService.getSensorsCapabilities()
+		.then(function(sensorsCapabilities) { 
+			self.supportedProperties = sensorsCapabilities.getSupportedProperties();
+			self.supportedWatchdogIntervals = sensorsCapabilities.getSupportedWatchdogIntervals();
+			self.supportedInterfaces = sensorsCapabilities.getSupportedInterfaces();
 		},function() {
 		})
 	}

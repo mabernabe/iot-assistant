@@ -21,16 +21,8 @@ public abstract class Transductor extends Device{
 		super(name, description, watchdogInterval);
 	}
 	
+	public abstract TransductorInterface getInterface();
+	
 	public abstract String getLastValueDate();
-
-	@Override
-	public void accept(DeviceVisitor deviceVisitor) {
-		deviceVisitor.visit(this);
-	}
-	
-	public abstract void accept(TransductorVisitor transductorVisitor);
-
-	
-	
 	
 }

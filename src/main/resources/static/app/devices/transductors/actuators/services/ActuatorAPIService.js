@@ -55,23 +55,6 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 	}
 	
 	
-	self.installPinInterfaceActuator = function (newTransductor, transductorPinInterface) {
-		let deferred = $q.defer();
-		let newPinInterfaceActuator= createNewPinInterfaceActuatorObjRequest(newTransductor, transductorPinInterface);
-		RestAPIService.post(actuatorsBaseUri.concat("pinInterfaceActuators/"), newPinInterfaceActuator).then(function(objectResponse) {
-			deferred.resolve(objectResponse);
-		}, function errorCallback(errorResponse) {
-			deferred.reject(errorResponse);
-		});
-		return deferred.promise ;
-	}
-	
-	function createNewPinInterfaceActuatorObjRequest(newActuator, transductorPinInterface) {
-		let newPinInterfaceActuator = createActuatorObjectRequest(newActuator);
-		newPinInterfaceActuator.pinsConfiguration = Object.fromEntries(transductorPinInterface.getPinsConfiguration());
-		return newPinInterfaceActuator;
-	}
-	
 	function createActuatorObjectRequest(newActuator) {
 		let newActuatorObject = {};
 		newActuatorObject.name = newActuator.getName();
@@ -83,7 +66,7 @@ actuatorsModule.service ("ActuatorAPIService",function(RestAPIService, $q){
 	self.installMQttInterfaceActuator = function (newActuator) {
 		let deferred = $q.defer();
 		let newMqttInterfaceActuator = createNewMqttInterfaceActuatorObjRequest(newActuator);
-		RestAPIService.post(actuatorsBaseUri.concat("mqttInterfaceActuators/"), newMqttInterfaceActuator).then(function(objectResponse) {
+		RestAPIService.post(actuatorsBaseUri.concat("mqtt-interface-actuators/"), newMqttInterfaceActuator).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);

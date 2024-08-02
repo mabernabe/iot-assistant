@@ -61,7 +61,7 @@ public class SystemController {
 		return new NotificationsCapabilitiesDTO(systemService.getSupportedNotificationTypes());
 	}
 	
-	@RequestMapping(value="/sensor-capabilities/", method = RequestMethod.GET)
+	@RequestMapping(value="/sensors-capabilities/", method = RequestMethod.GET)
 	public TransductorCapabilitiesDTO getSensorCapabilities()  {	
 		List<Property> sensorSupportedProperties = systemService.getSupportedSensorProperties();
 		List<String> sensorSupportedInterfaces = systemService.getSupportedSensorInterfaces();
@@ -70,7 +70,7 @@ public class SystemController {
 
 	}
 	
-	@RequestMapping(value="/actuator-capabilities/", method = RequestMethod.GET)
+	@RequestMapping(value="/actuators-capabilities/", method = RequestMethod.GET)
 	public TransductorCapabilitiesDTO getActuatorCapabilities()  {	
 		List<Property> actuatorSupportedProperties = systemService.getSupportedActuatorProperties();
 		List<String> actuatorSupportedInterfaces = systemService.getSupportedActuatorInterfaces();

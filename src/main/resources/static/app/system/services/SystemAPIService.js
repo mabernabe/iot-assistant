@@ -24,6 +24,59 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 		return deferred.promise ;
 	}
 	
+	self.getSensorsCapabilities = function () {
+		let deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("sensors-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getTransductorCapabilitiesFromResponse(objectResponse));
+		}, function errorCallback(errorResponse) {
+			deferred.reject(errorResponse);
+		});
+		return deferred.promise ;
+	}
+	
+	function getTransductorCapabilitiesFromResponse(objectResponse) {
+		let transductorProperties = getPropertiesFromPropertiesObject(objectResponse.sensorCapabilities.supportedProperties);
+		return TransductorCapabilities(transductorProperties, objectResponse.sensorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);	
+	}
+	
+	self.getActuatorsCapabilities = function () {
+		let deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("actuators-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getTransductorCapabilitiesFromResponse(objectResponse));
+		}, function errorCallback(errorResponse) {
+			deferred.reject(errorResponse);
+		});
+		return deferred.promise ;
+	}
+	
+	self.getGpsesCapabilities = function () {
+		let deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("gpses-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getGpsesCapabilitiesFromResponse(objectResponse));
+		}, function errorCallback(errorResponse) {
+			deferred.reject(errorResponse);
+		});
+		return deferred.promise ;
+	}
+	
+	function getGpsesCapabilitiesFromResponse(objectResponse) {
+		new GpsCapabilities(objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
+	}
+	
+	self.getCamerasCapabilities = function () {
+		let deferred = $q.defer();
+		RestAPIService.get(systemBaseUri.concat("cameras-capabilities/")).then(function(objectResponse) {
+			deferred.resolve(getCamerasCapabilitiesFromResponse(objectResponse));
+		}, function errorCallback(errorResponse) {
+			deferred.reject(errorResponse);
+		});
+		return deferred.promise ;
+	}
+	
+	function getCamerasCapabilitiesFromResponse(objectResponse) {
+		new CameraCapabilities(objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
+	}
+	
 	self.getDevicesCapabilities = function () {
 		let deferred = $q.defer();
 		RestAPIService.get(systemBaseUri.concat("devices-capabilities/")).then(function(objectResponse) {
@@ -35,11 +88,9 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	function getDevicesCapabilitiesFromResponse(objectResponse) {
-		let sensorProperties = getPropertiesFromPropertiesObject(objectResponse.sensorCapabilities.supportedProperties);
-		let sensorCapabilities = new TransductorCapabilities(sensorProperties, objectResponse.sensorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
-		let actuatorProperties = getPropertiesFromPropertiesObject(objectResponse.actuatorCapabilities.supportedProperties);
-		let actuatorCapabilities = new TransductorCapabilities(actuatorProperties, objectResponse.actuatorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);
-		let cameraCapabilities = new CameraCapabilities(objectResponse.cameraCapabilities.supportedInterfaces, objectResponse.cameraCapabilities.supportedWatchdogIntervals);
+		let sensorCapabilities = getTransductorCapabilitiesFromResponse(objectResponse.sensorCapabilities);
+		let actuatorCapabilities = getTransductorCapabilitiesFromResponse(objectResponse.actuatorCapabilities);
+		let cameraCapabilities = getCamerasCapabilitiesFromResponse(objectResponse.cameraCapabilities);
 		return new DevicesCapabilities(sensorCapabilities, actuatorCapabilities, cameraCapabilities);
 		
 	}

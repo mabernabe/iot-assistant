@@ -27,7 +27,7 @@ camerasModule.service ("CameraAPIService",function(RestAPIService, $q){
 	self.installHTTPCamera = function (httpCamera) {
 		var deferred = $q.defer();
 		var newHTTPCameraObjRequest= createNewHTTPCameraObjRequest(httpCamera);
-		RestAPIService.post(camerasBaseUri.concat("httpCameras/"), newHTTPCameraObjRequest).then(function(objectResponse) {
+		RestAPIService.post(camerasBaseUri.concat("http-interface-cameras/"), newHTTPCameraObjRequest).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);

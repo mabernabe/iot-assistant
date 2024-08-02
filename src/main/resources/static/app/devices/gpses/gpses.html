@@ -1,0 +1,42 @@
+
+
+<div class="row">
+	<div ng-if="!GetGpsesController.cameras.length"
+		class="col-md-12">
+		<h3 class="description">No available GPS</h3>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="col-lg-3 col-md-6 col-sm-6"
+		ng-repeat="gps in GetGpsesController.gpss track by gps.getName()">
+		<div class="card card-stats">
+			<div class="card-header ">
+				<h5 class="card-title">{{gps.getName()}}
+					<i class="nc-icon nc-simple-remove" ng-style="{ color: '#B9B5B4' , fontSize: '70%' , marginTop: '6px' , float: 'right' , cursor: 'pointer'}" ng-click="GetCamerasController.deleteCamera(camera.getName())"/></i>
+				</h5>
+			</div>
+			<div class="card-body ">
+				<img ng-src={{camera.getLatitude()}} alt="Error" onerror="this.src='/app/assets/img/CameraError.png'"/>
+			</div>
+			<div class="card-footer ">
+				<hr>
+				<div class="stats">
+					<i class="fa fa-info device-description"></i> 
+					{{gps.getDescription()}}
+					<span ng-switch="gps.isWatchdogEnabled()"  ng-style="{float: 'right'}">
+					    <button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetGpsesController.enableWatchdog(false, gps.getName())" ></button>
+					    <button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetGpsesController.enableWatchdog(true, gps.getName())" ng-disabled="!gps.hasWatchdog()"></button>		
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

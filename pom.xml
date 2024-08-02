@@ -69,18 +69,27 @@
 			<version>0.16</version>
 		</dependency>
 		
-		<!-- API, java.xml.bind module so it works with JRE >= 9-->
+		<!-- java modules so it works with JRE >= 9-->
 		<dependency>
 		    <groupId>jakarta.xml.bind</groupId>
 		    <artifactId>jakarta.xml.bind-api</artifactId>
 		    <version>2.3.2</version>
 		</dependency>
-		
-		<!-- Runtime, com.sun.xml.bind module -->
 		<dependency>
 		    <groupId>org.glassfish.jaxb</groupId>
 		    <artifactId>jaxb-runtime</artifactId>
 		    <version>2.3.2</version>
+		    <exclusions>
+		  	<exclusion>
+		   		<groupId>org.eclipse.angus</groupId>
+		   		<artifactId>angus-activation</artifactId>
+		  	</exclusion>
+		 	</exclusions>
+		</dependency>
+		<dependency>
+ 			<groupId>com.sun.activation</groupId>
+ 			<artifactId>jakarta.activation</artifactId>
+ 			<version>2.0.1</version>
 		</dependency>
 
 	</dependencies>

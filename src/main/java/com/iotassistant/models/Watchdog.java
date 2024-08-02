@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.iotassistant.models.devices.Actuator;
 import com.iotassistant.models.devices.Camera;
 import com.iotassistant.models.devices.CameraInterfaceException;
 import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.devices.DeviceVisitor;
+import com.iotassistant.models.devices.Sensor;
 import com.iotassistant.models.devices.Transductor;
 import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
@@ -44,7 +46,19 @@ public class Watchdog implements DeviceVisitor {
 	}
 	
 	@Override
-	public void visit(Transductor transductor) {
+	public void visit(Sensor sensor) {
+		this.visit((Transductor)sensor);
+		
+	}
+
+	@Override
+	public void visit(Actuator actuator) {
+		this.visit((Transductor)actuator);
+		
+	}
+	
+	
+	private void visit(Transductor transductor) {
 		String lastValueDate = transductor.getLastValueDate();
 		if (lastValueDate != null && 
 			timeSincelastValueReachedWatchdogInterval(lastValueDate, transductor.getWatchdogInterval()) &&

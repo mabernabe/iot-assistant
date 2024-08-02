@@ -19,26 +19,26 @@ import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.services.TransductorsService;
+import com.iotassistant.services.DevicesService;
 
 
 
 @Controller
-public class MqttTransductorsController implements MqttCallbackExtended{
+public class MqttDevicesController implements MqttCallbackExtended{
 	
 	private volatile IMqttClient mqttclient;
 	
-	private static MqttTransductorsController instance;
+	private static MqttDevicesController instance;
 	
 	@Autowired
-	private TransductorsService transductorsService;
+	private DevicesService devicesService;
 	
-	Logger logger = LoggerFactory.getLogger(MqttTransductorsController.class);
+	Logger logger = LoggerFactory.getLogger(MqttDevicesController.class);
 	
 
-	public MqttTransductorsController(@Value("${mqtt.broker.url}") String brokerURL, 
+	public MqttDevicesController(@Value("${mqtt.broker.url}") String brokerURL, 
 			@Value("${mqtt.folderpersistence}") String folderPersistence, 
 			@Value("${mqtt.clientid}") String clientId) {
 		super();	
@@ -58,7 +58,7 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 	} 
 	
 	
-	public static MqttTransductorsController getInstance() {
+	public static MqttDevicesController getInstance() {
 		return instance;
 	}
 
@@ -66,6 +66,8 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setAutomaticReconnect(true);
 		options.setCleanSession(false);
+		options.setUserName("miguel");
+		options.setPassword("Pozadelasal.10".toCharArray());
 		options.setConnectionTimeout(0);
 		return options;
 	}
@@ -85,9 +87,9 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message)  {
-		Transductor transductor = transductorsService.getTransductorByName(topic);
-		if (transductor != null) {
-			new MqttArrivedMessageService(transductor, message, transductorsService).updateTransductor();
+		Device device = devicesService.getDeviceByName(topic);
+		if (device != null) {
+			new MqttArrivedMessageService(device, message, devicesService).updateDevice();
 		}			
 	}
 	
@@ -116,7 +118,7 @@ public class MqttTransductorsController implements MqttCallbackExtended{
 	
 	@Override
 	public void connectionLost(Throwable cause) {
-		logger.info("Connection to MQTT broker lost");
+		logger.info("Connection to MQTT broker lost: " + cause.getLocalizedMessage());
 	}
 
 	public boolean isConnected() {

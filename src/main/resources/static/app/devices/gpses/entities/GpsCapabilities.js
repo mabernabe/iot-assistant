@@ -1,4 +1,4 @@
-class CameraCapabilities extends DeviceCapabilities {
+class GpsCapabilities extends DeviceCapabilities {
 	constructor(supportedInterfaces, supportedWatchdogIntervals) {
 		super(supportedInterfaces, supportedWatchdogIntervals);
 	}

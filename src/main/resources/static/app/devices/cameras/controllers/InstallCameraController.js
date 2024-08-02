@@ -3,13 +3,13 @@ camerasModule.controller("InstallCameraController",function(SystemAPIService, Ca
 
 	let self = this;
 	
-	self.camera = new HTTPCamera();
+	self.camera = new HttpCamera();
 	
 	let fetchCameraCapabilities = function(){
-		SystemAPIService.getDevicesCapabilities()
-		.then(function(devicesCapabilities) { 
-			self.supportedInterfaces = devicesCapabilities.getCameraSupportedInterfaces();
-			self.supportedWatchdogIntervals = devicesCapabilities.getCameraSupportedWatchdogIntervals();
+		SystemAPIService.getCamerasCapabilities()
+		.then(function(camerasCapabilities) { 
+			self.supportedInterfaces = camerasCapabilities.getSupportedInterfaces();
+			self.supportedWatchdogIntervals = camerasCapabilities.getSupportedWatchdogIntervals();
 		},function() {
 		})
 	}

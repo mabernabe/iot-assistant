@@ -9,11 +9,11 @@ actuatorsModule.controller ("InstallActuatorController",function($scope, $contro
 	self.transductorType = "Actuator";
 	
 	let fetchActuatorCapabilities = function(){
-		self.systemAPIService.getDevicesCapabilities()
-		.then(function(devicesCapabilities) { 
-			self.supportedProperties = devicesCapabilities.getActuatorSupportedProperties();
-			self.supportedWatchdogIntervals = devicesCapabilities.getActuatorSupportedWatchdogIntervals();
-			self.supportedInterfaces = devicesCapabilities.getActuatorSupportedInterfaces();
+		self.systemAPIService.getActuatorsCapabilities()
+		.then(function(actuatorsCapabilities) { 
+			self.supportedProperties = actuatorsCapabilities.getSupportedProperties();
+			self.supportedWatchdogIntervals = actuatorsCapabilities.getSupportedWatchdogIntervals();
+			self.supportedInterfaces = actuatorsCapabilities.getSupportedInterfaces();
 		},function() {
 		})
 	}

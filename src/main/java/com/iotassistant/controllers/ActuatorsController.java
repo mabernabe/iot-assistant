@@ -38,7 +38,7 @@ public class ActuatorsController {
 	}
 
 	
-	@RequestMapping(value="/mqttInterfaceActuators/", method = RequestMethod.POST)
+	@RequestMapping(value="/mqtt-interface-actuators/", method = RequestMethod.POST)
 	public ResponseEntity<?> newMqttInterfaceActuator(@RequestBody NewMqttInterfaceActuatorDTO newMqttInterfaceActuatorDTO)  {
 		Actuator actuator = newMqttInterfaceActuatorDTO.getActuator();
 		if (devicessService.existDevice(actuator.getName())) {

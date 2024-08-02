@@ -1,1 +1,1 @@
-let devicesModule = angular.module("devicesModule",[ 'camerasModule', 'transductorsModule'] );
+let devicesModule = angular.module("devicesModule",[ 'camerasModule', 'transductorsModule', 'gpsesModule'] );

@@ -77,7 +77,7 @@ public class ActuatorsService  {
 	}
 
 	private void setDownInterface(Actuator actuator) {
-		new TransductorSetDownInterfaceService().setDown(actuator.getInterface());
+		new DeviceSetDownInterfaceService().setDown(actuator.getInterface());
 		
 	}
 
@@ -106,7 +106,7 @@ public class ActuatorsService  {
 
 
 	public void setUpInterface(Actuator actuator) {
-		new TransductorSetUpInterfaceService().setUp(actuator.getInterface());
+		new DeviceSetUpInterfaceService().setUp(actuator.getInterface());
 		
 	}
 

@@ -60,7 +60,7 @@ public class SensorsService  {
 	}
 
 	private void setDownInterface(Sensor sensor) {
-		new TransductorSetDownInterfaceService().setDown(sensor.getInterface());;
+		new DeviceSetDownInterfaceService().setDown(sensor.getInterface());;
 		
 	}
 
@@ -92,7 +92,7 @@ public class SensorsService  {
 	}
 
 	public void setUpInterface(Sensor sensor) {
-		new TransductorSetUpInterfaceService().setUp(sensor.getInterface());	
+		new DeviceSetUpInterfaceService().setUp(sensor.getInterface());	
 	}
 
 	void update(String name, SensorValues values) {

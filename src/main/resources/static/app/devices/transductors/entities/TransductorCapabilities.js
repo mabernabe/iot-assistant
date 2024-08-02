@@ -1,22 +1,12 @@
-class TransductorCapabilities {
+class TransductorCapabilities extends DeviceCapabilities{
 
 	constructor(supportedProperties, supportedInterfaces, supportedWatchdogIntervals) {
+		super(supportedInterfaces, supportedWatchdogIntervals);
 		this.supportedProperties = supportedProperties;
-		this.supportedInterfaces = supportedInterfaces;
-		this.supportedWatchdogIntervals = supportedWatchdogIntervals;
 	}
 
 
 	getSupportedProperties() {
 		return this.supportedProperties;
 	}
-
-	getSupportedInterfaces() {
-		return this.supportedInterfaces;
-	}
-	
-	getSupportedWatchdogIntervals() {
-		return this.supportedWatchdogIntervals;
-	}
-	
 }

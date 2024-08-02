@@ -41,7 +41,7 @@ sensorsModule.service ("SensorAPIService",function(RestAPIService, $q){
 	self.installMQttInterfaceSensor = function (newSensor) {
 		let deferred = $q.defer();
 		let newMqttInterfaceSensor = createNewMqttInterfaceSensorObjRequest(newSensor);
-		RestAPIService.post(sensorsBaseUri.concat("mqttInterfaceSensors/"), newMqttInterfaceSensor).then(function(objectResponse) {
+		RestAPIService.post(sensorsBaseUri.concat("mqtt-interface-sensors/"), newMqttInterfaceSensor).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
 			deferred.reject(errorResponse);

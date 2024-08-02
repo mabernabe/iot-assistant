@@ -68,17 +68,18 @@ public class Sensor extends Transductor {
 	
 
 	@Override
-	public void accept(TransductorVisitor transductorVisitor) {
-		transductorVisitor.visit(this);	
-	}
-
-	@Override
 	public String getLastValueDate() {
 		return ( values == null)? null: values.getDate();
 	}
 
 	public String getValue(PropertyMeasuredEnum propertyMeasured) {
 		return values.getValue(propertyMeasured);
+	}
+
+	@Override
+	public void accept(DeviceVisitor deviceVisitor) {
+		deviceVisitor.visit(this);
+		
 	}
 	
 

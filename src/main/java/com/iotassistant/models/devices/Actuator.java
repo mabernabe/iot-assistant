@@ -57,11 +57,6 @@ public class Actuator extends Transductor{
 	}
 
 
-	@Override
-	public void accept(TransductorVisitor transductorVisitor)  {
-		transductorVisitor.visit(this);		
-	}
-
 
 	@Override
 	public String getLastValueDate() {
@@ -72,8 +67,6 @@ public class Actuator extends Transductor{
 	public ActuatorValues getValues() {
 		return this.values;	
 	}
-	
-	
 
 
 	public void setValues(ActuatorValues values) {
@@ -83,6 +76,13 @@ public class Actuator extends Transductor{
 
 	public List<PropertyActuatedEnum> getPropertiesActuated() {
 		return this.propertiesActuated;
+	}
+
+
+	@Override
+	public void accept(DeviceVisitor deviceVisitor) {
+		deviceVisitor.visit(this);
+		
 	}
 
 

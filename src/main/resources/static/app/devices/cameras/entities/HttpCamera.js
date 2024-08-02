@@ -1,4 +1,4 @@
-class HTTPCamera{
+class HttpCamera{
 	
 	constructor() {
 		this.name = null;

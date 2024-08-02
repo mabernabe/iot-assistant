@@ -8,35 +8,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.Camera;
+import com.iotassistant.models.devices.Device;
+import com.iotassistant.models.devices.DeviceVisitor;
 import com.iotassistant.models.devices.Sensor;
 import com.iotassistant.models.devices.Transductor;
-import com.iotassistant.models.devices.TransductorVisitor;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
-import com.iotassistant.services.TransductorsService;
+import com.iotassistant.services.DevicesService;
 import com.iotassistant.utils.JSONParser;
 
-class MqttArrivedMessageService implements TransductorVisitor{
+class MqttArrivedMessageService implements DeviceVisitor{
 	
 	Logger logger = LoggerFactory.getLogger(MqttArrivedMessageService.class);
 	
-	private Transductor transductor;
+	private Device device;
 	
 	private MqttMessage message;
 	
-	private TransductorsService transductorsService;
+	private DevicesService devicesService;
 
 	
-	MqttArrivedMessageService(Transductor transductor, MqttMessage message,
-			TransductorsService transductorsService) {
+	MqttArrivedMessageService(Device device, MqttMessage message,
+			DevicesService devicesService) {
 		super();
-		this.transductor = transductor;
+		this.device = device;
 		this.message = message;
-		this.transductorsService = transductorsService;
+		this.devicesService = devicesService;
 	}
 
-	void updateTransductor() {
-		this.transductor.accept(this);
+	void updateDevice() {
+		this.device.accept(this);
 	}
 	
 	@Override
@@ -48,7 +50,7 @@ class MqttArrivedMessageService implements TransductorVisitor{
 				this.logError(sensor, sensorValuesDTO.getErrors());
 			}
 			else {
-				transductorsService.updateSensorValues(transductor.getName(), sensorValuesDTO.getSensorValues());
+				devicesService.updateSensorValues(device.getName(), sensorValuesDTO.getSensorValues());
 			}	
 		} catch (IOException e) {
 			logger.error(e.getLocalizedMessage());
@@ -66,12 +68,18 @@ class MqttArrivedMessageService implements TransductorVisitor{
 			List<PropertyActuatedEnum> actuatorProperties = actuator.getPropertiesActuated();
 			if (actuatorValuesDTO.hasErrors(actuatorProperties)) {
 				this.logError(actuator, actuatorValuesDTO.getErrors());			} else {
-				transductorsService.updateActuatorValues(actuator.getName(), actuatorValuesDTO.getSensorValues());
+				devicesService.updateActuatorValues(actuator.getName(), actuatorValuesDTO.getSensorValues());
 			}	
 		} catch (IOException e) {
 			logger.error(e.getLocalizedMessage());
 		}
 		
+	}
+
+
+	@Override
+	public void visit(Camera camera) {
+		// 	
 	}
 
 }

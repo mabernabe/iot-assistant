@@ -5,18 +5,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.iotassistant.models.devices.TransductorInterface;
-import com.iotassistant.models.devices.TransductorInterfaceVisitor;
+import com.iotassistant.models.CameraHttpInterface;
+import com.iotassistant.models.devices.DeviceInterfaceVisitor;
 import com.iotassistant.mqtt.ActuatorMqttInterface;
 import com.iotassistant.mqtt.MqttInterface;
-import com.iotassistant.mqtt.MqttTransductorsController;
+import com.iotassistant.mqtt.MqttDevicesController;
 import com.iotassistant.mqtt.SensorMqttInterface;
 
 
-class TransductorSetUpInterfaceService implements TransductorInterfaceVisitor {
+class DeviceSetUpInterfaceService implements DeviceInterfaceVisitor {
 
-	Logger logger = LoggerFactory.getLogger(TransductorSetUpInterfaceService.class);
+	Logger logger = LoggerFactory.getLogger(DeviceSetUpInterfaceService.class);
 	
-	public TransductorSetUpInterfaceService() {
+	public DeviceSetUpInterfaceService() {
 		super();
 	}
 
@@ -31,7 +32,7 @@ class TransductorSetUpInterfaceService implements TransductorInterfaceVisitor {
 	
 	private void setUpMqttInterface(MqttInterface mqttInterface) {
 		try {
-			MqttTransductorsController.getInstance().subscribe(mqttInterface);
+			MqttDevicesController.getInstance().subscribe(mqttInterface);
 		} catch (MqttException e) {
 			logger.error(e.getLocalizedMessage());
 		} 	
@@ -41,6 +42,11 @@ class TransductorSetUpInterfaceService implements TransductorInterfaceVisitor {
 	@Override
 	public void visit(ActuatorMqttInterface actuatorMqttInterface) {
 		this.setUpMqttInterface(actuatorMqttInterface);	
+	}
+
+	@Override
+	public void visit(CameraHttpInterface cameraHttpInterface) {
+		// Nothing to do	
 	}
 
 }

@@ -33,7 +33,7 @@ public class CamerasController {
 		return new CamerasDTO(camerasService.getAllCameras(), baseUrlCameraPicture);	
 	}
 	
-	@RequestMapping(value="/httpCameras/", method = RequestMethod.POST)
+	@RequestMapping(value="/http-interface-cameras/", method = RequestMethod.POST)
 	public ResponseEntity<?> newHTTPInterfaceCamera(@RequestBody HttpCameraDTO httpCameraDTO)  { 
 		Camera camera = httpCameraDTO.getCamera();
 		if (camerasService.existCamera(camera.getName())) {

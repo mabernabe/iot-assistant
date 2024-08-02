@@ -12,7 +12,7 @@ import com.iotassistant.models.ServerStatus;
 import com.iotassistant.models.TelegramBotManager;
 import com.iotassistant.models.devices.TransductorInterfaceTypeEnum;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.mqtt.MqttTransductorsController;
+import com.iotassistant.mqtt.MqttDevicesController;
 
 @Service
 public class ServersStatusService {
@@ -24,7 +24,7 @@ public class ServersStatusService {
 	private String mqttBroker;
 	
 	@Autowired
-	MqttTransductorsController mqttTransductorsController;
+	MqttDevicesController mqttTransductorsController;
 	
 
 	public List<ServerStatus> getServersStatus() {

@@ -44,7 +44,7 @@ public class SensorsController {
 		
 	}	
 
-	@RequestMapping(value="/mqttInterfaceSensors/", method = RequestMethod.POST)
+	@RequestMapping(value="/mqtt-interface-sensors/", method = RequestMethod.POST)
 	public ResponseEntity<?> newMqttInterfaceSensor(@RequestBody NewMqttInterfaceSensorDTO newMqttInterfaceSensorDTO){
 		Sensor sensor = newMqttInterfaceSensorDTO.getSensor();
 		if (transductorsService.existTransductor(sensor.getName())) {

@@ -13,13 +13,12 @@ import com.iotassistant.models.devices.Sensor;
 import com.iotassistant.models.devices.SensorValues;
 import com.iotassistant.models.devices.Transductor;
 import com.iotassistant.models.devices.TransductorInterfaceTypeEnum;
-import com.iotassistant.models.devices.TransductorVisitor;
 import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.repositories.TransductorsJPARepository;
 
 
 @Service
-public class TransductorsService implements TransductorVisitor{
+public class TransductorsService {
 	
 	@Autowired
 	private SensorsService sensorService;
@@ -59,20 +58,11 @@ public class TransductorsService implements TransductorVisitor{
 		return SensorRuleTriggerIntervalEnum.getAvailableTriggerIntervalOptions();
 	}
 
-
-	public void setUpInterface(Transductor transductor) {
-		transductor.accept(this);
-	}
-
-
-	@Override
-	public void visit(Sensor sensor)  {
+	public void setUpInterface(Sensor sensor)  {
 		sensorService.setUpInterface(sensor);		
 	}
 
-
-	@Override
-	public void visit(Actuator actuator) {
+	public void setUpInterface(Actuator actuator) {
 		actuatorService.setUpInterface(actuator);		
 	}
 
