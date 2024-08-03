@@ -1,4 +1,4 @@
-package com.iotassistant.models.devices;
+package com.iotassistant.models.devices.transductors;
 
 import java.util.List;
 
@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.iotassistant.models.devices.DeviceVisitor;
+import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 @Entity

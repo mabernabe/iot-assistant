@@ -17,7 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 @Entity

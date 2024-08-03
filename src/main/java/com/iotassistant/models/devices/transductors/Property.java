@@ -1,4 +1,4 @@
-package com.iotassistant.models.devices;
+package com.iotassistant.models.devices.transductors;
 
 
 public interface Property {

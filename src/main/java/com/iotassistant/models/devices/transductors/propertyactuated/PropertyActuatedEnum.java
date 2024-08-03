@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Property;
 
 public enum PropertyActuatedEnum implements Property{
 	DIGITAL_LED(new BinaryLED()),

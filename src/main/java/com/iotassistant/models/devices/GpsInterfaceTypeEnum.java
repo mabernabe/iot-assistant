@@ -3,23 +3,21 @@ package com.iotassistant.models.devices;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum TransductorInterfaceTypeEnum {
+import com.iotassistant.models.devices.transductors.TransductorInterfaceTypeEnum;
+
+public enum GpsInterfaceTypeEnum {
 	MQTT("MQTT");
 
 	private String string;
 
-
-
-	private TransductorInterfaceTypeEnum(String string) {
+	private GpsInterfaceTypeEnum(String string) {
 		this.string = string;
 	}
-
 
 	@Override
 	public String toString() {
 		return string;
 	}
-
 
 	public static List<String> getAllInstances() {
 		List<String> instances = new ArrayList<String>();
@@ -28,7 +26,5 @@ public enum TransductorInterfaceTypeEnum {
 		}
 		return instances;
 	}
-
-
 
 }

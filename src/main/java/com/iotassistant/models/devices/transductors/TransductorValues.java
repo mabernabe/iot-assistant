@@ -1,4 +1,4 @@
-package com.iotassistant.models.devices;
+package com.iotassistant.models.devices.transductors;
 
 import java.util.Map;
 

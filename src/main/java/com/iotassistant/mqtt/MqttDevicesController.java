@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.services.DevicesService;
+import com.iotassistant.services.DevicesFacadeService;
 
 
 
@@ -33,19 +33,22 @@ public class MqttDevicesController implements MqttCallbackExtended{
 	private static MqttDevicesController instance;
 	
 	@Autowired
-	private DevicesService devicesService;
+	private DevicesFacadeService devicesService;
 	
 	Logger logger = LoggerFactory.getLogger(MqttDevicesController.class);
 	
 
 	public MqttDevicesController(@Value("${mqtt.broker.url}") String brokerURL, 
 			@Value("${mqtt.folderpersistence}") String folderPersistence, 
-			@Value("${mqtt.clientid}") String clientId) {
+			@Value("${mqtt.clientid}") String clientId,
+			@Value("${mqtt.username:#{null}}") String username, 
+			@Value("${mqtt.password:#{null}}") String password) {
+		
 		super();	
 		try {
 			mqttclient = new MqttClient(brokerURL, clientId, new MqttDefaultFilePersistence(folderPersistence));
 			mqttclient.setCallback(this);
-			mqttclient.connect(this.getMqttConnectOptions());
+			mqttclient.connect(this.getMqttConnectOptions(username, password));
 		} catch (MqttException e) { 
 			logger.error(e.getLocalizedMessage());
 		} 	
@@ -62,13 +65,15 @@ public class MqttDevicesController implements MqttCallbackExtended{
 		return instance;
 	}
 
-	private MqttConnectOptions getMqttConnectOptions() {
+	private MqttConnectOptions getMqttConnectOptions(String username, String password) {
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setAutomaticReconnect(true);
 		options.setCleanSession(false);
-		options.setUserName("miguel");
-		options.setPassword("Pozadelasal.10".toCharArray());
 		options.setConnectionTimeout(0);
+		if (username!= null && password != null) {
+			options.setUserName(username);
+			options.setPassword(password.toCharArray());
+		}		
 		return options;
 	}
 

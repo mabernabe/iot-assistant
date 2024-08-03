@@ -1,4 +1,4 @@
-package com.iotassistant.models;
+package com.iotassistant.services;
 
 import java.text.ParseException;
 import java.util.List;
@@ -7,29 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.iotassistant.models.devices.Actuator;
 import com.iotassistant.models.devices.Camera;
 import com.iotassistant.models.devices.CameraInterfaceException;
 import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.devices.DeviceVisitor;
-import com.iotassistant.models.devices.Sensor;
-import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.Gps;
 import com.iotassistant.models.devices.WatchdogInterval;
+import com.iotassistant.models.devices.transductors.Actuator;
+import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.models.notifications.DeviceOfflineNotification;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
-import com.iotassistant.services.DevicesService;
-import com.iotassistant.services.NotificationsService;
 import com.iotassistant.utils.Date;
 
 @Component
-public class Watchdog implements DeviceVisitor {
+public class WatchdogService implements DeviceVisitor {
 	
 	private static int TIME_MINUTES_BETWEEN_OFFLINE_NOTIFICATIONS = 60; 
 	
 	private static NotificationTypeEnum DEVICE_OFFLINE_NOTIFICATION_TYPE = NotificationTypeEnum.TELEGRAM;
 
 	@Autowired
-	DevicesService devicesService;
+	DevicesFacadeService devicesService;
 
 	@Autowired
 	NotificationsService notificationService;
@@ -47,23 +45,27 @@ public class Watchdog implements DeviceVisitor {
 	
 	@Override
 	public void visit(Sensor sensor) {
-		this.visit((Transductor)sensor);
+		this.visit((Device)sensor, sensor.getLastValueDate());
 		
 	}
 
 	@Override
 	public void visit(Actuator actuator) {
-		this.visit((Transductor)actuator);
-		
+		this.visit((Device)actuator, actuator.getLastValueDate());
+	}
+	
+
+	@Override
+	public void visit(Gps gps) {
+		this.visit((Device)gps, gps.getLastValueDate());
 	}
 	
 	
-	private void visit(Transductor transductor) {
-		String lastValueDate = transductor.getLastValueDate();
+	private void visit(Device device, String lastValueDate) {
 		if (lastValueDate != null && 
-			timeSincelastValueReachedWatchdogInterval(lastValueDate, transductor.getWatchdogInterval()) &&
-			timeSinceLastNotificationReachMinInterval(transductor) ) {
-				sendNotification(transductor);
+			timeSincelastValueReachedWatchdogInterval(lastValueDate, device.getWatchdogInterval()) &&
+			timeSinceLastNotificationReachMinInterval(device) ) {
+				sendNotification(device);
 		}	
 	}
 
@@ -109,5 +111,6 @@ public class Watchdog implements DeviceVisitor {
 		}
 
 	}
+
 
 }

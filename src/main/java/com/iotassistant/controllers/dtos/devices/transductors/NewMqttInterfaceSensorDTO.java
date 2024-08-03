@@ -3,12 +3,13 @@ package com.iotassistant.controllers.dtos.devices.transductors;
 
 import java.util.List;
 
-import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.controllers.dtos.devices.NewDeviceRequestDTO;
 import com.iotassistant.models.devices.WatchdogInterval;
+import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.mqtt.SensorMqttInterface;
 
-public class NewMqttInterfaceSensorDTO extends NewTransductorRequestDTO{
+public class NewMqttInterfaceSensorDTO extends NewDeviceRequestDTO{
 	
 	private List<PropertyMeasuredEnum> propertiesMeasured;
 

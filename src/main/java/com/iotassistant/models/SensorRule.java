@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.SensorValues;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 

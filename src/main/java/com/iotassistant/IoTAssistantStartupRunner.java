@@ -7,13 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.iotassistant.models.devices.Device;
-import com.iotassistant.services.DevicesService;
+import com.iotassistant.services.DevicesFacadeService;
 
 @Component
 public class IoTAssistantStartupRunner implements CommandLineRunner{
 
 	@Autowired
-	private DevicesService devicesService;
+	private DevicesFacadeService devicesService;
 	
 	@Override
 	public void run(String...args) throws Exception {

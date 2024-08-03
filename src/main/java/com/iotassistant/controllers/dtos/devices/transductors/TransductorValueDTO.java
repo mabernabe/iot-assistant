@@ -1,6 +1,6 @@
 package com.iotassistant.controllers.dtos.devices.transductors;
 
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Property;
 
 abstract class TransductorValueDTO {
 	

@@ -9,7 +9,7 @@ import com.iotassistant.models.SensorChart;
 import com.iotassistant.models.SensorChartIntervalEnum;
 import com.iotassistant.models.SensorChartSampleIntervalEnum;
 import com.iotassistant.models.SensorChartTypeEnum;
-import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.repositories.ChartsJPARepository;
 

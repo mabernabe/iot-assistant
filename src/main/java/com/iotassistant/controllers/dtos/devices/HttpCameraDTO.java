@@ -8,7 +8,7 @@ import com.iotassistant.models.CameraHttpInterface;
 import com.iotassistant.models.devices.Camera;
 import com.iotassistant.models.devices.WatchdogInterval;
 
-public class HttpCameraDTO extends CameraDTO{
+public class HttpCameraDTO extends NewDeviceRequestDTO{
 	
 	@JsonProperty(required = true)
     @NotNull

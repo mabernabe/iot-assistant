@@ -31,8 +31,8 @@ class MqttGps{
 		this.interfaceType = interfaceType;
 	}
 	
-	interfaceTypeIsHTTP() {
-		return this.interfaceType === "HTTP";
+	interfaceTypeIsMQTT() {
+		return this.interfaceType === "MQTT";
 	}
 	
 	

@@ -35,8 +35,8 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	function getTransductorCapabilitiesFromResponse(objectResponse) {
-		let transductorProperties = getPropertiesFromPropertiesObject(objectResponse.sensorCapabilities.supportedProperties);
-		return TransductorCapabilities(transductorProperties, objectResponse.sensorCapabilities.supportedInterfaces, objectResponse.sensorCapabilities.supportedWatchdogIntervals);	
+		let transductorProperties = getPropertiesFromPropertiesObject(objectResponse.supportedProperties);
+		return new TransductorCapabilities(transductorProperties, objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
 	}
 	
 	self.getActuatorsCapabilities = function () {
@@ -60,7 +60,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	function getGpsesCapabilitiesFromResponse(objectResponse) {
-		new GpsCapabilities(objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
+		return new GpsCapabilities(objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
 	}
 	
 	self.getCamerasCapabilities = function () {
@@ -74,7 +74,7 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	}
 	
 	function getCamerasCapabilitiesFromResponse(objectResponse) {
-		new CameraCapabilities(objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
+		return new CameraCapabilities(objectResponse.supportedInterfaces, objectResponse.supportedWatchdogIntervals);	
 	}
 	
 	self.getDevicesCapabilities = function () {
@@ -147,11 +147,11 @@ systemModule.service ("SystemAPIService",function(RestAPIService, $q){
 	
 	
 	function getRulesCapabilitiesFromResponse(objectResponse) {
-		return 	new RuleCapabilities(objectResponse.supportedSensorRulesTypes, objectResponse.supportedSensorRulesTimeBetweenTriggers);
+		return new RuleCapabilities(objectResponse.supportedSensorRulesTypes, objectResponse.supportedSensorRulesTimeBetweenTriggers);
 	}
 	
 	function getNotificationsCapabilitiesFromResponse(objectResponse) {
-		return 	new NotificationsCapabilities(objectResponse.supportedNotificationsTypes);
+		return new NotificationsCapabilities(objectResponse.supportedNotificationsTypes);
 	}
 	
 	

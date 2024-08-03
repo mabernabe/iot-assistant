@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.iotassistant.models.ServerStatus;
 import com.iotassistant.models.TelegramBotManager;
-import com.iotassistant.models.devices.TransductorInterfaceTypeEnum;
+import com.iotassistant.models.devices.transductors.TransductorInterfaceTypeEnum;
 import com.iotassistant.models.notifications.NotificationTypeEnum;
 import com.iotassistant.mqtt.MqttDevicesController;
 

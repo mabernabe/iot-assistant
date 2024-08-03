@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.iotassistant.models.ServerStatus;
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Property;
 import com.iotassistant.utils.Date;
 
 @Service
@@ -20,10 +20,13 @@ public class SystemService {
 	private String platform;
 	
 	@Autowired
-	private TransductorsService transductorsService;
+	private TransductorsFacadeService transductorsService;
 	
 	@Autowired
 	private CamerasService camerasService;
+	
+	@Autowired
+	private GpsesService gpsesService;
 
 	private @Autowired
 	NotificationsService notificationsService;
@@ -117,6 +120,14 @@ public class SystemService {
 		return camerasService.getSupportedInterfaces();
 	}
 
+	public List<String> getSupportedGpsesInterfaces() {
+		return gpsesService.getSupportedInterfaces();
+	}
+
+	public List<String> getSupportedGpsesWatchdogIntervals() {
+		return gpsesService.getSupportedWatchdogIntervals();
+	}
+	
 	public List<ServerStatus> getServersStatus() {
 		return serversStatusService.getServersStatus();
 	}
@@ -125,6 +136,8 @@ public class SystemService {
 		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
 		return Date.getTimeFromUptime(rb.getUptime());
 	}
+
+
 
 
 

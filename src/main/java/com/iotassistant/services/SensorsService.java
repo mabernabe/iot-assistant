@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.models.devices.Property;
-import com.iotassistant.models.devices.Sensor;
-import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.Property;
+import com.iotassistant.models.devices.transductors.Sensor;
+import com.iotassistant.models.devices.transductors.SensorValues;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 import com.iotassistant.repositories.SensorsJPARepository;
 
 @Service
-public class SensorsService  {
+public class SensorsService extends DeviceService {
 	
 	@Autowired
 	private SensorsJPARepository sensorsRepository;
@@ -24,13 +24,10 @@ public class SensorsService  {
 	@Autowired
 	private SensorRulesService sensorRulesService;
 	
-	
-	
 	public Sensor getSensorByName(String name) {
 		return sensorsRepository.findOne(name);
 	}
 
-	
 	public List<Sensor> getAllSensors() {
 		return sensorsRepository.findAll();
 	}
@@ -55,20 +52,13 @@ public class SensorsService  {
 		Sensor sensor = getSensorByName(name);
 		this.setDownInterface(sensor);
 		deleteSensorDependencies(name);
-		sensorsRepository.delete(name);
-			
-	}
-
-	private void setDownInterface(Sensor sensor) {
-		new DeviceSetDownInterfaceService().setDown(sensor.getInterface());;
-		
+		sensorsRepository.delete(name);		
 	}
 
 	private void deleteSensorDependencies(String sensorName) {
 		chartsService.deleteChartsBySensorName(sensorName);	
 		sensorRulesService.deleteSensorRuleBySensorName(sensorName);
 	}
-	
 
 	public boolean exist(String sensorName) {
 		return this.getSensorByName(sensorName) != null;
@@ -84,16 +74,6 @@ public class SensorsService  {
 		return hasSensorProperty;
 	}
 
-
-	public void enableDisableWatchdog(boolean enable, String sensorName) {
-		Sensor sensor = getSensorByName(sensorName);
-		sensor.setWatchdogEnabled(enable);
-		sensorsRepository.save(sensor);	
-	}
-
-	public void setUpInterface(Sensor sensor) {
-		new DeviceSetUpInterfaceService().setUp(sensor.getInterface());	
-	}
 
 	void update(String name, SensorValues values) {
 		Sensor sensor = this.getSensorByName(name);

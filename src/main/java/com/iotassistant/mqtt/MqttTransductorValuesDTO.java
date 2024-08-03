@@ -7,8 +7,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.iotassistant.models.devices.Property;
-import com.iotassistant.models.devices.TransductorValues;
+import com.iotassistant.models.devices.transductors.Property;
+import com.iotassistant.models.devices.transductors.TransductorValues;
 import com.iotassistant.utils.Date;
 
 abstract class MqttTransductorValuesDTO<T extends Property> {

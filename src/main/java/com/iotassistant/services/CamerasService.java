@@ -15,7 +15,7 @@ import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.repositories.CamerasJPARepository;
 
 @Service
-public class CamerasService {
+public class CamerasService extends DeviceService{
 	
 	private static CamerasService instance;
 
@@ -40,6 +40,7 @@ public class CamerasService {
 
 	public void newCamera(Camera camera) {
 		camerasJPARepository.save(camera);
+		this.setUpInterface(camera);
 	}
 
 	public List<String> getSupportedInterfaces() {
@@ -63,10 +64,6 @@ public class CamerasService {
 		return camerasJPARepository.findOne(cameraName) != null;
 	}
 
-	public void setUpInterface(Camera camera) {
-		camera.getInterface();
-		
-	}
 
 	public List<String> getSupportedWatchdogIntervals() {
 		List<String> supportedWatchdogIntervals = new ArrayList<String>();

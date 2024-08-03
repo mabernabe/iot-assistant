@@ -36,7 +36,7 @@ public class CamerasController {
 	@RequestMapping(value="/http-interface-cameras/", method = RequestMethod.POST)
 	public ResponseEntity<?> newHTTPInterfaceCamera(@RequestBody HttpCameraDTO httpCameraDTO)  { 
 		Camera camera = httpCameraDTO.getCamera();
-		if (camerasService.existCamera(camera.getName())) {
+		if (camerasService.existDevice(camera.getName())) {
 			ErrorDTO deviceExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
 			return new ResponseEntity<>(deviceExistError, deviceExistError.getHttpStatus());
 		}

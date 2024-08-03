@@ -14,9 +14,10 @@ import com.iotassistant.controllers.dtos.SystemCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.SystemDTO;
 import com.iotassistant.controllers.dtos.devices.CameraCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.devices.DevicesCapabilitiesDTO;
+import com.iotassistant.controllers.dtos.devices.GpsCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.devices.transductors.TransductorCapabilitiesDTO;
 import com.iotassistant.controllers.dtos.notifications.NotificationsCapabilitiesDTO;
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Property;
 import com.iotassistant.services.SystemCantShutdownException;
 import com.iotassistant.services.SystemService;
 
@@ -76,7 +77,16 @@ public class SystemController {
 		List<String> actuatorSupportedInterfaces = systemService.getSupportedActuatorInterfaces();
 		List<String> actuatorSupportedWatchdogIntervals = systemService.getSupportedTransductorsWatchdogIntervals();
 		return new TransductorCapabilitiesDTO(actuatorSupportedProperties, actuatorSupportedInterfaces, actuatorSupportedWatchdogIntervals);
-
+	}
+	
+	@RequestMapping(value="/cameras-capabilities/", method = RequestMethod.GET)
+	public CameraCapabilitiesDTO getCameraCapabilities()  {	
+		return new CameraCapabilitiesDTO(systemService.getSupportedCameraInterfaces(), systemService.getSupportedCamerasWatchdogIntervals());
+	}
+	
+	@RequestMapping(value="/gpses-capabilities/", method = RequestMethod.GET)
+	public GpsCapabilitiesDTO getGPSCapabilities()  {	
+		return new GpsCapabilitiesDTO(systemService.getSupportedGpsesInterfaces(), systemService.getSupportedGpsesWatchdogIntervals());
 	}
 	
 	@RequestMapping(value="/devices-capabilities/", method = RequestMethod.GET)
@@ -94,10 +104,7 @@ public class SystemController {
 
 	}
 	
-	@RequestMapping(value="/cameras-capabilities/", method = RequestMethod.GET)
-	public CameraCapabilitiesDTO getCameraCapabilities()  {	
-		return new CameraCapabilitiesDTO(systemService.getSupportedCameraInterfaces(), systemService.getSupportedCamerasWatchdogIntervals());
-	}
+
 	
 	@RequestMapping(value="/rules-capabilities/", method = RequestMethod.GET)
 	public RuleCapabilitiesDTO getRuleCapabilities()  {	

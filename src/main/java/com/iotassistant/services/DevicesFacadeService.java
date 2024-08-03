@@ -8,37 +8,42 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.iotassistant.models.devices.Actuator;
-import com.iotassistant.models.devices.ActuatorValues;
 import com.iotassistant.models.devices.Camera;
 import com.iotassistant.models.devices.CameraInterfaceException;
 import com.iotassistant.models.devices.Device;
 import com.iotassistant.models.devices.DeviceVisitor;
-import com.iotassistant.models.devices.Sensor;
-import com.iotassistant.models.devices.SensorValues;
-import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.Gps;
+import com.iotassistant.models.devices.GpsPosition;
+import com.iotassistant.models.devices.transductors.Actuator;
+import com.iotassistant.models.devices.transductors.ActuatorValues;
+import com.iotassistant.models.devices.transductors.Sensor;
+import com.iotassistant.models.devices.transductors.SensorValues;
+import com.iotassistant.models.devices.transductors.Transductor;
 import com.iotassistant.repositories.DevicesJPARepository;
 
 
 @Component
-public class DevicesService implements DeviceVisitor {
+public class DevicesFacadeService implements DeviceVisitor {
 	
 	@Autowired
-	private TransductorsService transductorsService;
+	private TransductorsFacadeService transductorsService;
 	
 	@Autowired
 	private CamerasService camerasService;
 	
 	@Autowired
+	private GpsesService gpsesService;
+	
+	@Autowired
 	private DevicesJPARepository devicesJPARepository;
 	
-	private static DevicesService instance;
+	private static DevicesFacadeService instance;
 	
 	@PostConstruct
 	private void registerInstance() {
 		instance = this;
 	} 
-	static DevicesService getInstance() {
+	static DevicesFacadeService getInstance() {
 		return instance;
 	}
 
@@ -62,18 +67,20 @@ public class DevicesService implements DeviceVisitor {
 	public void visit(Camera camera) {
 		camerasService.setUpInterface(camera);
 	}
-
 	
-	void setActive(String name, boolean active) {
-		assert(this.existDevice(name));
-		Device device = devicesJPARepository.findOne(name);
-		device.setActive(false);
-		devicesJPARepository.saveAndFlush(device);
-		
+	@Override
+	public void visit(Sensor sensor) {
+		transductorsService.setUpInterface(sensor);	
 	}
-
-	public boolean existDevice(String name) {
-		return this.getDeviceByName(name) != null;
+	
+	@Override
+	public void visit(Actuator actuator) {
+		transductorsService.setUpInterface(actuator);		
+	}
+	
+	@Override
+	public void visit(Gps gps) {
+		gpsesService.setUpInterface(gps);
 	}
 	
 	public Device getDeviceByName(String name) {
@@ -84,23 +91,17 @@ public class DevicesService implements DeviceVisitor {
 		return camerasService.getPicture(camera.getName());
 		
 	}
-	@Override
-	public void visit(Sensor sensor) {
-		transductorsService.setUpInterface(sensor);	
-		
-	}
-	@Override
-	public void visit(Actuator actuator) {
-		transductorsService.setUpInterface(actuator);	
-		
-	}
+	
 	public void updateSensorValues(String sensorName, SensorValues sensorValues) {
-		transductorsService.updateSensorValues(sensorName, sensorValues);
-		
+		transductorsService.updateSensorValues(sensorName, sensorValues);	
 	}
+	
 	public void updateActuatorValues(String actuatorName, ActuatorValues actuatorValues) {
 		transductorsService.updateActuatorValues(actuatorName, actuatorValues);
-		
+	}
+	
+	public void updateGpsPosition(String gpsName, GpsPosition position) {
+		gpsesService.update(gpsName, position);
 	}
 	
 

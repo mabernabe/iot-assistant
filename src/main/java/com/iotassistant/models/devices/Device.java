@@ -50,6 +50,8 @@ public abstract class Device {
 		return description;
 	}
 	
+	public abstract DeviceInterface getInterface();
+	
 	public WatchdogInterval getWatchdogInterval() {
 		return watchdogInterval;
 	}

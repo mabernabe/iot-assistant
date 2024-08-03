@@ -1,11 +1,11 @@
-package com.iotassistant.controllers.dtos.devices.transductors;
+package com.iotassistant.controllers.dtos.devices;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class NewTransductorRequestDTO {
+public class NewDeviceRequestDTO {
 	
 	@JsonProperty(required = true)
     @NotNull

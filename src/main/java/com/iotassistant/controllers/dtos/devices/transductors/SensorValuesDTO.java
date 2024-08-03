@@ -3,7 +3,7 @@ package com.iotassistant.controllers.dtos.devices.transductors;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.SensorValues;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 

@@ -1,17 +1,13 @@
 package com.iotassistant.models.devices;
 
 import com.iotassistant.models.CameraHttpInterface;
-import com.iotassistant.mqtt.ActuatorMqttInterface;
-import com.iotassistant.mqtt.SensorMqttInterface;
+import com.iotassistant.mqtt.MqttInterface;
 
 public interface DeviceInterfaceVisitor {
 
-	void visit(SensorMqttInterface sensorMqttInterface) ;
-
-	void visit(ActuatorMqttInterface actuatorMqttInterface);
+	void visit(MqttInterface mqttInterface) ;
 	
-	void visit(CameraHttpInterface cameraHttpInterface);
-	
+	void visit(CameraHttpInterface cameraHttpInterface);	
 	
 
 }

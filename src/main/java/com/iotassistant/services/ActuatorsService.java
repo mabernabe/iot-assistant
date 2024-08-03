@@ -8,14 +8,14 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iotassistant.models.devices.Actuator;
-import com.iotassistant.models.devices.ActuatorValues;
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Actuator;
+import com.iotassistant.models.devices.transductors.ActuatorValues;
+import com.iotassistant.models.devices.transductors.Property;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 import com.iotassistant.repositories.ActuatorsJPARepository;
 
 @Service
-public class ActuatorsService  {
+public class ActuatorsService extends DeviceService {
 	
 	private static ActuatorsService instance;
 
@@ -76,11 +76,6 @@ public class ActuatorsService  {
 		actuatorsRepository.delete(name);		
 	}
 
-	private void setDownInterface(Actuator actuator) {
-		new DeviceSetDownInterfaceService().setDown(actuator.getInterface());
-		
-	}
-
 
 	private void deleteActuatorDependencies(String actuatorName) {
 		sensorRulesService.deleteTriggerActuatorSensorRules(actuatorName);		
@@ -95,19 +90,6 @@ public class ActuatorsService  {
 			hasActuatorProperty = false;
 		}
 		return hasActuatorProperty;
-	}
-
-
-	public void enableDisableWatchdog(boolean enable, String actuatorName) {
-		Actuator actuator = getActuatorByName(actuatorName);
-		actuator.setWatchdogEnabled(enable);
-		actuatorsRepository.save(actuator);	
-	}
-
-
-	public void setUpInterface(Actuator actuator) {
-		new DeviceSetUpInterfaceService().setUp(actuator.getInterface());
-		
 	}
 
 

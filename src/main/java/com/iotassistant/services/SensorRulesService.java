@@ -12,7 +12,7 @@ import com.iotassistant.models.SensorRule;
 import com.iotassistant.models.SensorRuleTriggerIntervalEnum;
 import com.iotassistant.models.SensorRuleType;
 import com.iotassistant.models.TriggerActuatorSensorRule;
-import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.SensorValues;
 import com.iotassistant.repositories.CameraSensorRuleJPARepository;
 import com.iotassistant.repositories.SensorRuleJPARepository;
 import com.iotassistant.repositories.TriggerActuatorSensorRuleJPARepository;

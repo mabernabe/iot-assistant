@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Property;
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogAirCO2PPM;
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogAirCOPPM;
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogAirPressurePA;

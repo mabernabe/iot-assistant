@@ -14,16 +14,13 @@ import com.iotassistant.controllers.dtos.devices.EnableDTO;
 import com.iotassistant.controllers.dtos.devices.transductors.NewMqttInterfaceSensorDTO;
 import com.iotassistant.controllers.dtos.devices.transductors.SensorDTO;
 import com.iotassistant.controllers.dtos.devices.transductors.SensorsDTO;
-import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.services.SensorsService;
-import com.iotassistant.services.TransductorsService;
 
 @RestController
 @RequestMapping("${sensors.uri}")
 public class SensorsController {
 	
-	@Autowired
-	private TransductorsService transductorsService;
 	
 	@Autowired
 	private SensorsService sensorsService;
@@ -47,7 +44,7 @@ public class SensorsController {
 	@RequestMapping(value="/mqtt-interface-sensors/", method = RequestMethod.POST)
 	public ResponseEntity<?> newMqttInterfaceSensor(@RequestBody NewMqttInterfaceSensorDTO newMqttInterfaceSensorDTO){
 		Sensor sensor = newMqttInterfaceSensorDTO.getSensor();
-		if (transductorsService.existTransductor(sensor.getName())) {
+		if (sensorsService.existDevice(sensor.getName())) {
 			ErrorDTO deviceExistError = ErrorDTO.DEVICE_ALREADY_EXIST;
 			return new ResponseEntity<>(deviceExistError, deviceExistError.getHttpStatus());
 		}

@@ -9,11 +9,11 @@
 				<div class="col-sm-6">
 					<div class="form-group">					
 						<label>GPS Name</label>
-						<input type="text" class="form-control" ng-model="InstallGPSController.gps.name" name="gpsNameInput">
+						<input type="text" class="form-control" ng-model="InstallGpsController.gps.name" name="gpsNameInput">
 					</div>
 					<div class="form-group">     
 						<label>GPS Description</label>                    
-                        <input type="text" ng-model="InstallGPSController.gps.description" class="form-control" name="gpsDescriptionInput" />
+                        <input type="text" ng-model="InstallGpsController.gps.description" class="form-control" name="gpsDescriptionInput" />
                     </div>
 				</div>
 			</div>
@@ -24,9 +24,9 @@
 				<div class="col-lg-10">
 					<div class="row">
 						<div class="col-sm"
-							ng-repeat="supportedInterface in InstallGPSController.supportedInterfaces">
-							<div class="choice" data-toggle="wizard-radio" ng-class="{active : supportedInterface === InstallGPSController.gps.getInterfaceType()}" 
-							ng-click="InstallGPSController.setGpsInterfaceType(supportedInterface)">
+							ng-repeat="supportedInterface in InstallGpsController.supportedInterfaces">
+							<div class="choice" data-toggle="wizard-radio" ng-class="{active : supportedInterface === InstallGpsController.gps.getInterfaceType()}" 
+							ng-click="InstallGpsController.setGpsInterfaceType(supportedInterface)">
 								<input type="radio"   name="selectedInterface" ng-value="supportedInterface">
 								<div class="icon">
 									<i class="nc-icon nc-{{supportedInterface | lowercase}}"></i>
@@ -34,7 +34,7 @@
 								<h6>{{supportedInterface}}</h6>
 							</div>
 						</div>
-						<div ng-if="!InstallGPSController.supportedInterfaces.length" class="col-sm" style="text-align: center;">
+						<div ng-if="!InstallGpsController.supportedInterfaces.length" class="col-sm" style="text-align: center;">
 							<h3 class="description">No available interfaces</h3>
 						</div>
 					</div>
@@ -42,12 +42,16 @@
 			</div>
 		</div>
 		<div class="tab-pane" id="configuration">
-			<div class="row justify-content-center" ng-if="InstallGPSController.gps.interfaceTypeIsMQTT()">
+			<div class="row justify-content-center" ng-if="InstallGpsController.gps.interfaceTypeIsMQTT()">
 				<div class="col-sm-12">
 					<h5 class="info-text">Interface configuration</h5>
 				</div>
 				<div class="row col-sm-12 justify-content-center">
 					<div class="col-sm-6">
+						<div class="form-group">
+							<label>Topic</label> <input type="text"
+								class="form-control"  ng-value="InstallGpsController.gps.name" disabled>
+						</div>
 					</div>
 				</div>
 				<div class="row col-sm-12 justify-content-left">
@@ -59,11 +63,11 @@
 	                    <div class="form-group">
 	                    	<label>Watchdog</label>
 	                        <select class="selectpicker dropdown" data-style="btn btn-info btn-round" name="watchdogIntervalSelect" 
-	                        ng-model="InstallGPSController.gps.watchdogInterval"
+	                        ng-model="InstallGpsController.gps.watchdogInterval"
 	                        data-dropup-auto="false" data-max-options="1" 
 							title="Select" data-header="Wacthdog interval" data-size="12">
 								<option
-									ng-repeat="watchdogIntervalOption in InstallGPSController.supportedWatchdogIntervals"
+									ng-repeat="watchdogIntervalOption in InstallGpsController.supportedWatchdogIntervals"
 									ng-value="watchdogIntervalOption">{{watchdogIntervalOption}}</option>
 								<option style="display:none" value=""></option>
 	                        </select>

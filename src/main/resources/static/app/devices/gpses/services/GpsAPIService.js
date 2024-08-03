@@ -1,11 +1,11 @@
 
 gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
-	var self = this;	
+	let self = this;	
 	
-	var gpsBaseUri = "gpss/";
+	let gpsBaseUri = "gpses/";
 
 	self.getGPSes = function () {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.get(gpsBaseUri).then(function(objectResponse) {
 			deferred.resolve(getGPSsFromResponse(objectResponse));
 		}, function errorCallback(errorResponse) {
@@ -15,9 +15,13 @@ gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
 	}
 
 	function getGPSsFromResponse(objectResponse) {
-		var gpss = [];
-		objectResponse.gpss.forEach(gpsObject => {
-			var gps = new GPS(gpsObject.name, gpsObject.description, gpsObject.active, gpsObject.watchdogInterval, gpsObject.watchdogEnabled, gpsObject.longitude, gpsObject.latitude);
+		let gpss = [];
+		objectResponse.gpses.forEach(gpsObject => {
+			let position = null;		
+			if (gpsObject.active) {
+				position = new GpsPosition(gpsObject.longitude, gpsObject.latitude,  gpsObject.date);
+			}
+			let gps = new Gps(gpsObject.name, gpsObject.description, gpsObject.active, gpsObject.watchdogInterval, gpsObject.watchdogEnabled, position);
 			gpss.push(gps);
 		})
 		return gpss;
@@ -25,8 +29,8 @@ gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
 	
 	
 	self.installMqttGps = function (mqttGPS) {
-		var deferred = $q.defer();
-		var newMQTTGPSObjRequest= createNewMQTTGPSObjRequest(mqttGPS);
+		let deferred = $q.defer();
+		let newMQTTGPSObjRequest= createNewMQTTGPSObjRequest(mqttGPS);
 		RestAPIService.post(gpsBaseUri.concat("mqtt-interface-gpses/"), newMQTTGPSObjRequest).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
@@ -36,7 +40,7 @@ gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
 	}
 	
 	function createNewMQTTGPSObjRequest(mqttGPS) {
-		var newMQTTGPSObjRequest = {};
+		let newMQTTGPSObjRequest = {};
 		newMQTTGPSObjRequest.name = mqttGPS.getName();
 		newMQTTGPSObjRequest.description = mqttGPS.getDescription();
 		newMQTTGPSObjRequest.watchdogInterval = mqttGPS.getWatchdogInterval();
@@ -45,7 +49,7 @@ gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
 	
 
 	self.deleteGPS = function (name) {
-		var deferred = $q.defer();
+		let deferred = $q.defer();
 		RestAPIService.delete(gpsBaseUri.concat(name)).then(function(objectResponse) {
 			deferred.resolve(objectResponse);
 		}, function errorCallback(errorResponse) {
@@ -55,8 +59,8 @@ gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
 	}
 	
 	self.enableWatchdog = function (enable, gpsName) {
-		var deferred = $q.defer();
-		var watchdogEnableRequestObject = {};
+		let deferred = $q.defer();
+		let watchdogEnableRequestObject = {};
 		watchdogEnableRequestObject.enable = enable;
 		RestAPIService.patch(gpsBaseUri.concat(gpsName + '/watchdog'), watchdogEnableRequestObject).then(function(objectResponse) {
 			deferred.resolve(objectResponse);

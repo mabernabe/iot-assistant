@@ -40,9 +40,6 @@ class NewTransductor{
 		this.interfaceType = interfaceType;
 	}
 	
-	interfaceTypeIsPIN() {
-		return this.interfaceType === "PIN";
-	}
 	
 	interfaceTypeIsMQTT() {
 		return this.interfaceType === "MQTT";

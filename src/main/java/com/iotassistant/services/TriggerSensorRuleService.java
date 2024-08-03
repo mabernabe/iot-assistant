@@ -9,7 +9,7 @@ import com.iotassistant.models.SensorRule;
 import com.iotassistant.models.SensorRuleVisitor;
 import com.iotassistant.models.TriggerActuatorSensorRule;
 import com.iotassistant.models.devices.CameraInterfaceException;
-import com.iotassistant.models.devices.SensorValues;
+import com.iotassistant.models.devices.transductors.SensorValues;
 import com.iotassistant.models.notifications.Notification;
 import com.iotassistant.models.notifications.SensorRuleAlarmNotification;
 import com.iotassistant.models.notifications.SensorRuleCameraNotification;

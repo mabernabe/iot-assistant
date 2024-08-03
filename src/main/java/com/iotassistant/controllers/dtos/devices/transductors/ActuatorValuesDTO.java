@@ -3,7 +3,7 @@ package com.iotassistant.controllers.dtos.devices.transductors;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.iotassistant.models.devices.ActuatorValues;
+import com.iotassistant.models.devices.transductors.ActuatorValues;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
 
 class ActuatorValuesDTO  {

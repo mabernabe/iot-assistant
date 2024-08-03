@@ -1,10 +1,13 @@
-package com.iotassistant.models.devices;
+package com.iotassistant.models.devices.transductors;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
+import com.iotassistant.models.devices.Device;
+import com.iotassistant.models.devices.WatchdogInterval;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -20,8 +23,6 @@ public abstract class Transductor extends Device{
 	Transductor(String name, String description, WatchdogInterval watchdogInterval) {
 		super(name, description, watchdogInterval);
 	}
-	
-	public abstract TransductorInterface getInterface();
 	
 	public abstract String getLastValueDate();
 	

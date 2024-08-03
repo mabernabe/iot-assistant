@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import com.iotassistant.models.devices.CameraInterface;
 import com.iotassistant.models.devices.CameraInterfaceException;
 import com.iotassistant.models.devices.CameraInterfaceVisitor;
+import com.iotassistant.models.devices.DeviceInterfaceVisitor;
 
 @Entity
 @DiscriminatorValue("cameraHTTPInterface")
@@ -32,6 +33,13 @@ public class CameraHttpInterface extends CameraInterface{
 	@Override
 	public void accept(CameraInterfaceVisitor cameraInterfaceVisitor) throws CameraInterfaceException {
 		cameraInterfaceVisitor.visit(this);
+		
+	}
+
+
+	@Override
+	public void accept(DeviceInterfaceVisitor deviceInterfaceVisitor) {
+		deviceInterfaceVisitor.visit(this);
 		
 	}
 	

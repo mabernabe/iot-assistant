@@ -35,6 +35,7 @@ public class Camera extends Device {
 		
 	}
 
+	@Override
 	public CameraInterface getInterface() {
 		return this.cameraInterface;
 		

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="cameraInterface_type")
 @Table(name="cameraInterface")
-public abstract class CameraInterface {
+public abstract class CameraInterface extends DeviceInterface{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.TABLE)

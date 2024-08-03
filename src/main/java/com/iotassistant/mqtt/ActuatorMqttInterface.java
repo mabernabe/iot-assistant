@@ -6,9 +6,9 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.iotassistant.models.devices.ActuatorInterface;
-import com.iotassistant.models.devices.ActuatorInterfaceVisitor;
 import com.iotassistant.models.devices.DeviceInterfaceVisitor;
+import com.iotassistant.models.devices.transductors.ActuatorInterface;
+import com.iotassistant.models.devices.transductors.ActuatorInterfaceVisitor;
 
 @Entity
 @DiscriminatorValue("actuatorMQTTInterface")
@@ -36,8 +36,8 @@ public class ActuatorMqttInterface extends ActuatorInterface implements MqttInte
 	}
 
 	@Override
-	public void accept(DeviceInterfaceVisitor transductorInterfaceVisitor) {
-		transductorInterfaceVisitor.visit(this);
+	public void accept(DeviceInterfaceVisitor deviceInterfaceVisitor) {
+		deviceInterfaceVisitor.visit(this);
 		
 	}
 

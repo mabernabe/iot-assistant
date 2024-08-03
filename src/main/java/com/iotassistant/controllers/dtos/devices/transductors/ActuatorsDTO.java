@@ -3,7 +3,7 @@ package com.iotassistant.controllers.dtos.devices.transductors;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.iotassistant.models.devices.Actuator;
+import com.iotassistant.models.devices.transductors.Actuator;
 
 public class ActuatorsDTO {
 	

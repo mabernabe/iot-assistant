@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public enum NotificationTypeEnum {
-	NONE("NONE"),
+	NONE("NONE (WEB)"),
 	TELEGRAM("TELEGRAM");
 
 	private String string;

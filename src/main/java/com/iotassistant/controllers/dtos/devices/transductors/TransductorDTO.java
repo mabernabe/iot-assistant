@@ -1,7 +1,7 @@
 package com.iotassistant.controllers.dtos.devices.transductors;
 
 import com.iotassistant.controllers.dtos.devices.DeviceDTO;
-import com.iotassistant.models.devices.Transductor;
+import com.iotassistant.models.devices.transductors.Transductor;
 
 public abstract class TransductorDTO extends DeviceDTO{
 

@@ -1,7 +1,7 @@
 
 
 <div class="row">
-	<div ng-if="!GetGpsesController.cameras.length"
+	<div ng-if="!GetGpsesController.gpses.length"
 		class="col-md-12">
 		<h3 class="description">No available GPS</h3>
 	</div>
@@ -11,7 +11,7 @@
 
 <div class="row">
 	<div class="col-lg-3 col-md-6 col-sm-6"
-		ng-repeat="gps in GetGpsesController.gpss track by gps.getName()">
+		ng-repeat="gps in GetGpsesController.gpses track by gps.getName()">
 		<div class="card card-stats">
 			<div class="card-header ">
 				<h5 class="card-title">{{gps.getName()}}

@@ -3,7 +3,7 @@ package com.iotassistant.controllers.dtos.devices.transductors;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.iotassistant.models.devices.Sensor;
+import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
 
 public class SensorDTO extends TransductorDTO{

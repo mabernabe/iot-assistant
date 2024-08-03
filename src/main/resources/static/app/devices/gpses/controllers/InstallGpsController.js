@@ -29,7 +29,11 @@ gpsesModule.controller("InstallGpsController",function(SystemAPIService, GpsAPIS
 	}
 
 	self.installAndRedirect = function() {
-		GpsAPIService.installMqttGps(self.gps).then(function() {
+		let promise;
+		if (self.gps.interfaceTypeIsMQTT()) {
+			promise = GpsAPIService.installMqttGps(self.gps);
+		}
+		promise.then(function() {
 			let redirectURL = $route.current.$$route.paramExample;
 			SweetAlertService.showSuccessAlertAndRedirect('GPS installed with success', redirectURL);
 		},function(error) {

@@ -5,14 +5,14 @@ gpsesModule.controller("GetGpsesController",function($scope, GpsAPIService, $int
 
 	let self = this;
 
-	self.gpss = [];
+	self.gpses = [];
 
 	let fetchGpses = function(){
-		CameraAPIService.getGPSes()
-		.then(function(gpss) { 
-			self.gpss = gpss;	
+		GpsAPIService.getGPSes()
+		.then(function(gpses) { 
+			self.gpses = gpses;	
 		},function() {
-			self.gpss = [];
+			self.gpses = [];
 		})
 	}
 	

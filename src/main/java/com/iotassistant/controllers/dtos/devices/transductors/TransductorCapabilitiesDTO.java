@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.iotassistant.controllers.dtos.devices.DeviceCapabilitiesDTO;
-import com.iotassistant.models.devices.Property;
+import com.iotassistant.models.devices.transductors.Property;
 
 public class TransductorCapabilitiesDTO extends DeviceCapabilitiesDTO{
 
