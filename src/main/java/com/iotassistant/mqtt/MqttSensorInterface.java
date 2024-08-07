@@ -11,26 +11,17 @@ import com.iotassistant.models.devices.transductors.SensorInterface;
 
 @Entity
 @DiscriminatorValue("sensorMQTTInterface")
-public class SensorMqttInterface extends SensorInterface implements MqttInterface{
+public class MqttSensorInterface extends SensorInterface implements MqttInterface{
 	
 	private String topic;
 	
-	public SensorMqttInterface() {
+	public MqttSensorInterface() {
 		super();
 	}
 
-	public SensorMqttInterface(String topic) {
+	public MqttSensorInterface(String topic) {
 		this();
 		this.topic = topic;	
-	}
-
-
-	@Override
-	public List<String> getSubscribedTopics() {
-		List<String> subscribedTopics = new ArrayList<String>();
-		subscribedTopics.add(topic);
-		subscribedTopics.add(topic + "/" + ARRIVE_LWT_TOPIC);
-		return subscribedTopics;
 	}
 
 	@Override
@@ -43,7 +34,8 @@ public class SensorMqttInterface extends SensorInterface implements MqttInterfac
 		return this.topic;
 	}
 
-
-
-	
+	@Override
+	public List<String> _getSubscribedTopic() {
+		return new ArrayList<String>();
+	}	
 }

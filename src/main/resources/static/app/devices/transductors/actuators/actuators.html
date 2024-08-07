@@ -10,7 +10,7 @@
 		<div class="card card-stats">
 			<div class="card-header ">
 				<h5 class="card-title">{{actuator.getName()}}
-					<i class="nc-icon nc-simple-remove" ng-style="{ color: '#B9B5B4' , fontSize: '70%' , marginTop: '6px' , float: 'right' , cursor: 'pointer'}" 
+					<i class="nc-icon nc-simple-remove remove-device-icon" 
 					ng-click="GetActuatorsController.deleteActuator(actuator.getName())"/></i>
 				</h5>
 			</div>
@@ -25,7 +25,7 @@
 						<div class="numbers">
 							<p class="card-category">{{propertyActuated.getName()}}</p>
 							<div ng-switch="actuator.isActive()">
-								<p ng-switch-when="false" class="card-title transductor-inactive">Unknown</p>
+								<p ng-switch-when="false" class="card-title device-inactive">Unknown</p>
 								<div ng-switch-when="true">
 								<p data-alias="actuator.getValue(propertyActuated.getNameWithUnit()) as actuatorValue">
 									<p ng-if="!propertyActuated.isBinary()" class="card-title">

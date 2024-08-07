@@ -13,7 +13,7 @@ class Gps extends Device{
 		return this.position.getLatitude();
 	}
 	
-	getLastValueDate() {
+	getPositionDate() {
 		return this.position.getDate();
 	}
 	

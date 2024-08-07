@@ -7,7 +7,7 @@ import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.models.devices.transductors.Actuator;
 import com.iotassistant.models.devices.transductors.ActuatorInterface;
 import com.iotassistant.models.devices.transductors.propertyactuated.PropertyActuatedEnum;
-import com.iotassistant.mqtt.ActuatorMqttInterface;
+import com.iotassistant.mqtt.MqttActuatorInterface;
 
 public class NewMqttInterfaceActuatorDTO extends NewDeviceRequestDTO{
 	
@@ -22,7 +22,7 @@ public class NewMqttInterfaceActuatorDTO extends NewDeviceRequestDTO{
 	}
 
 	public Actuator getActuator() {
-		ActuatorInterface actuatorMqttInterface = new ActuatorMqttInterface(super.getName());
+		ActuatorInterface actuatorMqttInterface = new MqttActuatorInterface(super.getName());
 		return new Actuator(super.getName(), super.getDescription(), propertiesActuated, actuatorMqttInterface, WatchdogInterval.getInstance(super.getWatchdogInterval()));
 
 	}

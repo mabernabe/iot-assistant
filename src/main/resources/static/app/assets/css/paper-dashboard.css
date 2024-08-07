@@ -7249,7 +7249,7 @@ License - nucleoapp.com/license/
 	Transductor Inactive 
 -------------------------------*/
 
-.transductor-inactive {
+.device-inactive {
    color: #ae0000;
    font-size: 70%;
    
@@ -7309,6 +7309,14 @@ License - nucleoapp.com/license/
 
 .device-description {
 	color: #A29F9E!important;
+}
+
+.remove-device-icon {
+	color: #B9B5B4!important; 
+	font-size: 70%!important ;
+	margin-top: 6px!important;
+	float: right!important;
+	cursor: pointer!important;
 }
 
 /*------- sensors and actuators -------- */
@@ -7509,6 +7517,23 @@ color: #fbc658 ;
 .nc-camera::before {
   content: "\ea1b"; 
   color: #ef8157 !important; }
+  
+  
+ /*------- gps -------- */
+.nc-gps-longitude::before {
+  content: "\ea2e"; 
+  color: #fb7575 !important; 
+}
+
+.nc-gps-latitude::before {
+  content: "\ea2e"; 
+  color: #328ea3!important; 
+}
+
+.card-iframe {
+	max-width: 90%;
+	margin: auto;
+}
 
 /*------- alarm types -------- */
 

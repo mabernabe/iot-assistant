@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.iotassistant.models.devices.GpsPosition;
 import com.iotassistant.utils.Date;
 
+//GPS JSON Example : { "longitude" : "40.753", "latitude": "-73.983", "date" : "2022-03-23 15:41:03"} 
 public class MqttGpsPositionDTO {
 	
 	private List<String> errors;

@@ -19,7 +19,7 @@ gpsesModule.service ("GpsAPIService",function(RestAPIService, $q){
 		objectResponse.gpses.forEach(gpsObject => {
 			let position = null;		
 			if (gpsObject.active) {
-				position = new GpsPosition(gpsObject.longitude, gpsObject.latitude,  gpsObject.date);
+				position = new GpsPosition(gpsObject.position.longitude, gpsObject.position.latitude,  gpsObject.position.date);
 			}
 			let gps = new Gps(gpsObject.name, gpsObject.description, gpsObject.active, gpsObject.watchdogInterval, gpsObject.watchdogEnabled, position);
 			gpss.push(gps);

@@ -15,7 +15,7 @@
 		<div class="card card-stats">
 			<div class="card-header" style="float: right;">
 				<h5 class="card-title">{{sensor.getName()}}		
-					<i class="nc-icon nc-simple-remove" ng-style="{ color: '#B9B5B4' , fontSize: '70%' , marginTop: '6px' , float: 'right' , cursor: 'pointer'}" ng-click="GetSensorsController.deleteSensor(sensor.getName())"/></i>			
+					<i class="nc-icon nc-simple-remove remove-device-icon" ng-click="GetSensorsController.deleteSensor(sensor.getName())"/></i>			
 				</h5>
 			</div>	
 			<div class="card-body ">
@@ -30,7 +30,7 @@
 						<div class="numbers">
 							<p class="card-category">{{propertyMeasured.getName()}}</p>						
 							<div ng-switch="sensor.isActive()">
-								<p ng-switch-when="false" class="card-title transductor-inactive">Unknown</p>
+								<p ng-switch-when="false" class="card-title device-inactive">Unknown</p>
 								<div ng-switch-when="true">
 									<p data-alias="sensor.getValue(propertyMeasured.getNameWithUnit()) as sensorValue">		
 										<div ng-if="!propertyMeasured.isBinary()">

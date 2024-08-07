@@ -11,27 +11,19 @@ import com.iotassistant.models.devices.GpsInterface;
 
 @Entity
 @DiscriminatorValue("gpsMQTTInterface")
-public class GpsMqttInterface extends GpsInterface implements MqttInterface{
+public class MqttGpsInterface extends GpsInterface implements MqttInterface{
 
 private String topic;
 	
-	public GpsMqttInterface() {
+	public MqttGpsInterface() {
 		super();
 	}
 
-	public GpsMqttInterface(String topic) {
+	public MqttGpsInterface(String topic) {
 		this();
 		this.topic = topic;	
 	}
 
-
-	@Override
-	public List<String> getSubscribedTopics() {
-		List<String> subscribedTopics = new ArrayList<String>();
-		subscribedTopics.add(topic);
-		subscribedTopics.add(topic + "/" + ARRIVE_LWT_TOPIC);
-		return subscribedTopics;
-	}
 
 	@Override
 	public void accept(DeviceInterfaceVisitor transductorInterfaceVisitor){
@@ -41,6 +33,11 @@ private String topic;
 	@Override
 	public String getTopic() {
 		return this.topic;
+	}
+
+	@Override
+	public List<String> _getSubscribedTopic() {
+		return new ArrayList<String>();
 	}
 
 }

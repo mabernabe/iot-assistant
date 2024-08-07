@@ -51,7 +51,7 @@ public class GpsPosition {
 		try {
 			Float.parseFloat(longitude);
 			Float.parseFloat(latitude);
-			return false;
+			return true;
 		} catch (NullPointerException | NumberFormatException e) {
 			return false;
 		}

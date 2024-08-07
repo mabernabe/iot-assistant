@@ -98,7 +98,7 @@ public class MqttDevicesController implements MqttCallbackExtended{
 		}			
 	}
 	
-	public void setActuatorValue(ActuatorMqttInterface actuatorMqttInterface, PropertyActuatedEnum propertyActuated, String value) {
+	public void setActuatorValue(MqttActuatorInterface actuatorMqttInterface, PropertyActuatedEnum propertyActuated, String value) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			MqttSetActuatorValueDTO mqttSetActuatorValueDTO = new MqttSetActuatorValueDTO(propertyActuated, value);

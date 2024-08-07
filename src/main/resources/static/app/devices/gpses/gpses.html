@@ -14,21 +14,73 @@
 		ng-repeat="gps in GetGpsesController.gpses track by gps.getName()">
 		<div class="card card-stats">
 			<div class="card-header ">
-				<h5 class="card-title">{{gps.getName()}}
-					<i class="nc-icon nc-simple-remove" ng-style="{ color: '#B9B5B4' , fontSize: '70%' , marginTop: '6px' , float: 'right' , cursor: 'pointer'}" ng-click="GetCamerasController.deleteCamera(camera.getName())"/></i>
-				</h5>
+				<h4 class="card-title">{{gps.getName()}}
+					<i class="nc-icon nc-simple-remove remove-device-icon" ng-click="GetGpsesController.deleteGps(gps.getName())"/></i>
+				</h4>
 			</div>
 			<div class="card-body ">
-				<img ng-src={{camera.getLatitude()}} alt="Error" onerror="this.src='/app/assets/img/CameraError.png'"/>
+			<div class="row">
+					<div class="col-5 col-md-4">
+						<div class="icon-big text-center icon-warning">
+							<i class="nc-icon nc-gps-latitude"></i>
+						</div>
+					</div>
+					<div class="col-7 col-md-8">
+						<div class="numbers">
+							<p class="card-category">Latitude</p>						
+							<div ng-switch="gps.isActive()">
+								<p ng-switch-when="false" class="card-title device-inactive">Unknown</p>
+								<div ng-switch-when="true">
+										<p class="card-title ">
+											<span class="value-string">{{gps.getLatitude()}}</span> 
+										</p>								
+								</div>
+							</div>	
+							<p></p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5 col-md-4">
+						<div class="icon-big text-center icon-warning">
+							<i class="nc-icon nc-gps-longitude"></i>
+						</div>
+					</div>
+					<div class="col-7 col-md-8">
+						<div class="numbers">
+							<p class="card-category">Longitude</p>						
+							<div ng-switch="gps.isActive()">
+								<p ng-switch-when="false" class="card-title device-inactive">Unknown</p>
+								<div ng-switch-when="true">
+										<p class="card-title ">
+											<span class="value-string">{{gps.getLongitude()}}</span> 
+										</p>								
+								</div>
+							</div>	
+							<p></p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+						<iframe class="card-iframe"
+							ng-src="{{'https://maps.google.com/maps?q=' + gps.getLatitude() + ',' + gps.getLongitude() + '&hl=es;z=14&amp;output=embed' | trustAsResourceUrl}}">
+						</iframe>​
+				</div>	
 			</div>
 			<div class="card-footer ">
 				<hr>
-				<div class="stats">
-					<i class="fa fa-info device-description"></i> 
+				<div class="stats">        
+                    <i class="fa fa-info device-description"></i>
 					{{gps.getDescription()}}
-					<span ng-switch="gps.isWatchdogEnabled()"  ng-style="{float: 'right'}">
-					    <button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetGpsesController.enableWatchdog(false, gps.getName())" ></button>
-					    <button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetGpsesController.enableWatchdog(true, gps.getName())" ng-disabled="!gps.hasWatchdog()"></button>		
+				</div>
+				<div class="stats" ng-if="gps.isActive()" >
+					<span>
+						<i class="fa fa-clock-o values-date"></i>	
+                   		{{gps.getPositionDate()}}
+                   	</span>
+                   	<span ng-switch="gps.isWatchdogEnabled()"  ng-style="{float: 'right'}">
+						<button ng-switch-when="true" class="watchdog-enabled fa fa-eye" ng-click="GetGpsesController.enableWatchdog(false, gps.getName())" ></button>
+						<button ng-switch-when="false" class="watchdog-disabled fa fa-eye-slash" ng-click="GetGpsesController.enableWatchdog(true, gps.getName())" ng-disabled="!gps.hasWatchdog()"></button>		
 					</span>
 				</div>
 			</div>

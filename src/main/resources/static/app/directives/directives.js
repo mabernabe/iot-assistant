@@ -20,6 +20,12 @@ iotAssistant.directive('alias', function() {
     };
 });
 
+iotAssistant.filter('trustAsResourceUrl', ['$sce', function($sce) {
+    return function(val) {
+        return $sce.trustAsResourceUrl(val);
+    };
+}])
+
 iotAssistant.directive('setLinkActiveOnRouteChange', ['$location', function ($location) {
 	return {
 		restrict: 'A', //use as attribute 

@@ -1,4 +1,4 @@
-class Position {
+class GpsPosition {
 	
 	constructor(longitude, latitude, date) {
 		this.longitude = longitude;

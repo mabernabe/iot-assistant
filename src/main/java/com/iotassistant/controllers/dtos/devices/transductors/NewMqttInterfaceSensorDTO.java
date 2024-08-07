@@ -7,7 +7,7 @@ import com.iotassistant.controllers.dtos.devices.NewDeviceRequestDTO;
 import com.iotassistant.models.devices.WatchdogInterval;
 import com.iotassistant.models.devices.transductors.Sensor;
 import com.iotassistant.models.devices.transductors.propertymeasured.PropertyMeasuredEnum;
-import com.iotassistant.mqtt.SensorMqttInterface;
+import com.iotassistant.mqtt.MqttSensorInterface;
 
 public class NewMqttInterfaceSensorDTO extends NewDeviceRequestDTO{
 	
@@ -23,7 +23,7 @@ public class NewMqttInterfaceSensorDTO extends NewDeviceRequestDTO{
 	}
 
 	public Sensor getSensor() {
-		SensorMqttInterface sensorMqttInterface = new SensorMqttInterface(super.getName());
+		MqttSensorInterface sensorMqttInterface = new MqttSensorInterface(super.getName());
 		return new Sensor(super.getName(), super.getDescription(), propertiesMeasured, sensorMqttInterface, WatchdogInterval.getInstance(super.getWatchdogInterval()));	
 	}
 	
