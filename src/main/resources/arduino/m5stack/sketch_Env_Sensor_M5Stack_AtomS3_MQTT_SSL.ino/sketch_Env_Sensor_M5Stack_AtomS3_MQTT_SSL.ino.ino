@@ -2,7 +2,7 @@
 #include <ESP32WifiSTA.h>
 #include <CustomSerial.h>
 #include <MqttSensorPublishInterface.h>
-#include "M5_ENV.h"
+#include "M5UnitENV.h"
 
 // WiFi Settings.
 const char* wifi_ssid = "MiFibra-MB";
@@ -14,7 +14,6 @@ const uint16_t mqtt_server_port = 8883;
 const String topic = "Ambiente salita";
 const String username = "miguel";
 const String password = "Pozadelasal.10";
-
 
 static const char ssl_ca_cert[] PROGMEM = R"EOF(
 -----BEGIN CERTIFICATE-----
@@ -52,22 +51,24 @@ KPpdzvvtTnOPlC7SQZSYmdunr3Bf9b77AiC/ZidstK36dRILKz7OA54=
 CustomSerial customSerial(115200, true);
 ESP32WifiSTA wiFiSTA(wifi_ssid,wifi_password, customSerial);
 MqttSensorPublishInterface mqttSensorPublishInterface(*wiFiSTA.getNewSecureClient(ssl_ca_cert), topic, customSerial);
-M5AtomS3SensorSettings m5AtomS3SensorSettings(PUBLISH_MEASURE_1_MINUTE_INTERVAL, LED_ACTIVE, LCD_ACTIVE);
+M5AtomS3SensorSettings m5AtomS3SensorSettings(DEEP_SLEEP_ACTIVE, PUBLISH_MEASURE_1_MINUTE_INTERVAL);
 M5AtomS3Sensor m5AtomS3Sensor(m5AtomS3SensorSettings, mqttSensorPublishInterface, wiFiSTA.getNewUDPClient());
 
-SHT3X sht30(0x44,2);
-QMP6988 qmp6988;
+SHT3X sht3x;
+BMP280 bmp;
 
 void setup(){
+ m5AtomS3Sensor.begin();
+ sht3x.begin(&Wire, SHT3X_I2C_ADDR, 2, 1, 400000U);
+ bmp.begin(&Wire, BMP280_I2C_ADDR, 2, 1, 400000U);
+ bmp.setSampling(BMP280::MODE_NORMAL, BMP280::SAMPLING_X2, BMP280::SAMPLING_X16, BMP280::FILTER_X16, BMP280::STANDBY_MS_500); 
  wiFiSTA.connectLoop();
  mqttSensorPublishInterface.setBroker(mqtt_server, mqtt_server_port);
  mqttSensorPublishInterface.setAuth(username, password);
- Wire.begin(2, 1);  
- qmp6988.init();
  m5AtomS3Sensor.addMeasureSetting(buildMeasureSetting(ANALOG_TEMPERATURE_CENTIGRADES, getTemperature));
  m5AtomS3Sensor.addMeasureSetting(buildMeasureSetting(ANALOG_HUMIDITY_PERCENTAGE, getHumidity));
  m5AtomS3Sensor.addMeasureSetting(buildMeasureSetting(ANALOG_AIR_PRESSURE_PA, getPressure));
- m5AtomS3Sensor.setIsMeasureReadyCallback(isMeasureReadyCallback);
+ m5AtomS3Sensor.setIsMeasureReadyCallback(isMeasureReady);
 }
 
 
@@ -80,27 +81,29 @@ AnalogMeasureSetting buildMeasureSetting(AnalogPropertyMeasured analogPropertyMe
 }
 
 String getTemperature(AnalogPropertyMeasured propertyMeasured) {
-  return String(sht30.cTemp); 
+  return String(sht3x.cTemp);
 }
 
 String getHumidity(AnalogPropertyMeasured propertyMeasured) {
-  return String(sht30.humidity);
+  return String(sht3x.humidity);
 }
 
 String getPressure(AnalogPropertyMeasured propertyMeasured) {
-  return "100";
+  return String(bmp.pressure);
 }
 
 bool shouldPublishChange(AnalogPropertyMeasured propertyMeasured, String lastValue, String newValue) {
   return false;
 }
 
-bool isMeasureReadyCallback() {
-  return sht30.get() == 0;
+bool isMeasureReady() {
+  return sht3x.update() && bmp.update();
 }
 
 
 void loop() {
-  qmp6988.calcPressure();
+  for(int i = 0; i < 100 && !isMeasureReady(); i++) {
+    delay(100);
+  }
   m5AtomS3Sensor.loop();
 }

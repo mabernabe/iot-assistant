@@ -5,9 +5,10 @@ class SensorRuleMapper {
 	
 	
 	getMeasureThresholdSettingsFromServiceObject(measureThresholdSettingsObject) {
-	 	var sensorMeasureThresholdSettings = new SensorMeasureThresholdSettings();
+	 	let sensorMeasureThresholdSettings = new SensorMeasureThresholdSettings();
 		sensorMeasureThresholdSettings.setSensorName(measureThresholdSettingsObject.sensorName);
-		var sensorProperty = new Property(measureThresholdSettingsObject.sensorProperty.name, measureThresholdSettingsObject.sensorProperty.digital);
+		let sensorPropertyObject = measureThresholdSettingsObject.sensorProperty;
+		let sensorProperty = new Property(sensorPropertyObject.name, sensorPropertyObject.nameWithUnit, sensorPropertyObject.unit, sensorPropertyObject.binary);
 		sensorMeasureThresholdSettings.setSensorProperty(sensorProperty);
 		sensorMeasureThresholdSettings.setSensorValueThreshold(measureThresholdSettingsObject.sensorValueThreshold);
 		sensorMeasureThresholdSettings.setSensorAnalogThresholdOperator(measureThresholdSettingsObject.sensorAnalogThresholdOperator);
@@ -35,7 +36,7 @@ class SensorRuleMapper {
 	}
 	
 	buildSensorRuleServiceObject(sensorRule) {
-		var sensorRuleServiceObject = {};
+		let sensorRuleServiceObject = {};
 		sensorRuleServiceObject.timeBetweenTriggers = sensorRule.getTimeBetweenTriggers();
 		sensorRuleServiceObject.notificationType = sensorRule.getNotificationType();
 		sensorRuleServiceObject.enabled = sensorRule.isEnabled();
@@ -45,7 +46,7 @@ class SensorRuleMapper {
 	}
 	
 	#buildSensorMeasureThresholdSettingsServiceObject(sensorRule) {
-		var sensorMeasureThresholdSettingsObject = sensorRule.sensorMeasureThresholdSettings;
+		let sensorMeasureThresholdSettingsObject = sensorRule.sensorMeasureThresholdSettings;
 		sensorMeasureThresholdSettingsObject.sensorName = sensorRule.getSensorName();
 		sensorMeasureThresholdSettingsObject.sensorProperty = sensorRule.getSensorProperty();
 		sensorMeasureThresholdSettingsObject.sensorValueThreshold = sensorRule.getSensorValueThreshold();

@@ -54,7 +54,7 @@ class SensorMeasureThresholdSettings {
 			allValuesAreSet = true;
 		}
 		var valueThresholdIsValid = true;
-		if (allValuesAreSet && this.sensorProperty.isBinary() && this.sensorValueThreshold != 'High' && this.sensorValueThreshold != 'Low') {
+		if (allValuesAreSet && this.sensorProperty.isBinary() && this.sensorValueThreshold != 'true' && this.sensorValueThreshold != 'false') {
 			valueThresholdIsValid = false;
 		}
 		var analogThresholdOperatorIsValid = true;
@@ -62,6 +62,14 @@ class SensorMeasureThresholdSettings {
 			valueThresholdIsValid = false;
 		}		
 		return allValuesAreSet && valueThresholdIsValid && analogThresholdOperatorIsValid;
+	}
+	
+	
+	getSensorValueThresholdString() {
+		if (this.sensorProperty.isBinary()) {
+			return this.sensorValueThreshold == 'true' ? "Active" : "Inactive";
+		}
+		return this.sensorValueThreshold;
 	}
 	
 	getSensorValueThreshold() {

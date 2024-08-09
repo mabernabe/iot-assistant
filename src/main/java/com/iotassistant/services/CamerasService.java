@@ -39,7 +39,7 @@ public class CamerasService extends DeviceService{
 	}
 
 	public void newCamera(Camera camera) {
-		camerasJPARepository.save(camera);
+		camerasJPARepository.saveAndFlush(camera);
 		this.setUpInterface(camera);
 	}
 

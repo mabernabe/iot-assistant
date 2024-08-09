@@ -35,7 +35,7 @@ public class ActuatorsService extends DeviceService {
 	}
 	
 	public Actuator newActuator(Actuator actuator)  {
-		actuator = actuatorsRepository.save(actuator);
+		actuator = actuatorsRepository.saveAndFlush(actuator);
 		this.setUpInterface(actuator);
 		return actuator;	
 	}

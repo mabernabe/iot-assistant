@@ -24,6 +24,7 @@ import com.iotassistant.models.devices.transductors.propertymeasured.analog.Anal
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogUVUVA;
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogUVUVB;
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogUVUVI;
+import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogVoiceId;
 import com.iotassistant.models.devices.transductors.propertymeasured.analog.AnalogVoltageV;
 import com.iotassistant.models.devices.transductors.propertymeasured.binary.BinaryButton;
 import com.iotassistant.models.devices.transductors.propertymeasured.binary.BinaryDualButtonA;
@@ -62,6 +63,7 @@ public enum PropertyMeasuredEnum implements Property{
 	HEART_RATE_PPM(new AnalogHeartRatePPM()),
 	PULSE_OXYMETER_PERCENTAGE(new AnalogPulseOxymeterPercentage()),
 	GESTURE_ID(new AnalogGestureId()),
+	VOICE_ID(new AnalogVoiceId()),
 	VOLTAGE_V(new AnalogVoltageV()),
 	CURRENT_A(new AnalogCurrentA()),
 	POWER_W(new AnalogPowerW()),

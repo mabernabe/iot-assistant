@@ -42,6 +42,10 @@ class TriggerActuatorSensorRule extends SensorRule{
 		return this.actuatorSettings.getActuatorSetValue();
 	}
 	
+	getActuatorSetValueString() {
+		return this.actuatorSettings.getActuatorSetValueString();
+	}
+	
 	setActuatorSetValue(actuatorSetValue) {
 		this.actuatorSettings.setActuatorSetValue(actuatorSetValue);
 	}

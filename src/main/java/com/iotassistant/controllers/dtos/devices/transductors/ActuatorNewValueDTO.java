@@ -7,6 +7,10 @@ public class ActuatorNewValueDTO {
 	private String propertyActuated;
 	
 	private String value;
+	
+	public ActuatorNewValueDTO() {
+		super();
+	}
 
 	public ActuatorNewValueDTO(String propertyActuated, String value) {
 		super();

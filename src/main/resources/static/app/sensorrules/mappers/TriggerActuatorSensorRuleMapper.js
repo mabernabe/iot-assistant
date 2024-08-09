@@ -5,22 +5,23 @@ class TriggerActuatorSensorRuleMapper {
 	}
 	
 	buildTriggerActuatorSensorRuleFromServiceObject(triggerActuatorSensorRuleServiceObject) {
-		var measureThresholdSettingsServiceObject = triggerActuatorSensorRuleServiceObject.sensorMeasureThresholdSettings;
-		var measureThresholdSettings = this.sensorRuleMapper.getMeasureThresholdSettingsFromServiceObject(measureThresholdSettingsServiceObject);
-		var type = this.sensorRuleMapper.getSensorRuleTypeFromServiceObject(triggerActuatorSensorRuleServiceObject);
-		var id = this.sensorRuleMapper.getSensorRuleIdFromServiceObject(triggerActuatorSensorRuleServiceObject);
-		var enabled = this.sensorRuleMapper.getSensorRuleEnabledFromServiceObject(triggerActuatorSensorRuleServiceObject);
-		var timeBetweenTriggers = this.sensorRuleMapper.getSensorRuleTimeBetweenTriggersFromServiceObject(triggerActuatorSensorRuleServiceObject);
-		var notificationType = this.sensorRuleMapper.getSensorRuleNotificationTypeFromServiceObject(triggerActuatorSensorRuleServiceObject);
-		var actuatorSettings = this.#buildActuatorSetValue(triggerActuatorSensorRuleServiceObject);
-		var triggerActuatorSensorRule = new TriggerActuatorSensorRule(measureThresholdSettings, type, id, enabled, timeBetweenTriggers, notificationType, actuatorSettings);
+		let measureThresholdSettingsServiceObject = triggerActuatorSensorRuleServiceObject.sensorMeasureThresholdSettings;
+		let measureThresholdSettings = this.sensorRuleMapper.getMeasureThresholdSettingsFromServiceObject(measureThresholdSettingsServiceObject);
+		let type = this.sensorRuleMapper.getSensorRuleTypeFromServiceObject(triggerActuatorSensorRuleServiceObject);
+		let id = this.sensorRuleMapper.getSensorRuleIdFromServiceObject(triggerActuatorSensorRuleServiceObject);
+		let enabled = this.sensorRuleMapper.getSensorRuleEnabledFromServiceObject(triggerActuatorSensorRuleServiceObject);
+		let timeBetweenTriggers = this.sensorRuleMapper.getSensorRuleTimeBetweenTriggersFromServiceObject(triggerActuatorSensorRuleServiceObject);
+		let notificationType = this.sensorRuleMapper.getSensorRuleNotificationTypeFromServiceObject(triggerActuatorSensorRuleServiceObject);
+		let actuatorSettings = this.#buildActuatorSetValue(triggerActuatorSensorRuleServiceObject);
+		let triggerActuatorSensorRule = new TriggerActuatorSensorRule(measureThresholdSettings, type, id, enabled, timeBetweenTriggers, notificationType, actuatorSettings);
 		return triggerActuatorSensorRule;
 	}
 	
 	#buildActuatorSetValue(triggerActuatorSensorRuleServiceObject) {
-		var actuatorSettings = new ActuatorSetValueSettings();
+		let actuatorSettings = new ActuatorSetValueSettings();
 		actuatorSettings.setActuatorName(triggerActuatorSensorRuleServiceObject.actuatorName);
-		var actuatorProperty = new Property(triggerActuatorSensorRuleServiceObject.actuatorProperty.name, triggerActuatorSensorRuleServiceObject.actuatorProperty.isDigital);
+		let actuatorPropertyObject = triggerActuatorSensorRuleServiceObject.actuatorProperty;
+		let actuatorProperty = new Property(actuatorPropertyObject.name, actuatorPropertyObject.nameWithUnit, actuatorPropertyObject.unit, actuatorPropertyObject.binary);
 		actuatorSettings.setActuatorProperty(actuatorProperty);
 		actuatorSettings.setActuatorSetValue(triggerActuatorSensorRuleServiceObject.actuatorSetValue);
 		return actuatorSettings;
@@ -28,7 +29,7 @@ class TriggerActuatorSensorRuleMapper {
 	}
 	
 	buildTriggerActuatorSensorRuleServiceObject(triggerActuatorSensorRule) {
-		var triggerActuatorSensorRuleServiceObject =  this.sensorRuleMapper.buildSensorRuleServiceObject(triggerActuatorSensorRule);
+		let triggerActuatorSensorRuleServiceObject =  this.sensorRuleMapper.buildSensorRuleServiceObject(triggerActuatorSensorRule);
 		triggerActuatorSensorRuleServiceObject.actuatorName = triggerActuatorSensorRule.actuatorSettings.actuatorName;
 		triggerActuatorSensorRuleServiceObject.actuatorProperty = triggerActuatorSensorRule.actuatorSettings.actuatorProperty;
 		triggerActuatorSensorRuleServiceObject.actuatorSetValue = triggerActuatorSensorRule.actuatorSettings.actuatorSetValue;

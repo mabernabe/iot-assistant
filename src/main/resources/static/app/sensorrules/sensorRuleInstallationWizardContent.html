@@ -89,8 +89,8 @@
 									class="selectpicker dropdown" ng-model="InstallSensorRuleController.sensorRuleSettings.sensorMeasureThresholdSettings.sensorValueThreshold"
 									data-style="btn btn-info btn-round" data-dropup-auto="false" 
 									title="Select" data-size="7">
-									<option value="High">active</option>
-									<option value="Low">Inactive</option>
+									<option value="true">active</option>
+									<option value="false">Inactive</option>
 									<option style="display:none" value=""></option>
 								</select>
 							</div>						
@@ -247,8 +247,9 @@
 									ng-model="InstallSensorRuleController.installTriggerActuatorSensorRuleController.actuatorSettings.actuatorSetValue" 
 									data-style="btn btn-info btn-round" data-dropup-auto="false" 
 									title="Select" data-size="7">
-									<option value="High">active</option>
-									<option value="Low">Inactive</option>
+									<option value="true">Active</option>
+									<option value="false">Inactive</option>
+									<option value="switch">Switch</option>
 									<option style="display:none" value=""></option>
 								</select>
 							</div>						

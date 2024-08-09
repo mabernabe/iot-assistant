@@ -72,6 +72,9 @@ public class SensorRulesController {
 			errorDTO = ErrorDTO.SENSOR_HAS_NOT_PROPERTY;
 			errorDTO.formatMessage(sensorRule.getPropertyObserved().toString());
 	    }
+		if(!sensorRule.getPropertyObserved().isValidValue(sensorRule.getValueThresholdObserved())) {
+			errorDTO = ErrorDTO.VALUE_IS_NOT_VALID;
+		}
 		if (errorDTO != null) {
 			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 		}
@@ -101,7 +104,7 @@ public class SensorRulesController {
 		if (sensorRulesService.getSensorRule(id) == null) {
 			ErrorDTO sensorRuleNotFoundDTO = ErrorDTO.SENSOR_RULE_NOT_FOUND;
 			return new ResponseEntity<>(sensorRuleNotFoundDTO, sensorRuleNotFoundDTO.getHttpStatus());
-        }	
+        }
 		sensorRulesService.deleteSensorRuleById(id);
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
@@ -110,10 +113,15 @@ public class SensorRulesController {
 	@RequestMapping(value="/triggerActuatorSensorRules/", method = RequestMethod.POST)
 	public ResponseEntity<?> newTriggerActuatorSensorRule(@RequestBody TriggerActuatorSensorRuleDTO triggerActuatorSensorRuleDTO)     {
 		TriggerActuatorSensorRule sensorRule = triggerActuatorSensorRuleDTO.getSensorRule();
+		ErrorDTO errorDTO = null;
 		if (!actuatorsService.existActuator(sensorRule.getActuatorName())) {
-			ErrorDTO actuatorNotFoundDTO = ErrorDTO.DEVICE_NOT_FOUND;
-			actuatorNotFoundDTO.formatMessage("Actuator");
-			return new ResponseEntity<>(actuatorNotFoundDTO, actuatorNotFoundDTO.getHttpStatus());
+			errorDTO = ErrorDTO.DEVICE_NOT_FOUND;
+		}
+		if (!sensorRule.getPropertyActuated().isValidValue(sensorRule.getActuatorSetValue())) {
+			errorDTO = ErrorDTO.VALUE_IS_NOT_VALID;
+		}
+		if (errorDTO != null) {
+			return new ResponseEntity<>(errorDTO, errorDTO.getHttpStatus());
 		}
 		return this.newSensorRule(sensorRule);
 		
@@ -125,7 +133,6 @@ public class SensorRulesController {
 		CameraSensorRule cameraSensorRule = cameraSensorRuleDTO.getSensorRule();
 		if (!camerasService.existCamera(cameraSensorRule.getCameraName())) {
 			ErrorDTO cameraNotFoundDTO = ErrorDTO.DEVICE_NOT_FOUND;
-			cameraNotFoundDTO.formatMessage("Camera");
 			return new ResponseEntity<>(cameraNotFoundDTO, cameraNotFoundDTO.getHttpStatus());
 		}
 		return this.newSensorRule(cameraSensorRule);

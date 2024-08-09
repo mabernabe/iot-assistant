@@ -41,7 +41,7 @@ public class SensorRulesService {
 	}
 	
 	public void newSensorRule(SensorRule sensorRule) {
-		sensorRuleJPARepository.save(sensorRule);	
+		sensorRuleJPARepository.saveAndFlush(sensorRule);	
 	}
 	
 

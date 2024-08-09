@@ -28,6 +28,10 @@ class SensorRule {
 		return this.sensorMeasureThresholdSettings.getSensorValueThreshold();
 	}
 	
+	getSensorValueThresholdString() {
+		return this.sensorMeasureThresholdSettings.getSensorValueThresholdString();
+	}
+	
 
 	getSensorPropertyMinimumValue() {
 		return this.sensorMeasureThresholdSettings.getSensorPropertyMinimumValue();
